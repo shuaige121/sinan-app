@@ -1026,7 +1026,7 @@ async function renderBook(id, renderToken) {
             或 <a href="https://ctext.org" target="_blank" rel="noopener">中国哲学书电子化计划（ctext.org）</a>
             获取原文，欢迎通过 GitHub 提 issue 贡献。古文原文为公有领域，无版权障碍。
           </div>
-          <a class="contribute-btn" href="https://github.com/shuaige121/ai-daoshi/issues/new?title=典籍阁-补录原文：${encodeURIComponent(book.title)}&body=书名：${encodeURIComponent(book.title)}%0A维基文库链接：${encodeURIComponent(book.source || '')}" target="_blank" rel="noopener">在 GitHub 提交补录请求 →</a>
+          <a class="contribute-btn" href="https://github.com/shuaige121/sinan-app/issues/new?title=典籍阁-补录原文：${encodeURIComponent(book.title)}&body=书名：${encodeURIComponent(book.title)}%0A维基文库链接：${encodeURIComponent(book.source || '')}" target="_blank" rel="noopener">在 GitHub 提交补录请求 →</a>
         </div>` : ''}
 
       ${renderRelatedBooks(book)}

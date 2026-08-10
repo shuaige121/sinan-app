@@ -1,0 +1,1146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dao.leonardchow.work/schema/character.schema.json",
+  "title": "常明城统一人物设定",
+  "description": "同时描述十干人格与各派人物。Schema 管结构；跨文件事实、命理推导和古籍逐字命中由 lint.mjs 校验。",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "id",
+    "kind",
+    "identity",
+    "affiliations",
+    "profile",
+    "visualLock",
+    "voice",
+    "canon",
+    "relations",
+    "classics",
+    "provenance"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "sinan/character@2"
+    },
+    "id": {
+      "$ref": "#/$defs/stableId"
+    },
+    "kind": {
+      "enum": [
+        "heavenly-stem",
+        "faction-character"
+      ]
+    },
+    "identity": {
+      "$ref": "#/$defs/identity"
+    },
+    "affiliations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/affiliation"
+      }
+    },
+    "factionRole": {
+      "$ref": "#/$defs/factionRole"
+    },
+    "profile": {
+      "$ref": "#/$defs/profile"
+    },
+    "visualLock": {
+      "$ref": "#/$defs/visualLock"
+    },
+    "voice": {
+      "$ref": "#/$defs/voice"
+    },
+    "canon": {
+      "$ref": "#/$defs/canon"
+    },
+    "relations": {
+      "$ref": "#/$defs/relations"
+    },
+    "classics": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/classicCitation"
+      }
+    },
+    "media": {
+      "$ref": "#/$defs/media"
+    },
+    "review": {
+      "$ref": "#/$defs/review"
+    },
+    "provenance": {
+      "$ref": "#/$defs/provenance"
+    },
+    "extensions": {
+      "type": "object",
+      "description": "命名空间化扩展；key 形如 studio.example，避免污染核心字段。",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9-]*(?:\\.[a-z][a-z0-9-]*)+$"
+      },
+      "additionalProperties": true
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "heavenly-stem"
+          }
+        },
+        "required": [
+          "kind"
+        ]
+      },
+      "then": {
+        "properties": {
+          "identity": {
+            "required": [
+              "stem",
+              "stemPinyin",
+              "element",
+              "polarity"
+            ]
+          },
+          "affiliations": {
+            "contains": {
+              "type": "object",
+              "properties": {
+                "factionId": {
+                  "const": "mingli-zong"
+                }
+              },
+              "required": [
+                "factionId"
+              ]
+            }
+          },
+          "relations": {
+            "required": [
+              "stemTopology"
+            ]
+          }
+        }
+      },
+      "else": {
+        "required": [
+          "factionRole"
+        ],
+        "properties": {
+          "identity": {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "stem"
+                  ]
+                },
+                {
+                  "required": [
+                    "stemPinyin"
+                  ]
+                },
+                {
+                  "required": [
+                    "polarity"
+                  ]
+                }
+              ]
+            }
+          },
+          "relations": {
+            "not": {
+              "required": [
+                "stemTopology"
+              ]
+            }
+          }
+        }
+      }
+    }
+  ],
+  "unevaluatedProperties": false,
+  "$defs": {
+    "stableId": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$",
+      "maxLength": 80
+    },
+    "nonEmptyZh": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stringList": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "identity": {
+      "type": "object",
+      "required": [
+        "nameZh"
+      ],
+      "properties": {
+        "nameZh": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 20
+        },
+        "nameEn": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "aliasesZh": {
+          "$ref": "#/$defs/stringList"
+        },
+        "stem": {
+          "enum": [
+            "甲",
+            "乙",
+            "丙",
+            "丁",
+            "戊",
+            "己",
+            "庚",
+            "辛",
+            "壬",
+            "癸"
+          ]
+        },
+        "stemPinyin": {
+          "enum": [
+            "jia",
+            "yi",
+            "bing",
+            "ding",
+            "wu",
+            "ji",
+            "geng",
+            "xin",
+            "ren",
+            "gui"
+          ]
+        },
+        "element": {
+          "enum": [
+            "木",
+            "火",
+            "土",
+            "金",
+            "水"
+          ]
+        },
+        "polarity": {
+          "enum": [
+            "阳",
+            "阴"
+          ],
+          "description": "命理属性，不是性别，也不得驱动视觉性别。"
+        },
+        "elementAffinities": {
+          "type": "array",
+          "description": "非十干人物可用的文化/方法论关联，不等同于日主。",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "木",
+              "火",
+              "土",
+              "金",
+              "水"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "affiliation": {
+      "type": "object",
+      "required": [
+        "factionId",
+        "role",
+        "status"
+      ],
+      "properties": {
+        "factionId": {
+          "$ref": "#/$defs/stableId",
+          "description": "内置：mingli-zong、xingshi-pai、liqi-pai、yijia、daomen-lvling、jingyi-guanxue；允许新增稳定 ID。"
+        },
+        "labelSnapshotZh": {
+          "type": "string",
+          "minLength": 1
+        },
+        "branchId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"
+        },
+        "role": {
+          "enum": [
+            "primary",
+            "secondary",
+            "former",
+            "guest"
+          ]
+        },
+        "status": {
+          "enum": [
+            "proposed",
+            "canon",
+            "retired"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "factionRole": {
+      "type": "object",
+      "description": "外派人物的方法论位置；让 agent 知道该角色何时有效、何时失效。",
+      "required": [
+        "scale",
+        "claimZh",
+        "methodZh",
+        "effectiveDomainZh",
+        "blindSpotZh",
+        "internalTensionZh"
+      ],
+      "properties": {
+        "scale": {
+          "enum": [
+            "individual",
+            "household",
+            "clan",
+            "organization",
+            "state",
+            "cross-scale"
+          ]
+        },
+        "claimZh": {
+          "$ref": "#/$defs/nonEmptyZh"
+        },
+        "methodZh": {
+          "$ref": "#/$defs/nonEmptyZh"
+        },
+        "effectiveDomainZh": {
+          "$ref": "#/$defs/nonEmptyZh"
+        },
+        "blindSpotZh": {
+          "$ref": "#/$defs/nonEmptyZh"
+        },
+        "internalTensionZh": {
+          "$ref": "#/$defs/nonEmptyZh"
+        }
+      },
+      "additionalProperties": false
+    },
+    "profile": {
+      "type": "object",
+      "required": [
+        "roleZh",
+        "epithetZh",
+        "selfStatementZh",
+        "summaryZh",
+        "giftZh",
+        "shadowZh",
+        "scarZh",
+        "unfinishedZh"
+      ],
+      "properties": {
+        "roleZh": {
+          "$ref": "#/$defs/nonEmptyZh"
+        },
+        "roleEn": {
+          "type": "string",
+          "minLength": 1
+        },
+        "epithetZh": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30
+        },
+        "selfStatementZh": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30,
+          "description": "含标点按 Unicode code point 计数，不超过 30 字；lint.mjs 重复执行此红线。"
+        },
+        "summaryZh": {
+          "$ref": "#/$defs/nonEmptyZh"
+        },
+        "tagsZh": {
+          "$ref": "#/$defs/stringList"
+        },
+        "giftZh": {
+          "$ref": "#/$defs/nonEmptyZh"
+        },
+        "shadowZh": {
+          "$ref": "#/$defs/nonEmptyZh"
+        },
+        "scarZh": {
+          "$ref": "#/$defs/nonEmptyZh"
+        },
+        "unfinishedZh": {
+          "$ref": "#/$defs/nonEmptyZh"
+        }
+      },
+      "additionalProperties": false
+    },
+    "visualLock": {
+      "type": "object",
+      "required": [
+        "presentation",
+        "silhouetteZh",
+        "lockedTraitsZh",
+        "wardrobeZh",
+        "palette",
+        "props",
+        "prompt"
+      ],
+      "properties": {
+        "presentation": {
+          "type": "object",
+          "required": [
+            "genderPresentation",
+            "ageBand",
+            "isDerivedFromPolarity"
+          ],
+          "properties": {
+            "genderPresentation": {
+              "enum": [
+                "masculine",
+                "feminine",
+                "androgynous",
+                "nonbinary",
+                "unspecified"
+              ]
+            },
+            "ageBand": {
+              "enum": [
+                "child",
+                "teen",
+                "young-adult",
+                "adult",
+                "middle-aged",
+                "older-adult",
+                "unspecified"
+              ]
+            },
+            "ageYears": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 150
+            },
+            "isDerivedFromPolarity": {
+              "const": false,
+              "description": "必须显式为 false；完整十干群像仍由 lint 检查是否形成机械二分。"
+            }
+          },
+          "additionalProperties": false
+        },
+        "silhouetteZh": {
+          "$ref": "#/$defs/nonEmptyZh"
+        },
+        "lockedTraitsZh": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "wardrobeZh": {
+          "$ref": "#/$defs/nonEmptyZh"
+        },
+        "palette": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "nameZh",
+              "hex"
+            ],
+            "properties": {
+              "nameZh": {
+                "type": "string",
+                "minLength": 1
+              },
+              "hex": {
+                "type": "string",
+                "pattern": "^#[0-9A-Fa-f]{6}$"
+              },
+              "usageZh": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "props": {
+          "type": "object",
+          "required": [
+            "requiredZh",
+            "allowedZh",
+            "forbiddenZh"
+          ],
+          "properties": {
+            "requiredZh": {
+              "$ref": "#/$defs/stringList"
+            },
+            "allowedZh": {
+              "$ref": "#/$defs/stringList"
+            },
+            "forbiddenZh": {
+              "$ref": "#/$defs/stringList"
+            }
+          },
+          "additionalProperties": false
+        },
+        "prompt": {
+          "type": "object",
+          "required": [
+            "positiveEn",
+            "negativeEn"
+          ],
+          "properties": {
+            "positiveEn": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "negativeEn": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "referenceAssets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "path",
+              "version",
+              "status"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "version": {
+                "type": "string",
+                "minLength": 1
+              },
+              "status": {
+                "enum": [
+                  "canonical",
+                  "legacy",
+                  "draft"
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "voice": {
+      "type": "object",
+      "required": [
+        "summaryZh",
+        "sentenceLength",
+        "directness",
+        "questionFrequency",
+        "preferredPatternsZh",
+        "avoidPatternsZh",
+        "sampleLinesZh"
+      ],
+      "properties": {
+        "summaryZh": {
+          "$ref": "#/$defs/nonEmptyZh"
+        },
+        "sentenceLength": {
+          "enum": [
+            "short",
+            "mixed",
+            "long"
+          ]
+        },
+        "directness": {
+          "enum": [
+            "direct",
+            "mixed",
+            "indirect"
+          ]
+        },
+        "questionFrequency": {
+          "enum": [
+            "rare",
+            "occasional",
+            "frequent"
+          ]
+        },
+        "preferredPatternsZh": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "avoidPatternsZh": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "sampleLinesZh": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "canon": {
+      "type": "object",
+      "required": [
+        "status",
+        "factsZh",
+        "prohibitionsZh",
+        "irreplaceableHighlightZh",
+        "signatureActionKey",
+        "signatureActionPhraseZh",
+        "unresolvedZh"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "proposal",
+            "provisional",
+            "locked"
+          ]
+        },
+        "factsZh": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "prohibitionsZh": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "irreplaceableHighlightZh": {
+          "$ref": "#/$defs/nonEmptyZh"
+        },
+        "signatureActionKey": {
+          "enum": [
+            "shou",
+            "hua",
+            "luo",
+            "kai",
+            "other"
+          ],
+          "description": "结构化专属高光动词。shou=守、hua=画、luo=落、kai=开；所有权由 redline.rules.json 校验。"
+        },
+        "signatureActionPhraseZh": {
+          "$ref": "#/$defs/nonEmptyZh"
+        },
+        "unresolvedZh": {
+          "$ref": "#/$defs/nonEmptyZh"
+        }
+      },
+      "additionalProperties": false
+    },
+    "relations": {
+      "type": "object",
+      "required": [
+        "worldEdges",
+        "interpretations"
+      ],
+      "properties": {
+        "stemTopology": {
+          "$ref": "#/$defs/stemTopology"
+        },
+        "worldEdges": {
+          "type": "array",
+          "description": "跨派及非五行关系只写在这里，不借用生/克/合/冲。",
+          "items": {
+            "$ref": "#/$defs/worldEdge"
+          }
+        },
+        "interpretations": {
+          "type": "array",
+          "description": "承接旧 COPY.json 的关系卡与故事钩子；事实拓扑仍以 stemTopology/worldEdges 为准。",
+          "items": {
+            "$ref": "#/$defs/relationInterpretation"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "stemTopology": {
+      "type": "object",
+      "required": [
+        "peer",
+        "generates",
+        "generatedBy",
+        "controls",
+        "controlledBy",
+        "combines",
+        "clashes"
+      ],
+      "properties": {
+        "peer": {
+          "$ref": "#/$defs/stemIdList"
+        },
+        "generates": {
+          "$ref": "#/$defs/stemIdList"
+        },
+        "generatedBy": {
+          "$ref": "#/$defs/stemIdList"
+        },
+        "controls": {
+          "$ref": "#/$defs/stemIdList"
+        },
+        "controlledBy": {
+          "$ref": "#/$defs/stemIdList"
+        },
+        "combines": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1,
+          "items": {
+            "$ref": "#/$defs/stemSpecialEdge"
+          }
+        },
+        "clashes": {
+          "type": "array",
+          "maxItems": 1,
+          "items": {
+            "$ref": "#/$defs/stemSpecialEdge"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "stemIdList": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "jia",
+          "yi",
+          "bing",
+          "ding",
+          "wu",
+          "ji",
+          "geng",
+          "xin",
+          "ren",
+          "gui"
+        ]
+      }
+    },
+    "stemSpecialEdge": {
+      "type": "object",
+      "required": [
+        "type",
+        "targetId",
+        "tenGodFromSelf",
+        "tenGodFromTarget",
+        "resultElement"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "combine",
+            "clash"
+          ]
+        },
+        "targetId": {
+          "enum": [
+            "jia",
+            "yi",
+            "bing",
+            "ding",
+            "wu",
+            "ji",
+            "geng",
+            "xin",
+            "ren",
+            "gui"
+          ]
+        },
+        "tenGodFromSelf": {
+          "$ref": "#/$defs/tenGod"
+        },
+        "tenGodFromTarget": {
+          "$ref": "#/$defs/tenGod"
+        },
+        "resultElement": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "木",
+            "火",
+            "土",
+            "金",
+            "水",
+            null
+          ]
+        },
+        "titleZh": {
+          "type": "string"
+        },
+        "storyHookZh": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "tenGod": {
+      "enum": [
+        "比肩",
+        "劫财",
+        "食神",
+        "伤官",
+        "偏印",
+        "正印",
+        "偏财",
+        "正财",
+        "七杀",
+        "正官"
+      ]
+    },
+    "worldEdge": {
+      "type": "object",
+      "required": [
+        "id",
+        "target",
+        "domain",
+        "stance",
+        "direction",
+        "summaryZh",
+        "status",
+        "evidence"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/stableId"
+        },
+        "target": {
+          "type": "object",
+          "required": [
+            "kind",
+            "id"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "character",
+                "faction"
+              ]
+            },
+            "id": {
+              "$ref": "#/$defs/stableId"
+            }
+          },
+          "additionalProperties": false
+        },
+        "domain": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "description": "建议值：methodology、operational、personal、historical、institutional；可扩展。"
+        },
+        "stance": {
+          "enum": [
+            "allied",
+            "opposed",
+            "contested",
+            "mirror",
+            "dependent",
+            "indebted",
+            "neutral"
+          ]
+        },
+        "direction": {
+          "enum": [
+            "outgoing",
+            "incoming",
+            "mutual"
+          ]
+        },
+        "summaryZh": {
+          "$ref": "#/$defs/nonEmptyZh"
+        },
+        "status": {
+          "enum": [
+            "proposal",
+            "provisional",
+            "locked"
+          ]
+        },
+        "evidence": {
+          "type": "object",
+          "required": [
+            "canonRefs",
+            "classicCitationIds"
+          ],
+          "properties": {
+            "canonRefs": {
+              "$ref": "#/$defs/stringList"
+            },
+            "classicCitationIds": {
+              "$ref": "#/$defs/stringList"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "relationInterpretation": {
+      "type": "object",
+      "required": [
+        "id",
+        "system",
+        "kind",
+        "targetIds",
+        "summaryZh"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/stableId"
+        },
+        "system": {
+          "enum": [
+            "five-phase",
+            "stem-special",
+            "world"
+          ]
+        },
+        "kind": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "targetIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/stableId"
+          }
+        },
+        "titleZh": {
+          "type": "string"
+        },
+        "summaryZh": {
+          "$ref": "#/$defs/nonEmptyZh"
+        }
+      },
+      "additionalProperties": false
+    },
+    "classicCitation": {
+      "type": "object",
+      "required": [
+        "citationId",
+        "bookId",
+        "chapterId",
+        "quoteOrig",
+        "deepLink",
+        "use"
+      ],
+      "properties": {
+        "citationId": {
+          "$ref": "#/$defs/stableId"
+        },
+        "bookId": {
+          "$ref": "#/$defs/stableId"
+        },
+        "chapterId": {
+          "$ref": "#/$defs/stableId"
+        },
+        "quoteOrig": {
+          "type": "string",
+          "minLength": 1,
+          "description": "必须逐字取自 texts/<bookId>.json 对应 chapterId；lint 不做繁简、标点或 Unicode 归一化。"
+        },
+        "deepLink": {
+          "type": "string",
+          "pattern": "^https://dao\\.leonardchow\\.work/dian/#/read/[a-z][a-z0-9._-]*/[a-z][a-z0-9._-]*$"
+        },
+        "use": {
+          "enum": [
+            "name-origin",
+            "worldview",
+            "behavior-metaphor",
+            "faction-method",
+            "dungeon-rule",
+            "counterpoint"
+          ]
+        },
+        "interpretationZh": {
+          "type": "string"
+        },
+        "annotatedSentenceIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "media": {
+      "type": "object",
+      "properties": {
+        "portraits": {
+          "$ref": "#/$defs/stringList"
+        },
+        "fullBody": {
+          "$ref": "#/$defs/stringList"
+        },
+        "storyBackgrounds": {
+          "$ref": "#/$defs/stringList"
+        },
+        "comic": {
+          "type": "object",
+          "required": [
+            "titleZh",
+            "asset"
+          ],
+          "properties": {
+            "titleZh": {
+              "type": "string"
+            },
+            "asset": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "review": {
+      "type": "object",
+      "required": [
+        "status",
+        "conflictIds"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "unreviewed",
+            "needs-decision",
+            "approved"
+          ]
+        },
+        "conflictIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^C-[0-9]{2}$"
+          }
+        },
+        "notesZh": {
+          "$ref": "#/$defs/stringList"
+        }
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "status",
+        "sourceFiles"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "draft",
+            "reviewed",
+            "locked"
+          ]
+        },
+        "sourceFiles": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "path",
+              "role"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "role": {
+                "enum": [
+                  "legacy-copy",
+                  "canon",
+                  "visual-master",
+                  "faction-draft",
+                  "manual"
+                ]
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "migratedFromSchema": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
