@@ -960,6 +960,22 @@
             "canonRefs",
             "classicCitationIds"
           ],
+          "anyOf": [
+            {
+              "properties": {
+                "canonRefs": {
+                  "minItems": 1
+                }
+              }
+            },
+            {
+              "properties": {
+                "classicCitationIds": {
+                  "minItems": 1
+                }
+              }
+            }
+          ],
           "properties": {
             "canonRefs": {
               "$ref": "#/$defs/stringList"

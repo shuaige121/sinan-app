@@ -280,6 +280,29 @@ function validateCoreStructure(entry) {
   if (!Array.isArray(character.classics) || character.classics.length === 0) {
     issues.push(issue("error", "SCHEMA", source, "/classics", "必须是非空数组"));
   }
+  const citationIds = Array.isArray(character.classics)
+    ? character.classics.map((citation) => citation?.citationId).filter((id) => typeof id === "string")
+    : [];
+  for (const duplicate of duplicateValues(citationIds)) {
+    issues.push(issue("error", "SCHEMA", source, "/classics", `citationId 重复：${duplicate}`));
+  }
+  const worldEdges = Array.isArray(character.relations?.worldEdges) ? character.relations.worldEdges : [];
+  for (const duplicate of duplicateValues(worldEdges.map((edge) => edge?.id).filter((id) => typeof id === "string"))) {
+    issues.push(issue("error", "SCHEMA", source, "/relations/worldEdges", `world edge id 重复：${duplicate}`));
+  }
+  for (let index = 0; index < worldEdges.length; index += 1) {
+    const evidence = worldEdges[index]?.evidence;
+    const canonRefs = Array.isArray(evidence?.canonRefs) ? evidence.canonRefs : [];
+    const classicRefs = Array.isArray(evidence?.classicCitationIds) ? evidence.classicCitationIds : [];
+    if (canonRefs.length === 0 && classicRefs.length === 0) {
+      issues.push(issue("error", "SCHEMA", source, `/relations/worldEdges/${index}/evidence`, "至少提供一个 canonRef 或 classicCitationId"));
+    }
+    for (const citationId of classicRefs) {
+      if (!citationIds.includes(citationId)) {
+        issues.push(issue("error", "SCHEMA", source, `/relations/worldEdges/${index}/evidence/classicCitationIds`, `未引用本人物 classics[] 中的 citationId：${citationId}`));
+      }
+    }
+  }
   if (getByPointer(character, "/visualLock/presentation/isDerivedFromPolarity") !== false) {
     issues.push(issue("error", "SCHEMA", source, "/visualLock/presentation/isDerivedFromPolarity", "必须显式为 false"));
   }
@@ -774,6 +797,16 @@ function unescapePointer(value) {
 
 function arraysEqual(actual, expected) {
   return Array.isArray(actual) && actual.length === expected.length && actual.every((value, index) => value === expected[index]);
+}
+
+function duplicateValues(values) {
+  const seen = new Set();
+  const duplicates = new Set();
+  for (const value of values) {
+    if (seen.has(value)) duplicates.add(value);
+    seen.add(value);
+  }
+  return [...duplicates];
 }
 
 function isCharacter(value) {

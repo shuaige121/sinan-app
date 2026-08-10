@@ -114,6 +114,12 @@ node assets/ten-archetypes/schema/lint.mjs
 
 常用命令：
 
+以下相对路径命令假设先进入本目录：
+
+```bash
+cd assets/ten-archetypes/schema
+```
+
 ```bash
 # 校验一个人物或递归校验目录；显式目标默认不跑 fixtures
 node lint.mjs path/to/character.json
