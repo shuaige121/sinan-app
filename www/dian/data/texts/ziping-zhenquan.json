@@ -1,0 +1,63 @@
+{
+  "id": "ziping-zhenquan",
+  "title": "子平真诠",
+  "subtitle": "子平真詮",
+  "author": "清·沈孝瞻",
+  "dynasty": "清（18世纪）",
+  "authorNote": "沈孝瞻，字问之，浙江归安人，清代命理名家。此书由门人整理刊行，系统阐述子平八字格局理论，为清代命理学奠基之作。",
+  "licenseNote": "公有领域（古籍本身，清刻本已逾著作权期限）",
+  "source": "https://ctext.org/wiki.pl?if=gb&res=773573",
+  "sourceName": "中国哲学书电子化计划",
+  "fetchNote": "外网全文尚未收录。原文可见 ctext.org 子平真诠条目。",
+  "status": "待补",
+  "chapters": [
+    {
+      "id": "intro",
+      "label": "书目说明",
+      "fragments": [
+        {
+          "text": "《子平真诠》清·沈孝瞻著，全书以「用神」为核心，系统论述正官、偏官、正印、偏印、正财、偏财、食神、伤官八格之取用原则，被后世命理师奉为格局派经典。本书分上下两卷，约三十余节，现因外网访问受限，全文暂未收录。原文可见中国哲学书电子化计划（ctext.org）。",
+          "attribution": "书目说明（站方自撰，非原文）"
+        },
+        {
+          "text": "【司南导读】司南八字命理模块参考本书「八格取用」法则：日主身强以正官、财、食伤为用，身弱以印、比劫为用。格局成立条件（成格／破格）及大运流年喜忌推断，依循本书「用神为纲，格局为目」的核心框架。八字五行评分及日主旺弱判定算法，以本书理论为主要参照之一。",
+          "attribution": "司南使用说明（站方自撰，非原文）"
+        },
+        {
+          "text": "【待补】全文待从 ctext.org 抓取后补入。",
+          "note": "⚠ 外网代理封锁，暂无法自动抓取。"
+        }
+      ]
+    },
+    {
+      "id": "ch-luntiangan",
+      "label": "论十干",
+      "fragments": [{ "text": "【待补】" }]
+    },
+    {
+      "id": "ch-lunshierzhi",
+      "label": "论十二支",
+      "fragments": [{ "text": "【待补】" }]
+    },
+    {
+      "id": "ch-lunshengke",
+      "label": "论阴阳生克",
+      "fragments": [{ "text": "【待补】" }]
+    },
+    {
+      "id": "ch-lungeju",
+      "label": "论格局",
+      "fragments": [{ "text": "【待补】" }]
+    },
+    {
+      "id": "ch-lunyongshen",
+      "label": "论用神",
+      "fragments": [{ "text": "【待补】" }]
+    },
+    {
+      "id": "ch-lunsuiyun",
+      "label": "论岁运",
+      "fragments": [{ "text": "【待补】" }]
+    }
+  ]
+}

@@ -1,0 +1,6721 @@
+{
+ "id": "zangshu",
+ "title": "葬书",
+ "category": "kanyu",
+ "chapters": [
+  {
+   "id": "ch01",
+   "label": "內篇一",
+   "annotation": "本篇开宗明义，点出「葬乘生气」的核心命题：大地五气行于地中，人受体于父母，本骸感应生气可荫庇后嗣。以铜山西崩灵钟东应、木华于春室内栗芽萌发为自然感应之例，确立葬法的天人感应基础。",
+   "sentences": [
+    {
+     "i": 0,
+     "orig": "葬者乘生氣也。",
+     "bai": "所谓安葬，就是要乘得大地中流动的生气(阴阳之气)；葬的根本目的即在于使遗骨乘纳这股生气。",
+     "gloss": [
+      [
+       "葬",
+       "埋葬、安藏；《说文》『藏也』，白话注本亦作『葬者，藏也』"
+      ],
+      [
+       "乘",
+       "驾乘、趁、利用——此指乘纳、承接地中流动之生气"
+      ],
+      [
+       "生氣",
+       "阴阳之气行乎地中者，万物生机所自出，乃葬法所求之本"
+      ]
+     ],
+     "logic": "DEFINE 葬 := 乘生气。 IF 葬地不能乘得生气 THEN 非真葬法(葬不成立)；得生气为吉葬之必要条件。",
+     "terms": [
+      "qi"
+     ],
+     "quant": {
+      "observables": [
+       "slope(deg) 坡度",
+       "viewshed/wind-shelter 藏风遮蔽",
+       "flow_accumulation + distance-to-channel 界水",
+       "plan_curvature 环抱凹聚",
+       "aspect 向/日照"
+      ],
+      "operational": "聚气适宜度复合判别式：低 slope(缓坡~3-15°，现代约定) × 藏风(viewshed 遮蔽高) × 界水环抱(flow_accumulation 成水界且向穴凹) × 龙止(势来形止) → 复合潜在适宜分；DragonVeinEngine 取流场交汇近点为穴",
+      "metric_unit": "dimensionless composite latent suitability score (0-1)",
+      "falsifiable": "部分可证伪——复合适宜分可作为选址假说对照聚落/地形结果检验；但『生气』本身不可直接测量",
+      "engine": "TempleScore / DragonVeinEngine",
+      "evidence": "原文(葬书)未给任何数值；『气』为不可见本体，古籍明言非数值。此 composite 为标准 GIS 方法学下的现代假说，非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "bai/gloss(乘=利用生气)",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "gloss(葬=藏也)",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "quant(qi 复合适宜度+不可测量声明)",
+       "source": "司南术语本体（今人整理）"
+      },
+      {
+       "what": "quant(标准坡度/汇水/视域派生量)",
+       "source": "longmai-dem spec(GIS 地形派生量)"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "全书开宗明义的核心命题。『乘生气』是葬法总纲。quant 仅为现代 GIS 操作化重构，原文无数。"
+    },
+    {
+     "i": 1,
+     "orig": "五氣行乎地中，發而生乎萬物。",
+     "bai": "五行之气在大地之中运行，一旦显发出来，便生成万物。",
+     "gloss": [
+      [
+       "五氣",
+       "五行(木火土金水)之气；一本作『生氣』(异文)"
+      ],
+      [
+       "行乎地中",
+       "在大地之中运行"
+      ],
+      [
+       "發",
+       "发动、显发——气由潜行而外显"
+      ]
+     ],
+     "logic": "IF 五行之气行于地中 THEN 发动而生成万物(地中之气为万物生机之源)。",
+     "terms": [
+      "qi",
+      "five_phases"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "bai(生气行乎地中发而生乎万物)",
+       "source": "陈益峰《葬书》白话注解(新浪)",
+       "url": "https://k.sina.cn/article_6492742263_182ff627700100d5v5.html"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "异文：通行本多作『五氣』，部分白话注本引作『生氣行乎地中』，二者义近(五行之气即生气)。五行映射(方位/河图数 8/7/5/9/6)见本体 five_phases，但本句未给数值，故 quant=null。"
+    },
+    {
+     "i": 2,
+     "orig": "人受體于父母，本骸得氣，遺體受廕。",
+     "bai": "人的形体禀受于父母，与父母骨脉同气相连；先人的骨骸若葬得生气，同气的遗体(子孙)便受其荫庇。",
+     "gloss": [
+      [
+       "受體",
+       "禀受身体形骸(于父母)"
+      ],
+      [
+       "本骸",
+       "本源之骨骸，此指先人的遗骨"
+      ],
+      [
+       "得氣",
+       "葬得、乘得生气"
+      ],
+      [
+       "廕",
+       "通『荫』，庇荫、荫护后代"
+      ]
+     ],
+     "logic": "IF 本骸(先人遗骨)得生气 THEN 同气之遗体(子孙)受荫(同气相感的荫应机制)。",
+     "terms": [
+      "qi"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "bai(本骸得气遗体受荫)",
+       "source": "陈益峰《葬书》白话注解(新浪)",
+       "url": "https://k.sina.cn/article_6492742263_182ff627700100d5v5.html"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "确立『父母子孙同气相感』的荫应前提，是后文铜山灵钟、木华栗芽诸例的理论根基。"
+    },
+    {
+     "i": 3,
+     "orig": "經曰：氣感而應鬼，福及後人。",
+     "bai": "古经说：生气感动则相应，先人(亡灵)所得之福荫便泽及后代。",
+     "gloss": [
+      [
+       "經",
+       "所引古经(旧题《青乌经》或前代经文)"
+      ],
+      [
+       "感",
+       "感动、相感(同气相求)"
+      ],
+      [
+       "應",
+       "《说文》『當也』，应答、相应"
+      ],
+      [
+       "鬼",
+       "此指先人亡灵/阴宅；标准句读作『鬼福及人』"
+      ]
+     ],
+     "logic": "IF 气感而应(同气相感) THEN 鬼(先人)之福荫泽及后人。",
+     "terms": [
+      "qi"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai(气感而应/鬼福及人 之解)",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "gloss(應=當也)",
+       "source": "说文解字(本仓库节选·心部)"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "重要句读异文：通行标准本断作『氣感而應，鬼福及人』(生气相感而应，先人之福及于生人)；本worklist作『氣感而應鬼，福及後人』，把『鬼』连上读、『后人』连下读。两种断法语义相近但归属不同；白话依标准读法翻译。應字释义采本仓库《说文》心部『應：當也』。"
+    },
+    {
+     "i": 4,
+     "orig": "是以銅山西崩，靈鐘東應。",
+     "bai": "正因如此：西方的铜山崩塌，由它同源之铜所铸、远在东方的灵钟也会感应而自鸣。",
+     "gloss": [
+      [
+       "銅山",
+       "产铜之山(典故指蜀/南郡铜山)"
+      ],
+      [
+       "靈鐘",
+       "以该山之铜所铸的钟(典指汉武帝未央宫铜钟)"
+      ],
+      [
+       "東應",
+       "在东方感应而自鸣"
+      ]
+     ],
+     "logic": null,
+     "terms": [],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai(铜山西崩灵钟东应之解)",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "notes(东方朔/未央宫铜钟自鸣典故)",
+       "source": "百度百科『铜山西崩，洛钟东应』典故(世说新语/东方朔)",
+       "url": "https://baike.baidu.com/item/%E9%93%9C%E5%B1%B1%E8%A5%BF%E5%B4%A9%EF%BC%8C%E6%B4%9B%E9%92%9F%E4%B8%9C%E5%BA%94/1834182"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "纯义理类比(同气相求/同声相应)，故 logic=null。典出『铜山西崩，洛钟东应』：汉武帝时未央宫铜钟无故自鸣三日，东方朔谓『铜，山之子；山，铜之母』，子母同气相感，必有铜山崩，三日后南郡上报山崩二十余里。葬书一作『灵钟』，成语多作『洛钟』，所指同一类比。"
+    },
+    {
+     "i": 5,
+     "orig": "木華于春，栗芽於室。",
+     "bai": "树木到春天就开花抽芽，连存放在室内的栗子(种子)也随同节气之气而萌芽。",
+     "gloss": [
+      [
+       "華",
+       "开花、华茂(此处用作动词)"
+      ],
+      [
+       "栗",
+       "栗子(种子)；一本作『粟』(粟米)，异文"
+      ],
+      [
+       "室",
+       "屋内、储藏之室"
+      ]
+     ],
+     "logic": null,
+     "terms": [],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai(木华于春栗芽于室之解)",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "与上句并列的第二个同气感应自然例证：外界春气至，室内种子亦应气而芽，喻生气感应不受隔阻、远近皆通，故 logic=null。异文：通行本『栗芽』，部分注本引作『粟芽』。"
+    },
+    {
+     "i": 6,
+     "orig": "蓋生者氣之聚，凝結者成骨，死而獨留，故葬者反氣入骨，以廕所生之法也。",
+     "bai": "大抵生命是生气的聚合，气凝结成形而为骨；人死后血肉腐去、唯骨独留，所以安葬就是让生气返纳入遗骨，借此荫庇所生的子孙——这就是葬法的根本道理。",
+     "gloss": [
+      [
+       "凝結",
+       "气凝聚而成形"
+      ],
+      [
+       "獨留",
+       "(血肉腐朽后)唯骨独存"
+      ],
+      [
+       "反氣入骨",
+       "使生气返纳入遗骨；一本作『反气纳骨』"
+      ],
+      [
+       "廕",
+       "荫庇、庇护"
+      ],
+      [
+       "所生",
+       "所生育者，即子孙后人"
+      ]
+     ],
+     "logic": "DEFINE 生 := 气之聚； 骨 := 凝结所成。 IF 葬使生气反纳入骨 THEN 荫庇所生(子孙) —— 此即葬法。",
+     "terms": [
+      "qi"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "bai/gloss(反气纳骨以荫所生)",
+       "source": "陈益峰《葬书》白话注解(新浪)",
+       "url": "https://k.sina.cn/article_6492742263_182ff627700100d5v5.html"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "全篇收束，回扣首句『乘生气』，给出葬法的机制定义(气聚成骨→反气入骨→荫所生)。异文：『反氣入骨』通行本与『反氣納骨』并见，义同。"
+    }
+   ]
+  },
+  {
+   "id": "ch02",
+   "label": "內篇二",
+   "annotation": "本篇提出风水最根本的方法论——「得水为上，藏风次之」。生气乘风则散、界水则止，因此择地须求山抱水环、气聚而不外泄。「风水」二字即出自本篇「古人聚之使不散，行之使有止，故谓之风水」，是整部葬书中被后世引用最广的段落。",
+   "sentences": [
+    {
+     "i": 0,
+     "orig": "丘壟之骨，岡阜之支，氣之所隨。",
+     "bai": "高山垄岗隆起的石质骨脊，与平缓岗阜上隐隐起伏的土支脉，都是生气随之运行的脉络通道。",
+     "gloss": [
+      [
+       "丘壟",
+       "高大相连的山地、土垄（高处为阴）"
+      ],
+      [
+       "骨",
+       "山中带石的骨脊；垄高能耸立，赖石带土之骨"
+      ],
+      [
+       "岡阜",
+       "平缓的土冈土阜（低处为阳）；阜，《说文》大陸也、山無石者（土山）；岡，《说文》山脊也"
+      ],
+      [
+       "支",
+       "无石而隐起的土脊、支脉，需观其毛脊方能辨"
+      ],
+      [
+       "所隨",
+       "生气随之运行附行之处"
+      ]
+     ],
+     "logic": "IF 地形为丘垄之石骨 OR 岗阜之土支 THEN 即为生气随行之脉络（高低虽异，皆为可乘之气脉）。",
+     "terms": [
+      "ling",
+      "gang",
+      "mai",
+      "long",
+      "qi"
+     ],
+     "quant": {
+      "observables": [
+       "ridge-line continuity (脊线连续性)",
+       "relative_relief (m)",
+       "slope (deg)"
+      ],
+      "operational": "用 DEM 脊线追踪区分丘垄（高 relief 的石骨脊）与岗阜（低 relief 的土支脉）：判别式=连续脊线 polyline 且 relative_relief 超阈值→丘垄之骨；低 relief 隐起脊线→岗阜之支；二者皆判为生气随行之龙脉。",
+      "metric_unit": "m (relief) / deg (slope)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "原文未给数值（丘垄/岗阜仅为高低、有石无石之定性别）；relief/slope 阈值为现代 GIS 假说，非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai/gloss（丘垄之骨=带石、岗阜之支=毛脊、气随而行）",
+       "source": "古诗文网《葬书·内篇》原文注",
+       "url": "https://m.gushiwen.cn/guwen/bookv_0043b1da736a.aspx"
+      },
+      {
+       "what": "gloss 阜=《说文》大陸也山無石者",
+       "source": "词典网·说文解字（搜索摘要）",
+       "url": "https://www.cidianwang.com/shuowenjiezi/fu9822.htm"
+      },
+      {
+       "what": "quant 脊线/relief 龙脉派生",
+       "source": "longmai-dem spec / 本体 ling·gang·mai 条"
+      }
+     ],
+     "conf": "high",
+     "notes": "丘垄（高、阴、带石）与岗阜（平、阳、土支）为葬书『支垄』二分的开篇；骨指带石之脊，支指隐起之土脊。"
+    },
+    {
+     "i": 1,
+     "orig": "經曰：氣乘風則散，界水則止。",
+     "bai": "经书说：生气一旦乘风（暴露受风吹）就会消散，遇到水的界隔就会停聚下来。",
+     "gloss": [
+      [
+       "乘風",
+       "凭乘、遇上流动之风；气遇风曝则散"
+      ],
+      [
+       "散",
+       "消散、荡散不聚"
+      ],
+      [
+       "界水",
+       "以水为界、被水阻隔；界=界限、阻隔"
+      ],
+      [
+       "止",
+       "停止、止聚（生气得水界而驻）"
+      ]
+     ],
+     "logic": "IF 生气曝露乘风（无遮蔽） THEN 散；IF 生气遇水界隔 THEN 止聚。",
+     "terms": [
+      "qi",
+      "shui"
+     ],
+     "quant": {
+      "observables": [
+       "wind exposure (鞍部/风口暴露度，viewshed 开口)",
+       "flow_accumulation (界水/汇水线)"
+      ],
+      "operational": "判别式：穴处暴露于鞍部风口（viewshed 开口大、四围无遮蔽）→气散；穴周有 flow_accumulation 超阈值的汇水/河道横向界隔→气止聚。",
+      "metric_unit": "viewshed openness (deg/ratio) / flow_accumulation (upstream cell count)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "原文未给数值（散/止为定性）；风口暴露与界水阈值为标准 GIS 方法学下的现代 operational 假说，非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai/gloss（生气随支垄流行，非水界莫之能止）",
+       "source": "古诗文网《葬书·内篇》原文注",
+       "url": "https://m.gushiwen.cn/guwen/bookv_0043b1da736a.aspx"
+      },
+      {
+       "what": "原文『氣乘風則散，界水則止』+ 水界气止本义",
+       "source": "葬书（本仓库）/ 本体 qi·shui 条"
+      },
+      {
+       "what": "gloss 水=《说文》凖也北方之行",
+       "source": "说文解字（本仓库）"
+      }
+     ],
+     "conf": "high",
+     "notes": "全篇核心机理句，亦为整部葬书最常被引用者之一；『乘风则散/界水则止』为下文『风水』定义之张本。"
+    },
+    {
+     "i": 2,
+     "orig": "古人聚之使不散，行之使有止，故謂之風水。",
+     "bai": "古人择地使生气聚而不致消散、行而必有停聚之处，所以把这套方法称作『风水』。",
+     "gloss": [
+      [
+       "聚之使不散",
+       "使生气会聚而不被风吹散（即藏风）"
+      ],
+      [
+       "行之使有止",
+       "使生气运行而有界水使之停聚（即得水）"
+      ],
+      [
+       "風水",
+       "聚气藏风、得水止气之法的合称"
+      ]
+     ],
+     "logic": "定义式：风水 := 聚气使不散（藏风） ∧ 行气使有止（界水/得水）。",
+     "terms": [
+      "qi",
+      "shui"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai（古人聚之使不散、行之使有止，所以叫风水）",
+       "source": "古诗文网《葬书·内篇》原文注",
+       "url": "https://m.gushiwen.cn/guwen/bookv_0043b1da736a.aspx"
+      },
+      {
+       "what": "原文『古人聚之使不散…故謂之風水』",
+       "source": "葬书（本仓库）/ 本体 qi 条引『古人聚之使不散，行之使有止，故謂之風水』"
+      }
+     ],
+     "conf": "high",
+     "notes": "『风水』一词出典即此句；本句为定义性义理，未涉具体地形量化，quant 设 null。"
+    },
+    {
+     "i": 3,
+     "orig": "風水之法，得水為上，藏風次之。",
+     "bai": "风水的方法，以能得水（聚得水流环界）为最上，藏风（屏蔽风吹使气不散）次之。",
+     "gloss": [
+      [
+       "得水",
+       "穴地能得水流之环界庇护、聚水于前"
+      ],
+      [
+       "為上",
+       "列为第一优先"
+      ],
+      [
+       "藏風",
+       "四围围合屏蔽风吹，使生气不被荡散"
+      ],
+      [
+       "次之",
+       "次一等的要求"
+      ]
+     ],
+     "logic": "IF 评一地之风水 THEN 优先级排序：得水（rank 1） > 藏风（rank 2）。",
+     "terms": [
+      "shui",
+      "qi"
+     ],
+     "quant": {
+      "observables": [
+       "距河道/汇水的临水度 (m) 与环抱角 (得水)",
+       "viewshed 遮蔽度 / 围合角 (藏风)"
+      ],
+      "operational": "TempleScore 选地评分中，得水项（临水距离、水之环抱角）权重置于藏风项（viewshed 遮蔽/砂围合角）之上：score = w_water·得水 + w_shelter·藏风，且 w_water > w_shelter。",
+      "metric_unit": "score weights (dimensionless) / m (距水) / deg (环抱角)",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "原文只给优先级排序（得水＞藏风），未给权重数值；w_water/w_shelter 具体取值为现代 operational 假说。"
+     },
+     "src": [
+      {
+       "what": "bai/gloss（得水为上、藏风次之，水能止气散）",
+       "source": "古诗文网《葬书·内篇》原文注",
+       "url": "https://m.gushiwen.cn/guwen/bookv_0043b1da736a.aspx"
+      },
+      {
+       "what": "原文『風水之法，得水為上，藏風次之』",
+       "source": "葬书（本仓库）/ 本体 shui 条径引此句"
+      }
+     ],
+     "conf": "high",
+     "notes": "本句确立形势派『水第一、风第二』的择地优先级；本体 shui 条已直接征引此句。"
+    },
+    {
+     "i": 4,
+     "orig": "經曰：外氣橫形，內氣止生。",
+     "bai": "经书说：外气（流行于外的气，亦指横亘界隔的水流）横亘成形于外，地中的内气（生气）就能止聚而生发。",
+     "gloss": [
+      [
+       "外氣",
+       "流行于地表之外的气；引申为横界的水流"
+      ],
+      [
+       "橫形",
+       "横亘成形、横向界抱（水横抱成形）"
+      ],
+      [
+       "內氣",
+       "蓄积于地中的生气"
+      ],
+      [
+       "止生",
+       "止聚而生发滋长"
+      ]
+     ],
+     "logic": "IF 外气横界成形（水/横岭横抱于外） THEN 内气得以止聚而生发。",
+     "terms": [
+      "qi",
+      "shui"
+     ],
+     "quant": {
+      "observables": [
+       "界水/横岭的环抱-横亘角 (外气横形)",
+       "穴处 plan_curvature 凹聚度 (内气止生)"
+      ],
+      "operational": "判别式：外气=横向界水/横岭成形环抱（embrace/横亘角大）→ 穴处 plan_curvature 呈凹聚低曲率袋形→判为内气止聚生发。",
+      "metric_unit": "deg (环抱角) / curvature (1/m)",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "原文未给数值（横形/止生为定性）；环抱角与曲率阈值为现代 GIS 假说，非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai/gloss（外气流于表横截、内气止于地中而聚）",
+       "source": "古诗文网《葬书·内篇》原文注",
+       "url": "https://m.gushiwen.cn/guwen/bookv_0043b1da736a.aspx"
+      }
+     ],
+     "conf": "med",
+     "notes": "『外气横形』历来有二解：一以外气泛指地表流气，一以外气专指横界之水（与上文界水呼应）；此处取后说为主。"
+    },
+    {
+     "i": 5,
+     "orig": "蓋言此也。",
+     "bai": "（经文）说的正是这个道理。",
+     "gloss": [
+      [
+       "蓋",
+       "大概、正是（承上启下之辞）"
+      ],
+      [
+       "言此",
+       "所说的就是这个（指上引经语之意）"
+      ]
+     ],
+     "logic": null,
+     "terms": [],
+     "quant": null,
+     "src": [],
+     "conf": "med",
+     "notes": "承接语，无独立义理；无现成专条译注，按通行文言虚词训释，模型直译（src 空，故降为 med）。"
+    },
+    {
+     "i": 6,
+     "orig": "何以言之？",
+     "bai": "凭什么这样说呢？",
+     "gloss": [
+      [
+       "何以",
+       "凭什么、为什么"
+      ],
+      [
+       "言之",
+       "如此说、这样讲"
+      ]
+     ],
+     "logic": null,
+     "terms": [],
+     "quant": null,
+     "src": [],
+     "conf": "med",
+     "notes": "设问引起下文，无独立义理；无现成专条译注，按通行文言句式直译，模型直译（src 空，故降为 med）。"
+    },
+    {
+     "i": 7,
+     "orig": "氣之盛雖流行，而其餘者猶有止；雖零散，而其深者猶有聚。",
+     "bai": "生气虽盛大而流动散布，但其残余的部分仍有停聚之处；虽看似零散，但其深藏的部分仍有聚结之所。",
+     "gloss": [
+      [
+       "盛",
+       "旺盛、盛大"
+      ],
+      [
+       "流行",
+       "流动散布、奔流而行"
+      ],
+      [
+       "其餘者",
+       "流行之外残余的气"
+      ],
+      [
+       "猶有止",
+       "仍然有停聚之处"
+      ],
+      [
+       "零散",
+       "分散、散布"
+      ],
+      [
+       "其深者",
+       "深藏于地中的气"
+      ],
+      [
+       "猶有聚",
+       "仍然有聚结之所"
+      ]
+     ],
+     "logic": "IF 气盛而流行 THEN 其余气犹有止；IF 气表层零散 THEN 其深处犹有聚（残余之气、深藏之气仍可乘）。",
+     "terms": [
+      "qi"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai（气虽流行，深层仍有汇聚之处）",
+       "source": "古诗文网《葬书·内篇》原文注",
+       "url": "https://m.gushiwen.cn/guwen/bookv_0043b1da736a.aspx"
+      }
+     ],
+     "conf": "high",
+     "notes": "为下句『涸燥宜浅、坦夷宜深』之理论铺垫：流行之余、零散之深皆有可乘之气，故葬法须随地势调浅深。气为不可见本体，quant 设 null。"
+    },
+    {
+     "i": 8,
+     "orig": "故藏於涸燥者宜淺，藏於坦夷者宜深。",
+     "bai": "所以葬于干涸高燥之地宜浅埋，葬于平坦低夷之地宜深埋。",
+     "gloss": [
+      [
+       "藏",
+       "葬、埋藏"
+      ],
+      [
+       "涸燥",
+       "干涸高燥之地（多指高亢山陵）"
+      ],
+      [
+       "宜淺",
+       "适宜浅葬"
+      ],
+      [
+       "坦夷",
+       "平坦低夷之地（多指平地、平洋）"
+      ],
+      [
+       "宜深",
+       "适宜深葬"
+      ]
+     ],
+     "logic": "IF 葬地为涸燥（高燥山陵） THEN 葬宜浅；IF 葬地为坦夷（平坦低地） THEN 葬宜深。判别式：葬之深度与地势平夷度正相关（高燥→浅，坦夷→深）。",
+     "terms": [
+      "po",
+      "qi"
+     ],
+     "quant": {
+      "observables": [
+       "slope (deg)",
+       "relative_relief (m)",
+       "terrain class 高燥/平夷"
+      ],
+      "operational": "判别式：涸燥（高 relief / 陡坡，slope 大）→ 葬宜浅；坦夷（低 slope、平地）→ 葬宜深；葬深度 d 随地势平夷度单调增（d∝1/relief 或 d∝1/slope）。",
+      "metric_unit": "deg (slope) / m (relief 与 葬深 d)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "原文给『浅/深』定性方向，未给具体尺寸；slope/relief 分级与深度数值为现代 GIS operational 假说。"
+     },
+     "src": [
+      {
+       "what": "bai/gloss（涸燥=高燥山地、坦夷=平地，深浅随地势调）",
+       "source": "古诗文网《葬书·内篇》原文注",
+       "url": "https://m.gushiwen.cn/guwen/bookv_0043b1da736a.aspx"
+      },
+      {
+       "what": "原文底本『涸燥者宜淺，坦夷者宜深』",
+       "source": "葬书（本仓库切句底本）"
+      }
+     ],
+     "conf": "med",
+     "notes": "重要异文：部分注本作『藏於涸燥者宜深，藏於坦夷者宜淺』（与本底本恰相反）——古诗文网检索摘要即出现此反向版本；本记录依本仓库切句底本『涸燥宜淺、坦夷宜深』翻译，存疑待校。"
+    },
+    {
+     "i": 9,
+     "orig": "經曰：淺深得乘，風水自成。",
+     "bai": "经书说：葬之浅深若能恰当承乘（接得）生气，风水（吉地格局）便自然形成。",
+     "gloss": [
+      [
+       "淺深",
+       "葬埋的深浅"
+      ],
+      [
+       "得乘",
+       "得以恰当承乘、承接到生气；乘=承受、凭乘"
+      ],
+      [
+       "自成",
+       "自然成就、自然形成"
+      ]
+     ],
+     "logic": "IF 葬之浅深匹配地势使棺得乘生气 THEN 风水自成（吉格自具）。",
+     "terms": [
+      "qi"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai（浅深恰当承乘生气，则风水自成）",
+       "source": "古诗文网《葬书·内篇》原文注",
+       "url": "https://m.gushiwen.cn/guwen/bookv_0043b1da736a.aspx"
+      }
+     ],
+     "conf": "high",
+     "notes": "收束『浅深』之论，与 i=8 互为表里；浅深判据已在 i=8 量化，本句为义理收束，quant 设 null。"
+    },
+    {
+     "i": 10,
+     "orig": "夫陰陽之氣，噫而為風，升而且為雲，降而為雨，行乎地中而爲生氣。",
+     "bai": "阴阳二气，吐发喷出便成为风，上升便成为云，下降便成为雨，运行于地中便成为能化育万物的生气。",
+     "gloss": [
+      [
+       "陰陽之氣",
+       "阴阳二气，天地化生之本气"
+      ],
+      [
+       "噫",
+       "吐气、喷发；《说文》飽出息也，噫气＝吐出气息"
+      ],
+      [
+       "升…為雲",
+       "上升成云；《说文》雨，水从雲下也"
+      ],
+      [
+       "降而為雨",
+       "下降成雨"
+      ],
+      [
+       "行乎地中",
+       "运行于地中"
+      ],
+      [
+       "生氣",
+       "化育万物的生气"
+      ]
+     ],
+     "logic": "阴阳之气四态映射：噫→风，升→云，降→雨，行乎地中→生气（葬法所乘者即此地中生气）。",
+     "terms": [
+      "qi"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai（阴阳之气噫为风、升为云、降为雨、行地中为生气）",
+       "source": "古诗文网《葬书·内篇》原文注",
+       "url": "https://m.gushiwen.cn/guwen/bookv_0043b1da736a.aspx"
+      },
+      {
+       "what": "gloss 噫=飽出息也/噫气=吐气",
+       "source": "汉典『噫』字（搜索摘要，引《说文》）",
+       "url": "https://www.zdic.net/hans/%E5%99%AB"
+      },
+      {
+       "what": "gloss 雨=水从雲下也",
+       "source": "说文解字（本仓库）"
+      }
+     ],
+     "conf": "high",
+     "notes": "原文『升而且為雲』之『且』为衍字，通行本作『升而為雲』；阴阳之气为宇宙论本体，不可量化，quant 设 null。"
+    },
+    {
+     "i": 11,
+     "orig": "夫土者氣之體，有土斯有氣，氣者水之母，有氣斯有水。",
+     "bai": "土是气的形体载体，有土才有气；气是水的母源，有气才有水。",
+     "gloss": [
+      [
+       "體",
+       "形体、载体（气依土为体）"
+      ],
+      [
+       "斯",
+       "则、就、才"
+      ],
+      [
+       "母",
+       "本源、母体（气为水之所自生）"
+      ]
+     ],
+     "logic": "依存链：土→气→水。判别式：气依附于土（有土斯有气），水生于气（有气斯有水）。",
+     "terms": [
+      "qi",
+      "shui"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai（土为气之载体、气为水之源，三者相依）",
+       "source": "古诗文网《葬书·内篇》原文注",
+       "url": "https://m.gushiwen.cn/guwen/bookv_0043b1da736a.aspx"
+      },
+      {
+       "what": "原文『夫土者氣之體…氣者水之母，有氣斯有水』",
+       "source": "葬书（本仓库）/ 本体 qi·shui 条均引此句"
+      }
+     ],
+     "conf": "high",
+     "notes": "确立土—气—水的本体依存关系，为葬法『察土以辨气、观水以验气』提供根据；本体依存义理，quant 设 null。"
+    },
+    {
+     "i": 12,
+     "orig": "經曰：土形氣形，物因以生。",
+     "bai": "经书说：土具其形则气随之成形（气附土而行），万物因此而化生。",
+     "gloss": [
+      [
+       "土形",
+       "土具备其形质"
+      ],
+      [
+       "氣形",
+       "气随土而成形（异文作『氣行』，即气随土而运行）"
+      ],
+      [
+       "物因以生",
+       "万物因之而化育生成"
+      ]
+     ],
+     "logic": "IF 土成形（气之体立） THEN 气随之形/行 → 万物因以化生。",
+     "terms": [
+      "qi"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai（土形与气行相关联，气附形而生万物）",
+       "source": "古诗文网《葬书·内篇》原文注",
+       "url": "https://m.gushiwen.cn/guwen/bookv_0043b1da736a.aspx"
+      },
+      {
+       "what": "原文『土形氣形（行），物因以生』",
+       "source": "葬书（本仓库切句底本）"
+      }
+     ],
+     "conf": "med",
+     "notes": "异文：底本作『土形氣形』，通行注本多作『土形氣行』（土有形则气在其中而行）——二读皆通，多数训诂取『气行』。生化义理，quant 设 null。"
+    }
+   ]
+  },
+  {
+   "id": "ch03",
+   "label": "內篇三",
+   "annotation": "本篇论形势与土质的关系，以「五山不可葬」（童山、断山、石山、过山、独山）为戒，强调「土形气行，物因以生」。五土色泽各有吉凶，黄土滋润为佳，坚硬板结或枯黄不泽则气死地凶。",
+   "sentences": [
+    {
+     "i": 0,
+     "orig": "夫氣行乎地中，其行也因地之勢，其聚也因勢之止。",
+     "bai": "生气在地中运行，它的流动取决于地形的走势(势)，它的聚结取决于地势在何处停止。",
+     "gloss": [
+      [
+       "乎",
+       "于、在"
+      ],
+      [
+       "因",
+       "依随、取决于"
+      ],
+      [
+       "止",
+       "停止、止聚"
+      ]
+     ],
+     "logic": "IF 地有势之走向(坡度梯度方向) THEN 气随之行; IF 势止(坡折/由陡转平) THEN 气聚于此。",
+     "terms": [
+      "qi",
+      "shi"
+     ],
+     "quant": {
+      "observables": [
+       "坡度 slope",
+       "坡向 aspect",
+       "坡折 profile_curvature(势止处)",
+       "汇水 flow_accumulation"
+      ],
+      "operational": "气『行』≈沿坡向(aspect)的连续坡势走向；气『聚』候选=坡度由陡转平的坡折线(profile_curvature 由正转近零)且坡度<~10°的凹聚点。",
+      "metric_unit": "slope:deg; aspect:deg; curvature:1/m",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "原文只言『因地之势/因势之止』未给任何数值；坡度阈值与坡折判据为现代GIS假说，非原文数值。"
+     },
+     "src": [
+      {
+       "what": "orig",
+       "source": "维基文库·葬書/內篇(校对verbatim)",
+       "url": "https://zh.wikisource.org/zh-hans/%E8%91%AC%E6%9B%B8/%E5%85%A7%E7%AF%87"
+      },
+      {
+       "what": "bai",
+       "source": "易先生《葬经》白话详解",
+       "url": "https://www.yixiansheng.com/article/4902.html"
+      },
+      {
+       "what": "quant/terms",
+       "source": "司南术语本体（今人整理）"
+      }
+     ],
+     "conf": "high",
+     "notes": "易先生白话直接译『因地之势』。gloss 为标准古汉语训诂(模型据通行义补,本地说文.json仅存敘,zdic 抓取 404,未引在线词典)。"
+    },
+    {
+     "i": 1,
+     "orig": "葬者原其起，乘其止。",
+     "bai": "下葬选地，要追溯生气龙脉的起源(起)，并乘取它停止聚结之处(止)下葬。",
+     "gloss": [
+      [
+       "原",
+       "推求其本源、溯源"
+      ],
+      [
+       "乘",
+       "趁、就而取之"
+      ],
+      [
+       "起",
+       "龙脉发起处"
+      ],
+      [
+       "止",
+       "脉气止聚结穴处"
+      ]
+     ],
+     "logic": "IF 葬 THEN 原其起(上溯脉之源/祖山) AND 乘其止(取气止凹聚之近点为穴)。",
+     "terms": [
+      "mai",
+      "xue"
+     ],
+     "quant": {
+      "observables": [
+       "脊线起点(高程极大/relative_relief 极大)",
+       "止聚点(坡度骤缓 + plan_curvature 凹)"
+      ],
+      "operational": "原其起=沿连通脊线上溯至高程/prominence 极大节点；乘其止=取脊线末端坡度<~10-15°且 plan_curvature 凹聚近点为葬点。",
+      "metric_unit": "elevation:m; slope:deg; curvature:1/m",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "原文『起/止』为定性，无数值；起止的高程/坡度阈值为现代GIS假说，非原文数值。"
+     },
+     "src": [
+      {
+       "what": "orig",
+       "source": "维基文库·葬書/內篇(校对verbatim)",
+       "url": "https://zh.wikisource.org/zh-hans/%E8%91%AC%E6%9B%B8/%E5%85%A7%E7%AF%87"
+      },
+      {
+       "what": "bai",
+       "source": "白话译注(WebSearch 汇辑:知乎《葬经》原文及译文 p/652978839 等)",
+       "url": "https://zhuanlan.zhihu.com/p/652978839"
+      },
+      {
+       "what": "quant/terms",
+       "source": "司南术语本体（今人整理）"
+      }
+     ],
+     "conf": "med",
+     "notes": "bai 据网络白话汇辑(势止处下葬)。gloss 为标准古汉语训诂(模型据通行义补,本地说文.json仅存敘,zdic 抓取 404,未引在线词典)。"
+    },
+    {
+     "i": 2,
+     "orig": "地勢原脈，山勢原骨，委蛇東西，或為南北。",
+     "bai": "在平地要从隐微的地脉上推求来势，在高山要从突起的石骨(山脊)上推求来势；龙脉蜿蜒曲折，或东西延展，或转为南北走向。",
+     "gloss": [
+      [
+       "原",
+       "推求、察辨"
+      ],
+      [
+       "脈",
+       "平地隐微之地脉"
+      ],
+      [
+       "骨",
+       "山之石脊、骨干"
+      ],
+      [
+       "委蛇",
+       "wēi yí，蜿蜒曲折、绵延随顺貌"
+      ]
+     ],
+     "logic": "IF 平地 THEN 原脉(察隐微微脊); IF 山地 THEN 原骨(察突起石脊); 脉之走向委蛇,或东西或南北。",
+     "terms": [
+      "shi",
+      "mai"
+     ],
+     "quant": {
+      "observables": [
+       "脊线主走向 azimuth/aspect",
+       "平地微脊 relative_relief/plan_curvature",
+       "高山石脊 plan_curvature 凸脊",
+       "走向类别(E-W vs N-S)"
+      ],
+      "operational": "地势原脉=低起伏区用高分辨率 DEM 提取微脊线(plan_curvature 局部极大);山势原骨=高起伏区提主石脊;委蛇东西/南北=统计脊线主方向 azimuth(≈0/180 南北,≈90/270 东西)。",
+      "metric_unit": "azimuth/aspect:deg; relief:m; curvature:1/m",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "原文给走向定性(东西/南北)不给角度；azimuth 量化为现代GIS编码(本体24山=15°为传统),非原文数值。"
+     },
+     "src": [
+      {
+       "what": "orig",
+       "source": "维基文库·葬書/內篇(校对verbatim)",
+       "url": "https://zh.wikisource.org/zh-hans/%E8%91%AC%E6%9B%B8/%E5%85%A7%E7%AF%87"
+      },
+      {
+       "what": "bai",
+       "source": "白话译注(WebSearch 汇辑:知乎《葬经》原文及译文 p/652978839 等)",
+       "url": "https://zhuanlan.zhihu.com/p/652978839"
+      },
+      {
+       "what": "quant/terms",
+       "source": "司南术语本体（今人整理）"
+      }
+     ],
+     "conf": "med",
+     "notes": "『地势原脉,山势原骨』通行解为平地察隐脉、高山察石骨。gloss 为标准古汉语训诂(模型据通行义补,本地说文.json仅存敘,zdic 抓取 404,未引在线词典)。"
+    },
+    {
+     "i": 3,
+     "orig": "千尺為勢，百尺為形。",
+     "bai": "远观千尺范围的大格局叫『势』，近察百尺范围的局部山体叫『形』。",
+     "gloss": [
+      [
+       "千尺",
+       "极言其远、大尺度的约略指代"
+      ],
+      [
+       "百尺",
+       "极言其近、小尺度的约略指代"
+      ],
+      [
+       "勢",
+       "远大的山脉来势"
+      ],
+      [
+       "形",
+       "近处单体山形"
+      ]
+     ],
+     "logic": "判别(尺度定义)：势 = 千尺(macro,远大格局); 形 = 百尺(micro,近处单体)。势言阔远、形言浅近。",
+     "terms": [
+      "shi",
+      "xing"
+     ],
+     "quant": {
+      "observables": [
+       "观测/分析尺度(势:大窗 vs 形:小窗)",
+       "DEM 瓦片分辨率"
+      ],
+      "operational": "势≈千尺→粗尺度概览(本体映射 z=9 ~305m/px 大窗);形≈百尺→精细单体(z=12/13 ~19-38m/px)。仅为分析尺度选择,非site级吉凶预测。",
+      "metric_unit": "length:尺/m(约略); resolution:m/px",
+      "falsifiable": false,
+      "engine": "DragonVeinEngine",
+      "evidence": "『千尺/百尺』为古制约略尺度,折合 ~300m / ~30m 为现代换算近似(本体 shi/xing),非原文明确米数。"
+     },
+     "src": [
+      {
+       "what": "orig",
+       "source": "维基文库·葬書/內篇(校对verbatim)",
+       "url": "https://zh.wikisource.org/zh-hans/%E8%91%AC%E6%9B%B8/%E5%85%A7%E7%AF%87"
+      },
+      {
+       "what": "bai",
+       "source": "白话译注(WebSearch 汇辑:知乎《葬经》原文及译文 p/652978839 等)",
+       "url": "https://zhuanlan.zhihu.com/p/652978839"
+      },
+      {
+       "what": "quant/terms",
+       "source": "司南术语本体（今人整理）"
+      }
+     ],
+     "conf": "high",
+     "notes": "通行注:『势言阔远,形言浅近』,WebSearch 白话一致。gloss 为标准古汉语训诂(模型据通行义补,本地说文.json仅存敘,zdic 抓取 404,未引在线词典)。"
+    },
+    {
+     "i": 4,
+     "orig": "勢來形止，是謂全氣，全氣之地，當葬其止。",
+     "bai": "大的来势奔涌而来、到局部山形处停驻，这就叫『全气』；生气完足之地，应当葬在它停止聚结之处。",
+     "gloss": [
+      [
+       "全氣",
+       "生气完足、聚而不散"
+      ],
+      [
+       "當",
+       "应当、宜"
+      ],
+      [
+       "止",
+       "止聚之处"
+      ]
+     ],
+     "logic": "IF 势来(macro 来势持续) AND 形止(micro 坡度转缓凹聚) THEN 全气(生气完足); THEN 当葬其止(葬于止聚凹点)。",
+     "terms": [
+      "shi",
+      "xing",
+      "qi",
+      "xue"
+     ],
+     "quant": {
+      "observables": [
+       "势(粗尺度 relative_relief/脊线连续)",
+       "形(细尺度坡度止 + plan_curvature 凹)",
+       "全气=两尺度交会"
+      ],
+      "operational": "全气候选=粗尺度 relative_relief 大且脊线连续(势来) AND 细尺度此处坡度<~10°且 plan_curvature 凹(形止);当葬其止=取该凹聚点。",
+      "metric_unit": "slope:deg; relief:m; curvature:1/m",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "原文无数值；『势来形止/全气』的坡度曲率复合判据为现代GIS假说，非原文数值。"
+     },
+     "src": [
+      {
+       "what": "orig",
+       "source": "维基文库·葬書/內篇(校对verbatim)",
+       "url": "https://zh.wikisource.org/zh-hans/%E8%91%AC%E6%9B%B8/%E5%85%A7%E7%AF%87"
+      },
+      {
+       "what": "bai",
+       "source": "白话译注(WebSearch 汇辑:知乎《葬经》原文及译文 p/652978839 等)",
+       "url": "https://zhuanlan.zhihu.com/p/652978839"
+      },
+      {
+       "what": "quant/terms",
+       "source": "司南术语本体（今人整理）"
+      }
+     ],
+     "conf": "high",
+     "notes": "WebSearch 白话:势奔涌而来在形处停滞成全气、是风水宝地。gloss 为标准古汉语训诂(模型据通行义补,本地说文.json仅存敘,zdic 抓取 404,未引在线词典)。"
+    },
+    {
+     "i": 5,
+     "orig": "宛委自復，回環重複。",
+     "bai": "山脉(或水流)蜿蜒曲折、自行回旋，层层回环、重重复叠。",
+     "gloss": [
+      [
+       "宛委",
+       "屈曲、蜿蜒"
+      ],
+      [
+       "自復",
+       "自行回旋往复"
+      ],
+      [
+       "回環",
+       "回旋环绕"
+      ]
+     ],
+     "logic": "IF 龙脉/水回环重复(蜿蜒自复、有情顾穴) THEN 聚气候选↑(界抱不直泄)。",
+     "terms": [
+      "mai",
+      "long"
+     ],
+     "quant": {
+      "observables": [
+       "脊线/水道弯曲度 sinuosity",
+       "plan_curvature 正负交替(回环)",
+       "折点计数"
+      ],
+      "operational": "宛委自复=脊/水平面弯曲度 sinuosity>~1.3(MODERN)且 plan_curvature 符号多次交替;回环重复=折点数高。回环有情者聚气候选↑。",
+      "metric_unit": "sinuosity:无量纲; curvature:1/m",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "原文『宛委/回环重复』为定性意象,无数值;sinuosity 阈值为现代GIS假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "orig",
+       "source": "维基文库·葬書/內篇(校对verbatim)",
+       "url": "https://zh.wikisource.org/zh-hans/%E8%91%AC%E6%9B%B8/%E5%85%A7%E7%AF%87"
+      },
+      {
+       "what": "bai",
+       "source": "白话译注(WebSearch 汇辑:知乎《葬经》原文及译文 p/652978839 等)",
+       "url": "https://zhuanlan.zhihu.com/p/652978839"
+      },
+      {
+       "what": "quant/terms",
+       "source": "司南术语本体（今人整理）"
+      }
+     ],
+     "conf": "med",
+     "notes": "WebSearch 白话:山脉蜿蜒曲折、自然回环反复。gloss 为标准古汉语训诂(模型据通行义补,本地说文.json仅存敘,zdic 抓取 404,未引在线词典)。"
+    },
+    {
+     "i": 6,
+     "orig": "若踞而候也。",
+     "bai": "(那山势)好像蹲踞着在守候。",
+     "gloss": [
+      [
+       "踞",
+       "蹲、盘踞"
+      ],
+      [
+       "候",
+       "守候、等待"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "sha"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "orig",
+       "source": "维基文库·葬書/內篇(校对verbatim)",
+       "url": "https://zh.wikisource.org/zh-hans/%E8%91%AC%E6%9B%B8/%E5%85%A7%E7%AF%87"
+      },
+      {
+       "what": "bai",
+       "source": "白话译注(WebSearch 汇辑:知乎《葬经》原文及译文 p/652978839 等)",
+       "url": "https://zhuanlan.zhihu.com/p/652978839"
+      }
+     ],
+     "conf": "med",
+     "notes": "纯比喻意象(蹲踞守候之态),与 i7 共状『形止之地』拱卫待结之貌,无独立可测地形量→quant=null。WebSearch 白话:如同蹲踞等待。gloss 为标准古汉语训诂(模型据通行义补,本地说文.json仅存敘,zdic 抓取 404,未引在线词典)。"
+    },
+    {
+     "i": 7,
+     "orig": "若攬而有也。",
+     "bai": "(那山势)好像伸臂环抱、把一切揽入怀中而拥有。",
+     "gloss": [
+      [
+       "攬",
+       "揽抱、收取入怀"
+      ],
+      [
+       "有",
+       "拥有、据为己有"
+      ]
+     ],
+     "logic": "IF 砂手环抱如『揽而有』(左右拱抱穴场) THEN 区穴得卫、聚气候选↑。",
+     "terms": [
+      "sha"
+     ],
+     "quant": {
+      "observables": [
+       "砂环抱张角 enclosure angle",
+       "plan_curvature 凹向穴",
+       "左右砂对称度",
+       "viewshed 遮蔽比"
+      ],
+      "operational": "若揽而有=左右砂环抱,穴周被山体遮蔽的方位弧(enclosure)大、砂脊 plan_curvature 凹向穴;判别:环抱方位弧>~180°(MODERN)→『揽而有之』。",
+      "metric_unit": "angle:deg",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "原文『揽而有』为环抱意象,无数值;enclosure 角阈值为现代GIS假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "orig",
+       "source": "维基文库·葬書/內篇(校对verbatim)",
+       "url": "https://zh.wikisource.org/zh-hans/%E8%91%AC%E6%9B%B8/%E5%85%A7%E7%AF%87"
+      },
+      {
+       "what": "bai",
+       "source": "白话译注(WebSearch 汇辑:知乎《葬经》原文及译文 p/652978839 等)",
+       "url": "https://zhuanlan.zhihu.com/p/652978839"
+      },
+      {
+       "what": "quant/terms",
+       "source": "司南术语本体（今人整理）"
+      }
+     ],
+     "conf": "med",
+     "notes": "WebSearch 白话:如揽取万物(张臂揽取)。gloss 为标准古汉语训诂(模型据通行义补,本地说文.json仅存敘,zdic 抓取 404,未引在线词典)。"
+    },
+    {
+     "i": 8,
+     "orig": "欲近而卻，欲止而深。",
+     "bai": "(脉势)想要靠近却又后退收敛，想要停止却又向深处汇聚。",
+     "gloss": [
+      [
+       "卻",
+       "退、收敛(同『却』)"
+      ],
+      [
+       "深",
+       "向深处汇蓄"
+      ]
+     ],
+     "logic": "IF 入首脉势『近而却』(束咽后再起顿伏) AND 『止而深』(结穴处凹聚深蓄) THEN 束气有力、真结候选↑。",
+     "terms": [
+      "mai",
+      "rushou"
+     ],
+     "quant": {
+      "observables": [
+       "末段 profile_curvature 振荡(束-起)",
+       "穴处凹陷 plan_curvature 强负",
+       "坡度先缓后聚"
+      ],
+      "operational": "欲近而却=入首前 profile_curvature 出现『凸→凹→凸』顿伏束咽;欲止而深=结穴处 plan_curvature 强负、局部相对低洼凹深。判别:末段曲率振荡 + 穴位凹深。",
+      "metric_unit": "curvature:1/m; depth:m",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "原文『近而却/止而深』为顿伏束气意象,无数值;曲率振荡/凹深判据为现代GIS假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "orig",
+       "source": "维基文库·葬書/內篇(校对verbatim)",
+       "url": "https://zh.wikisource.org/zh-hans/%E8%91%AC%E6%9B%B8/%E5%85%A7%E7%AF%87"
+      },
+      {
+       "what": "bai",
+       "source": "白话译注(WebSearch 汇辑:知乎《葬经》原文及译文 p/652978839 等)",
+       "url": "https://zhuanlan.zhihu.com/p/652978839"
+      },
+      {
+       "what": "quant/terms",
+       "source": "司南术语本体（今人整理）"
+      }
+     ],
+     "conf": "med",
+     "notes": "异文作『欲进而却』;WebSearch 白话:既有向前又退缩、既止又向深处汇聚。gloss 为标准古汉语训诂(模型据通行义补,本地说文.json仅存敘,zdic 抓取 404,未引在线词典)。"
+    },
+    {
+     "i": 9,
+     "orig": "來積止聚，沖陽和陰。",
+     "bai": "来的生气积累、停下来便聚结，阳气上冲、阴气调和，阴阳冲和。",
+     "gloss": [
+      [
+       "積",
+       "积累、堆聚"
+      ],
+      [
+       "沖",
+       "上冲、虚而通和"
+      ],
+      [
+       "和",
+       "调和、和合"
+      ]
+     ],
+     "logic": "IF 来气积于止聚处(汇聚不泄) AND 冲阳和阴(阴阳和合、向背得宜) THEN 生气聚旺。",
+     "terms": [
+      "qi"
+     ],
+     "quant": {
+      "observables": [
+       "汇水 flow_accumulation(来积止聚)",
+       "坡向 aspect(向阳/背风→冲阳和阴)",
+       "relative_relief 蓄聚"
+      ],
+      "operational": "来积止聚=上游物质/汇水在坡折止聚处累积(flow_accumulation 高 + 坡度转平);冲阳和阴=穴向 aspect 取日照与背风的阴阳平衡(适度向阳不过曝、背风)。判别:止聚点 flow_accumulation 高且 aspect 适中。",
+      "metric_unit": "flow:汇水栅格数; aspect:deg",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "原文『冲阳和阴』为阴阳和合定性,无数值;aspect/flow 判据为现代GIS假说,非原文数值。『冲阳和阴』之阴阳属传统义理。"
+     },
+     "src": [
+      {
+       "what": "orig",
+       "source": "维基文库·葬書/內篇(校对verbatim)",
+       "url": "https://zh.wikisource.org/zh-hans/%E8%91%AC%E6%9B%B8/%E5%85%A7%E7%AF%87"
+      },
+      {
+       "what": "bai",
+       "source": "白话译注(WebSearch 汇辑:知乎《葬经》原文及译文 p/652978839 等)",
+       "url": "https://zhuanlan.zhihu.com/p/652978839"
+      },
+      {
+       "what": "quant/terms",
+       "source": "司南术语本体（今人整理）"
+      }
+     ],
+     "conf": "med",
+     "notes": "『冲阳和阴』=阴阳冲和(传统义理),GIS 仅以 aspect/insolation 作代理。gloss 为标准古汉语训诂(模型据通行义补,本地说文.json仅存敘,zdic 抓取 404,未引在线词典)。"
+    },
+    {
+     "i": 10,
+     "orig": "土高水深，鬱草茂林。",
+     "bai": "土厚而高，水深而蓄，草木郁郁葱葱、林木茂盛。",
+     "gloss": [
+      [
+       "鬱",
+       "草木繁密茂盛貌(同『郁』)"
+      ],
+      [
+       "茂",
+       "茂盛、繁密"
+      ]
+     ],
+     "logic": "IF 土高(relief 高、坐实) AND 水深(汇水深蓄) AND 草木郁茂(植被旺) THEN 生气旺、上地候选↑。",
+     "terms": [
+      "shui"
+     ],
+     "quant": {
+      "observables": [
+       "relative_relief(土高)",
+       "水道深度/flow_accumulation(水深)",
+       "植被覆盖 NDVI(郁草茂林)"
+      ],
+      "operational": "土高=穴地相对 relief 高、坐实;水深=邻近水道汇水量大/下切深;郁草茂林=NDVI/植被指数高(生气旺之生物代理)。判别:relief↑ ∧ flow_accumulation↑ ∧ NDVI↑ → 上地候选。",
+      "metric_unit": "relief:m; flow:汇水栅格数; NDVI:无量纲",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "原文给定性指标(土高/水深/草木茂)不给数值;relief/NDVI 阈值为现代遥感-GIS假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "orig",
+       "source": "维基文库·葬書/內篇(校对verbatim)",
+       "url": "https://zh.wikisource.org/zh-hans/%E8%91%AC%E6%9B%B8/%E5%85%A7%E7%AF%87"
+      },
+      {
+       "what": "bai",
+       "source": "白话译注(WebSearch 汇辑:知乎《葬经》原文及译文 p/652978839 等)",
+       "url": "https://zhuanlan.zhihu.com/p/652978839"
+      },
+      {
+       "what": "quant/terms",
+       "source": "司南术语本体（今人整理）"
+      }
+     ],
+     "conf": "med",
+     "notes": "草木茂盛为生气旺之生物代理(NDVI)。gloss 为标准古汉语训诂(模型据通行义补,本地说文.json仅存敘,zdic 抓取 404,未引在线词典)。"
+    },
+    {
+     "i": 11,
+     "orig": "貴若千乘，富如萬金。",
+     "bai": "(葬此地者)贵比拥有千乘兵车的诸侯，富如坐拥万金。",
+     "gloss": [
+      [
+       "千乘",
+       "千辆兵车,喻诸侯、显贵(乘 shèng)"
+      ],
+      [
+       "萬金",
+       "极言其富"
+      ]
+     ],
+     "logic": null,
+     "terms": [],
+     "quant": null,
+     "src": [
+      {
+       "what": "orig",
+       "source": "维基文库·葬書/內篇(校对verbatim)",
+       "url": "https://zh.wikisource.org/zh-hans/%E8%91%AC%E6%9B%B8/%E5%85%A7%E7%AF%87"
+      },
+      {
+       "what": "bai",
+       "source": "白话译注(WebSearch 汇辑:知乎《葬经》原文及译文 p/652978839 等)",
+       "url": "https://zhuanlan.zhihu.com/p/652978839"
+      }
+     ],
+     "conf": "med",
+     "notes": "纯义理(吉应/福报譬喻),不涉地形量→logic/quant=null。gloss 为标准古汉语训诂(模型据通行义补,本地说文.json仅存敘,zdic 抓取 404,未引在线词典)。"
+    },
+    {
+     "i": 12,
+     "orig": "經曰：形止氣蓄，化生萬物，為上地也。",
+     "bai": "经书说：山形停驻、生气蓄聚，便能化育生长万物，这就是最上等的风水宝地。",
+     "gloss": [
+      [
+       "蓄",
+       "蓄积、储聚"
+      ],
+      [
+       "化生",
+       "化育生长"
+      ],
+      [
+       "上地",
+       "最上等之地"
+      ]
+     ],
+     "logic": "IF 形止(山形停驻、坡缓凹聚) THEN 气蓄(生气储聚) THEN 化生万物 = 上地。",
+     "terms": [
+      "xing",
+      "qi",
+      "xue"
+     ],
+     "quant": {
+      "observables": [
+       "形止:坡度转缓 + plan_curvature 凹聚",
+       "气蓄:藏风(viewshed 遮蔽)+界水环抱复合",
+       "NDVI(化生万物代理)"
+      ],
+      "operational": "上地候选=形止(局部 slope<~10°且 plan_curvature 凹) AND 气蓄(viewshed 遮蔽高=藏风 + 界水环抱 + 龙止);化生万物以 NDVI 旺为生物代理。综合分高=上地。",
+      "metric_unit": "slope:deg; viewshed:无量纲; NDVI:无量纲",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "原文『形止气蓄/上地』为定性结论,无数值;复合适生性评分为现代GIS假说(本体 qi 明言气非数值),非原文数值。"
+     },
+     "src": [
+      {
+       "what": "orig",
+       "source": "维基文库·葬書/內篇(校对verbatim)",
+       "url": "https://zh.wikisource.org/zh-hans/%E8%91%AC%E6%9B%B8/%E5%85%A7%E7%AF%87"
+      },
+      {
+       "what": "bai",
+       "source": "易先生《葬经》白话详解",
+       "url": "https://www.yixiansheng.com/article/4902.html"
+      },
+      {
+       "what": "quant/terms",
+       "source": "司南术语本体（今人整理）"
+      }
+     ],
+     "conf": "high",
+     "notes": "易先生白话直接译『形止气蓄…上等风水宝地』。gloss 为标准古汉语训诂(模型据通行义补,本地说文.json仅存敘,zdic 抓取 404,未引在线词典)。"
+    }
+   ]
+  },
+  {
+   "id": "ch04",
+   "label": "內篇四",
+   "annotation": "本篇细论穴法，指出穴有「三吉六凶」，三吉为官爵、财帛、子息；六凶为目虏、童山、断山、独山、过山、石山。并论朝案砂水向背如何影响穴位吉凶，是本书实践层面最为系统的一篇。",
+   "sentences": [
+    {
+     "i": 0,
+     "orig": "地貴平夷，土貴有支。",
+     "bai": "葬地以平坦开阔为贵,土脉以有隆起的支龙(分支)为贵——平洋之地贵在夷旷,支龙之地贵在有微起的分脊。",
+     "gloss": [
+      [
+       "平夷",
+       "平坦开阔;夷=平"
+      ],
+      [
+       "支",
+       "由主脉分出、隐伏微起的支龙(对『垄』高山而言)"
+      ]
+     ],
+     "logic": "DEFINE 吉地标准 := 平夷 ∧ 有支。 平地龙贵在平夷,支龙贵在有起伏分脊。",
+     "terms": [
+      "mai",
+      "gang"
+     ],
+     "quant": {
+      "observables": [
+       "slope(deg) 坡度",
+       "relative_relief 起伏",
+       "plan_curvature 微隆脊",
+       "ridge continuity 支脉连续"
+      ],
+      "operational": "平夷=低 relief + 低 slope; 有支=plan_curvature 微凸且沿线连续(细尺度 DEM 可辨之支脊)",
+      "metric_unit": "deg / m",
+      "falsifiable": "部分可证伪(支脊连续性可对照 DEM)",
+      "engine": "DragonVeinEngine",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "bai(平地贵平夷支龙贵有支)",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "内篇四开篇,提出支龙(平地隐伏)与垄龙(高山耸峙)分辨的总纲。"
+    },
+    {
+     "i": 1,
+     "orig": "支之所起，氣隨而始；支所終，氣隨以鐘。",
+     "bai": "支龙从哪里发起,生气就从哪里开始;支龙到哪里止息,生气就随之汇聚停钟。",
+     "gloss": [
+      [
+       "起",
+       "发起、起脉"
+      ],
+      [
+       "鐘",
+       "通『鍾』,聚集、汇钟"
+      ]
+     ],
+     "logic": "IF 支起 THEN 气始; IF 支终(止) THEN 气钟(聚)。气之始终随支之起止。",
+     "terms": [
+      "qi",
+      "mai"
+     ],
+     "quant": {
+      "observables": [
+       "脊线起止点",
+       "flow_accumulation 流场交汇"
+      ],
+      "operational": "起=支脊线起点;终(钟)=支脊止点+流场交汇近点(势来形止)",
+      "metric_unit": "m",
+      "falsifiable": "部分可证伪",
+      "engine": "DragonVeinEngine",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "bai(支起气始支终气钟)",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "与内篇三『其行也因地之勢,其聚也因勢之止』同理,落实到支龙。"
+    },
+    {
+     "i": 2,
+     "orig": "觀支之法，隱隱隆隆，微妙玄通，吉在其中。",
+     "bai": "观察支龙的方法,要看它若隐若现、微微隆起,形势隐约通连、变化微妙——吉气就含蕴在这种隐隐隆隆之中。",
+     "gloss": [
+      [
+       "隱隱隆隆",
+       "时隐时现、微微隆起貌"
+      ],
+      [
+       "微妙玄通",
+       "幽微精妙、隐通连贯"
+      ]
+     ],
+     "logic": "判别支龙吉: 形态『隐隐隆隆』(低幅而连续的微起伏) → 吉在其中。",
+     "terms": [
+      "mai"
+     ],
+     "quant": {
+      "observables": [
+       "relative_relief 微起伏幅度",
+       "ridge continuity 连续性",
+       "plan_curvature"
+      ],
+      "operational": "细尺度 DEM(z=12/13)上低幅但连续的微脊线 → 支龙之『隐隐隆隆』",
+      "metric_unit": "m",
+      "falsifiable": "部分可证伪",
+      "engine": "DragonVeinEngine",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "平地支龙脉象细微,需细辨;『隐隐隆隆』为支龙的标准观法。"
+    },
+    {
+     "i": 3,
+     "orig": "經日：地有吉氣，土隨而起；支有止氣，水隨而比。",
+     "bai": "古经说:大地有吉气,土脉便随之隆起;支龙有止聚之气,水流便随之环比(夹辅相依)。",
+     "gloss": [
+      [
+       "比",
+       "并列、夹辅、环依"
+      ],
+      [
+       "止氣",
+       "止聚之气"
+      ]
+     ],
+     "logic": "IF 地有吉气 THEN 土起; IF 支有止气 THEN 水比(界水夹辅)。土起/水比为吉气止聚的外候。",
+     "terms": [
+      "qi",
+      "shui",
+      "mai"
+     ],
+     "quant": {
+      "observables": [
+       "plan_curvature 凸起",
+       "relative_relief",
+       "flow_accumulation 夹辅水"
+      ],
+      "operational": "土随而起=plan_curvature 凸起/相对 relief 升; 水随而比=两侧 flow_accumulation 成水夹辅环依",
+      "metric_unit": "m",
+      "falsifiable": "部分可证伪",
+      "engine": "DragonVeinEngine",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "bai",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "『土起/水比』为生气止聚的地表征兆,呼应内篇二『界水则止』。"
+    },
+    {
+     "i": 4,
+     "orig": "勢順形動，回復始終，法葬其中，永吉無凶。",
+     "bai": "远来之势与近结之形顺应相动,龙气往复回环、有始有终,依法葬在这种地的中心,便永远吉利没有凶险。",
+     "gloss": [
+      [
+       "勢順形動",
+       "大势顺来、近形生动相应"
+      ],
+      [
+       "回復始終",
+       "回环往复、首尾完整"
+      ]
+     ],
+     "logic": "IF 势顺 ∧ 形动 ∧ 回复始终(气完整) THEN 法葬其中 → 永吉无凶。",
+     "terms": [
+      "shi",
+      "xing",
+      "qi"
+     ],
+     "quant": {
+      "observables": [
+       "势(千尺,大尺度) 与 形(百尺,细尺度) 协同",
+       "relief / curvature 一致性"
+      ],
+      "operational": "coarse DEM(势,z≈9 ~305m/px) 与 fine DEM(形,z≈12/13) 走向一致 → 势顺形动",
+      "metric_unit": "m",
+      "falsifiable": "部分可证伪",
+      "engine": "DragonVeinEngine",
+      "evidence": "原文『千尺为势百尺为形』为古制约略尺度,折合 ~300m/~30m 为现代换算近似;无数值,GIS 假说。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "承内篇三千尺为势百尺为形,势形相得则全气。"
+    },
+    {
+     "i": 5,
+     "orig": "山者勢險而有也，法葬其所會。",
+     "bai": "山地龙(垄)以势态险峻而显其有气,葬法应取众势交会之处下葬。",
+     "gloss": [
+      [
+       "險",
+       "高峻、险峙"
+      ],
+      [
+       "所會",
+       "众山势交会聚拢之处"
+      ]
+     ],
+     "logic": "垄龙(山)势险显有 → 法葬其『所会』(势聚之点)。",
+     "terms": [
+      "shi",
+      "long"
+     ],
+     "quant": {
+      "observables": [
+       "ridge-network 交会",
+       "flow convergence"
+      ],
+      "operational": "所会=脊网交会/流场汇聚结点(势止形会处)",
+      "metric_unit": "m",
+      "falsifiable": "部分可证伪",
+      "engine": "DragonVeinEngine",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "bai",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "与上『支』相对,论『垄』(高山龙)之葬法;各本句读略异。"
+    },
+    {
+     "i": 6,
+     "orig": "乘者其來。",
+     "bai": "所谓『乘』,就是乘纳那来到结穴处的生气(承其来势之气)。",
+     "gloss": [
+      [
+       "乘",
+       "乘纳、承接"
+      ],
+      [
+       "來",
+       "来到、来势之气"
+      ]
+     ],
+     "logic": "DEFINE 乘 := 承接『其来』之生气(承上『葬者乘生气』)。",
+     "terms": [
+      "qi"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "此段『乘者其来/审其所废/择其所相/避其所害』为四句短诀,各本句读略有出入。"
+    },
+    {
+     "i": 7,
+     "orig": "審其所廢",
+     "bai": "审察那气脉衰废断绝之处(以避之)。",
+     "gloss": [
+      [
+       "審",
+       "详察、审辨"
+      ],
+      [
+       "廢",
+       "衰废、断废"
+      ]
+     ],
+     "logic": "DEFINE 审 := 辨明气之所废(衰断处)。",
+     "terms": [
+      "qi"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "四句短诀之二;原文无句末标点。"
+    },
+    {
+     "i": 8,
+     "orig": "擇其所相。",
+     "bai": "选择那形势相辅相称、有情可取之处。",
+     "gloss": [
+      [
+       "相",
+       "相辅、相称、得地之助"
+      ]
+     ],
+     "logic": "DEFINE 择 := 取其相辅有情者。",
+     "terms": [],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "四句短诀之三。"
+    },
+    {
+     "i": 9,
+     "orig": "避其所害。",
+     "bai": "避开那对穴有冲射伤害、致凶之处。",
+     "gloss": [
+      [
+       "害",
+       "冲射、为害之煞"
+      ]
+     ],
+     "logic": "DEFINE 避 := 远离致害之煞。",
+     "terms": [
+      "sha_evil"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "四句短诀之四。"
+    },
+    {
+     "i": 10,
+     "orig": "禍福不旋日。",
+     "bai": "葬地择得当与否,招致祸福之快,不出一日(转眼即应)。",
+     "gloss": [
+      [
+       "旋日",
+       "不待一日;旋=转,旋日喻极快"
+      ]
+     ],
+     "logic": null,
+     "terms": [],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "bai",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "极言葬地感应之速,引出下句『若呼吸…应速』,故 logic=null。"
+    },
+    {
+     "i": 11,
+     "orig": "經曰：葬山之法若呼吸，中言應速也。",
+     "bai": "古经说:葬山之法(气之应验)就像呼吸一样——这是说它感应极其迅速。",
+     "gloss": [
+      [
+       "若呼吸",
+       "如呼吸吐纳之间,喻应验极速"
+      ],
+      [
+       "中言",
+       "其中所言、意谓"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "qi"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "bai",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "义理说明应验之速,故 logic=null。"
+    },
+    {
+     "i": 12,
+     "orig": "山之不可葬者五：氣以生和，而童山不可葬也。",
+     "bai": "山有五种不可葬:生气因冲和之气而生发,而童山(草木不生的秃山)无生气,所以不可葬。",
+     "gloss": [
+      [
+       "童山",
+       "草木不生的秃山;童=秃"
+      ],
+      [
+       "生和",
+       "因冲和之气而生"
+      ]
+     ],
+     "logic": "IF 山为童(无草木→无生气) THEN 不可葬(五不葬之一)。",
+     "terms": [
+      "shan_feng",
+      "qi"
+     ],
+     "quant": {
+      "observables": [
+       "植被覆盖(NDVI)",
+       "土层有无"
+      ],
+      "operational": "童山=低 NDVI 植被覆盖 + 无土生机 → 无生气(operational)",
+      "metric_unit": "dimensionless",
+      "falsifiable": "部分可证伪(NDVI 可测)",
+      "engine": "TempleScore",
+      "evidence": "原文以草木有无定生气,非数值;NDVI 化为现代 GIS 假说。"
+     },
+     "src": [
+      {
+       "what": "bai(五不葬)",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "五不葬之首。童=秃,无草木则气不和。"
+    },
+    {
+     "i": 13,
+     "orig": "氣因形來，而斷山不可葬也。",
+     "bai": "生气依凭山形而来,而断山(山脉中断、被劈断处)形断气绝,所以不可葬。",
+     "gloss": [
+      [
+       "斷山",
+       "龙脉中断、崩断、人工凿断之山"
+      ]
+     ],
+     "logic": "IF 山形断绝(脉断) THEN 气不来 → 不可葬。",
+     "terms": [
+      "mai",
+      "qi"
+     ],
+     "quant": {
+      "observables": [
+       "ridge continuity 脊线连续性",
+       "relief 缺口"
+      ],
+      "operational": "断=脊线连续性中断(relief 骤降/明显缺口),龙脉不接",
+      "metric_unit": "m",
+      "falsifiable": "部分可证伪",
+      "engine": "DragonVeinEngine",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai(五不葬)",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "五不葬之二。"
+    },
+    {
+     "i": 14,
+     "orig": "氣因土行，而石山不可葬也。",
+     "bai": "生气依凭土脉而行,而石山(纯石无土)气不行,所以不可葬。",
+     "gloss": [
+      [
+       "石山",
+       "通体顽石、无土之山"
+      ]
+     ],
+     "logic": "IF 山纯石无土 THEN 气不行 → 不可葬。",
+     "terms": [
+      "qi"
+     ],
+     "quant": {
+      "observables": [
+       "岩石裸露率",
+       "土层厚度"
+      ],
+      "operational": "石山=岩石裸露、无可葬土层(operational)",
+      "metric_unit": "dimensionless",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "原文以土之有无定气行,非数值;裸岩率为现代 GIS 假说。"
+     },
+     "src": [
+      {
+       "what": "bai(五不葬)",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "五不葬之三;异文或与『过山』次序互易,所指五山一致。"
+    },
+    {
+     "i": 15,
+     "orig": "氣以勢止，而過山不可葬也。",
+     "bai": "生气随龙势止息处而聚,而过山(龙势未停、一掠而过之山)势不止,所以不可葬。",
+     "gloss": [
+      [
+       "過山",
+       "龙势奔过、未停驻之山"
+      ]
+     ],
+     "logic": "IF 龙势过而不止 THEN 气不聚 → 不可葬。",
+     "terms": [
+      "shi",
+      "long",
+      "qi"
+     ],
+     "quant": {
+      "observables": [
+       "flow convergence 止脉",
+       "ridge 行止"
+      ],
+      "operational": "过山=势未止(无流场交汇、无止脉),龙一掠而过",
+      "metric_unit": "m",
+      "falsifiable": "部分可证伪",
+      "engine": "DragonVeinEngine",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai(五不葬)",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "五不葬之四。"
+    },
+    {
+     "i": 16,
+     "orig": "氣以龍會，而獨山不可葬也。",
+     "bai": "生气因众龙交会而钟聚,而独山(孤峰无群山相连)无众龙会,所以不可葬。",
+     "gloss": [
+      [
+       "獨山",
+       "孤立无脉相连、众山不朝之山"
+      ]
+     ],
+     "logic": "IF 山孤独无龙会 THEN 气不钟 → 不可葬。",
+     "terms": [
+      "long",
+      "qi"
+     ],
+     "quant": {
+      "observables": [
+       "ridge connectivity 脊网连接度"
+      ],
+      "operational": "独山=脊网孤立(无连接脊网、众山不会)",
+      "metric_unit": "dimensionless",
+      "falsifiable": "部分可证伪",
+      "engine": "DragonVeinEngine",
+      "evidence": "本体 long『氣以龍會,而獨山不可葬』;连接度阈值为现代 GIS 假说。"
+     },
+     "src": [
+      {
+       "what": "bai(五不葬)",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      },
+      {
+       "what": "term(long:气以龙会独山不可葬)",
+       "source": "司南术语本体（今人整理）"
+      }
+     ],
+     "conf": "high",
+     "notes": "五不葬之五,直引本体 long 定义。"
+    },
+    {
+     "i": 17,
+     "orig": "經曰：童斷石過獨，生新凶而消已福。",
+     "bai": "古经说:童、断、石、过、独这五种山,葬之会产生新的凶祸而消减已有的福分。",
+     "gloss": [
+      [
+       "生新凶",
+       "产生新的凶祸"
+      ],
+      [
+       "消已福",
+       "消减原有的福分"
+      ]
+     ],
+     "logic": "IF 葬于五不葬之山(童断石过独) THEN 生新凶 ∧ 消已福。",
+     "terms": [],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "总收五不葬。"
+    },
+    {
+     "i": 18,
+     "orig": "上地之山，若伏若連，其原自天。",
+     "bai": "上等吉地的山,来龙时伏时连、绵延起伏,其气势浩大如同源自天际。",
+     "gloss": [
+      [
+       "若伏若連",
+       "时而潜伏、时而相连"
+      ],
+      [
+       "原自天",
+       "本源高远,如发于天"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "long",
+      "zushan"
+     ],
+     "quant": {
+      "observables": [
+       "ridge continuity 起伏连续",
+       "relative_relief 起伏幅度"
+      ],
+      "operational": "若伏若连=脊线起伏连续(剥换起伏);其原自天=来脉自远高祖山而下",
+      "metric_unit": "m",
+      "falsifiable": "部分可证伪",
+      "engine": "DragonVeinEngine",
+      "evidence": "撼龙经『一剥一换一峰起』类比,数值为现代;原文无数。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "bai",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "起『上地之山』排比段(i18-28),铺陈上等龙势之美,本句为状写故 logic=null。"
+    },
+    {
+     "i": 19,
+     "orig": "若水之波。",
+     "bai": "(来龙起伏)像水面的波浪一样层层涌动。",
+     "gloss": [
+      [
+       "波",
+       "水波,喻山势连绵起伏"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "long"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "上地排比之一,比喻句,logic=null。"
+    },
+    {
+     "i": 20,
+     "orig": "若馬之馳。",
+     "bai": "像奔马驰骋一样势态生动有力。",
+     "gloss": [
+      [
+       "馳",
+       "奔驰,喻龙势奔趋"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "long"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "上地排比之二,比喻句。"
+    },
+    {
+     "i": 21,
+     "orig": "其來若奔。",
+     "bai": "它来的时候像奔腾而至。",
+     "gloss": [
+      [
+       "奔",
+       "奔腾、急来"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "shi"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "来奔/止尸对举之上句:动来。"
+    },
+    {
+     "i": 22,
+     "orig": "其止若屍。",
+     "bai": "它止的时候像尸体一样安然不动(龙势止息、气脉凝定)。",
+     "gloss": [
+      [
+       "止若屍",
+       "止息时静定如尸,喻龙止气凝"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "xue"
+     ],
+     "quant": {
+      "observables": [
+       "flow convergence 止点"
+      ],
+      "operational": "止=流场交汇近点(势来形止),龙止气凝可结穴",
+      "metric_unit": "m",
+      "falsifiable": "部分可证伪",
+      "engine": "DragonVeinEngine",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "来奔/止尸对举:动来静止,止处即可结穴。"
+    },
+    {
+     "i": 23,
+     "orig": "眾山朝揖，萬水翕聚，",
+     "bai": "群山都向穴拱手朝拜,众水都向穴汇翕聚合。",
+     "gloss": [
+      [
+       "朝揖",
+       "朝向拱揖"
+      ],
+      [
+       "翕聚",
+       "收敛汇聚;翕=合"
+      ]
+     ],
+     "logic": "上地之征: 众山朝 ∧ 万水聚 → 气钟于穴。",
+     "terms": [
+      "sha",
+      "shui",
+      "chaoshan"
+     ],
+     "quant": {
+      "observables": [
+       "enclosure angle 砂朝方位弧",
+       "flow convergence 水聚"
+      ],
+      "operational": "众山朝=周围脊砂朝向穴的方位弧(enclosure 大); 万水聚=流场向穴汇聚",
+      "metric_unit": "deg",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "上地排比:四方砂水向心朝聚。"
+    },
+    {
+     "i": 24,
+     "orig": "若肯萬善而潔齊。",
+     "bai": "像万众心怀善意、齐整洁敬地前来朝奉一样(众砂水恭谨向穴)。",
+     "gloss": [
+      [
+       "肯",
+       "肯首、归心"
+      ],
+      [
+       "潔齊",
+       "洁净齐整,如斋戒致敬"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "sha"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "low",
+     "notes": "无现成译注,模型翻译。此句异文歧出(『若肯构而洁斋』等),诸本字句不一,据『众砂恭谨朝向』文义酌译。"
+    },
+    {
+     "i": 25,
+     "orig": "若口之鼓。",
+     "bai": "(穴场藏蓄)像口中含鼓气一样饱满含蓄。",
+     "gloss": [
+      [
+       "口之鼓",
+       "如口腔鼓气含蓄,喻穴场藏气饱满"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "xue"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "口鼓/器贮对举,喻穴能藏蓄生气。"
+    },
+    {
+     "i": 26,
+     "orig": "若器之貯。",
+     "bai": "像器皿盛贮东西一样能容蓄生气。",
+     "gloss": [
+      [
+       "貯",
+       "贮藏、盛蓄"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "xue",
+      "qi"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "喻穴藏蓄生气而不泄。"
+    },
+    {
+     "i": 27,
+     "orig": "若龍若彎，或騰或盤。",
+     "bai": "(山势)像龙一样蜿蜒弯曲,时而腾跃、时而盘踞。",
+     "gloss": [
+      [
+       "彎",
+       "弯曲蜿蜒"
+      ],
+      [
+       "騰/盤",
+       "腾跃/盘踞"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "long"
+     ],
+     "quant": {
+      "observables": [
+       "ridge sinuosity 蜿蜒度"
+      ],
+      "operational": "蜿蜒腾盘=脊线 sinuosity 高、起伏盘曲",
+      "metric_unit": "dimensionless",
+      "falsifiable": "部分可证伪",
+      "engine": "DragonVeinEngine",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "异文『若鸾若凤』等,诸本不一。"
+    },
+    {
+     "i": 28,
+     "orig": "禽伏獸蹲，若萬乘之尊也。",
+     "bai": "(砂山形势)如禽鸟伏卧、走兽蹲踞,环列拱卫,像万乘天子那样尊贵。",
+     "gloss": [
+      [
+       "禽伏獸蹲",
+       "群砂如禽伏兽蹲,环列拱卫"
+      ],
+      [
+       "萬乘之尊",
+       "天子之尊;万乘=帝王"
+      ]
+     ],
+     "logic": "上地极致: 砂如禽伏兽蹲拱卫 → 主万乘之尊(帝王之贵)。",
+     "terms": [
+      "sha"
+     ],
+     "quant": {
+      "observables": [
+       "enclosure angle 砂群环拱"
+      ],
+      "operational": "拱卫=砂群环列穴场的方位弧(enclosure 极大)",
+      "metric_unit": "deg",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "bai",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "收束上地排比段,极言贵格。"
+    },
+    {
+     "i": 29,
+     "orig": "無光發新。",
+     "bai": "(吉穴)焕发新鲜的光华生气(气色清新光润)。",
+     "gloss": [
+      [
+       "發新",
+       "焕发新气,气色光润清新"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "qi"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "low",
+     "notes": "无现成译注,模型翻译。此句各本异文歧出(『元光发新』『充光发新』等),义晦,据『气色光润』酌译。"
+    },
+    {
+     "i": 30,
+     "orig": "朝海拱辰。",
+     "bai": "像百川朝宗于海、众星拱卫北辰一样,众水众山归向、拱卫此穴。",
+     "gloss": [
+      [
+       "朝海",
+       "如百川朝海"
+      ],
+      [
+       "拱辰",
+       "如众星拱卫北辰(北极星)"
+      ]
+     ],
+     "logic": "众水朝、众星拱(喻众山水归向中穴) → 尊穴居中受朝拱。",
+     "terms": [
+      "shui",
+      "sha",
+      "xue"
+     ],
+     "quant": {
+      "observables": [
+       "向心 enclosure 砂水拱向"
+      ],
+      "operational": "拱辰=砂水向心环拱(向心 enclosure;穴居中受朝)",
+      "metric_unit": "deg",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "用《论语》『北辰居其所而众星共之』之象,喻穴居中众朝。"
+    },
+    {
+     "i": 31,
+     "orig": "龍虎抱衛，主客相迎。",
+     "bai": "左青龙、右白虎二砂环抱护卫穴场,穴(主)与朝应砂水(客)彼此相迎有情。",
+     "gloss": [
+      [
+       "龍虎",
+       "左青龙、右白虎二砂"
+      ],
+      [
+       "主客",
+       "主=穴山,客=朝应砂水"
+      ]
+     ],
+     "logic": "IF 龙虎抱卫(左右砂环抱) ∧ 主客相迎(穴与朝山相向有情) THEN 区穴得卫、气聚。",
+     "terms": [
+      "sha",
+      "xue",
+      "chaoshan"
+     ],
+     "quant": {
+      "observables": [
+       "enclosure angle 龙虎抱",
+       "viewshed 遮蔽(藏风)",
+       "穴-朝山方位相对"
+      ],
+      "operational": "抱卫=左右砂 enclosure/viewshed 遮蔽高(藏风); 主客相迎=穴与朝山方位相对有情",
+      "metric_unit": "deg",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "本体 sha『龍虎抱衛,主客相迎』;角度/遮蔽阈值为现代 GIS 假说。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      },
+      {
+       "what": "term(sha:龙虎抱卫主客相迎)",
+       "source": "司南术语本体（今人整理）"
+      }
+     ],
+     "conf": "high",
+     "notes": "四象砂法核心句,直引本体 sha。"
+    },
+    {
+     "i": 32,
+     "orig": "四勢朝明，五害不親。",
+     "bai": "前后左右四方山势都朝拱明朗,虫、蛇、鼠、蚁等五害不能侵近。",
+     "gloss": [
+      [
+       "四勢",
+       "前朱雀后玄武左青龙右白虎四方之势"
+      ],
+      [
+       "五害",
+       "虫鼠蛇蚁蝎等为害之物(一说五种凶煞)"
+      ]
+     ],
+     "logic": "IF 四势朝明 ∧ 五害不亲 THEN 上地之全。",
+     "terms": [
+      "sha",
+      "xue",
+      "sha_evil"
+     ],
+     "quant": {
+      "observables": [
+       "全向 enclosure 四方砂朝"
+      ],
+      "operational": "四势朝明=四方砂均向心拱朝(全向 enclosure 完整)",
+      "metric_unit": "deg",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai(五害)",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "四方砂全朝、五害不侵为上地之全备。"
+    },
+    {
+     "i": 33,
+     "orig": "十一不具，是謂其次。",
+     "bai": "上述十一项吉征若不能完全具备,便算次一等的地了。",
+     "gloss": [
+      [
+       "十一不具",
+       "上文十一项吉征不全备;具=完备"
+      ],
+      [
+       "其次",
+       "次一等之地"
+      ]
+     ],
+     "logic": "IF 十一项吉征不全具 THEN 评为次等地(非上地)。",
+     "terms": [],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "bai",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "总收内篇四,以十一项吉征全否分上地/次地;诸家对『十一』所指略有出入。"
+    }
+   ]
+  },
+  {
+   "id": "ch05",
+   "label": "外篇",
+   "annotation": "外篇为《葬书》扩展篇章（学界或视为后人递附），论述山水形势的辨别方法，涵盖来龙止脉、明堂、水口、朝山等形峦要素，对宋代以后形势派堪舆实践影响深远。",
+   "sentences": [
+    {
+     "i": 0,
+     "orig": "夫重岡疊阜，群城眾支，當擇其特。",
+     "bai": "在重重山冈、层层土阜、群聚的垄城与众多支龙之中,应当选择其中特出(挺特不群)的一处。",
+     "gloss": [
+      [
+       "重岡疊阜",
+       "层叠的山冈土阜"
+      ],
+      [
+       "城/支",
+       "垄(高山)『城』/支(平地龙);一作群垄众支"
+      ],
+      [
+       "特",
+       "特出、挺特不群者"
+      ]
+     ],
+     "logic": "IF 群山众支并列 THEN 当择其『特』(形势特出者)为葬。",
+     "terms": [
+      "long",
+      "gang"
+     ],
+     "quant": {
+      "observables": [
+       "local prominence 突出度",
+       "relative_relief"
+      ],
+      "operational": "特=relief/突出度显著高于周邻群山的星峰(local prominence 峰值)",
+      "metric_unit": "m",
+      "falsifiable": "部分可证伪",
+      "engine": "DragonVeinEngine",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "古诗文网·葬书外篇",
+       "url": "https://www.gushiwen.cn/guwen/bookv_3ca270a0b444.aspx"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "外篇开篇,提出『择特』原则;『城』通行多作『垄』。"
+    },
+    {
+     "i": 1,
+     "orig": "大則特小，小則特大。",
+     "bai": "众山都大时,要选其中相对特小的一处;众山都小时,要选其中相对特大的一处——取其与众不同而独显者。",
+     "gloss": [
+      [
+       "特小/特大",
+       "以反衬而独显:众大取小、众小取大"
+      ]
+     ],
+     "logic": "IF 群大 THEN 取特小; IF 群小 THEN 取特大(择其相异独特者)。",
+     "terms": [],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "古诗文网·葬书外篇",
+       "url": "https://www.gushiwen.cn/guwen/bookv_3ca270a0b444.aspx"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "申『择特』之法:以对比反衬定特出之穴星。"
+    },
+    {
+     "i": 2,
+     "orig": "參形雜勢，主客同情，所不葬也。",
+     "bai": "形体参差、势态杂乱,主山与客山彼此不分、混同无别的地方,是不可葬的。",
+     "gloss": [
+      [
+       "參形雜勢",
+       "形势参差杂乱、无主从"
+      ],
+      [
+       "主客同情",
+       "主山客山混同不分"
+      ]
+     ],
+     "logic": "IF 形杂势乱 ∧ 主客不分 THEN 不可葬。",
+     "terms": [
+      "xing",
+      "shi"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "古诗文网·葬书外篇",
+       "url": "https://www.gushiwen.cn/guwen/bookv_3ca270a0b444.aspx"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "反面立论:杂乱无主之地忌葬。"
+    },
+    {
+     "i": 3,
+     "orig": "夫支欲伏於地中，壟欲峙於地上。",
+     "bai": "支龙(平地龙)以隐伏于地中为宜,垄龙(山地龙)以耸峙于地上为宜。",
+     "gloss": [
+      [
+       "支",
+       "平地隐伏之龙"
+      ],
+      [
+       "壟",
+       "高山耸峙之龙"
+      ],
+      [
+       "峙",
+       "耸立"
+      ]
+     ],
+     "logic": "支龙宜伏(地中),垄龙宜峙(地上);二者形态判分。",
+     "terms": [
+      "mai",
+      "long"
+     ],
+     "quant": {
+      "observables": [
+       "relative_relief 隐伏/耸峙"
+      ],
+      "operational": "支=低 relief 隐伏微脊; 垄=高 relief 耸峙之山",
+      "metric_unit": "m",
+      "falsifiable": "部分可证伪",
+      "engine": "DragonVeinEngine",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "支垄之辨,外篇核心论题。"
+    },
+    {
+     "i": 4,
+     "orig": "支城之止，平夷如掌。",
+     "bai": "支龙与垄龙止息结穴之处,都平坦舒夷如手掌一般。",
+     "gloss": [
+      [
+       "止",
+       "止息结穴处"
+      ],
+      [
+       "平夷如掌",
+       "平坦如掌心"
+      ]
+     ],
+     "logic": "龙止之处(结穴) → 局面平夷如掌(低坡缓平)。",
+     "terms": [
+      "xue",
+      "mai"
+     ],
+     "quant": {
+      "observables": [
+       "slope(deg) 穴场坡度"
+      ],
+      "operational": "平夷如掌=穴场低 slope(缓平,约 <8°)的舒展台地",
+      "metric_unit": "deg",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "异文『支垄之止』或作『支垄之城』;言龙止处必平缓。"
+    },
+    {
+     "i": 5,
+     "orig": "故支葬其額，城葬其麓。",
+     "bai": "所以支龙要葬在它隆起的额顶处,垄龙要葬在它的山麓(山脚近止处)。",
+     "gloss": [
+      [
+       "額",
+       "隆起的额顶(支龙微起处)"
+      ],
+      [
+       "麓",
+       "山脚、山下近止处"
+      ]
+     ],
+     "logic": "支葬额(微隆顶),垄葬麓(山脚止处)——依支垄异形而定葬位。",
+     "terms": [
+      "xue",
+      "mai",
+      "long"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "支垄异葬位:支取额、垄取麓。"
+    },
+    {
+     "i": 6,
+     "orig": "卜支如首，眩壟如點頭。",
+     "bai": "卜定支龙之穴要像看准头首一样,审视垄龙要看它如点头俯就(山势俯垂有情)之处。",
+     "gloss": [
+      [
+       "卜",
+       "择定"
+      ],
+      [
+       "眩",
+       "审视;一作『相』"
+      ],
+      [
+       "點頭",
+       "山势俯垂如点头,喻玄武垂头有情"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "mai",
+      "long",
+      "zuo"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      },
+      {
+       "what": "参注",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      }
+     ],
+     "conf": "low",
+     "notes": "无现成确译,模型翻译。此句异文歧出(『眩垄如足』『相垄如点头』等),义晦,据支垄择穴文义酌译。"
+    },
+    {
+     "i": 7,
+     "orig": "形氣不經，氣脫如逐。",
+     "bai": "形与气若不合常法(失其常经),生气就会脱散,如被驱逐而去。",
+     "gloss": [
+      [
+       "不經",
+       "不合法度、失常"
+      ],
+      [
+       "脫",
+       "脱散"
+      ],
+      [
+       "逐",
+       "被驱逐、奔逸"
+      ]
+     ],
+     "logic": "IF 形气不经(失法) THEN 气脱如逐(生气散失)。",
+     "terms": [
+      "qi",
+      "xing"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "形气失常则气散,反衬下文藏聚之法。"
+    },
+    {
+     "i": 8,
+     "orig": "夫人之葬，蓋亦難矣。",
+     "bai": "大凡人择地安葬,实在是很难的事。",
+     "gloss": [
+      [
+       "蓋亦難矣",
+       "实在是难"
+      ]
+     ],
+     "logic": null,
+     "terms": [],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "感叹葬地之难,引出支垄之辨。"
+    },
+    {
+     "i": 9,
+     "orig": "支壟之辨，眩目惑心，禍福之差，候虜有間。",
+     "bai": "支龙与垄龙的分辨,看得人眼花心惑;而由此造成的祸福差别,其间差之毫厘、应之千里。",
+     "gloss": [
+      [
+       "眩目惑心",
+       "令人眼花心迷"
+      ],
+      [
+       "候",
+       "征候、关键"
+      ],
+      [
+       "虜",
+       "疑为『乎/虖』之讹,语助"
+      ]
+     ],
+     "logic": "IF 支垄辨之毫厘有差 THEN 祸福之应大有间别。",
+     "terms": [
+      "mai",
+      "long"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "『候虏有间』各本异文(『毫厘有间』『候乎有间』),文义为差之微而应之巨。"
+    },
+    {
+     "i": 10,
+     "orig": "乘金相水，穴土印木。",
+     "bai": "葬法取金水相生之道(乘金气、以水为相佐),穴中之土滋润如印护棺木骸骨——金、水、土、木四者配合得宜(本句不及火)。",
+     "gloss": [
+      [
+       "乘金相水",
+       "乘金气、以水为相辅;金水相生"
+      ],
+      [
+       "穴土印木",
+       "穴土印护棺木(骸骨);一说土印生木"
+      ]
+     ],
+     "logic": "穴法以五行相生配合: 乘金 ∧ 相水 ∧ 穴土 ∧ 印木 → 得地之全。",
+     "terms": [
+      "xue",
+      "shui",
+      "five_phases"
+     ],
+     "quant": {
+      "observables": [
+       "五行配局(金水木土)",
+       "五行→方位/坡向编码"
+      ],
+      "operational": "五行对应方位(本体 five_phases: Wood=E90,Fire=S180,Metal=W270,Water=N0,Earth=中宫),度数为现代编码",
+      "metric_unit": "deg",
+      "falsifiable": "否(义理配局,非可测地形量)",
+      "engine": "CompassModel",
+      "evidence": "五行方位为传统,角度为现代 GIS 编码;原文无数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      },
+      {
+       "what": "term(five_phases:方位)",
+       "source": "司南术语本体（今人整理）"
+      }
+     ],
+     "conf": "high",
+     "notes": "与下『外藏八风,内秘五行』同为穴法五行总诀,后世形势派常引。"
+    },
+    {
+     "i": 11,
+     "orig": "外藏八風，內秘五行。",
+     "bai": "穴外藏护、不受八方之风吹散,穴内秘藏、暗合五行之气。",
+     "gloss": [
+      [
+       "八風",
+       "八方之风"
+      ],
+      [
+       "五行",
+       "木火土金水之气"
+      ]
+     ],
+     "logic": "IF 外藏八风(藏风) ∧ 内秘五行(五行和) THEN 气聚地全。",
+     "terms": [
+      "shan_feng",
+      "five_phases",
+      "qi"
+     ],
+     "quant": {
+      "observables": [
+       "viewshed 全向遮蔽(藏风度)"
+      ],
+      "operational": "外藏八风=viewshed 全向遮蔽高(八方藏风);内秘五行=五行和合(义理)",
+      "metric_unit": "dimensionless",
+      "falsifiable": "部分可证伪(藏风可测)",
+      "engine": "TempleScore",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "古诗文网·葬书外篇",
+       "url": "https://www.gushiwen.cn/guwen/bookv_3ca270a0b444.aspx"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "穴法藏风纳气总诀。"
+    },
+    {
+     "i": 12,
+     "orig": "天光下臨，地德上載。",
+     "bai": "上有天光(日月星气)下照,下有地德(山川厚德)上承,天地之气交感于穴。",
+     "gloss": [
+      [
+       "天光",
+       "天之光气(日月星辰)"
+      ],
+      [
+       "地德",
+       "地之厚德(山川生气)"
+      ]
+     ],
+     "logic": "天光下临 ∧ 地德上载 → 天地交感、穴得其全。",
+     "terms": [
+      "qi"
+     ],
+     "quant": {
+      "observables": [
+       "aspect 向阳/日照"
+      ],
+      "operational": "天光下临 operational 近似为穴场 aspect 向阳、日照充足",
+      "metric_unit": "deg",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "古诗文网·葬书外篇",
+       "url": "https://www.gushiwen.cn/guwen/bookv_3ca270a0b444.aspx"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "亦见杂篇『三吉』总语。"
+    },
+    {
+     "i": 13,
+     "orig": "陰陽沖和，五上四備。",
+     "bai": "阴阳二气冲和调匀,五色之土完备、四方形势齐备。",
+     "gloss": [
+      [
+       "沖和",
+       "冲虚调和"
+      ],
+      [
+       "五上",
+       "当作『五土』,五色之土"
+      ],
+      [
+       "四備",
+       "四方(四象)齐备"
+      ]
+     ],
+     "logic": "IF 阴阳冲和 ∧ 五土四备 THEN 全气吉地(对应杂篇『二吉』)。",
+     "terms": [
+      "xue"
+     ],
+     "quant": {
+      "observables": [
+       "土色/土质(五土)",
+       "四象砂齐备"
+      ],
+      "operational": "五土=穴土五色/质;四备=四象砂(青龙白虎朱雀玄武)齐",
+      "metric_unit": "dimensionless",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "古诗文网·葬书外篇",
+       "url": "https://www.gushiwen.cn/guwen/bookv_3ca270a0b444.aspx"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "『五上四備』通行作『五土四備』,与杂篇『二吉』同。"
+    },
+    {
+     "i": 14,
+     "orig": "目力之巧，工力之具，趨全避闕，增高益下，微妙在智，觸類而長，玄通陰陽，功奪造化。",
+     "bai": "凭目力的精巧、人工的施为,趋就完全、避开缺陷,该增高的培高、该补低的填厚;其中微妙全在于智慧,触类旁通而推广之,深通阴阳之理,其功足以夺天地造化。",
+     "gloss": [
+      [
+       "趨全避闕",
+       "趋向完备、避开缺欠"
+      ],
+      [
+       "增高益下",
+       "培高补低(人工补救)"
+      ],
+      [
+       "觸類而長",
+       "触类旁通、引申推广"
+      ],
+      [
+       "功奪造化",
+       "功夺天地造化之妙"
+      ]
+     ],
+     "logic": "葬之人事: 目巧 ∧ 工力 → 趋全避阙、增高益下(人工裁成) → 玄通阴阳、功夺造化。",
+     "terms": [],
+     "quant": {
+      "observables": [
+       "人工地形改造(增高/补低)"
+      ],
+      "operational": "增高益下=人工 DEM 改造(培高补低)以趋全避阙",
+      "metric_unit": "m",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "古诗文网·葬书外篇",
+       "url": "https://www.gushiwen.cn/guwen/bookv_3ca270a0b444.aspx"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "与杂篇『三吉』之三同文,论人工裁成补救之妙。"
+    },
+    {
+     "i": 15,
+     "orig": "勢如萬馬，自天而下。",
+     "bai": "龙势像万马奔腾、自天而降一样浩大。",
+     "gloss": [
+      [
+       "萬馬自天而下",
+       "千军万马自天奔下,极言势之雄大"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "shi"
+     ],
+     "quant": {
+      "observables": [
+       "relative_relief 陡降",
+       "大尺度坡势"
+      ],
+      "operational": "万马自天=大尺度高 relief 陡降的奔腾龙势(coarse DEM z≈9)",
+      "metric_unit": "m",
+      "falsifiable": "部分可证伪",
+      "engine": "DragonVeinEngine",
+      "evidence": "『势』为千尺大尺度古制约略,折合 ~300m+;原文无数,GIS 假说。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "与杂篇『势如万马自天而下,其葬王者』同象,主帝王之贵。"
+    },
+    {
+     "i": 16,
+     "orig": "形如負峙，有城中峙，法葬其止。",
+     "bai": "形势如背倚而耸峙,有垄城在中间峙立,就依法葬在它止息之处。",
+     "gloss": [
+      [
+       "負峙",
+       "背倚耸峙"
+      ],
+      [
+       "城",
+       "垄城(高阜);中峙=居中耸立"
+      ],
+      [
+       "止",
+       "止息结穴处"
+      ]
+     ],
+     "logic": "IF 形如负峙、城中峙(主山居中耸立) THEN 法葬其止。",
+     "terms": [
+      "xing",
+      "xue",
+      "zushan"
+     ],
+     "quant": {
+      "observables": [
+       "local prominence 居中峰",
+       "flow convergence 止点"
+      ],
+      "operational": "中峙=居中 prominence 高点;止=流场交汇近点",
+      "metric_unit": "m",
+      "falsifiable": "部分可证伪",
+      "engine": "DragonVeinEngine",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "与杂篇『形如负峙…王侯崛起』同句。"
+    },
+    {
+     "i": 17,
+     "orig": "經曰：勢止形昂，前澗後岡，龍首之藏。",
+     "bai": "古经说:龙势止息、穴形昂起,前有涧水、后有冈阜为靠,这是龙首结穴可藏之处。",
+     "gloss": [
+      [
+       "勢止形昂",
+       "势止而形仰起"
+      ],
+      [
+       "前澗後岡",
+       "前临涧水、后倚山冈"
+      ],
+      [
+       "龍首之藏",
+       "龙头可藏葬之穴"
+      ]
+     ],
+     "logic": "IF 势止形昂 ∧ 前涧后冈 THEN 龙首之藏(可葬)。",
+     "terms": [
+      "shi",
+      "xing",
+      "xue",
+      "shui",
+      "gang"
+     ],
+     "quant": {
+      "observables": [
+       "flow_accumulation 前涧",
+       "relief 后冈靠"
+      ],
+      "operational": "前涧=前方 flow_accumulation 成水界;后冈=后方 relief 靠山",
+      "metric_unit": "m",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "引出下文以人体部位喻龙首吉凶。"
+    },
+    {
+     "i": 18,
+     "orig": "鼻顙吉昌，角目滅亡，耳致侯王，唇死兵傷。",
+     "bai": "(以龙首部位喻穴位)葬于鼻、额处主吉昌,葬于角、目处主灭亡,葬于耳处可致侯王之贵,葬于唇处主兵死刑伤。",
+     "gloss": [
+      [
+       "顙",
+       "额"
+      ],
+      [
+       "角目",
+       "额角与眼处"
+      ],
+      [
+       "耳/唇",
+       "龙首之耳部/唇部"
+      ]
+     ],
+     "logic": "龙首取穴部位定吉凶: 鼻颡→吉昌; 角目→灭亡; 耳→侯王; 唇→兵伤。",
+     "terms": [
+      "xue"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "以人体部位比附龙首结穴之吉凶位,后世喝形点穴所本。"
+    },
+    {
+     "i": 19,
+     "orig": "宛而中蓄，謂之龍腹，其脈深曲，必後世福，傷其胸脅，朝穴暮哭。",
+     "bai": "山形宛转回环、中间藏蓄的,叫做龙腹;其脉深藏曲折的,必荫后世之福;若伤损其胸胁部位,则朝葬而暮即哭丧(立致祸殃)。",
+     "gloss": [
+      [
+       "宛而中蓄",
+       "宛转而中有藏蓄"
+      ],
+      [
+       "龍腹",
+       "龙之腹部(藏气之所)"
+      ],
+      [
+       "朝穴暮哭",
+       "早上下葬晚上即哭丧,极言祸速"
+      ]
+     ],
+     "logic": "IF 宛而中蓄(龙腹)、脉深曲 THEN 后世福; IF 伤其胸胁 THEN 朝穴暮哭(立祸)。",
+     "terms": [
+      "xue",
+      "mai"
+     ],
+     "quant": {
+      "observables": [
+       "plan_curvature 凹聚藏蓄",
+       "sinuosity 脉深曲"
+      ],
+      "operational": "宛而中蓄=plan_curvature 凹聚藏蓄;脉深曲=脉 sinuosity 高",
+      "metric_unit": "dimensionless",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "本体 mai『其脈深曲,必後世福』;曲率阈值为现代 GIS 假说,原文无数。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      },
+      {
+       "what": "term(mai:其脉深曲必后世福)",
+       "source": "司南术语本体（今人整理）"
+      }
+     ],
+     "conf": "high",
+     "notes": "龙腹藏蓄主福,伤胸胁立祸,直引本体 mai。"
+    },
+    {
+     "i": 20,
+     "orig": "夫外氣所以聚內氣，過水所以止來龍。",
+     "bai": "外气(界水朝山等)是用来聚拢内气(穴中生气)的,横过之水是用来止住来龙的。",
+     "gloss": [
+      [
+       "外氣/內氣",
+       "穴外横界之气/穴内止聚之气"
+      ],
+      [
+       "過水",
+       "横过界穴之水"
+      ],
+      [
+       "止來龍",
+       "界止来龙使气住"
+      ]
+     ],
+     "logic": "外气聚内气; 过水止来龙(界水则止)——内外相依、水界龙止。",
+     "terms": [
+      "qi",
+      "shui",
+      "long"
+     ],
+     "quant": {
+      "observables": [
+       "flow_accumulation 横界水",
+       "龙止"
+      ],
+      "operational": "过水=横向 flow_accumulation 水界;止来龙=龙止于水界(界水则止)",
+      "metric_unit": "m",
+      "falsifiable": "部分可证伪",
+      "engine": "DragonVeinEngine",
+      "evidence": "本体 shui『界水則止』;阈值为现代 GIS 假说。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "古诗文网·葬书外篇",
+       "url": "https://www.gushiwen.cn/guwen/bookv_3ca270a0b444.aspx"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "呼应内篇二『外氣橫形,內氣止生』『界水則止』。"
+    },
+    {
+     "i": 21,
+     "orig": "夫噫氣能散生氣，龍虎所以衛區穴，疊疊中阜，左空右缺，前曠後折，生氣散於飄風。",
+     "bai": "那喷发的风气能吹散生气,所以要靠龙虎二砂护卫穴场;若(穴周)层层中阜却左边空虚、右边残缺,前面空旷、后面断折(无遮无靠),生气就会被飘风吹散。",
+     "gloss": [
+      [
+       "噫氣",
+       "喷发之气、风"
+      ],
+      [
+       "衛區穴",
+       "护卫穴区"
+      ],
+      [
+       "左空右缺/前曠後折",
+       "左右前后无砂遮护、缺折不全"
+      ],
+      [
+       "飄風",
+       "飘忽之风"
+      ]
+     ],
+     "logic": "IF 左空右缺 ∧ 前旷后折(无龙虎遮卫) THEN 生气散于飘风(凶); 反之龙虎卫穴则气聚。",
+     "terms": [
+      "sha",
+      "xue",
+      "sha_evil",
+      "shan_feng"
+     ],
+     "quant": {
+      "observables": [
+       "enclosure/viewshed 遮蔽(藏风)"
+      ],
+      "operational": "左空右缺前旷后折=enclosure/viewshed 遮蔽不足(藏风差),生气被风散",
+      "metric_unit": "deg",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "本体 sha『龍虎所以衛區穴』;遮蔽阈值为现代 GIS 假说。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "古诗文网·葬书外篇",
+       "url": "https://www.gushiwen.cn/guwen/bookv_3ca270a0b444.aspx"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      },
+      {
+       "what": "term(sha:龙虎卫区穴)",
+       "source": "司南术语本体（今人整理）"
+      }
+     ],
+     "conf": "high",
+     "notes": "反面立论:无砂卫护则风散生气。"
+    },
+    {
+     "i": 22,
+     "orig": "經曰：騰陋之穴，敗棒之藏也。",
+     "bai": "古经说:那气脉腾散漏泄的穴,只是败坏棺椁的葬处罢了(葬之无益反害)。",
+     "gloss": [
+      [
+       "騰漏",
+       "气腾散漏泄"
+      ],
+      [
+       "敗槨",
+       "败坏的棺椁;槨=外棺"
+      ],
+      [
+       "藏",
+       "葬处"
+      ]
+     ],
+     "logic": "IF 穴气腾漏(不藏) THEN 为败槨之藏(凶穴)。",
+     "terms": [
+      "xue",
+      "qi"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "worklist 作『騰陋…敗棒』,通行作『騰漏之穴,敗槨之藏』,据正字白话。"
+    },
+    {
+     "i": 23,
+     "orig": "夫土欲細而堅，潤而不澤，裁肪切玉，備用五色。",
+     "bai": "穴土应当细密而坚实,润泽而不渗水(湿而不流),像裁切脂肪美玉一样细腻,五色之土完备最好。",
+     "gloss": [
+      [
+       "細而堅",
+       "细密坚实"
+      ],
+      [
+       "潤而不澤",
+       "润而不渗湿外漏;泽=渗湿"
+      ],
+      [
+       "裁肪切玉",
+       "如裁脂切玉般细腻"
+      ],
+      [
+       "五色",
+       "青赤黄白黑五色土"
+      ]
+     ],
+     "logic": "吉壤标准: 细 ∧ 坚 ∧ 润而不泽 ∧ 五色备 → 上吉之土。",
+     "terms": [
+      "xue"
+     ],
+     "quant": {
+      "observables": [
+       "土质(细/坚/润)",
+       "土色"
+      ],
+      "operational": "operational: 细度、含水(润而不渗)、五色完备的土质评分",
+      "metric_unit": "dimensionless",
+      "falsifiable": "部分可证伪(土工/取样)",
+      "engine": "TempleScore",
+      "evidence": "原文以土质定吉,非测量数值;土质评分为现代 operational 假说。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "bai",
+       "source": "古诗文网·葬书外篇",
+       "url": "https://www.gushiwen.cn/guwen/bookv_3ca270a0b444.aspx"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "与内篇三五土之论相承,论吉壤土质。"
+    },
+    {
+     "i": 24,
+     "orig": "夫幹如聚粟。",
+     "bai": "(吉土)其干结时像聚拢的粟米一样细匀颗粒。",
+     "gloss": [
+      [
+       "幹",
+       "干结、土体"
+      ],
+      [
+       "聚粟",
+       "聚拢的粟米,喻土粒细匀"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "xue"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      },
+      {
+       "what": "参注",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      }
+     ],
+     "conf": "low",
+     "notes": "无现成确译,模型翻译。『干如聚粟』各本异文晦涩,据『土粒细匀』文义酌译。"
+    },
+    {
+     "i": 25,
+     "orig": "溫如卦肉。",
+     "bai": "其温润像切开的肉一样温泽有膏。",
+     "gloss": [
+      [
+       "卦肉",
+       "当作『刲肉』,割肉;喻土温润如肉"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "xue"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "low",
+     "notes": "无现成确译,模型翻译。『卦肉』通行作『刲肉』(割肉),义晦,据土质温润酌译。"
+    },
+    {
+     "i": 26,
+     "orig": "水泉砂礫。",
+     "bai": "若穴中是水泉涌渗、砂石砾块(这类土),",
+     "gloss": [
+      [
+       "水泉",
+       "渗水之泉"
+      ],
+      [
+       "砂礫",
+       "砂石砾块"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "xue"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "承下句『皆为凶宅』,与上『细坚润玉』反衬。"
+    },
+    {
+     "i": 27,
+     "orig": "皆為凶宅。",
+     "bai": "都属于凶险的葬地(凶宅)。",
+     "gloss": [
+      [
+       "凶宅",
+       "凶险的葬地(阴宅)"
+      ]
+     ],
+     "logic": "IF 穴土为水泉砂砾 THEN 凶宅。",
+     "terms": [
+      "xue"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "定吉凶之土:水泉砂砾为凶。"
+    },
+    {
+     "i": 28,
+     "orig": "夫葬以左為青龍，右為白虎，前為朱雀，後為玄武。",
+     "bai": "葬地以左为青龙、右为白虎、前为朱雀、后为玄武(四象定四方之砂)。",
+     "gloss": [
+      [
+       "青龍/白虎/朱雀/玄武",
+       "左/右/前/后四方之砂的四象名"
+      ]
+     ],
+     "logic": "DEFINE 四象方位: 左青龙、右白虎、前朱雀、后玄武。",
+     "terms": [
+      "sha"
+     ],
+     "quant": {
+      "observables": [
+       "四方位(左E/右W/前S/后N 相对穴向)"
+      ],
+      "operational": "四象=四方位,以穴坐向为基准编码方位角",
+      "metric_unit": "deg",
+      "falsifiable": "否(方位约定)",
+      "engine": "CompassModel",
+      "evidence": "方位约定为传统,度数为现代编码;原文无数。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      },
+      {
+       "what": "term(sha:四象)",
+       "source": "司南术语本体（今人整理）"
+      }
+     ],
+     "conf": "high",
+     "notes": "四象砂法总纲,后世通用。"
+    },
+    {
+     "i": 29,
+     "orig": "玄武垂頭。",
+     "bai": "后山(玄武)要俯垂其头,如俯首受葬、有靠有情。",
+     "gloss": [
+      [
+       "玄武",
+       "后方主靠之山"
+      ],
+      [
+       "垂頭",
+       "山头俯垂,有迎受之情"
+      ]
+     ],
+     "logic": "吉: 玄武垂头(后山俯垂可倚)。",
+     "terms": [
+      "sha",
+      "zuo"
+     ],
+     "quant": {
+      "observables": [
+       "后山坡向朝穴"
+      ],
+      "operational": "垂头=后山向穴俯垂(坡向朝穴、可倚靠)",
+      "metric_unit": "deg",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "四象吉象之玄武。"
+    },
+    {
+     "i": 30,
+     "orig": "朱雀翔舞。",
+     "bai": "前山(朱雀)要如鸟翔起舞,秀美灵动来朝。",
+     "gloss": [
+      [
+       "朱雀",
+       "前方朝应之山水"
+      ],
+      [
+       "翔舞",
+       "如鸾凤翔舞,秀丽朝迎"
+      ]
+     ],
+     "logic": "吉: 朱雀翔舞(前山秀丽来朝)。",
+     "terms": [
+      "sha",
+      "chaoshan"
+     ],
+     "quant": {
+      "observables": [
+       "前砂朝向/秀丽度"
+      ],
+      "operational": "翔舞=前砂向穴朝迎(方位向心、形秀)",
+      "metric_unit": "deg",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "四象吉象之朱雀。"
+    },
+    {
+     "i": 31,
+     "orig": "青龍蜿蜒。",
+     "bai": "左砂(青龙)要蜿蜒委曲、抱向穴场。",
+     "gloss": [
+      [
+       "蜿蜒",
+       "曲折回抱貌"
+      ]
+     ],
+     "logic": "吉: 青龙蜿蜒(左砂委曲环抱)。",
+     "terms": [
+      "sha"
+     ],
+     "quant": {
+      "observables": [
+       "左砂 sinuosity/plan_curvature 内抱"
+      ],
+      "operational": "蜿蜒=左砂 sinuosity 高 + plan_curvature 内抱",
+      "metric_unit": "dimensionless",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "四象吉象之青龙。"
+    },
+    {
+     "i": 32,
+     "orig": "白虎馴俯。",
+     "bai": "右砂(白虎)要驯顺俯伏、低头不昂(不可昂头反噬)。",
+     "gloss": [
+      [
+       "馴俯",
+       "驯顺俯伏;一作『顺俯』"
+      ]
+     ],
+     "logic": "吉: 白虎驯俯(右砂低顺); 若昂头则凶(衔尸)。",
+     "terms": [
+      "sha"
+     ],
+     "quant": {
+      "observables": [
+       "右砂 relief/坡向(低伏)"
+      ],
+      "operational": "驯俯=右砂相对穴 relief 低、坡向俯就(不昂压)",
+      "metric_unit": "m",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "四象吉象之白虎。"
+    },
+    {
+     "i": 33,
+     "orig": "形勢反此，法當破死。",
+     "bai": "山形地势若与上述四象相反,按法主破败死亡。",
+     "gloss": [
+      [
+       "反此",
+       "与玄武垂头等四象相反"
+      ],
+      [
+       "破死",
+       "破败死亡"
+      ]
+     ],
+     "logic": "IF 四象形势反此(玄武不垂/朱雀不舞/龙踞虎蹲) THEN 法当破死(凶)。",
+     "terms": [
+      "sha",
+      "sha_evil"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "总起四象反象之凶。"
+    },
+    {
+     "i": 34,
+     "orig": "故虎蹲謂之銜屍。",
+     "bai": "所以白虎砂若高蹲昂踞,就叫做『衔尸』(如猛虎衔尸,主凶)。",
+     "gloss": [
+      [
+       "虎蹲",
+       "白虎昂蹲不驯"
+      ],
+      [
+       "銜屍",
+       "如虎衔尸,凶象"
+      ]
+     ],
+     "logic": "IF 白虎蹲踞(不驯俯) THEN 衔尸(凶)。",
+     "terms": [
+      "sha",
+      "sha_evil"
+     ],
+     "quant": {
+      "observables": [
+       "右砂 relief 昂高逼压"
+      ],
+      "operational": "虎蹲=右砂 relief 高于穴、昂踞逼压(藏风变压煞)",
+      "metric_unit": "m",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "四象反象:白虎昂踞为衔尸。"
+    },
+    {
+     "i": 35,
+     "orig": "龍踞謂之嫉生。",
+     "bai": "青龙砂若高踞昂头,就叫做『嫉生』(妒害生人,主凶)。",
+     "gloss": [
+      [
+       "龍踞",
+       "青龙昂踞不蜿蜒"
+      ],
+      [
+       "嫉生",
+       "妒嫉生者,凶象"
+      ]
+     ],
+     "logic": "IF 青龙昂踞(不蜿蜒) THEN 嫉生(凶)。",
+     "terms": [
+      "sha",
+      "sha_evil"
+     ],
+     "quant": {
+      "observables": [
+       "左砂 relief 昂高逼压"
+      ],
+      "operational": "龙踞=左砂 relief 高、昂踞逼压(不蜿蜒抱穴)",
+      "metric_unit": "m",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "四象反象:青龙昂踞为嫉生。"
+    },
+    {
+     "i": 36,
+     "orig": "玄武不垂者拒屍。",
+     "bai": "玄武(后山)不肯俯垂的,叫做『拒尸』(拒不受葬,主凶)。",
+     "gloss": [
+      [
+       "不垂",
+       "后山昂仰不俯"
+      ],
+      [
+       "拒屍",
+       "拒绝受葬之尸,凶象"
+      ]
+     ],
+     "logic": "IF 玄武不垂 THEN 拒尸(凶)。",
+     "terms": [
+      "sha",
+      "zuo",
+      "sha_evil"
+     ],
+     "quant": {
+      "observables": [
+       "后山坡向背穴"
+      ],
+      "operational": "不垂=后山仰昂、坡向背穴(无靠拒受)",
+      "metric_unit": "deg",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "四象反象:玄武不垂为拒尸。"
+    },
+    {
+     "i": 37,
+     "orig": "朱雀不舞者騰去。",
+     "bai": "朱雀(前山水)不肯翔舞回顾的,叫做『腾去』(飞腾而去、背我无情,主凶)。",
+     "gloss": [
+      [
+       "不舞",
+       "前砂水不回顾朝迎"
+      ],
+      [
+       "騰去",
+       "腾跃而去、背我无情"
+      ]
+     ],
+     "logic": "IF 朱雀不舞 THEN 腾去(凶)。",
+     "terms": [
+      "sha",
+      "chaoshan",
+      "shui",
+      "sha_evil"
+     ],
+     "quant": {
+      "observables": [
+       "前水/砂 直去不回顾"
+      ],
+      "operational": "腾去=前水直去不回(flow 直泄无环抱)、前砂背向",
+      "metric_unit": "deg",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "四象反象总收:虎蹲/龙踞/玄武不垂/朱雀不舞,皆主凶。"
+    },
+    {
+     "i": 38,
+     "orig": "夫以支為龍虎者，來止跡乎岡阜，要如肘臂，謂之環抱。",
+     "bai": "凡是以支龙(平地隐脉)充当龙虎砂的,其来止的踪迹隐现于冈阜之间,要像人的肘臂一样弯环护抱穴场,这才叫做『环抱』。",
+     "gloss": [
+      [
+       "以支為龍虎",
+       "用平地支脉作左右护砂"
+      ],
+      [
+       "跡乎岡阜",
+       "踪迹见于低冈土阜"
+      ],
+      [
+       "如肘臂",
+       "如手臂弯曲环护"
+      ],
+      [
+       "環抱",
+       "弯环抱穴"
+      ]
+     ],
+     "logic": "IF 支脉作龙虎、形如肘臂弯抱 THEN 谓之环抱(吉)。",
+     "terms": [
+      "sha",
+      "gang",
+      "mai"
+     ],
+     "quant": {
+      "observables": [
+       "plan_curvature 内凹",
+       "enclosure angle 抱穴"
+      ],
+      "operational": "环抱=左右支脉 plan_curvature 内凹抱穴(enclosure 方位弧大)",
+      "metric_unit": "deg",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "平地支龙作龙虎砂的环抱判法。"
+    },
+    {
+     "i": 39,
+     "orig": "朱雀源於生氣。",
+     "bai": "前方朱雀之水,本源于生气所发(水随生气而来)。",
+     "gloss": [
+      [
+       "朱雀",
+       "前方之水"
+      ],
+      [
+       "源於生氣",
+       "以生气为本源"
+      ]
+     ],
+     "logic": "朱雀(水)源于生气;水之来去配生气盛衰(见下)。",
+     "terms": [
+      "shui",
+      "chaoshan",
+      "qi"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "起下文论朱雀水法的派/朝/泽/流四节。"
+    },
+    {
+     "i": 40,
+     "orig": "派于未盛，朝於大旺。",
+     "bai": "水在生气未盛时分派而来,在生气大旺时朝聚于穴前。",
+     "gloss": [
+      [
+       "派",
+       "分派、初分之流"
+      ],
+      [
+       "朝",
+       "朝聚于穴"
+      ]
+     ],
+     "logic": "水势配气: 未盛则派、大旺则朝。",
+     "terms": [
+      "shui"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "朱雀水法之派、朝二节。"
+    },
+    {
+     "i": 41,
+     "orig": "澤其相衰，流于因謝。",
+     "bai": "在气将衰时蓄聚滋润(不急去),在气已尽(囚谢)时才流泄而出。",
+     "gloss": [
+      [
+       "澤",
+       "蓄聚滋润"
+      ],
+      [
+       "相衰",
+       "气将衰之时"
+      ],
+      [
+       "囚謝",
+       "气被囚禁衰谢、消尽"
+      ]
+     ],
+     "logic": "水配气衰: 相衰则泽(蓄)、囚谢则流(去)。",
+     "terms": [
+      "shui",
+      "qi"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "worklist『流于因謝』,通行作『流於囚謝』,据正字。"
+    },
+    {
+     "i": 42,
+     "orig": "以返不絕。",
+     "bai": "如此循环往返、绵绵不绝。",
+     "gloss": [
+      [
+       "以返不絕",
+       "往返循环、连绵不断"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "shui"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "朱雀水法循环不绝。"
+    },
+    {
+     "i": 43,
+     "orig": "法每一折瀦而後匯。",
+     "bai": "水法是每经一道弯折便停潴蓄聚,然后再汇流而下(忌直泻)。",
+     "gloss": [
+      [
+       "折",
+       "弯折"
+      ],
+      [
+       "瀦",
+       "停聚、潴蓄"
+      ],
+      [
+       "匯",
+       "汇流"
+      ]
+     ],
+     "logic": "吉水法: 每折则潴(蓄)而后汇——曲折停蓄,不直去。",
+     "terms": [
+      "shui"
+     ],
+     "quant": {
+      "observables": [
+       "channel sinuosity 曲折",
+       "蓄潴"
+      ],
+      "operational": "一折一潴=channel sinuosity 高、多曲蓄缓流(非直泄)",
+      "metric_unit": "dimensionless",
+      "falsifiable": "部分可证伪",
+      "engine": "DragonVeinEngine",
+      "evidence": "本体 shui sinuosity;阈值为现代 GIS 假说。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "worklist『瀦而後匯』,一作『潴而後泄』,义为曲蓄缓流。"
+    },
+    {
+     "i": 44,
+     "orig": "洋洋悠悠，顧我欲留。",
+     "bai": "水势浩荡悠缓,像眷顾着穴场、依依不舍要留下来一样(有情)。",
+     "gloss": [
+      [
+       "洋洋悠悠",
+       "水势浩大舒缓"
+      ],
+      [
+       "顧我欲留",
+       "回顾穴场、留恋有情"
+      ]
+     ],
+     "logic": "吉水: 洋洋悠悠、顾我欲留(缓而有情)。",
+     "terms": [
+      "shui"
+     ],
+     "quant": {
+      "observables": [
+       "低流速/环顾"
+      ],
+      "operational": "悠缓有情=低流速 + plan_curvature 向穴环顾",
+      "metric_unit": "dimensionless",
+      "falsifiable": "部分可证伪",
+      "engine": "DragonVeinEngine",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "吉水有情之状。"
+    },
+    {
+     "i": 45,
+     "orig": "其來無源，其去無流。",
+     "bai": "它来时看不见源头(深远不可测),去时看不见流泄(曲折隐去不直泻)——来悠去缓,藏蓄有情。",
+     "gloss": [
+      [
+       "來無源",
+       "来处深远、不见其源"
+      ],
+      [
+       "去無流",
+       "去处曲隐、不见急流"
+      ]
+     ],
+     "logic": "吉水: 来无源(深远) ∧ 去无流(不直泄) → 水缠玄武、藏蓄有情。",
+     "terms": [
+      "shui"
+     ],
+     "quant": {
+      "observables": [
+       "出水口曲折锁闭(水口关栏)"
+      ],
+      "operational": "去无流=出水口曲折锁闭(水口关栏,不见直流)",
+      "metric_unit": "dimensionless",
+      "falsifiable": "部分可证伪",
+      "engine": "DragonVeinEngine",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "吉水来去藏蓄、水口关锁。"
+    },
+    {
+     "i": 46,
+     "orig": "經曰：山來水回，貴壽而財。",
+     "bai": "古经说:山势奔来、水流回环(山环水抱)的,主贵、主寿、又主财。",
+     "gloss": [
+      [
+       "山來水回",
+       "山来朝、水回抱"
+      ],
+      [
+       "貴壽而財",
+       "主贵、长寿且富财"
+      ]
+     ],
+     "logic": "IF 山来水回(山环水抱) THEN 贵 ∧ 寿 ∧ 财。",
+     "terms": [
+      "long",
+      "shui"
+     ],
+     "quant": {
+      "observables": [
+       "ridge 朝聚",
+       "channel 环抱(enclosure+sinuosity)"
+      ],
+      "operational": "山来水回=脊砂朝聚 + 水流环抱穴场(enclosure 大、sinuosity 高)",
+      "metric_unit": "deg",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "bai",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "与下句正反对举,山环水抱主贵寿财。"
+    },
+    {
+     "i": 47,
+     "orig": "山囚水流，虜王滅候。",
+     "bai": "山势被囚塞、水流直去不回的,纵是君王也会被俘、侯爵也会灭绝(主大凶)。",
+     "gloss": [
+      [
+       "山囚",
+       "山势逼囚、无生气"
+      ],
+      [
+       "水流",
+       "水直流去不回"
+      ],
+      [
+       "虜王滅候",
+       "君王被俘、侯爵灭绝;候=侯"
+      ]
+     ],
+     "logic": "IF 山囚 ∧ 水流(直去) THEN 虏王灭侯(大凶)。反『山来水回』。",
+     "terms": [
+      "long",
+      "shui",
+      "sha_evil"
+     ],
+     "quant": {
+      "observables": [
+       "channel 低 sinuosity 直泄",
+       "山势逼囚"
+      ],
+      "operational": "水流直去=channel 低 sinuosity 直泄;山囚=山势封逼无止聚",
+      "metric_unit": "dimensionless",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "bai",
+       "source": "文言古籍网·葬书白话全译",
+       "url": "https://www.wenyanguji.com/zi/zangshu"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "外篇结句,与上『山来水回』正反对举,定吉凶之极。"
+    }
+   ]
+  },
+  {
+   "id": "ch06",
+   "label": "雜篇",
+   "annotation": "杂篇汇集葬法中各类补充条例与特殊情形，内容较为驳杂，学界对其成书年代与真实作者存疑，通常被视为后人续附或辑入的材料。",
+   "sentences": [
+    {
+     "i": 0,
+     "orig": "占山之法，以势为难，而形次之，方又次之。",
+     "bai": "相山(占山)之法,以辨别『势』(大格局)最难,『形』(局部形态)次之,『方』(方位理气)又次之。",
+     "gloss": [
+      [
+       "占山",
+       "相度山形"
+      ],
+      [
+       "勢/形/方",
+       "大势/局部形/方位"
+      ]
+     ],
+     "logic": "难度排序: 势 > 形 > 方。",
+     "terms": [
+      "shi",
+      "xing",
+      "xiang"
+     ],
+     "quant": {
+      "observables": [
+       "势(千尺大尺度)",
+       "形(百尺细尺度)",
+       "方(罗盘方位)"
+      ],
+      "operational": "势=coarse DEM 大尺度走向; 形=fine DEM 局部形态; 方=罗盘方位角",
+      "metric_unit": "deg / m",
+      "falsifiable": "部分可证伪",
+      "engine": "DragonVeinEngine",
+      "evidence": "『千尺为势百尺为形』为古制约略尺度,折合 ~300m/~30m 为现代换算;原文无数。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "杂篇开篇,定势形方三层之轻重。"
+    },
+    {
+     "i": 1,
+     "orig": "势如万马自天而下，其葬王者。",
+     "bai": "龙势如万马奔腾、自天而降的,葬此可出帝王。",
+     "gloss": [
+      [
+       "万马自天而下",
+       "千军万马自天奔下,极言势之雄"
+      ],
+      [
+       "葬王者",
+       "可出帝王之地"
+      ]
+     ],
+     "logic": "IF 势如万马自天下 THEN 葬王者(帝王之地)。",
+     "terms": [
+      "shi"
+     ],
+     "quant": {
+      "observables": [
+       "relative_relief 陡降",
+       "大尺度奔势"
+      ],
+      "operational": "万马自天=大尺度高 relief 陡峻奔腾龙势",
+      "metric_unit": "m",
+      "falsifiable": "部分可证伪",
+      "engine": "DragonVeinEngine",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "『势』之七喻第一(吉)。"
+    },
+    {
+     "i": 2,
+     "orig": "势如巨浪花，重岭叠障，千乘之葬。",
+     "bai": "龙势如巨浪翻涌、重岭层叠如屏障的,是千乘公侯之葬地。",
+     "gloss": [
+      [
+       "巨浪",
+       "波涛翻涌,喻势起伏"
+      ],
+      [
+       "重岭叠障",
+       "峰峦层叠如屏障"
+      ],
+      [
+       "千乘",
+       "千乘之国,公侯之贵"
+      ]
+     ],
+     "logic": "IF 势如巨浪、重岭叠障 THEN 千乘之葬(公侯)。",
+     "terms": [
+      "shi",
+      "long"
+     ],
+     "quant": {
+      "observables": [
+       "relief 多重脊列"
+      ],
+      "operational": "重岭叠障=多重高 relief 脊列层叠(coarse DEM)",
+      "metric_unit": "m",
+      "falsifiable": "部分可证伪",
+      "engine": "DragonVeinEngine",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "『势』第二喻(吉);worklist『巨浪花』,通行多作『巨浪』。"
+    },
+    {
+     "i": 3,
+     "orig": "势如降龙，水绕云从，爵禄三公。",
+     "bai": "龙势如天龙下降,有水环绕、云气相从的,主官至三公之贵。",
+     "gloss": [
+      [
+       "降龙",
+       "天龙下降之势"
+      ],
+      [
+       "水绕云从",
+       "水环绕、云相从"
+      ],
+      [
+       "三公",
+       "最高官爵"
+      ]
+     ],
+     "logic": "IF 势如降龙、水绕云从 THEN 爵禄三公。",
+     "terms": [
+      "shi",
+      "long",
+      "shui"
+     ],
+     "quant": {
+      "observables": [
+       "channel 环抱(sinuosity/enclosure)"
+      ],
+      "operational": "水绕=channel 环抱穴场(sinuosity 高、enclosure 大)",
+      "metric_unit": "deg",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "『势』第三喻(吉)。"
+    },
+    {
+     "i": 4,
+     "orig": "势如重屋，茂草乔木，开府建国。",
+     "bai": "龙势如重叠的楼屋,草木茂盛乔林葱郁的,主开府建国之贵。",
+     "gloss": [
+      [
+       "重屋",
+       "层叠如重楼"
+      ],
+      [
+       "茂草乔木",
+       "草木茂盛、乔林葱郁"
+      ],
+      [
+       "开府建国",
+       "开建府第、封国之贵"
+      ]
+     ],
+     "logic": "IF 势如重屋、草木茂盛 THEN 开府建国。",
+     "terms": [
+      "shi"
+     ],
+     "quant": {
+      "observables": [
+       "植被覆盖(NDVI)"
+      ],
+      "operational": "茂草乔木=植被覆盖高(NDVI 高,生气旺,反『童山』)",
+      "metric_unit": "dimensionless",
+      "falsifiable": "部分可证伪(NDVI 可测)",
+      "engine": "TempleScore",
+      "evidence": "草木茂盛为生气之验;NDVI 化为现代 GIS 假说,原文无数。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "『势』第四喻(吉);草木茂盛为生气之验。"
+    },
+    {
+     "i": 5,
+     "orig": "势如惊蛇，屈曲徐斜，灭亡家国。",
+     "bai": "龙势如受惊之蛇,屈曲歪斜、散乱无主的,主家国灭亡。",
+     "gloss": [
+      [
+       "惊蛇",
+       "受惊之蛇,乱窜无定"
+      ],
+      [
+       "屈曲徐斜",
+       "曲折歪斜、散乱"
+      ]
+     ],
+     "logic": "IF 势如惊蛇、屈曲徐斜 THEN 灭亡家国(凶)。",
+     "terms": [
+      "shi",
+      "sha_evil"
+     ],
+     "quant": {
+      "observables": [
+       "ridge 杂乱无定向"
+      ],
+      "operational": "惊蛇=脊线杂乱无序、无主导走向(无定脉)",
+      "metric_unit": "dimensionless",
+      "falsifiable": "部分可证伪",
+      "engine": "DragonVeinEngine",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "『势』第五喻(凶)。"
+    },
+    {
+     "i": 6,
+     "orig": "势如矛戈，兵死形因。",
+     "bai": "龙势如矛戈兵刃般尖锐冲射的,主死于兵祸、身陷囹圄。",
+     "gloss": [
+      [
+       "矛戈",
+       "尖锐兵器,喻峰势尖射"
+      ],
+      [
+       "兵死形囚",
+       "死于兵刃、身被囚系;worklist『形因』,通行作『刑囚』"
+      ]
+     ],
+     "logic": "IF 势如矛戈(尖射) THEN 兵死刑囚(凶)。",
+     "terms": [
+      "shi",
+      "sha_evil",
+      "chong"
+     ],
+     "quant": {
+      "observables": [
+       "尖锐直射峰势(冲射几何)"
+      ],
+      "operational": "矛戈=尖锐直射的峰势(冲射:直线指向、低曲率)",
+      "metric_unit": "deg",
+      "falsifiable": "部分可证伪",
+      "engine": "RoomPalace",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "『势』第六喻(凶);worklist『兵死形因』,通行作『兵死刑囚』,据正字白话。"
+    },
+    {
+     "i": 7,
+     "orig": "势如流水，生人皆鬼。",
+     "bai": "龙势如流水直泻、不可聚止的,葬之生人都将沦为鬼(后代凋丧)。",
+     "gloss": [
+      [
+       "流水",
+       "直泻无止之势"
+      ],
+      [
+       "生人皆鬼",
+       "活人都成鬼,极言绝灭"
+      ]
+     ],
+     "logic": "IF 势如流水(直泻不止) THEN 生人皆鬼(大凶)。",
+     "terms": [
+      "shi",
+      "sha_evil"
+     ],
+     "quant": {
+      "observables": [
+       "直泻无止(无龙止/低 sinuosity)"
+      ],
+      "operational": "流水势=直泻无止(无流场交汇龙止、低 sinuosity)",
+      "metric_unit": "dimensionless",
+      "falsifiable": "部分可证伪",
+      "engine": "DragonVeinEngine",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "收『势』之七喻(四吉三凶)。"
+    },
+    {
+     "i": 8,
+     "orig": "形如负峙，有城中峙，法葬其止，王侯崛起。",
+     "bai": "穴形如背倚耸峙、有垄城居中峙立的,依法葬在它止息处,主王侯崛起。",
+     "gloss": [
+      [
+       "负峙",
+       "背倚耸峙"
+      ],
+      [
+       "城中峙",
+       "垄城居中耸立"
+      ]
+     ],
+     "logic": "IF 形如负峙、城中峙 THEN 法葬其止 → 王侯崛起。",
+     "terms": [
+      "xing",
+      "xue",
+      "zushan"
+     ],
+     "quant": {
+      "observables": [
+       "local prominence 居中峰",
+       "flow convergence 止点"
+      ],
+      "operational": "中峙=居中 prominence;止=流场交汇近点",
+      "metric_unit": "m",
+      "falsifiable": "部分可证伪",
+      "engine": "DragonVeinEngine",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "起『形』之诸喻,与外篇 i16 同句而增『王侯崛起』。"
+    },
+    {
+     "i": 9,
+     "orig": "形如燕察，法葬其曲，胙土分茅。",
+     "bai": "穴形如燕子的巢窝,依法葬在它窝曲(凹聚)之处,主受封赐土(胙土分茅)。",
+     "gloss": [
+      [
+       "燕巢",
+       "燕窝,喻穴凹聚藏风"
+      ],
+      [
+       "葬其曲",
+       "葬于凹曲藏窝处"
+      ],
+      [
+       "胙土分茅",
+       "受封赐土立国;古封诸侯以茅裹土"
+      ]
+     ],
+     "logic": "IF 形如燕巢 THEN 葬其曲(凹窝) → 胙土分茅(封赏)。",
+     "terms": [
+      "xue"
+     ],
+     "quant": {
+      "observables": [
+       "plan_curvature 强凹聚(窝穴)"
+      ],
+      "operational": "燕巢=plan_curvature 强凹聚藏窝(窝穴)、藏风",
+      "metric_unit": "dimensionless",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "『形』吉喻;worklist『燕察』,通行作『燕巢』,据正字。"
+    },
+    {
+     "i": 10,
+     "orig": "形如侧垒，后冈远来，前应曲回，九棘三槐。",
+     "bai": "穴形如侧立的营垒,后有山冈从远处来脉,前有砂水曲折回应的,主位列九棘三槐(公卿)。",
+     "gloss": [
+      [
+       "侧垒",
+       "侧立的壁垒"
+      ],
+      [
+       "后冈远来",
+       "后龙自远而来"
+      ],
+      [
+       "前应曲回",
+       "前砂水曲折朝应"
+      ],
+      [
+       "九棘三槐",
+       "周制公卿之位,喻高官"
+      ]
+     ],
+     "logic": "IF 形如侧垒、后冈远来、前应曲回 THEN 九棘三槐(公卿)。",
+     "terms": [
+      "xing",
+      "xue",
+      "gang",
+      "chaoshan"
+     ],
+     "quant": {
+      "observables": [
+       "后冈 relief 来脉",
+       "前砂/水曲抱"
+      ],
+      "operational": "后冈远来=后方 relief 来脉远;前应曲回=前 channel/砂 曲抱朝应",
+      "metric_unit": "m",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "『形』吉喻:后靠前应俱全。"
+    },
+    {
+     "i": 11,
+     "orig": "形如覆釜，其岭可富。",
+     "bai": "穴形如倒扣的锅,葬在它的顶岭处可主富。",
+     "gloss": [
+      [
+       "覆釜",
+       "倒扣的釜锅,圆顶"
+      ],
+      [
+       "岭",
+       "顶部"
+      ]
+     ],
+     "logic": "IF 形如覆釜 THEN 葬其岭(圆顶) → 可富。",
+     "terms": [
+      "xing",
+      "xue"
+     ],
+     "quant": {
+      "observables": [
+       "profile_curvature 凸顶(金星圆顶)"
+      ],
+      "operational": "覆釜=圆凸顶(profile_curvature 凸,五星金形圆顶)",
+      "metric_unit": "dimensionless",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "五星金形圆顶为传统;曲率为现代 GIS 假说,原文无数。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "『形』吉喻;worklist『其岭可富』,一作『其巅可富』,义同。"
+    },
+    {
+     "i": 12,
+     "orig": "形如植冠，永昌且欢。",
+     "bai": "穴形如端正竖立的冠冕,主家族永远昌盛而欢乐。",
+     "gloss": [
+      [
+       "植冠",
+       "端正竖立的冠冕,稳重端方"
+      ]
+     ],
+     "logic": "IF 形如植冠(端方) THEN 永昌且欢。",
+     "terms": [
+      "xing",
+      "xue"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "『形』吉喻。"
+    },
+    {
+     "i": 13,
+     "orig": "形如投算，百事错乱。",
+     "bai": "穴形如散乱抛掷的算筹,主百事昏乱、诸事不顺。",
+     "gloss": [
+      [
+       "投算",
+       "抛散的算筹,杂乱无序"
+      ]
+     ],
+     "logic": "IF 形如投算(散乱) THEN 百事错乱(凶)。",
+     "terms": [
+      "xing",
+      "sha_evil"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "『形』凶喻;worklist『百事错乱』,一作『百事昏乱』,义同。"
+    },
+    {
+     "i": 14,
+     "orig": "形如乱衣，荡女淫妻。",
+     "bai": "穴形如凌乱的衣衫,主家中妇女淫荡失行。",
+     "gloss": [
+      [
+       "乱衣",
+       "凌乱衣裳,无序"
+      ],
+      [
+       "荡女淫妻",
+       "妇女淫荡;一作『妬女淫妻』"
+      ]
+     ],
+     "logic": "IF 形如乱衣 THEN 荡女淫妻(凶)。",
+     "terms": [
+      "xing",
+      "sha_evil"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "『形』凶喻。"
+    },
+    {
+     "i": 15,
+     "orig": "形如灰囊，灾舍焚仓。",
+     "bai": "穴形如松散的灰袋,主遭火灾、屋舍仓廪被焚。",
+     "gloss": [
+      [
+       "灰囊",
+       "盛灰的口袋,松散易散"
+      ],
+      [
+       "灾舍焚仓",
+       "屋舍受灾、仓廪焚毁"
+      ]
+     ],
+     "logic": "IF 形如灰囊(松散) THEN 灾舍焚仓(火灾,凶)。",
+     "terms": [
+      "xing",
+      "sha_evil"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "『形』凶喻。"
+    },
+    {
+     "i": 16,
+     "orig": "形如覆舟，女病男因。",
+     "bai": "穴形如翻覆的船,主家中妇女多病、男子被囚。",
+     "gloss": [
+      [
+       "覆舟",
+       "翻覆之舟"
+      ],
+      [
+       "女病男囚",
+       "女病、男遭囚系;worklist『男因』,通行作『男囚』"
+      ]
+     ],
+     "logic": "IF 形如覆舟 THEN 女病男囚(凶)。",
+     "terms": [
+      "xing",
+      "sha_evil"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "『形』凶喻;worklist『男因』,通行作『男囚』,据正字。"
+    },
+    {
+     "i": 17,
+     "orig": "形如横几，子绝孙死。",
+     "bai": "穴形如横放的几案,主子嗣断绝、孙辈夭亡。",
+     "gloss": [
+      [
+       "横几",
+       "横置的几案,僵直无生气"
+      ]
+     ],
+     "logic": "IF 形如横几 THEN 子绝孙死(凶)。",
+     "terms": [
+      "xing",
+      "sha_evil"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "『形』凶喻。"
+    },
+    {
+     "i": 18,
+     "orig": "形如卧剑，诛夷逼督。",
+     "bai": "穴形如横卧的利剑,主遭诛戮夷灭、被逼迫(僭越获罪)。",
+     "gloss": [
+      [
+       "卧剑",
+       "横卧之剑,锋利肃杀"
+      ],
+      [
+       "诛夷逼督",
+       "被诛夷、遭逼迫;worklist『逼督』,通行作『逼僭』"
+      ]
+     ],
+     "logic": "IF 形如卧剑 THEN 诛夷逼僭(凶)。",
+     "terms": [
+      "xing",
+      "sha_evil"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "『形』凶喻;worklist『逼督』,通行作『逼僭』。"
+    },
+    {
+     "i": 19,
+     "orig": "形如仰刀，凶祝伏逃。",
+     "bai": "穴形如刃口朝上的仰刀,主凶祸突至、伏匿逃亡。",
+     "gloss": [
+      [
+       "仰刀",
+       "刃口向上之刀,锋险"
+      ],
+      [
+       "凶祝伏逃",
+       "凶祸、伏逃;worklist『凶祝』,通行作『凶祸』"
+      ]
+     ],
+     "logic": "IF 形如仰刀 THEN 凶祸伏逃(凶)。",
+     "terms": [
+      "xing",
+      "sha_evil"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "收『形』诸喻(吉五凶七);worklist『凶祝』通行作『凶祸』。"
+    },
+    {
+     "i": 20,
+     "orig": "牛卧马驰，蛮舞凤飞。",
+     "bai": "(砂形)如卧牛、奔马、鸾舞、飞凤,各具生动之态。",
+     "gloss": [
+      [
+       "牛卧马驰",
+       "如卧牛、奔马"
+      ],
+      [
+       "蛮舞凤飞",
+       "当作『鸾舞凤飞』,如鸾凤飞舞"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "sha"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "起喝形(以物象命砂)之例;worklist『蛮舞』,通行作『鸾舞』。"
+    },
+    {
+     "i": 21,
+     "orig": "媵蛇委蛇。",
+     "bai": "(有的砂形)如腾蛇蜿蜒委曲。",
+     "gloss": [
+      [
+       "媵蛇",
+       "当作『腾蛇』,神蛇"
+      ],
+      [
+       "委蛇",
+       "蜿蜒曲折貌"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "sha"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "worklist『媵蛇』,通行作『腾蛇』。"
+    },
+    {
+     "i": 22,
+     "orig": "鼋鼍鱼鳖，以水别之。",
+     "bai": "(砂形)如鼋、鼍、鱼、鳖等水族的,要凭水势来辨别其吉凶。",
+     "gloss": [
+      [
+       "鼋鼍鱼鳖",
+       "大鳖/猪婆龙/鱼/甲鱼等水物"
+      ],
+      [
+       "以水别之",
+       "凭水势区别"
+      ]
+     ],
+     "logic": "IF 砂形为水族象 THEN 以水势别其吉凶。",
+     "terms": [
+      "sha",
+      "shui"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "水物喝形须配水势断吉凶。"
+    },
+    {
+     "i": 23,
+     "orig": "牛富凤贵。",
+     "bai": "砂形如牛的主富,如凤的主贵。",
+     "gloss": [
+      [
+       "牛富凤贵",
+       "牛形主富、凤形主贵"
+      ]
+     ],
+     "logic": "牛形 → 富; 凤形 → 贵。",
+     "terms": [
+      "sha"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "喝形吉断。"
+    },
+    {
+     "i": 24,
+     "orig": "媵蛇凶危。",
+     "bai": "砂形如腾蛇的主凶险危厄。",
+     "gloss": [
+      [
+       "媵蛇凶危",
+       "腾蛇形主凶危"
+      ]
+     ],
+     "logic": "腾蛇形 → 凶危。",
+     "terms": [
+      "sha",
+      "sha_evil"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "喝形凶断;worklist『媵蛇』,通行作『腾蛇』。"
+    },
+    {
+     "i": 25,
+     "orig": "形类百动，葬者非宜，四应前按，法同忌之。",
+     "bai": "凡山形像活动奔走之物(动象不止)的,都不宜葬;若前方朝案等四应之砂也呈这类动象,按法同样在忌避之列。",
+     "gloss": [
+      [
+       "形类百动",
+       "形如百物之动,奔走不定"
+      ],
+      [
+       "四应",
+       "四方朝应之砂(前案等)"
+      ],
+      [
+       "法同忌之",
+       "依法一同忌避"
+      ]
+     ],
+     "logic": "IF 形为动象(百动) ∨ 四应亦动 THEN 葬者非宜(忌)。",
+     "terms": [
+      "xing",
+      "sha",
+      "anshan"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "总收喝形:取静忌动,四应砂亦然。"
+    },
+    {
+     "i": 26,
+     "orig": "夫势与形顺者吉，势与形逆者凶，势吉形凶，百[缺]一，势凶形吉，祸不诈日。",
+     "bai": "大势与近形相顺的吉,势与形相逆的凶;若势吉而形凶,百中难得一(成);若势凶而形吉,招祸不出一日。",
+     "gloss": [
+      [
+       "势与形顺/逆",
+       "大势与局部形协调/相违"
+      ],
+      [
+       "百[缺]一",
+       "百不得一;原文有缺字"
+      ],
+      [
+       "祸不诈日",
+       "祸至不出一日;worklist『不诈日』,通行作『不旋日』"
+      ]
+     ],
+     "logic": "IF 势形顺 THEN 吉; IF 势形逆 THEN 凶; 势吉形凶→百不一; 势凶形吉→祸不旋日。",
+     "terms": [
+      "shi",
+      "xing"
+     ],
+     "quant": {
+      "observables": [
+       "势(大尺度)与形(细尺度)一致性"
+      ],
+      "operational": "势形顺逆=coarse 势与 fine 形走向一致(顺)/相违(逆)的判别",
+      "metric_unit": "m",
+      "falsifiable": "部分可证伪",
+      "engine": "DragonVeinEngine",
+      "evidence": "千尺为势百尺为形为古制约略尺度换算;原文无数,GIS 假说。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "med",
+     "notes": "worklist『百[缺]一』有阙文、『不诈日』通行作『不旋日』,据文义白话。"
+    },
+    {
+     "i": 27,
+     "orig": "经曰：地有四势，气从八方。",
+     "bai": "古经说:大地有四方之势,生气来自八方。",
+     "gloss": [
+      [
+       "四势",
+       "四方之势"
+      ],
+      [
+       "八方",
+       "八方位"
+      ]
+     ],
+     "logic": "地有四势、气从八方(总纲,下文释之)。",
+     "terms": [
+      "shi",
+      "qi",
+      "xiang"
+     ],
+     "quant": {
+      "observables": [
+       "四方位/八方位划分"
+      ],
+      "operational": "四势/八方=方位划分(四隅长生+后天八卦),罗盘编码",
+      "metric_unit": "deg",
+      "falsifiable": "否(方位约定)",
+      "engine": "CompassModel",
+      "evidence": "方位划分为传统,度数为现代编码;原文无数。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "理气四势八方之总纲。"
+    },
+    {
+     "i": 28,
+     "orig": "寅申巳亥，四势也；震离坎兑乾坤艮巽，八方也。",
+     "bai": "寅、申、巳、亥(四隅长生之位)就是『四势』;震、离、坎、兑、乾、坤、艮、巽八卦就是『八方』。",
+     "gloss": [
+      [
+       "寅申巳亥",
+       "四长生/四隅之位"
+      ],
+      [
+       "震离坎兑乾坤艮巽",
+       "后天八卦八方"
+      ]
+     ],
+     "logic": "DEFINE 四势 := 寅申巳亥; 八方 := 八卦方位。",
+     "terms": [
+      "xiang",
+      "five_phases"
+     ],
+     "quant": {
+      "observables": [
+       "八卦八方位(后天八卦盘)"
+      ],
+      "operational": "八卦八方=后天八卦方位编码(罗盘盘面)",
+      "metric_unit": "deg",
+      "falsifiable": "否(方位约定)",
+      "engine": "CompassModel",
+      "evidence": "八卦方位为传统,度数为现代编码;原文无数。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "明确四势=四隅地支、八方=八卦。"
+    },
+    {
+     "i": 29,
+     "orig": "是故四势之山，生八方之龙，四势行龙，八方施生，一得其宅，吉庆荣贵。",
+     "bai": "所以四势所主的山,生出八方所属的龙;四势之中龙脉运行,八方之上生气布施,一旦得到这样的吉宅,便吉庆荣贵。",
+     "gloss": [
+      [
+       "四势行龙",
+       "龙行于四势之间"
+      ],
+      [
+       "八方施生",
+       "生气布于八方"
+      ],
+      [
+       "得其宅",
+       "得此吉地(阴宅)"
+      ]
+     ],
+     "logic": "IF 四势行龙、八方施生、得其宅 THEN 吉庆荣贵。",
+     "terms": [
+      "long",
+      "shi",
+      "xiang",
+      "qi"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "四势八方与龙气配合得宅则贵。"
+    },
+    {
+     "i": 30,
+     "orig": "土圭测其方位，玉尺度其远迩。",
+     "bai": "用土圭测定它的方位,用玉尺量度它的远近。",
+     "gloss": [
+      [
+       "土圭",
+       "古代测影定方位的玉器"
+      ],
+      [
+       "玉尺",
+       "量度远近的尺"
+      ],
+      [
+       "远迩",
+       "远近"
+      ]
+     ],
+     "logic": "操作: 土圭定方位、玉尺度远近(理气量测)。",
+     "terms": [
+      "xiang",
+      "zuoxiang"
+     ],
+     "quant": {
+      "observables": [
+       "方位角",
+       "距离(远近)"
+      ],
+      "operational": "土圭定方位(方位角°)、玉尺度远近(距离 m)——明示的量测动作",
+      "metric_unit": "deg / m",
+      "falsifiable": "是(可量测)",
+      "engine": "CompassModel",
+      "evidence": "原文明示『测方位/度远迩』的量测动作但未给具体数值;方位约定传统,度量为现代换算。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      },
+      {
+       "what": "term(zuoxiang:方位度量)",
+       "source": "司南术语本体（今人整理）"
+      }
+     ],
+     "conf": "high",
+     "notes": "罕见明示量测工具,quant.evidence 注明原文给量测动作而无具体数值。"
+    },
+    {
+     "i": 31,
+     "orig": "盖穴有三吉，葬直六凶，天光下临，地德上载。",
+     "bai": "大凡穴有三吉、葬有六凶;(三吉之总)在于上有天光下照、下有地德上承。",
+     "gloss": [
+      [
+       "三吉/六凶",
+       "穴之三吉、葬之六凶"
+      ],
+      [
+       "葬直",
+       "当作『葬有』;直=值/有"
+      ]
+     ],
+     "logic": "总纲: 穴有三吉、葬有六凶(下文分释)。",
+     "terms": [
+      "xue"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "worklist『葬直六凶』,通行作『葬有六凶』;下接三吉六凶分释。"
+    },
+    {
+     "i": 32,
+     "orig": "藏神合朔，神迎鬼避，一吉也。",
+     "bai": "葬时藏纳神气、合于朔望天时,使吉神来迎、凶鬼回避,这是第一吉。",
+     "gloss": [
+      [
+       "藏神合朔",
+       "藏纳神气、合于朔望(择时)"
+      ],
+      [
+       "神迎鬼避",
+       "吉神迎、凶煞避"
+      ]
+     ],
+     "logic": "IF 藏神合朔、神迎鬼避 THEN 一吉(择时之吉)。",
+     "terms": [
+      "xue"
+     ],
+     "quant": {
+      "observables": [
+       "合朔=天时择日(历法朔望)"
+      ],
+      "operational": "合朔=依朔望历法择葬时(天时维度,非地形量)",
+      "metric_unit": "dimensionless",
+      "falsifiable": "否(择时约定)",
+      "engine": "CompassModel",
+      "evidence": "择日合朔为传统;原文无数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "三吉之一:择时。"
+    },
+    {
+     "i": 33,
+     "orig": "阴阳冲合，五土四备，二吉也。",
+     "bai": "阴阳二气冲虚调和、五色之土完备、四象之砂齐备,这是第二吉。",
+     "gloss": [
+      [
+       "阴阳冲合",
+       "阴阳调和;一作『冲和』"
+      ],
+      [
+       "五土四备",
+       "五色土全、四象砂备"
+      ]
+     ],
+     "logic": "IF 阴阳冲合、五土四备 THEN 二吉。",
+     "terms": [
+      "xue"
+     ],
+     "quant": {
+      "observables": [
+       "土色/土质(五土)",
+       "四象砂齐"
+      ],
+      "operational": "五土=穴土五色/质;四备=四象砂(青龙白虎朱雀玄武)齐",
+      "metric_unit": "dimensionless",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "三吉之二:形质;与外篇 i13『五上四备』同。"
+    },
+    {
+     "i": 34,
+     "orig": "目力之巧，工力之具，趋全避缺，增高举国下，三吉也。",
+     "bai": "凭目力的精巧、人工的施为,趋就完备、避开缺陷,该增高的培高、该补低的填厚,这是第三吉。",
+     "gloss": [
+      [
+       "趋全避缺",
+       "趋完备、避缺欠"
+      ],
+      [
+       "增高举国下",
+       "当作『增高益下』,培高补低;『举国』为讹"
+      ]
+     ],
+     "logic": "IF 目巧工力、趋全避缺、增高益下 THEN 三吉(人工裁成)。",
+     "terms": [
+      "xue"
+     ],
+     "quant": {
+      "observables": [
+       "人工地形培补(增高/补低)"
+      ],
+      "operational": "增高益下=人工 DEM 改造(培高补低)以趋全避缺",
+      "metric_unit": "m",
+      "falsifiable": "部分可证伪",
+      "engine": "TempleScore",
+      "evidence": "原文(葬书)未给任何数值;此为标准 GIS 方法学下的现代 operational 假说,非原文数值。"
+     },
+     "src": [
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "三吉之三:人工;与外篇 i14 同文,worklist『增高举国下』有讹,通行作『增高益下』。"
+    },
+    {
+     "i": 35,
+     "orig": "阴阳差错为一凶，岁时之乖为二凶。",
+     "bai": "阴阳判定差错是第一凶,择取岁时(年月日时)乖违是第二凶。",
+     "gloss": [
+      [
+       "阴阳差错",
+       "阴阳辨定有误"
+      ],
+      [
+       "岁时之乖",
+       "择日年时违逆"
+      ]
+     ],
+     "logic": "一凶: 阴阳差错; 二凶: 岁时之乖。",
+     "terms": [
+      "sha_evil"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "六凶之一、二。"
+    },
+    {
+     "i": 36,
+     "orig": "力小图大为三凶。",
+     "bai": "龙力微小却图谋大地(贪大),是第三凶。",
+     "gloss": [
+      [
+       "力小图大",
+       "龙气力小而贪图大局"
+      ]
+     ],
+     "logic": "IF 力小图大 THEN 三凶。",
+     "terms": [
+      "sha_evil"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "六凶之三。"
+    },
+    {
+     "i": 37,
+     "orig": "凭福恃势为四凶。",
+     "bai": "倚仗福分、恃势蛮干(不依正法),是第四凶。",
+     "gloss": [
+      [
+       "凭福恃势",
+       "恃福气势力强行"
+      ]
+     ],
+     "logic": "IF 凭福恃势 THEN 四凶。",
+     "terms": [
+      "sha_evil"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "六凶之四。"
+    },
+    {
+     "i": 38,
+     "orig": "僭上带下为五凶。",
+     "bai": "葬制僭越上分、又拖累下分(尊卑失序、不辨高下乱扦),是第五凶。",
+     "gloss": [
+      [
+       "僭上带下",
+       "僭越尊上、牵带卑下;一作『僭上逼下』"
+      ]
+     ],
+     "logic": "IF 僭上逼下(乱高下) THEN 五凶。",
+     "terms": [
+      "sha_evil"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "六凶之五;worklist『僭上带下』,通行作『僭上逼下』。"
+    },
+    {
+     "i": 39,
+     "orig": "变应怪见为六凶。",
+     "bai": "出现反常的变异征应、怪诞之象(违背常理强为),是第六凶。",
+     "gloss": [
+      [
+       "变应怪见",
+       "反常变异、怪象呈现"
+      ]
+     ],
+     "logic": "IF 变应怪见 THEN 六凶。",
+     "terms": [
+      "sha_evil"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "收六凶。"
+    },
+    {
+     "i": 40,
+     "orig": "经曰：穴吉葬凶，与弃尸同。",
+     "bai": "古经说:穴位虽吉,而葬法(失三吉犯六凶)为凶的,其害等同于抛弃尸体。",
+     "gloss": [
+      [
+       "穴吉葬凶",
+       "穴本吉而葬法犯凶"
+      ],
+      [
+       "与弃尸同",
+       "如同弃尸,葬而无益反害"
+      ]
+     ],
+     "logic": "IF 穴吉 ∧ 葬凶(犯六凶) THEN 与弃尸同(全功尽废)。",
+     "terms": [
+      "xue",
+      "sha_evil"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "bai",
+       "source": "周易网《葬书》白话翻译",
+       "url": "https://m.zhouyi.cc/fengshui/wenhua/21447.html"
+      },
+      {
+       "what": "bai",
+       "source": "百科TA说《葬书》原文及白话注释",
+       "url": "https://wapbaike.baidu.com/tashuo/browse/content?id=0c49bf38ed0b581cea204472"
+      },
+      {
+       "what": "orig",
+       "source": "维基文库·葬書(本仓库)"
+      }
+     ],
+     "conf": "high",
+     "notes": "全书(杂篇)结句,强调穴吉尚须葬法得当,否则同于弃尸。"
+    }
+   ]
+  }
+ ]
+}

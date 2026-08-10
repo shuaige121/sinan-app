@@ -1,0 +1,17 @@
+{
+  "name": "司南 · 罗盘与黄历",
+  "short_name": "司南",
+  "description": "罗经定向 · 每日黄历 · 八字命盘 · 龙脉文化地图，传统历法与方位工具",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1814",
+  "theme_color": "#1a1814",
+  "icons": [
+    {
+      "src": "/icons/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ]
+}

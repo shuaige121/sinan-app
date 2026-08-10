@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>司南 · 罗盘 / 黄历 / 八字</title>
+<meta name="description" content="传统罗经罗盘、每日黄历、八字命盘——传统历法与方位工具，生辰只在本机演算，绝不上传。">
+<meta name="theme-color" content="#1a1814">
+<meta property="og:title" content="司南 · 罗盘与黄历">
+<meta property="og:description" content="罗经定向 · 每日黄历 · 八字命盘，传统历法与方位工具">
+<meta property="og:image" content="icons/og-banner.png">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-512.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/icon-512.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
+<link rel="stylesheet" href="css/style.css?v=20260810f">
+</head>
+<body>
+
+<!-- 开屏 -->
+<div id="opening">
+  <div class="bagua-ring">
+    <i style="--r:0deg">☵</i><i style="--r:45deg">☶</i><i style="--r:90deg">☳</i><i style="--r:135deg">☴</i>
+    <i style="--r:180deg">☲</i><i style="--r:225deg">☷</i><i style="--r:270deg">☱</i><i style="--r:315deg">☰</i>
+  </div>
+  <div class="ember" style="left:18%;--sway:24px;animation-duration:9s;animation-delay:0s"></div>
+  <div class="ember" style="left:34%;--sway:-30px;animation-duration:11s;animation-delay:2s"></div>
+  <div class="ember" style="left:52%;--sway:18px;animation-duration:8s;animation-delay:1s"></div>
+  <div class="ember" style="left:68%;--sway:-22px;animation-duration:12s;animation-delay:3.5s"></div>
+  <div class="ember" style="left:84%;--sway:28px;animation-duration:10s;animation-delay:.6s"></div>
+  <div class="opening-brand">司南</div>
+  <div id="opening-quote"></div>
+  <div id="opening-author"></div>
+  <div id="opening-why" class="opening-why"></div>
+  <div id="opening-sub" class="opening-sub" data-i18n="opening.sub">历 · 堪 · 命</div>
+  <div id="opening-hint" data-i18n="opening.hint">轻 触 入 境</div>
+  <button type="button" id="lang-toggle-opening" class="lang-toggle" aria-label="Language / 语言">EN</button>
+</div>
+<template id="opening-template">
+  <div class="bagua-ring">
+    <i style="--r:0deg">☵</i><i style="--r:45deg">☶</i><i style="--r:90deg">☳</i><i style="--r:135deg">☴</i>
+    <i style="--r:180deg">☲</i><i style="--r:225deg">☷</i><i style="--r:270deg">☱</i><i style="--r:315deg">☰</i>
+  </div>
+  <div class="opening-brand">司南</div>
+  <div class="oq"></div>
+  <div class="oa"></div>
+  <div class="opening-sub">历 · 堪 · 命</div>
+  <div class="oh">轻 触 入 境</div>
+</template>
+
+<!-- 今日 -->
+<section class="page active" id="page-today">
+  <!-- 天文钟 hero：太阳日照弧 + 大号时钟 + 时辰/时卦 + 双历月相（app.js initClock 驱动） -->
+  <div class="clock-hero" id="clock-hero">
+    <div class="ch-arc" id="ch-arc">
+      <svg class="ch-arc-svg" viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true">
+        <path class="ch-arc-track" d="M 20 34 A 30 30 0 0 1 80 34" />
+      </svg>
+      <span class="ch-horizon" aria-hidden="true"></span>
+      <span class="ch-sun" id="ch-sun" hidden></span>
+      <span class="ch-moon-arc" id="ch-moon-arc" hidden></span>
+      <button type="button" class="ch-locate" id="ch-locate" hidden data-i18n="clock.locate">点亮日照</button>
+      <span class="ch-sunrise" id="ch-sunrise" hidden></span>
+      <span class="ch-sunset" id="ch-sunset" hidden></span>
+    </div>
+    <div class="ch-mid">
+      <time class="ch-time" id="ch-time" datetime="">--:--</time>
+      <div class="ch-shichen">
+        <span class="ch-sc-name" id="ch-sc-name">——</span>
+        <span class="ch-sc-ke" id="ch-sc-ke"></span>
+      </div>
+    </div>
+    <!-- B5 本命日金标（今日干支==用户日柱·60 日一遇）：非本命日 hidden 不占高度。app.js renderClock 显隐。 -->
+    <span class="ch-benming" id="ch-benming" hidden data-i18n="common.benming_day">本命日</span>
+    <!-- 时卦行：点击展开内嵌抽屉（卦象/爻动/断语·原独立时卦卡收纳于此，展开不计入首屏高度） -->
+    <button type="button" class="ch-hexline" id="ch-hexline" aria-expanded="false" aria-controls="hex-drawer" hidden>
+      <span class="ch-hexline-txt" id="ch-hexline-txt"></span>
+      <span class="ch-hexline-chev" aria-hidden="true">▾</span>
+    </button>
+    <!-- 时卦大意（极小一行·今人整理）：hexagram-plain 数据·仅陈述卦德不作吉凶断言。app.js renderClock 填充/显隐。 -->
+    <p class="ch-hex-gist" id="ch-hex-gist" hidden></p>
+    <div class="hex-drawer" id="hex-drawer" hidden>
+      <div class="hex-wrap">
+        <div class="hex-lines" id="hex-lines"></div>
+        <div class="hex-body">
+          <span class="seal" data-i18n="today.hex_seal">时卦</span><b id="hex-name" style="font-size:19px"></b>
+          <p class="dim" style="margin:5px 0" id="hex-sub"></p>
+          <p class="gold" id="hex-meaning"></p>
+          <p class="dim" style="margin:4px 0;font-size:12px" id="hex-zhigua"></p>
+        </div>
+      </div>
+    </div>
+    <div class="ch-bottom">
+      <span class="ch-date" id="ch-date"></span>
+      <span class="ch-moon" id="ch-moon"></span>
+    </div>
+    <!-- 喜用时辰带（排盘后显示：12 格·喜用格金亮·当前时辰描边·今人方法） -->
+    <div class="ch-hours" id="ch-hours" hidden></div>
+  </div>
+  <div class="card" id="today-almanac-card">
+    <!-- 分享小钮（角落）：生成今日黄历卡（canvas 本地渲染·不出网），app.js 挂 share-card.js -->
+    <button type="button" class="share-corner-btn" id="share-almanac-btn" data-i18n="share.btn" data-i18n-aria="share.share_almanac_aria" aria-label="分享今日黄历卡">分享</button>
+    <span class="seal" data-i18n="today.almanac_seal">黄历</span><span class="gold" id="today-ganzhi"></span>
+    <span class="dim" id="today-shengxiao" style="float:right"></span>
+    <p class="dim" style="margin-top:9px" id="today-jieqi"></p>
+    <!-- 黄历人话摘要（小白第一眼）：把宜/忌类目翻成大白话动词。app.js renderToday 填充；类目→动词映射今人整理。 -->
+    <p class="yj-plain" id="today-plain" hidden></p>
+    <div class="yi-ji"><b class="gold" data-i18n="common.yi_label">宜</b><span id="today-yi"></span></div>
+    <div class="yi-ji"><b style="color:var(--cinnabar)" data-i18n="common.ji_label">忌</b><span id="today-ji"></span></div>
+    <!-- C1 宜忌探源：点宜/忌项手风琴展开值神·建除·月令推导层（app.js renderToday 填充·同时只开一项） -->
+    <div class="yj-derive" id="yj-derive" hidden></div>
+    <!-- C3 个性化金点角注：排盘后·宜列有金点项时显示 -->
+    <div class="yj-goldnote" id="yj-goldnote" hidden data-i18n="today.goldnote">金点＝与阁下喜用相合（今人方法）</div>
+    <!-- 导读（原「晨语」卡收纳于此）：晨语与黄历宜忌/时卦断语重复（审计指出），压成两行小字；
+         打字机 + 关键字着色沿用（见 app.js daoduText / typewriter）。 -->
+    <div class="daodu"><span class="daodu-label" data-i18n="today.daodu_label">导读</span><span class="daodu-text" id="today-master"></span></div>
+    <button type="button" class="ics-open-btn" id="ics-open" data-i18n="common.export_calendar">导出到日历</button>
+  </div>
+  <!-- C2 问答入口：墨底金字小钮 → 半屏抽屉（qa-engine.js 驱动）。黄历卡下常驻仅此一钮，不新增卡片。 -->
+  <div class="qa-open-row"><button type="button" class="qa-open-btn" id="qa-open" aria-haspopup="dialog" aria-controls="qa-sheet" data-i18n="today.qa_open">问 · 择日问事</button><button type="button" id="tour-replay" class="tour-replay-btn" aria-label="重看引导" data-i18n="tour.replay" data-i18n-aria="tour.replay_aria">重看引导</button><button type="button" id="lang-toggle-today" class="lang-toggle lang-toggle-inline" aria-label="Language / 语言">EN</button></div>
+  <!-- 今日与你（排盘后）/ 去排盘 CTA（未排盘）：由 app.js 按 localStorage bazi-input 填充 -->
+  <div id="today-personal"></div>
+  <!-- 人物志属于每日体验层：按本机已保存的日主显示，不混入学术命盘正文。 -->
+  <section id="today-character-story" class="today-character-story" hidden></section>
+  <!-- 岁时横条：默认一行摘要（下一节气倒计时 · 流年岁破方），点击展开完整节气卡 + 流年九宫。
+       节气卡(#jieqi-card) 与流年卡(#today-liunian) 收纳于展开区，出处 chip/素问引文随展开可达。 -->
+  <div class="card suishi-card" id="today-suishi">
+    <button type="button" class="suishi-bar" id="suishi-bar" aria-expanded="false" aria-controls="suishi-detail">
+      <span class="seal" data-i18n="suishi.seal">岁时</span>
+      <span class="suishi-summary" id="suishi-summary"></span>
+      <span class="suishi-chev" aria-hidden="true">›</span>
+    </button>
+    <div class="suishi-detail" id="suishi-detail" hidden>
+      <div class="jieqi-card" id="jieqi-card"></div>
+      <!-- B3 三伏/数九卡（岁时展开区·节气卡之后）：仅当天处伏九期才显（lunar-js getFu/getShuJiu 非空），否则 hidden 完全隐藏。 -->
+      <div class="jieqi-card fu-card" id="fu-card" hidden></div>
+      <div class="tl-detail" id="today-liunian"></div>
+    </div>
+  </div>
+  <p class="disclaimer"></p>
+</section>
+
+<!-- 堪舆：地图打底 + 悬浮 HUD 罗盘 -->
+<section class="page" id="page-kanyu">
+  <div id="veinmap"></div>
+  <!-- 罗盘特效前后景：只负责视觉，不承载命理数据，也不拦截地图/罗盘手势。 -->
+  <canvas id="compass-fx-back" class="compass-fx" aria-hidden="true"></canvas>
+  <canvas id="luopan-hud"></canvas>
+  <canvas id="compass-fx-front" class="compass-fx" aria-hidden="true"></canvas>
+  <button id="hud-puck" aria-label="收起 / 展开罗盘" data-i18n-aria="kanyu.puck_aria"></button>
+  <div id="mapnorth-tick" data-i18n="kanyu.north">北</div>
+  <div id="sim-row">
+    <span class="dim" style="font-size:11px" data-i18n="kanyu.sim_hint">无指南针？拖动模拟朝向</span>
+    <input type="range" id="compass-slider" min="0" max="359.9" step="0.1" value="0" aria-label="模拟朝向" data-i18n-aria="kanyu.sim_aria">
+  </div>
+  <!-- 顶部合一卡：读数（墨面·引擎）在上、原句（纸面·古人）在下，锚屏幕上缘之下、随空位向下展开。
+       容器 max-height 卡在罗盘上缘之上（内部滚动），保证罗盘任何状态全貌不被遮。 -->
+  <div id="kanyu-top">
+  <div id="kanyu-read">
+    <button id="kanyu-expand" aria-label="展开详读" data-i18n-aria="kanyu.expand_aria">▾</button>
+    <div id="kanyu-read-main"><b id="compass-face" data-i18n="kanyu.facing_stub">面向 —</b></div>
+    <div id="kanyu-read-sub"><span id="compass-sub"></span></div>
+    <!-- 契合行：双声部并列（八宅键命卦 / 子平键日主），两法相左时露「两法异说」小浮层。不再整行红绿染色。 -->
+    <div id="kanyu-fit-row" style="display:none">
+      <div id="compass-ident" class="dim"></div>
+      <div id="compass-fit"></div>
+      <button type="button" id="fit-diverge-btn" class="diverge-chip" hidden aria-expanded="false" data-i18n="common.diverge_two">两法异说</button>
+      <div id="fit-diverge-pop" class="diverge-pop" hidden></div>
+    </div>
+    <div id="kanyu-read-more">
+      <div id="compass-wuxing" style="display:none;gap:10px;flex-wrap:wrap;font-size:13px"></div>
+      <!-- 盘面本命标注图层三态：关/八宅/喜用（仅排盘后可见，默认八宅）。图例文案由 app.js 按图层填。 -->
+      <div id="bz-layer-row" style="display:none" role="group" aria-label="盘面染色图层" data-i18n-aria="kanyu.layer_group_aria">
+        <span class="bz-layer-title" data-i18n="kanyu.layer_title">盘面本命标注</span>
+        <span class="bz-layer-seg">
+          <button type="button" class="bz-layer-btn" data-layer="off" data-i18n="kanyu.layer_off">关</button>
+          <button type="button" class="bz-layer-btn" data-layer="bazhai" data-i18n="kanyu.layer_bazhai">八宅</button>
+          <button type="button" class="bz-layer-btn" data-layer="xiyong" data-i18n="kanyu.layer_xiyong">喜用</button>
+        </span>
+      </div>
+      <p id="bz-layer-legend" class="dim" style="display:none;font-size:11px;margin:0 0 4px;line-height:1.6"></p>
+      <p id="wx-glow-legend" class="dim" style="display:none;font-size:11px;margin:0 0 4px;line-height:1.6" data-i18n="kanyu.glow_legend">盘缘八方微光 · 五行微光·随命盘分值 · 金针·时辰位</p>
+      <label id="kanyu-tianshi-label" style="display:flex;align-items:center;gap:6px;font-size:12px;margin:7px 0" data-i18n-node="kanyu.tianshi_label"><input type="checkbox" id="kanyu-tianshi"> 纳今日天时（黄历干支·时卦五行）一并测算</label>
+      <p id="kanyu-tianshi-line" class="dim" style="font-size:11px;margin:0 0 4px"></p>
+      <!-- 盘缘小件（吉神一组开关 + 日出日落方位注 + 棘轮触觉开关）。皆随堪舆页常驻·排盘/定位优雅显隐。 -->
+      <div id="dial-marks-ctrl" style="margin:5px 0 2px">
+        <label id="kanyu-jishen-label" style="display:flex;align-items:center;gap:6px;font-size:12px;margin:3px 0"><input type="checkbox" id="kanyu-jishen" checked> 今日吉神方位<span class="cite-chip" data-cite="xinji-bianfang" role="button" tabindex="0">《协纪辨方书》</span>体系（今人实现）</label>
+        <p id="dm-sun-note" class="dim" style="display:none;font-size:11px;margin:1px 0 3px"></p>
+        <!-- 地支时空棋盘·当下三支关系（app.js 填双语文案；无关系优雅隐藏；出处 chip 走书级《渊海子平》） -->
+        <p id="dz-relate-note" class="dim" style="display:none;font-size:11px;margin:1px 0 3px"></p>
+        <label id="kanyu-ratchet-label" style="display:flex;align-items:center;gap:6px;font-size:12px;margin:3px 0" data-i18n-node="kanyu.ratchet_label"><input type="checkbox" id="kanyu-ratchet"> 罗盘棘轮触感（过二十四山界轻震）</label>
+      </div>
+      <p id="kanyu-pos"><span id="compass-pos"></span></p>
+      <p class="disclaimer" style="margin-top:6px"></p>
+    </div>
+  </div>
+  <!-- 原句 teaser：常驻单行摘要（「典」小签 + 原句前 ~14 字省略号），永不换行永不剪切。
+       dwell 只更新此文本、不再自动弹卡；点击 → 弹完整原句 overlay（#bzq-overlay）。 -->
+  <button type="button" id="kanyu-teaser" hidden aria-haspopup="dialog" aria-label="展开完整原句" data-i18n-aria="kanyu.teaser_aria">
+    <span class="teaser-seal">典</span>
+    <span id="kanyu-teaser-txt" class="teaser-txt"></span>
+    <span class="teaser-chev" aria-hidden="true">›</span>
+  </button>
+  <!-- 未排盘 CTA：独立浮层胶囊（与真实数据态彻底分离），点击切「命」页排盘（app.js 复用 tabbar 切换） -->
+  <div id="compass-cta" role="button" tabindex="0" style="display:none">去『命』页排盘 · 解锁本命方位 →</div>
+  </div><!-- /#kanyu-top -->
+  <!-- 完整原句 overlay：由 teaser 点开的临时层。fixed、z 高于一切、点外/✕/Esc 关闭、slide-up 进场。
+       用户主动触发、随手可关，允许暂时盖盘（不违反「常驻不遮盘」铁律）。复用原句卡视觉。 -->
+  <div id="bzq-overlay" hidden>
+  <div id="bazhai-quote-card" role="dialog" aria-modal="true" aria-live="polite" aria-label="原句 · 完整" data-i18n-aria="kanyu.bzq_aria">
+    <button id="bzq-dismiss" aria-label="收起原句卡" data-i18n-aria="kanyu.bzq_dismiss_aria">✕</button>
+    <div class="bzq-ink">
+      <span class="bzq-seal">断</span>
+      <span id="bzq-conc" class="bzq-conc"></span>
+      <span id="bzq-yifu" class="bzq-yifu" hidden data-i18n="kanyu.yifu">宜伏</span>
+    </div>
+    <div id="bzq-slot" class="bzq-slot">
+      <div class="bzq-jian">
+        <div id="bzq-orig" class="bzq-orig"></div>
+        <div id="bzq-bai" class="bzq-bai"></div>
+        <div id="bzq-note" class="bzq-note"></div>
+        <div id="bzq-cite" class="bzq-cite"></div>
+        <a id="bzq-ctx" class="bzq-ctx" href="#" target="_blank" rel="noopener" data-i18n="common.read_context">读上下文 →</a>
+      </div>
+    </div>
+    <div class="bzq-meta">
+      <span id="bzq-school" class="bzq-school"></span>
+      <span class="bzq-spacer"></span>
+      <button id="bzq-dian" class="bzq-dian" aria-label="典·看古籍原句" data-i18n-aria="kanyu.bzq_dian_aria">典</button>
+    </div>
+  </div>
+  </div><!-- /#bzq-overlay -->
+  <div id="kanyu-ctrl">
+    <span class="dial-ico" data-i18n="kanyu.dial_ico">◐盘</span>
+    <input type="range" id="hud-opacity" min="15" max="95" value="80" aria-label="罗盘透明度" data-i18n-aria="kanyu.opacity_aria">
+    <button class="ctrl-btn" id="btn-lock" data-i18n="kanyu.btn_lock">定盘</button>
+    <button class="ctrl-btn" id="btn-rotate" data-i18n="kanyu.btn_rotate">图北</button>
+    <button class="ctrl-btn" id="btn-home" data-i18n="kanyu.btn_home">回我</button>
+    <button class="ctrl-btn" id="btn-yangzhai" data-i18n="kanyu.btn_yangzhai">阳宅</button>
+    <button class="ctrl-btn" id="btn-collapse" data-i18n="kanyu.btn_collapse">收</button>
+    <button class="ctrl-btn" id="btn-calibrate" style="display:none" data-i18n="kanyu.btn_calibrate">校准罗盘</button>
+  </div>
+  <!-- 阳宅加点工具栏（Phase 2） -->
+  <div id="yangzhai-toolbar">
+    <div class="yz-group-label" data-i18n="yangzhai.group_layout">布置</div>
+    <button class="ctrl-btn yz-add-btn" data-yz-add="bed" data-i18n="yangzhai.add_bed">加床</button>
+    <button class="ctrl-btn yz-add-btn" data-yz-add="door" data-i18n="yangzhai.add_door">加门</button>
+    <button class="ctrl-btn yz-add-btn" data-yz-add="stove" data-i18n="yangzhai.add_stove">加灶</button>
+    <button class="ctrl-btn yz-add-btn" data-yz-add="window" data-i18n="yangzhai.add_window">加窗</button>
+    <div class="yz-group-label" data-i18n="yangzhai.group_analyze">分析</div>
+    <button class="ctrl-btn" id="yz-sha-btn" data-i18n="yangzhai.btn_sha">查形煞</button>
+    <button class="ctrl-btn" id="yz-sw-btn" data-i18n="yangzhai.btn_sw">查砂水</button>
+    <button class="ctrl-btn" id="yz-ly-btn" title="流年方位：太岁/三煞/年紫白（二十四山15°支位）" data-i18n="yangzhai.btn_liunian">流年</button>
+    <button class="ctrl-btn" id="yz-fp-legend" title="叠层图例：八宅/飞星/形煞/砂水颜色说明" data-i18n="yangzhai.btn_legend">图例</button>
+    <div class="yz-group-label" data-i18n="yangzhai.group_manage">管理</div>
+    <button class="ctrl-btn" id="yz-clear" data-i18n="yangzhai.btn_clear">清除标记</button>
+    <button class="ctrl-btn" id="yz-fp-btn" data-i18n="yangzhai.btn_fp">叠户型</button>
+    <button class="ctrl-btn yz-fp-extra" id="yz-fp-lock" style="display:none" data-i18n="yangzhai.btn_fp_lock">锁定户型</button>
+    <button class="ctrl-btn yz-fp-extra" id="yz-fp-bazhai" style="display:none" title="锁定后显示八宅九宫吉凶方位叠层（《八宅明镜》游年八星法）" data-i18n="yangzhai.btn_fp_bazhai">八宅叠图</button>
+    <button class="ctrl-btn yz-fp-extra" id="yz-fp-xk" style="display:none" title="锁定后显示玄空飞星九宫格叠层（三元龙阴阳顺逆·受气元运）" data-i18n="yangzhai.btn_fp_xk">飞星叠图</button>
+    <button class="ctrl-btn yz-fp-extra" id="yz-fp-niansha" style="display:none" title="锁定后叠显年月三盘叠合：三重凶/年月双凶/宅五黄/三盘旺/年月双吉/宅旺（《沈氏玄空学》年月紫白论）" data-i18n="yangzhai.btn_fp_niansha">年月叠煞</button>
+    <button class="ctrl-btn yz-fp-extra" id="yz-fp-linian" style="display:none" title="锁定后叠显流年凶方弧形：太岁/岁破(15°扇形)·三煞(3×15°扇形)·年五黄(45°)（二十四山15°支位·《钦定协纪辨方书》卷三·何国宗梅瑴成）" data-i18n="yangzhai.btn_fp_linian">流年凶方</button>
+    <button class="ctrl-btn yz-fp-extra" id="yz-fp-compass-lock" style="display:none" title="楼顶不可见时：用设备罗盘磁北+GPS位置直接锁定（误差±2°–5°）" data-i18n="yangzhai.btn_fp_compass">罗盘锁定</button>
+    <label class="ctrl-btn yz-fp-extra" id="yz-fp-import-label" style="display:none;cursor:pointer" title="导入户型文件（.json，本站户型格式）" data-i18n-node="yangzhai.btn_fp_import">导入文件<input type="file" id="yz-fp-file" accept=".json" style="display:none"></label>
+  </div>
+  <div id="yangzhai-markers-layer" aria-hidden="true"></div>
+  <div id="yangzhai-hint" role="status" aria-live="polite"></div>
+  <!-- 户型叠图·三步向导（底部抽屉）— 驱动 FloorplanOverlay；替代旧 #fp-ctrl 浮层。
+       向导期是屏上唯一浮层：打开即隐右侧阳宅按钮列，只留 地图+户型层+抽屉。 -->
+  <div id="fp-wizard" role="dialog" aria-label="户型叠图向导" data-i18n-aria="yangzhai.fpw_aria">
+    <div class="fpw-head">
+      <span class="seal" data-i18n="yangzhai.fpw_seal">户型叠图</span>
+      <span class="fpw-steps" id="fpw-steps" aria-hidden="true">
+        <i class="fpw-dot" data-s="1"></i><i class="fpw-dot" data-s="2"></i><i class="fpw-dot" data-s="3"></i>
+      </span>
+      <button class="panel-close" id="fpw-close" aria-label="关闭户型叠图" data-i18n-aria="yangzhai.fpw_close_aria">✕</button>
+    </div>
+
+    <!-- 第 1 步·选户型 -->
+    <div class="fpw-body" data-step="1">
+      <p class="fpw-step-t" data-i18n="yangzhai.fpw_step1">第一步 · 选户型</p>
+      <div class="fpw-choose">
+        <button class="fpw-card" id="fpw-example" type="button">
+          <span class="fpw-card-ico">▦</span>
+          <span class="fpw-card-t" data-i18n="yangzhai.fpw_example_t">示例户型</span>
+          <span class="fpw-card-d" data-i18n="yangzhai.fpw_example_d">三室示意 · 先上手对齐</span>
+        </button>
+        <button class="fpw-card" id="fpw-import" type="button">
+          <span class="fpw-card-ico">⤒</span>
+          <span class="fpw-card-t" data-i18n="yangzhai.fpw_import_t">导入户型文件</span>
+          <span class="fpw-card-d" data-i18n="yangzhai.fpw_import_d">你家户型 · 更贴合</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 第 2 步·对齐 -->
+    <div class="fpw-body" data-step="2">
+      <div class="fpw-tool-row">
+        <span class="fpw-lbl" data-i18n="yangzhai.fpw_rotate">旋转</span>
+        <button class="fpw-mini" id="fpw-rot-m5" type="button">−5°</button>
+        <button class="fpw-mini" id="fpw-rot-m1" type="button">−1°</button>
+        <button class="fpw-mini" id="fpw-rot-p1" type="button">+1°</button>
+        <button class="fpw-mini" id="fpw-rot-p5" type="button">+5°</button>
+        <span class="fpw-sep"></span>
+        <span class="fpw-lbl" data-i18n="yangzhai.fpw_scale">缩放</span>
+        <button class="fpw-mini" id="fpw-scale-m" type="button" aria-label="缩小" data-i18n-aria="yangzhai.fpw_scale_out_aria">−</button>
+        <button class="fpw-mini" id="fpw-scale-p" type="button" aria-label="放大" data-i18n-aria="yangzhai.fpw_scale_in_aria">＋</button>
+      </div>
+      <p class="fpw-hint" data-i18n="yangzhai.fpw_hint_align">拖动户型对齐你家楼顶，再锁定</p>
+      <button class="fpw-primary" id="fpw-lock" type="button" data-i18n="yangzhai.fpw_lock_align">锁定对齐</button>
+    </div>
+
+    <!-- 第 3 步·已锁定 -->
+    <div class="fpw-body" data-step="3">
+      <div class="fpw-result" id="fpw-result"></div>
+      <div class="fpw-chips" id="fpw-chips"><!-- 八宅/飞星/年月/流年 叠层开关（由 app.js 迁入） --></div>
+      <details class="fpw-adv">
+        <summary data-i18n="common.advanced">高级</summary>
+        <div class="fpw-adv-in" id="fpw-adv-in">
+          <!-- v2-P50 磁偏角换算（罗盘 fallback 路径；卫星真北对齐无需此项）
+               公式: 真北 ≈ 磁北 + 磁偏角（东偏为正°）·出处 GEO-ACCURACY.md §②
+               算例: 上海(2026)约-5.7°(西偏)；新加坡约0°（近零可省）
+               查询: NOAA WMM2025 计算器 -->
+          <div class="fpw-adv-row" id="fp-decl-row"
+            title="罗盘磁偏角：真北≈磁北+磁偏角(东偏+/西偏−)&#10;中国大陆约-3°~-7°(西偏)；新加坡约0°">
+            <span class="fpw-lbl" data-i18n="yangzhai.fpw_declination">磁偏角</span>
+            <input type="number" id="fp-decl-deg" min="-30" max="30" step="0.1" value="0"
+              aria-label="磁偏角(度)，东偏为正，西偏为负">
+            <span class="fpw-adv-unit">°东偏+&thinsp;/&thinsp;西偏−</span>
+          </div>
+          <p class="fpw-adv-note" data-i18n="yangzhai.fpw_adv_note">坐向来自卫星真北对齐（WGS-84），不依赖磁北；楼顶看不清时可用「罗盘锁定」+磁偏角换算（误差±2°–5°）。</p>
+        </div>
+      </details>
+      <div class="fpw-actions">
+        <button class="fpw-ghost" id="fpw-unlock" type="button" data-i18n="yangzhai.fpw_unlock">解锁调整</button>
+        <button class="fpw-ghost" id="fpw-rechoose" type="button" data-i18n="yangzhai.fpw_rechoose">换户型</button>
+        <button class="fpw-primary" id="fpw-done" type="button" data-i18n="common.done">完成</button>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 长按问方位 · 方位档案抽屉：长按罗盘环带 0.8s 弹出（app.js 按当前朝向填 24山头 + 排盘契合 + G2 历书方位命中）。
+     结构照 lock-panel/pcal-sheet 惯例（静态壳 + JS 填内容）；底部半屏、恒不遮罗盘上半。 -->
+<div id="askdir-backdrop"></div>
+<div id="askdir-sheet" role="dialog" aria-modal="true" aria-hidden="true" aria-label="方位档案">
+  <div class="fpw-head">
+    <span class="seal" id="askdir-seal">方位档案</span>
+    <b class="askdir-title" id="askdir-title"></b>
+    <button class="panel-close" id="askdir-close" aria-label="关闭" data-i18n-aria="common.close">✕</button>
+  </div>
+  <div id="askdir-body" class="askdir-body"></div>
+</div>
+<div id="lock-panel">
+  <button class="panel-close" id="lock-close">✕</button>
+  <span class="seal" data-i18n="lock.seal">定盘</span>
+  <div id="lock-zuoxiang"></div>
+  <p id="lock-sub" style="text-align:center;font-size:14px"></p>
+  <div id="lock-xk"></div>
+  <!-- v2-P27: 玄空当运速览卡（design-target §01·底部当运面板·当运之星/方位/时间）-->
+  <div id="lock-xk-yun" style="display:none;"></div>
+  <!-- v2-P44: 年盘飞星速览卡（年紫白·催旺/凶/注意/吉星方·《沈氏玄空学》年紫白论·待核实P44-C1）-->
+  <div id="lock-xk-nian" style="display:none;"></div>
+  <!-- v2-P45: 月盘飞星速览卡（月紫白·催旺/凶/注意/吉星方·年月双凶/双吉方·《沈氏玄空学》月紫白论·待核实P45-C1）-->
+  <div id="lock-xk-yue" style="display:none;"></div>
+  <!-- v2-P46: 三盘叠合速览卡（宅盘五黄/旺方 × 年月紫白·三重凶/双凶/三盘旺方·待核实P46-C1）-->
+  <div id="lock-xk-tri" style="display:none;"></div>
+  <!-- v2-P3: 受气元运（CODEX-REVIEW.md 必修2·宅盘用建造/入伙年，非当日运） -->
+  <div id="lock-rcv-row" style="display:none;margin:10px 0 4px;padding:7px 10px;border-top:1px solid rgba(200,168,64,.18);font-size:11px">
+    <b style="color:#c8a84b" data-i18n="lock.rcv_label">受气元运</b><span class="dim" data-i18n="lock.rcv_hint">（宅盘用建造/入伙年·非当日运）：</span>
+    <input type="number" id="lock-rcv-year" min="1864" max="2100"
+      style="width:68px;background:#1a1000;color:#c8a84b;border:1px solid rgba(200,168,64,.45);border-radius:4px;padding:2px 5px;margin:0 6px;font-size:12px"
+      placeholder="年份" data-i18n-ph="lock.rcv_ph">
+    <span id="lock-rcv-yun-label" class="dim"></span>
+    <br><span class="dim" style="font-size:10px" data-i18n="lock.rcv_note">立春切年；宅盘≠流年；输入公历年，精确切年可配合八字页（今人整理）</span>
+  </div>
+  <!-- v2-P26: 八宅速览卡（design-target §02·底部生气/天医/五鬼位）-->
+  <div id="lock-bz-summary" style="display:none;"></div>
+  <p class="master-text" id="lock-reading" style="margin-top:12px"></p>
+</div>
+<!-- 阳宅加点（Phase 2）：床/门/灶/窗 可拖拽 + 旋转朝向 -->
+<div id="yangzhai-panel">
+  <button class="panel-close" id="yz-panel-close">✕</button>
+  <span class="seal" data-i18n="yangzhai.panel_seal">阳宅</span>
+  <div id="yz-panel-content"></div>
+  <p class="disclaimer" style="margin-top:8px" data-i18n="disclaimer.yangzhai">依《八宅明镜》（清初题，通行本，游年八星法）确定性推演</p>
+</div>
+<!-- 叠层图例面板（v2-P13）：BZ/XK/SHA/SW 颜色说明 -->
+<div id="fp-legend-panel" role="dialog" aria-label="叠层图例">
+  <button class="panel-close" id="fp-legend-close">✕</button>
+  <span class="seal" data-i18n="legend.seal">叠层图例</span>
+
+  <!-- BZ 八宅层 -->
+  <div class="lgd-section">
+    <div class="lgd-title" data-i18n="legend.bz_title">八宅叠图 · 游年八星法</div>
+    <div class="lgd-src" data-i18n-node="legend.bz_src">出处：清·<span class="cite-chip" data-cite="bazhai-dayouniange" role="button" tabindex="0">《八宅明镜》</span></div>
+    <div class="lgd-swrow">
+      <span class="lgd-sw" style="background:rgba(76,180,76,.7)"></span><span class="lgd-sw-lbl" data-i18n="legend.bz_sw_shengqi">生气·贪狼木</span>
+      <span class="lgd-sw" style="background:rgba(64,168,160,.7)"></span><span class="lgd-sw-lbl" data-i18n="legend.bz_sw_tianyi">天医·巨门土</span>
+    </div>
+    <div class="lgd-swrow">
+      <span class="lgd-sw" style="background:rgba(200,168,64,.8)"></span><span class="lgd-sw-lbl" data-i18n="legend.bz_sw_yannian">延年·武曲金</span>
+      <span class="lgd-sw" style="background:rgba(100,140,200,.65)"></span><span class="lgd-sw-lbl" data-i18n="legend.bz_sw_fuwei">伏位·辅弼木</span>
+    </div>
+    <div class="lgd-swrow">
+      <span class="lgd-sw" style="background:rgba(160,40,40,.75)"></span><span class="lgd-sw-lbl" data-i18n="legend.bz_sw_wugui">五鬼·廉贞火</span>
+      <span class="lgd-sw" style="background:rgba(190,90,40,.75)"></span><span class="lgd-sw-lbl" data-i18n="legend.bz_sw_liusha">六煞·文曲水</span>
+    </div>
+    <div class="lgd-swrow">
+      <span class="lgd-sw" style="background:rgba(80,30,80,.75)"></span><span class="lgd-sw-lbl" data-i18n="legend.bz_sw_jueming">绝命·破军金</span>
+      <span class="lgd-sw" style="background:rgba(150,100,30,.75)"></span><span class="lgd-sw-lbl" data-i18n="legend.bz_sw_huohai">祸害·禄存土</span>
+    </div>
+  </div>
+
+  <!-- XK 飞星层 -->
+  <div class="lgd-section">
+    <div class="lgd-title" data-i18n="legend.xk_title">飞星叠图 · 九宫山▲向▼星旺衰</div>
+    <div class="lgd-src"><span data-i18n="legend.xk_src_pre">出处：清末沈竹礽</span><span class="cite-chip" data-cite="shenshi-xuankong" role="button" tabindex="0">《沈氏玄空学》</span><span data-i18n="legend.xk_src_post">（后人整理/增广；三元龙阴阳顺逆）</span></div>
+    <div class="lgd-swrow">
+      <span class="lgd-sw" style="background:rgba(200,168,64,.7)"></span><span class="lgd-sw-lbl" data-i18n="legend.xk_sw_dangwang">当旺（运星=当运数）</span>
+    </div>
+    <div class="lgd-swrow">
+      <span class="lgd-sw" style="background:rgba(64,180,100,.65)"></span><span class="lgd-sw-lbl" data-i18n="legend.xk_sw_shengqi">生气（下一运）</span>
+      <span class="lgd-sw" style="background:rgba(64,120,180,.65)"></span><span class="lgd-sw-lbl" data-i18n="legend.xk_sw_tuiqi">退气（上一运）</span>
+    </div>
+    <div class="lgd-swrow">
+      <span class="lgd-sw" style="background:rgba(200,50,50,.65)"></span><span class="lgd-sw-lbl" data-i18n="legend.xk_sw_wuhuang">五黄煞（5号星）</span>
+      <span class="lgd-sw" style="background:rgba(80,70,60,.55)"></span><span class="lgd-sw-lbl" data-i18n="legend.xk_sw_siqi">死气（其余）</span>
+    </div>
+    <div class="lgd-note" data-i18n="legend.xk_note">向首格金边←→坐方格蓝边；受气元运≠流年（输入建造/入伙年）</div>
+  </div>
+
+  <!-- SHA 形煞层 -->
+  <div class="lgd-section">
+    <div class="lgd-title" data-i18n="legend.sha_title">形煞叠色 · 户型向格警示</div>
+    <div class="lgd-src" data-i18n="legend.sha_src">出处：明·王君荣《阳宅十书》卷一·论路；现代命名（天斩/壁刀/镰刀）加⚠️标注，非古籍原文</div>
+    <div class="lgd-swrow">
+      <span class="lgd-sw" style="background:rgba(200,40,40,.75)"></span><span class="lgd-sw-lbl" data-i18n="legend.sha_sw_strong">⚡强煞（古典形煞）</span>
+    </div>
+    <div class="lgd-swrow">
+      <span class="lgd-sw" style="background:rgba(200,110,40,.75)"></span><span class="lgd-sw-lbl" data-i18n="legend.sha_sw_weak">弱煞（角度偏或距离远）</span>
+    </div>
+    <div class="lgd-note" data-i18n="legend.sha_note">需浏览器端查询 OSM 道路/建筑数据</div>
+  </div>
+
+  <!-- SW 砂水层 -->
+  <div class="lgd-section">
+    <div class="lgd-title" data-i18n="legend.sw_title">砂水叠色 · 四神护穴方位</div>
+    <div class="lgd-src"><span data-i18n="legend.sw_src_pre">出处：晋·郭璞</span><span class="cite-chip" data-cite="zangshu" role="button" tabindex="0">《葬书》</span><span data-i18n="legend.sw_src_post">四象（青龙/白虎/玄武/朱雀）；城市楼高代砂为现代应用</span></div>
+    <div class="lgd-swrow">
+      <span class="lgd-sw" style="background:rgba(40,160,90,.7)"></span><span class="lgd-sw-lbl" data-i18n="legend.sw_sw_good">四神得位（吉格）</span>
+    </div>
+    <div class="lgd-swrow">
+      <span class="lgd-sw" style="background:rgba(60,100,180,.65)"></span><span class="lgd-sw-lbl" data-i18n="legend.sw_sw_balance">龙虎均衡（中性）</span>
+      <span class="lgd-sw" style="background:rgba(200,140,30,.65)"></span><span class="lgd-sw-lbl" data-i18n="legend.sw_sw_bad">四神不利（琥珀）</span>
+    </div>
+    <div class="lgd-note" data-i18n="legend.sw_note">需地形高程数据或 OSM 建筑楼高</div>
+  </div>
+
+  <p class="disclaimer" style="margin-top:10px" data-i18n="disclaimer.fp_legend">叠层同时激活时渲染顺序：八宅/飞星→形煞→砂水（形煞/砂水可与八宅·飞星任一叠加）。各层均为确定性几何/公式计算，同输入恒同输出，不含随机。</p>
+</div>
+<!-- 砂法/水法面板（Phase 9）：F13-F18 -->
+<div id="sandwater-panel">
+  <button class="panel-close" id="sw-panel-close">✕</button>
+  <span class="seal" data-i18n="sandwater.seal">砂水</span>
+  <div id="sw-panel-content"><p class="dim" style="text-align:center;padding:14px" data-i18n="sandwater.loading">正在获取位置与地理数据…</p></div>
+  <p class="disclaimer" style="margin-top:8px" data-i18n="disclaimer.sandwater">砂法依《葬书》（晋·郭璞）四象原则；水法依《地理人子须知》（明·徐善继/徐善述）；确定性几何推算，不含随机，同一输入恒同一结果</p>
+</div>
+<!-- 流年方位面板（v2-P7/P8）：太岁/三煞/年紫白（CODEX-REVIEW.md 必修3·15°支位） -->
+<div id="ly-panel">
+  <button class="panel-close" id="ly-panel-close">✕</button>
+  <span class="seal" data-i18n="ly.seal">流年</span>
+  <!-- v2-P8：年份输入器（立春切年，可手动覆盖；CODEX-REVIEW.md 必修2） -->
+  <div id="ly-year-row">
+    <span class="ly-year-label" data-i18n="ly.query_year">查询年份</span>
+    <button class="ly-year-step" id="ly-year-prev">◀</button>
+    <input type="number" id="ly-year-input" min="1864" max="2100">
+    <button class="ly-year-step" id="ly-year-next">▶</button>
+    <span id="ly-year-hint"></span>
+  </div>
+  <!-- v2-P10：月份选择（节月，以节气界定；正月=寅月…腊月=丑月；近似±1-2天） -->
+  <div id="ly-month-row">
+    <span class="ly-year-label" data-i18n="ly.query_month">查询月份</span>
+    <button class="ly-year-step" id="ly-month-prev">◀</button>
+    <select id="ly-month-select">
+      <option value="0" data-i18n="ly.month_1">正月(寅)</option>
+      <option value="1" data-i18n="ly.month_2">二月(卯)</option>
+      <option value="2" data-i18n="ly.month_3">三月(辰)</option>
+      <option value="3" data-i18n="ly.month_4">四月(巳)</option>
+      <option value="4" data-i18n="ly.month_5">五月(午)</option>
+      <option value="5" data-i18n="ly.month_6">六月(未)</option>
+      <option value="6" data-i18n="ly.month_7">七月(申)</option>
+      <option value="7" data-i18n="ly.month_8">八月(酉)</option>
+      <option value="8" data-i18n="ly.month_9">九月(戌)</option>
+      <option value="9" data-i18n="ly.month_10">十月(亥)</option>
+      <option value="10" data-i18n="ly.month_11">十一月(子)</option>
+      <option value="11" data-i18n="ly.month_12">腊月(丑)</option>
+    </select>
+    <button class="ly-year-step" id="ly-month-next">▶</button>
+    <span id="ly-month-hint"></span>
+  </div>
+  <div id="ly-panel-content"></div>
+  <p class="disclaimer" style="margin-top:8px" data-i18n="disclaimer.ly">太岁/三煞依《钦定协纪辨方书》卷三（清乾隆四年重修，何国宗、梅瑴成编纂）二十四山15°支位；年紫白按玄空通行飞星法；立春切年（±1日精度）。</p>
+</div>
+<!-- 形煞扫描面板（Phase 8）：F7 路冲 + F11 穿心 -->
+<div id="sha-panel">
+  <button class="panel-close" id="sha-panel-close">✕</button>
+  <span class="seal" data-i18n="sha.seal">形煞</span>
+  <div id="sha-panel-content"></div>
+  <p class="disclaimer" style="margin-top:8px" data-i18n="disclaimer.sha">形煞判据依《阳宅十书》（明·王君荣，约嘉靖年间）几何模型确定性推算；道路数据：© OpenStreetMap 贡献者（ODbL）</p>
+</div>
+
+<!-- 八字 -->
+<section class="page" id="page-bazi">
+  <h1 class="page-title" data-i18n="bazi.page_title">命 盘 推 演</h1>
+  <div class="card" id="bazi-form">
+    <div class="form-row seg-row" id="gender-seg">
+      <label class="seg-pill"><input type="radio" name="gender" value="乾造" checked><span data-i18n="bazi.gender_male">乾造 · 男</span></label>
+      <label class="seg-pill"><input type="radio" name="gender" value="坤造"><span data-i18n="bazi.gender_female">坤造 · 女</span></label>
+    </div>
+    <div class="form-row">
+      <label style="font-size:14px" data-i18n-node="bazi.lunar_checkbox"><input type="checkbox" id="bazi-islunar"> 我记的是农历生日</label>
+    </div>
+    <div class="form-row" id="bazi-solar-row">
+      <label class="head" data-i18n="bazi.solar_label">出生时刻（阳历）</label>
+      <div class="bz-datetime-segments" id="bazi-datetime-segments" role="group" aria-label="出生日期与时间">
+        <label><input type="text" id="bazi-year" inputmode="numeric" maxlength="4" autocomplete="bday-year" placeholder="1999" aria-label="出生年份"><span>年</span></label>
+        <label><input type="text" id="bazi-month" inputmode="numeric" maxlength="2" autocomplete="bday-month" placeholder="01" aria-label="出生月份"><span>月</span></label>
+        <label><input type="text" id="bazi-day" inputmode="numeric" maxlength="2" autocomplete="bday-day" placeholder="01" aria-label="出生日期"><span>日</span></label>
+        <label><input type="text" id="bazi-hour" inputmode="numeric" maxlength="2" placeholder="12" aria-label="出生小时"><span>时</span></label>
+        <label><input type="text" id="bazi-minute" inputmode="numeric" maxlength="2" placeholder="00" aria-label="出生分钟"><span>分</span></label>
+      </div>
+      <input type="hidden" id="bazi-datetime">
+      <p class="form-hint" data-i18n="bazi.solar_hint">请选择出生的年月日与时刻（未填时无法排盘）</p>
+      <details class="bz-adv" id="bazi-solar-adv">
+        <summary data-i18n="bazi.adv_summary">高级 · 真太阳时</summary>
+        <div class="bz-adv-body">
+          <label class="bz-adv-toggle" data-i18n-node="bazi.solar_toggle"><input type="checkbox" id="bazi-solar-toggle"> 用真太阳时排盘<span class="dim" data-i18n="bazi.solar_toggle_hint">（默认关＝钟表时）</span></label>
+          <div class="bz-place-row">
+            <select id="bazi-country" aria-label="出生国家或地区"><option value="">选择国家/地区</option></select>
+            <select id="bazi-city" aria-label="出生城市" disabled><option value="">选择城市</option></select>
+          </div>
+          <div class="bz-lng-row">
+            <input type="number" id="bazi-lng" step="0.1" min="-180" max="180" inputmode="decimal" placeholder="城市经度自动填入（可精确修改）">
+            <button type="button" id="bazi-lng-locate" class="bz-lng-locate" data-i18n="bazi.lng_locate">用当前定位填入</button>
+          </div>
+          <p class="form-hint" data-i18n="bazi.solar_formula_hint">真太阳时＝钟表时 ＋（12:00 − 当日太阳上中天时刻）。按本设备时区解释所填时间，不还原历史时区/夏令时差异。</p>
+        </div>
+      </details>
+    </div>
+    <div class="form-row" id="bazi-lunar-row" style="display:none">
+      <label class="head" data-i18n="bazi.lunar_label">农历生辰</label>
+      <select id="lunar-year"></select>
+      <select id="lunar-month"></select>
+      <select id="lunar-day"></select>
+      <select id="lunar-shichen"></select>
+    </div>
+    <button class="btn-gold" id="btn-paipan" style="width:100%" data-i18n="bazi.btn_paipan">排　盘</button>
+  </div>
+  <div id="bazi-result" style="display:none">
+    <div class="bazi-result-actions">
+      <button type="button" id="btn-edit-bazi" class="bazi-edit-btn" data-i18n="bazi.btn_edit">← 修改生辰</button>
+      <span data-i18n="bazi.local_only">生辰与命盘只保存在本机</span>
+    </div>
+    <p style="text-align:center" class="dim" id="bazi-head"></p>
+    <div id="bazi-solar-line" style="display:none">
+      <div id="bazi-solar-dual" class="bz-solar-dual"></div>
+      <button type="button" id="bazi-solar-diverge-btn" class="diverge-chip" hidden aria-expanded="false" data-i18n="common.diverge_two">两法异说</button>
+      <div id="bazi-solar-diverge-pop" class="diverge-pop" hidden></div>
+    </div>
+    <!-- 司南十象：以日主（十天干）映射人格化角色。人物只属于八字结果页，不进入罗盘/堪舆页。 -->
+    <section id="bazi-archetype" class="bazi-archetype" aria-live="polite" hidden></section>
+    <div class="card" id="bazi-pillars-card">
+      <div id="bazi-pillars"></div>
+    </div>
+    <!-- B1 生辰黄历回放卡（排盘后·命盘卡之后填充）：出生当日 干支/宜忌/时卦/节气，lunar-js 回算。未排盘为空。 -->
+    <div id="bazi-birthday"></div>
+    <div class="card" id="bazi-bars"></div>
+    <div class="card">
+      <span class="seal" data-i18n="bazi.verdict_seal">断语</span><span class="gold" id="bazi-strength" style="font-size:14px"></span>
+      <p class="dim" id="bazi-minggua" style="font-size:13px;margin:7px 0 0"></p>
+      <p class="master-text" id="bazi-master" style="margin-top:9px"></p>
+    </div>
+    <section id="bazi-character-relations" class="bazi-character-relations" hidden></section>
+    <div id="bazi-personal-calendar" hidden></div>
+    <div class="card gjl-card" id="bazi-guji" style="display:none"></div>
+    <!-- AI 深度解盘（试验）：藏在 localStorage ff-ai='1' 之后，由 ai-reading.js 按旗标渲染；旗标未开则零痕迹 -->
+    <div id="bazi-ai" style="display:none"></div>
+    <div class="card">
+      <span class="seal" data-i18n="bazi.goals_seal">所求</span><span class="dim" data-i18n="bazi.goals_prompt">阁下此来，所求为何？</span>
+      <div id="bazi-goals"></div>
+      <p class="master-text" id="goal-advice" style="margin-top:10px;display:none"></p>
+    </div>
+    <button class="burn" id="btn-burn" data-i18n="bazi.btn_burn">🔥 焚毁此盘（删除本机档案）</button>
+  </div>
+  <p class="disclaimer"></p>
+</section>
+
+<!-- 藏书阁：典籍阁 iframe。首次切到本 tab 才 lazy 加载（app.js loadShuge）；加载前显骨架；
+     加载后常驻不卸载，切走保阅读进度。src 走 CitePop.resolveDianBase()（原生壳/生产同源 /dian，普通 dev 回落线上 daos；
+     localStorage['dian-base'] 可覆写）。同源时出处 chip「入阁阅读」/原句卡「读上下文」改为切本 tab + 带 hash 深链。 -->
+<section class="page" id="page-shuge">
+  <div class="shuge-wrap">
+    <iframe id="shuge-frame" class="shuge-frame" title="司南 · 典籍阁" hidden data-i18n-title="shuge.frame_title"></iframe>
+    <div class="shuge-skel" id="shuge-skel" aria-hidden="true">
+      <div class="shuge-skel-title" data-i18n="shuge.skel_title">司南 · 典籍阁</div>
+      <div class="shuge-skel-dots"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 底部导航 -->
+<nav class="tabbar">
+  <button data-tab="today" class="active" data-i18n-node="tab.today"><span>历</span>今日</button>
+  <button data-tab="kanyu" data-i18n-node="tab.kanyu"><span>堪</span>堪舆</button>
+  <button data-tab="bazi" data-i18n-node="tab.bazi"><span>命</span>八字</button>
+  <button data-tab="shuge" data-i18n-node="tab.shuge"><span>书</span>藏书阁</button>
+</nav>
+
+<!-- 黄历 ICS 日历导出（底部抽屉，复用 #fp-wizard 抽屉体系）— 由 js/ics-export.js 驱动 -->
+<div id="ics-backdrop"></div>
+<div id="ics-sheet" role="dialog" aria-label="导出黄历到日历" aria-hidden="true" data-i18n-aria="ics.sheet_aria">
+  <div class="fpw-head">
+    <span class="seal" data-i18n="common.export_calendar">导出到日历</span>
+    <button class="panel-close" id="ics-close" aria-label="关闭" data-i18n-aria="common.close">✕</button>
+  </div>
+  <p class="ics-lead" data-i18n-html="ics.lead">勾选关注的宜 / 忌类目，一键导出<b>未来一年</b>所有匹配的日子。</p>
+  <div class="ics-group">
+    <p class="ics-group-t" data-i18n-html="ics.group_yi"><b class="gold">宜</b> 想赴的好日子</p>
+    <div class="ics-chips" id="ics-chips-yi"></div>
+  </div>
+  <div class="ics-group">
+    <p class="ics-group-t" data-i18n-html="ics.group_ji"><b style="color:var(--cinnabar)">忌</b> 想避开的日子</p>
+    <div class="ics-chips" id="ics-chips-ji"></div>
+  </div>
+  <div class="ics-group" id="ics-group-xy">
+    <p class="ics-group-t" data-i18n-html="ics.group_xy"><b class="gold">时</b> 每日喜用时段（带时刻）</p>
+    <div class="ics-chips">
+      <button class="ics-chip ics-chip-xy" id="ics-xy-chip" type="button" aria-pressed="false" disabled data-i18n="ics.xy_chip">喜用时段（未来 30 天）</button>
+    </div>
+    <p class="ics-xy-note dim" id="ics-xy-note"></p>
+  </div>
+  <button class="fpw-primary" id="ics-generate" type="button" disabled data-i18n="ics.generate">生成日历文件</button>
+  <p class="ics-status" id="ics-status" aria-live="polite"></p>
+  <p class="ics-foot" data-i18n="ics.foot">导入 Apple / Google 日历后即可收到提醒</p>
+</div>
+
+<!-- C2 问答半屏抽屉：预置 8 问 chips → 答案卡（结论行+依据行·每条出处 chip+凡例小注）。qa-engine.js 驱动。
+     方位类答案只提示「涉方位，详见堪舆页」，不在此抽屉里画盘。 -->
+<div id="qa-backdrop"></div>
+<div id="qa-sheet" role="dialog" aria-label="择日问事" aria-hidden="true" data-i18n-aria="qa.sheet_aria">
+  <div class="fpw-head">
+    <span class="seal" data-i18n="qa.seal">问</span>
+    <span class="qa-head-t" data-i18n="qa.head_t">择日问事</span>
+    <button class="panel-close" id="qa-close" aria-label="关闭" data-i18n-aria="common.close">✕</button>
+  </div>
+  <p class="qa-lead" data-i18n-html="qa.lead">下列问题皆按<b>黄历历项</b>与<b>命理查表</b>即时作答，分「宜 / 不宜 / 无相关记载」三态，绝不臆断吉凶。</p>
+  <div class="qa-chips" id="qa-chips" role="list"></div>
+  <div class="qa-answer" id="qa-answer" hidden></div>
+</div>
+
+<!-- 分享卡预览浮层（share-card.js 驱动）：仅供黄历与三证时刻卡；八字命盘不提供分享。
+     「保存图片」走 canvas.toBlob 下载；全程不出网。 -->
+<div id="share-backdrop"></div>
+<div id="share-sheet" role="dialog" aria-modal="true" aria-label="分享卡预览" data-i18n-aria="share.preview_aria" aria-hidden="true">
+  <div class="fpw-head">
+    <span class="seal" data-i18n="share.seal">分享</span>
+    <span class="share-title" id="share-title"></span>
+    <button class="panel-close" id="share-close" aria-label="关闭" data-i18n-aria="common.close">✕</button>
+  </div>
+  <div class="share-canvas-wrap"><canvas id="share-canvas" width="1080" height="1440" aria-label="分享卡图片"></canvas></div>
+  <button class="fpw-primary" id="share-save" type="button" data-i18n="share.save">保存图片</button>
+  <p class="share-status" id="share-status" aria-live="polite"></p>
+</div>
+
+<!-- 首启四屏引导浮层（app.js Tour 驱动）：半透明墨底 + spotlight 镂空 + 四屏滑动。
+     内容全由 JS 按 tt('tour.*') 双语填充；localStorage 'tour-seen' 记忆，二次进入不再弹。
+     reduced-motion 下所有过渡由 CSS 收敛为直切。 -->
+<div id="tour" hidden aria-hidden="true">
+  <div id="tour-scrim"></div>
+  <div id="tour-spot" hidden aria-hidden="true"></div>
+  <div id="tour-card" role="dialog" aria-modal="true" aria-labelledby="tour-title">
+    <button type="button" id="tour-skip" class="tour-skip"></button>
+    <div id="tour-body" class="tour-body">
+      <p id="tour-title" class="tour-title"></p>
+      <p id="tour-l1" class="tour-line"></p>
+      <p id="tour-l2" class="tour-line"></p>
+      <p id="tour-l3" class="tour-line" hidden></p>
+    </div>
+    <div class="tour-foot">
+      <span class="tour-dots" id="tour-dots" aria-hidden="true"></span>
+      <button type="button" id="tour-next" class="tour-next"></button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/lunar-javascript@1.7.7/lunar.js" integrity="sha384-CkiJVUh8zHLFNZYeiszeRw7KEWYDIf1yIZ+jVnZt+omUzQLv2ilCE94w1VItn8uH" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet-rotate@0.2.8/dist/leaflet-rotate.js" integrity="sha384-MtIdllebpZyms2pw9K3YJl8BEqrKNQCdSFAySjeglab6z2PkeFdF4Lb9cDsnxQuG" crossorigin="anonymous"></script>
+<script src="js/i18n/zh.js?v=20260706a"></script>
+<script src="js/i18n/en.js?v=20260706a"></script>
+<script src="js/i18n.js?v=20260706a"></script>
+<script src="js/vendor/suncalc.js?v=20260703a"></script>
+<script src="js/quotes-bazhai.js?v=20260703a"></script>
+<script src="js/cite-map.js?v=20260703a"></script>
+<script src="js/cite-popover.js?v=20260703a"></script>
+<script src="js/plain-glossary.js?v=20260706a"></script>
+<script src="js/quotes-opening.js?v=20260703a"></script>
+<script src="js/core.js?v=20260703a"></script>
+<script src="js/chartfacts.js?v=20260705a"></script>
+<script src="js/rulekit.js?v=20260705a"></script>
+<script src="js/personal-calendar.js?v=20260706a"></script>
+<script src="js/xingsha.js?v=20260703a"></script>
+<script src="js/sandwater.js?v=20260703a"></script>
+<script src="js/floorplan.js?v=20260703a"></script>
+<script src="js/ai-reading.js?v=20260706a"></script>
+<script src="js/share-card.js?v=20260707a"></script>
+<script src="js/birth-places.js?v=20260810a"></script>
+<script src="js/character-manifest.js?v=20260810f"></script>
+<script src="js/app.js?v=20260810f"></script>
+<script src="js/qa-engine.js?v=20260706a"></script>
+<script src="js/ics-export.js?v=20260703a"></script>
+</body>
+</html>

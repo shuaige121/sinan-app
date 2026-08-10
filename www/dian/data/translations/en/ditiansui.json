@@ -1,0 +1,761 @@
+{
+  "book": "ditiansui",
+  "srcFile": "annotated/ditiansui.json",
+  "srcHash": "sha256:86ff1280550b09d18e306580e3164bb82fd326c8d395a6c5fd01d69b1bd5be3c",
+  "pipeline": "sonnet cited-first translate+adversarial-review (status=draft；须人工抽查 low-conf 后升 reviewed)",
+  "coverage": "cited-only (rules[].src 引用面；非全本)",
+  "sentences": [
+    {
+      "ch": "ch01",
+      "i": 11,
+      "origHash": "62b1ab2f",
+      "en": "Then it becomes the mechanism of retreat, as with Jiǎ (yang Wood) in the third month; when its movement reaches fullness it retreats, and when the retreat reaches its extreme it becomes the mechanism of advance, as with Jiǎ Wood in the ninth month. Only the student who can modulate the shallowness and depth of this rise and fall may discourse on fate (mìng).",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "甲",
+        "木"
+      ]
+    },
+    {
+      "ch": "ch01",
+      "i": 17,
+      "origHash": "a9d8ef4d",
+      "en": "The five yang stems follow the breath (qì) and not momentum; the five yin stems follow momentum and have no feeling or sense of duty.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "气",
+        "阴阳"
+      ]
+    },
+    {
+      "ch": "ch02",
+      "i": 0,
+      "origHash": "a60e32ed",
+      "en": "Jiǎ (yang Wood) towers into the heavens; to shed its embryo it needs Fire. In spring it will not tolerate Metal; in autumn it will not tolerate Earth. When Fire blazes it rides the Dragon (Chén); when Water floods it straddles the Tiger (Yín). With the earth moist and the heavens harmonious, it stands firm for a thousand ages.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "甲",
+        "火",
+        "金",
+        "土",
+        "水",
+        "辰",
+        "寅"
+      ]
+    },
+    {
+      "ch": "ch02",
+      "i": 1,
+      "origHash": "713420f2",
+      "en": "Jiǎ is the Wood of root and trunk, the basis of pure yang, towering and robust. Fire is the child of Wood, and flourishing Wood that gains Fire grows ever more luxuriant. Born in spring it aids Fire and so cannot tolerate Metal; born in autumn it aids Metal and so cannot tolerate Earth. When Yín, Wǔ, and Xū with abundant Bǐng and Dīng appear yet it sits on Chén, Chén can rein them in; when Shēn, Zǐ, and Chén with abundant Rén and Guǐ appear yet it sits on Yín, Yín can take them in. When the earth-breath is not parched and the water-breath not spent, it can attain enduring life (chángshēng).",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "長生 is rendered in its literal 'long/enduring life' sense here, not as the discrete Twelve-Stage label (Birth / Life-Sprout).",
+      "terms": [
+        "甲",
+        "木",
+        "火",
+        "金",
+        "土",
+        "丙",
+        "丁",
+        "辰",
+        "寅",
+        "午",
+        "戌",
+        "申",
+        "子",
+        "壬",
+        "癸",
+        "长生"
+      ]
+    },
+    {
+      "ch": "ch02",
+      "i": 2,
+      "origHash": "7c8b29e3",
+      "en": "Chén is the storehouse of Water; it can curb Fire and nourish Wood, and its Earth can drain off Fire, so Jiǎ's root stays moist and it does not fear Fire. Jiǎ holds its Prosperity position (lù) at Yín; Yín belongs to Gèn (Mountain), whose Earth is thick, so it can take in Water.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "辰",
+        "水",
+        "火",
+        "木",
+        "甲",
+        "寅",
+        "艮",
+        "土"
+      ]
+    },
+    {
+      "ch": "ch02",
+      "i": 3,
+      "origHash": "ef3da6d9",
+      "en": "Though Yǐ (yin Wood) is soft, it can gut the Goat (Wèi) and cleave the Ox (Chǒu); harboring Dīng and embracing Bǐng, it strides the Rooster (Yǒu) and mounts the Monkey (Shēn). In a barren, damp place, even riding the Horse (Wǔ) it is anxious; but bound to Jiǎ like vine and creeper, it fares well in spring and in autumn alike.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "乙",
+        "木",
+        "丁",
+        "丙",
+        "甲",
+        "未",
+        "丑",
+        "酉",
+        "申",
+        "午"
+      ]
+    },
+    {
+      "ch": "ch02",
+      "i": 4,
+      "origHash": "14804524",
+      "en": "Yǐ is the Wood of branch and leaf, soft as a flowering plant; yet seated upon Chǒu or Wèi it can subdue them (Chǒu and Wèi being yin Earth, Yǐ can subdue them",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "The sentence is split mid-parenthesis; the bracketed explanation continues in the next segment.",
+      "terms": [
+        "乙",
+        "木",
+        "丑",
+        "未",
+        "土"
+      ]
+    },
+    {
+      "ch": "ch02",
+      "i": 5,
+      "origHash": "7dd77fed",
+      "en": ") — like slaughtering the Goat and cutting the Ox. So long as there is a single Bǐng or Dīng, then even in the months of Shēn or Yǒu it feels no fear. Born in the month of Zǐ (a time when leaves wither and abundant Water deepens the cold,",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "Segment opens and closes mid-parenthesis; the brackets carry over from the previous segment and into the following one.",
+      "terms": [
+        "丙",
+        "丁",
+        "申",
+        "酉",
+        "子",
+        "水",
+        "木"
+      ]
+    },
+    {
+      "ch": "ch02",
+      "i": 7,
+      "origHash": "e3c13998",
+      "en": ") — if Jiǎ and Yín appear often, it is like a creeping vine clinging to a tall tree, so that in spring months or autumn months alike it can serve.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "甲",
+        "寅",
+        "木"
+      ]
+    },
+    {
+      "ch": "ch02",
+      "i": 8,
+      "origHash": "1a65e4d0",
+      "en": "Bǐng (yang Fire) is fierce and violent, bullying frost and scorning snow. It can smelt Gēng Metal, yet meeting Xīn it turns timid. With a throng of Earth it grows benevolent; when Water runs wild it shows its integrity. In the land of the Tiger, Horse, and Dog (Yín, Wǔ, Xū), should Jiǎ come, it burns to destruction.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "丙",
+        "火",
+        "庚",
+        "金",
+        "辛",
+        "土",
+        "水",
+        "甲",
+        "寅",
+        "午",
+        "戌"
+      ]
+    },
+    {
+      "ch": "ch02",
+      "i": 9,
+      "origHash": "706d8b6d",
+      "en": "Bǐng is the Fire of blazing fierceness, pure yang in nature; thus it does not fear autumn but bullies the frost, does not fear winter but scorns the snow. Though Gēng Metal is stubborn, Bǐng has strength enough to smelt it; though Xīn Metal is soft, in combining with it Bǐng instead grows weak. Earth is its child: seeing abundant Wù and Jǐ, it shows the virtue of kindness and grace. Water is its lord: meeting flourishing Rén and Guǐ, it shows the bearing of loyalty and integrity. But when Bǐng follows its blazing-upward nature and Yín, Wǔ, Xū moreover expose Jiǎ Wood (the self flourishing yet meeting the Resource, yìn), then it grows parched and burns to destruction.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "丙",
+        "火",
+        "庚",
+        "金",
+        "辛",
+        "土",
+        "戊",
+        "己",
+        "水",
+        "壬",
+        "癸",
+        "寅",
+        "午",
+        "戌",
+        "甲",
+        "木",
+        "正印"
+      ]
+    },
+    {
+      "ch": "ch02",
+      "i": 10,
+      "origHash": "b17dd073",
+      "en": "Dīng (yin Fire) is soft and centered, its inner nature bright and harmonious. Embracing Yǐ, it is filial; combining with Rén, it is loyal. Flourishing, it is not violent; declining, it is not spent. If it has its rightful mother (the Direct Resource), it fares well in autumn and in winter alike.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "丁",
+        "火",
+        "乙",
+        "壬",
+        "甲",
+        "正印"
+      ]
+    },
+    {
+      "ch": "ch02",
+      "i": 11,
+      "origHash": "f8dbd3e1",
+      "en": "Dīng is the Fire of warmth; though its nature is fierce it belongs to yin, so it is soft and holds to the mean — outwardly yielding and inwardly cultured; is it not bright and harmonious? Yǐ is Dīng's mother, who fears Xīn, and Dīng embraces her — unlike Bǐng, which embraces Jiǎ yet ends up burning Jiǎ, and unlike Jǐ, which embraces Dīng yet ends up dimming Dīng; its filial devotion is unlike that of others. Rén is Dīng's lord, and what Rén fears is Wù: outwardly Dīng consoles Wù Earth so the Earth does not come to bully Rén, and inwardly it secretly transforms into the Wood-spirit so Wù cannot oppose Rén; its loyalty is unlike that of others. Born in summer and combining with Rén, its flame does not reach fierceness; born in autumn or winter and gaining a single Jiǎ Wood, though declining it does not reach exhaustion. Thus it is said to fare well in autumn or winter alike — all of it the way of softness.",
+      "conf": "low",
+      "status": "draft",
+      "enNote": "'生於夏合': 合 is read as combining with Rén (壬), following 合壬而忠 above; the original leaves the object implicit, so 'with Rén' is an inference — flag for human review.",
+      "terms": [
+        "丁",
+        "火",
+        "乙",
+        "辛",
+        "丙",
+        "甲",
+        "己",
+        "壬",
+        "戊",
+        "土",
+        "木"
+      ]
+    },
+    {
+      "ch": "ch02",
+      "i": 12,
+      "origHash": "4e32d65a",
+      "en": "Wù (yang Earth) is solid and heavy, both central and upright. In stillness it draws in, in motion it opens out; it governs the gathering of all things. When Water flourishes, things are born; when Fire is dry, it delights in moistening. If it lies in Kūn or Gèn, it dreads the clash and prefers stillness.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "Kūn and Gèn here stand for the Shēn (SW) and Yín (NE) mountains it sits on; the dreaded clash is the Yín–Shēn clash. Note the verse reads 司合 ('governs the gathering'), while the paired commentary (i13) reads 司命 ('arbiter of life') — a source variance, each rendered to its own orig.",
+      "terms": [
+        "戊",
+        "土",
+        "水",
+        "火",
+        "坤",
+        "艮",
+        "六冲"
+      ]
+    },
+    {
+      "ch": "ch02",
+      "i": 13,
+      "origHash": "d8233f32",
+      "en": "Wù is the Earth of mountain and ridge, not what is called wall-earth; compared with Jǐ Earth it is especially high, thick, hard, and dry, and is the source-ground from which Jǐ Earth springs. It gains the central breath (qì), and is upright and grand: in spring and summer its breath opens out and gives birth to all things, in autumn and winter its breath draws in and brings all things to completion — thus it is the arbiter of life (sīmìng). Its breath belongs to yang; it likes moistening below and dislikes dryness. Sitting on Yín it dreads Shēn, sitting on Shēn it dreads Yín, for a clash sets the root astir, which is not the correct earthly way — so it prefers stillness.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "司命 here = 'the one who governs life,' the general 'arbiter of life' sense, not the almanac Yellow-Way star of the same name.",
+      "terms": [
+        "戊",
+        "土",
+        "己",
+        "气",
+        "司命",
+        "寅",
+        "申",
+        "六冲"
+      ]
+    },
+    {
+      "ch": "ch02",
+      "i": 16,
+      "origHash": "13a1ae7f",
+      "en": "Gēng (yang Metal) carries a killing edge (shà), hardest and strongest of all. Gaining Water it becomes clear; gaining Fire it becomes sharp. Where Earth is moist it is engendered; where Earth is dry it grows brittle. It can overcome elder brother Jiǎ, yet it yields to younger sister Yǐ.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "庚",
+        "金",
+        "水",
+        "火",
+        "土",
+        "甲",
+        "乙"
+      ]
+    },
+    {
+      "ch": "ch02",
+      "i": 17,
+      "origHash": "4c383e14",
+      "en": "Gēng is yang Metal, the essence of Venus (Tàibái); it carries the killing force yet is hard and vigorous. Vigorous and gaining Water, its breath flows and is clear; hard and gaining Fire, its breath is pure and refined. Earth that holds Water can perfect its generation; Earth that holds Fire can make it brittle. Though Jiǎ Wood is strong, Gēng has strength enough to hew it; though Yǐ Wood is soft, in combining with it Gēng yields to it.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "庚",
+        "金",
+        "水",
+        "火",
+        "土",
+        "甲",
+        "木",
+        "乙"
+      ]
+    },
+    {
+      "ch": "ch02",
+      "i": 18,
+      "origHash": "44343942",
+      "en": "Xīn (yin Metal) is soft and weak, warm, moist, and clear. It dreads the piling-up of Earth and delights in the fullness of Water. It can uphold the altars of state and can rescue living beings; in heat it favors its mother, in cold it favors Dīng.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "辛",
+        "金",
+        "土",
+        "水",
+        "丁"
+      ]
+    },
+    {
+      "ch": "ch02",
+      "i": 19,
+      "origHash": "08d75639",
+      "en": "Xīn is yin Metal — not what is meant by pearls and jade, only something warm, gentle, clear, and moist. When Wù Earth is abundant it is buried, so it fears it; when Rén Water is abundant it is made elegant, so it delights in it. Xīn is Bǐng's minister: it consoles Rén Water so it does not overcome Bǐng Fire, and thereby upholds the altars of state. Xīn is Jiǎ's lord: it combines and transforms Bǐng Fire so it does not burn Jiǎ Wood, and thereby rescues living beings. Born in high summer and gaining Jǐ Earth, it can dim the Fire and so preserve itself; born in deep winter and gaining Dīng Fire, it can withstand the cold and so nourish itself. Thus when Xīn Metal is born in a winter month and sees Bǐng, a man's chart is held to be without honor (Bǐng and Xīn combining and transforming into Water), and even if honored he is not loyal; a woman's chart is said to harm the husband, and even if it does not harm him the two are not in harmony; but if it sees Dīng, then men and women alike are honored and compliant.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "辛",
+        "金",
+        "戊",
+        "土",
+        "壬",
+        "水",
+        "丙",
+        "火",
+        "甲",
+        "木",
+        "己",
+        "丁"
+      ]
+    },
+    {
+      "ch": "ch02",
+      "i": 20,
+      "origHash": "9da8496f",
+      "en": "Rén (yang Water) is vast as the open sea and can drain off the breath of Metal; it has the virtue of firmness-within-centeredness and circulates ceaselessly without stagnation. Rooted below with Guǐ showing through above, it surges to the heavens and races over the earth; when it transforms it does so with feeling, and when it follows it lends mutual aid.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "壬",
+        "水",
+        "金",
+        "癸"
+      ]
+    },
+    {
+      "ch": "ch02",
+      "i": 21,
+      "origHash": "8e99052b",
+      "en": "Rén is the source of Guǐ Water; the two have their dividing and their joining, moving on without cease — they are the hundred rivers and also the rain and dew, and must not be split apart as two. Rén Water can drain off the Metal-breath of the West; its virtue is firm and central, and moreover it circulates ceaselessly without stagnation. If it meets Shēn, Zǐ, and Chén and moreover has Guǐ showing through, its momentum cannot be checked. Combining with Dīng it transforms into Wood and also generates Dīng Fire — this may be called having feeling; it can curb Bǐng Fire yet does not rob Dīng of its love, so as a husband it is dutiful and as a lord it is benevolent. Born in high summer, the Earth-breath within Sì, Wǔ, and Wèi, steamed by Rén Water, becomes rain and dew; so even when it follows Fire and Earth, it never fails to lend mutual aid.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "壬",
+        "癸",
+        "水",
+        "金",
+        "申",
+        "子",
+        "辰",
+        "丁",
+        "木",
+        "火",
+        "丙",
+        "巳",
+        "午",
+        "未",
+        "土"
+      ]
+    },
+    {
+      "ch": "ch02",
+      "i": 22,
+      "origHash": "0470b207",
+      "en": "Guǐ (yin Water) is utterly weak, yet it reaches the Ford of Heaven (Tiānjīn); moving with the Dragon's power, its accomplishing transformations are marvelous. It fears neither Fire nor Earth and need not reckon with Gēng or Xīn. Combining with Wù and seeing Fire, only when the Fire has a true root is the transformation genuine.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "天津 Tiānjīn is the celestial river-ford asterism; the 'Dragon's power' is the Wood (Jiǎ/Yǐ, Yín/Mǎo) that conveys the water.",
+      "terms": [
+        "癸",
+        "水",
+        "火",
+        "土",
+        "庚",
+        "辛",
+        "戊"
+      ]
+    },
+    {
+      "ch": "ch02",
+      "i": 23,
+      "origHash": "f3167b3f",
+      "en": "Guǐ is pure yin and utterly weak, yet it reaches up to the Ford of Heaven. Whenever the pillars contain Jiǎ, Yǐ, Yín, or Mǎo, it can put the Water-breath to use — generating Wood, curbing Fire, moistening Earth, and nourishing Metal, just as the dragon can convey water — so that, though Fire and Earth be many, it does not fear them. As for Gēng and Xīn, it neither relies on their generation nor minds their abundance. Only in combining with Wù to transform into Fire must it run through a Fire-root; only then is the transformation genuine.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "癸",
+        "阴阳",
+        "甲",
+        "乙",
+        "寅",
+        "卯",
+        "水",
+        "木",
+        "火",
+        "土",
+        "金",
+        "庚",
+        "辛",
+        "戊"
+      ]
+    },
+    {
+      "ch": "ch03",
+      "i": 0,
+      "origHash": "7d75c513",
+      "en": "The yang branches are active and strong; their reach is swift and their disaster or blessing plain to see.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "阴阳"
+      ]
+    },
+    {
+      "ch": "ch03",
+      "i": 1,
+      "origHash": "f33db720",
+      "en": "Zǐ, Yín, Chén, Wǔ, Shēn, and Xū are yang; their nature is active, their momentum strong, their arising most swift, and their disaster or blessing most plain.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "子",
+        "寅",
+        "辰",
+        "午",
+        "申",
+        "戌",
+        "阴阳"
+      ]
+    },
+    {
+      "ch": "ch03",
+      "i": 2,
+      "origHash": "6059fc3b",
+      "en": "The yin branches are still and single-minded; their turns of obstruction and peace (pǐ and tài) usually take a full year to appear.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "否/泰 pǐ/tài are the Obstruction and Peace hexagrams, here standing for ill and good fortune.",
+      "terms": [
+        "阴阳"
+      ]
+    },
+    {
+      "ch": "ch03",
+      "i": 5,
+      "origHash": "243596d1",
+      "en": "The Life-origin quarter dreads being stirred, while the Storehouse should be broken open; the ground of Failure, when it meets a clash, must be weighed with care.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "生方 = the four Life-origin branches (Yín/Shēn/Sì/Hài); 库 = the four Storehouses (Chén/Xū/Chǒu/Wèi); 败地 = the four Failure/Bathing branches (Zǐ/Wǔ/Mǎo/Yǒu).",
+      "terms": [
+        "长生",
+        "墓",
+        "六冲"
+      ]
+    },
+    {
+      "ch": "ch03",
+      "i": 6,
+      "origHash": "7ae2538b",
+      "en": "Yín, Shēn, Sì, and Hài are the four Life-origins; they shun being stirred by a clash.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "寅",
+        "申",
+        "巳",
+        "亥",
+        "长生",
+        "六冲"
+      ]
+    },
+    {
+      "ch": "ch03",
+      "i": 7,
+      "origHash": "f11dec21",
+      "en": "Chén, Xū, Chǒu, and Wèi are the four Storehouses; they should be broken open by a clash.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "辰",
+        "戌",
+        "丑",
+        "未",
+        "墓",
+        "六冲"
+      ]
+    },
+    {
+      "ch": "ch03",
+      "i": 18,
+      "origHash": "0e6eb968",
+      "en": "Four Jiǎ or four Yǐ, meeting a Yín–Shēn clash or a Mǎo–Yǒu clash, leave the ground unable to bear the stems.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "甲",
+        "乙",
+        "寅",
+        "申",
+        "卯",
+        "酉",
+        "六冲"
+      ]
+    },
+    {
+      "ch": "ch03",
+      "i": 26,
+      "origHash": "03bbcfb4",
+      "en": "For instance, Jiǎ-Zǐ, Bǐng-Yín, Dīng-Mǎo, and Jǐ-Sì are all cases in which the earthly branch generates the day-stem; if the Day Master is in decline and weak while its branch meets a clash, then its root is torn out.",
+      "conf": "high",
+      "status": "draft",
+      "enNote": "支生日 = the branch's hidden phase generates the day-stem (mutual generation); 逄=逢 'meets', 沖=冲 clash (the Six Clashes).",
+      "terms": [
+        "日主",
+        "甲",
+        "子",
+        "丙",
+        "寅",
+        "丁",
+        "卯",
+        "己",
+        "巳",
+        "六冲",
+        "相生"
+      ]
+    },
+    {
+      "ch": "ch04",
+      "i": 7,
+      "origHash": "c6b548f3",
+      "en": "When the Three Harmonies are fully formed it is deemed 'complete'; if the Day Master is prospering, it welcomes moving into ground where Wealth flourishes.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "行…之地 = the luck cycle (大运) moving into such a region; the 大运 reading is standard in this genre but not literal, so it is kept in this note rather than asserted in the caption. 財 = the Wealth phase generically.",
+      "terms": [
+        "三合",
+        "日主",
+        "大运"
+      ]
+    },
+    {
+      "ch": "ch04",
+      "i": 9,
+      "origHash": "860c3467",
+      "en": "For example, Jiǎ Wood born in the Yín, Mǎo, or Chén month, and Bǐng Fire born in the Sì, Wǔ, or Wèi month, are all cases of 'complete form.'",
+      "conf": "high",
+      "status": "draft",
+      "enNote": "形全 'complete form' = the day-stem's own phase reigns in its seasonal month.",
+      "terms": [
+        "甲",
+        "木",
+        "丙",
+        "火",
+        "寅",
+        "卯",
+        "辰",
+        "巳",
+        "午",
+        "未"
+      ]
+    },
+    {
+      "ch": "ch04",
+      "i": 10,
+      "origHash": "0179e19b",
+      "en": "Wù Earth born in the Yín, Mǎo, or Chén month, and Gēng Metal born in the Sì, Wǔ, or Wèi month, are all cases of 'deficient form'; the rest follow by analogy.",
+      "conf": "high",
+      "status": "draft",
+      "enNote": "形缺 'deficient form' = the day-stem's phase is out of season and suppressed (Wood overcomes Earth; Fire overcomes Metal).",
+      "terms": [
+        "戊",
+        "土",
+        "庚",
+        "金",
+        "寅",
+        "卯",
+        "辰",
+        "巳",
+        "午",
+        "未"
+      ]
+    },
+    {
+      "ch": "ch05",
+      "i": 1,
+      "origHash": "9686de22",
+      "en": "For instance, Yín-Mǎo-Chén constitutes the East; if it is mixed with Hài-Mǎo-Wèi as well, the Wood becomes excessive — is this not a muddled configuration?",
+      "conf": "high",
+      "status": "draft",
+      "enNote": "寅卯辰 = the eastern directional trio (a Three Meetings set, Wood); 亥卯未 = the Wood trine (a Three Harmonies set); 東方 = the eastern quarter, Wood's direction. 太過 'excessive' — subject 'the Wood' supplied from context, both trios being Wood.",
+      "terms": [
+        "寅",
+        "卯",
+        "辰",
+        "亥",
+        "未",
+        "三会",
+        "三合",
+        "木"
+      ]
+    },
+    {
+      "ch": "ch05",
+      "i": 7,
+      "origHash": "a970b0de",
+      "en": "For instance, when Yín-Mǎo-Chén is complete and the heavenly stems also reveal a Jiǎ or Yǐ as a single source-spirit, and it again meets Hài's Birth stage and Wèi's storage-vault, it will surely produce no good fortune — the directional trio must not be mixed in with the harmony-configuration.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "乾 here = 干, the heaven-stems (透 'revealed at stem level'); 元神 'source-spirit' is not in the glossary, rendered literally; 生 = the 长生 Birth stage, 庫 = the 墓 storage-vault; 方 = the Three Meetings directional trio, 局 = the Three Harmonies configuration.",
+      "terms": [
+        "寅",
+        "卯",
+        "辰",
+        "甲",
+        "乙",
+        "亥",
+        "未",
+        "长生",
+        "墓",
+        "三会",
+        "三合"
+      ]
+    },
+    {
+      "ch": "ch05",
+      "i": 9,
+      "origHash": "a6b72e86",
+      "en": "For instance, when a Jiǎ or Yǐ day-master meets a complete Hài-Mǎo-Wèi and the stems also reveal a Gēng or Xīn as a single Officer star, yet it further sees Yín on the right and Chén on the left, then neither fame nor profit is attained — the harmony-configuration must not be mixed with the directional trio; and if a Jiǎ or Yǐ day merely meets Gēng or Xīn alone, it likewise attains nothing.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "官星 'Officer star' = the regulating-authority god generically (庚/辛 to Wood spans both Direct Officer and Seven Killings); 局 = the Three Harmonies configuration, 方 = the Three Meetings directional trio.",
+      "terms": [
+        "甲",
+        "乙",
+        "亥",
+        "卯",
+        "未",
+        "庚",
+        "辛",
+        "正官",
+        "寅",
+        "辰",
+        "三合",
+        "三会",
+        "日主"
+      ]
+    },
+    {
+      "ch": "ch06",
+      "i": 17,
+      "origHash": "c6b79285",
+      "en": "Broadly, when the Hurting Officer has Wealth the Officer may always appear; when the Hurting Officer has no Wealth the Officer may never appear. One must also weigh whether the Day Master is strong or weak, and need not sort by Metal, Wood, Water, Fire, or Earth. It is further said: when the Hurting Officer employs the Resource, without Wealth it is unfitting for Wealth to appear (a weak Day Master employing the Resource — the appearance of Wealth breaks the Resource).",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "又日 read as 又曰 'it is further said' (uncertain — 日 could alternatively abbreviate 日主; retained pending human review); 見官/見財 = the Officer/Wealth appearing in the chart; 破印 = Wealth overcoming (mutual conquest) the Resource.",
+      "terms": [
+        "伤官",
+        "正官",
+        "正印",
+        "身强 / 身弱",
+        "金",
+        "木",
+        "水",
+        "火",
+        "土",
+        "相克"
+      ]
+    },
+    {
+      "ch": "ch14",
+      "i": 1,
+      "origHash": "700d32fa",
+      "en": "That the hard and the soft temper one another needs no saying; yet if one tempers the hard with the soft and fails to suit its nature, one instead reinforces its hardness — as when a warrior gains troops and thereby brings about slaughter and warfare. For instance, Gēng or Xīn born in the seventh month: meeting Dīng Fire inflames its might, meeting Yǐ Wood abets its violence, meeting Jǐ Earth fulfills its will, and meeting Guǐ Water whets its edge; better to temper it with that which is firm-within-the-soft.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "刚柔 = the hard and the soft (yang/yin stems), not in the glossary; 七月 = the seventh month, i.e. the Shēn (申) month when Metal reigns; 柔之刚者 'firm-within-the-soft' = the yang form of the yielding element, identified as 壬 Rén Water in the next line.",
+      "terms": [
+        "庚",
+        "辛",
+        "丁",
+        "火",
+        "乙",
+        "木",
+        "己",
+        "土",
+        "癸",
+        "水"
+      ]
+    },
+    {
+      "ch": "ch14",
+      "i": 2,
+      "origHash": "2a78e913",
+      "en": "It is Rén Water. For Rén Water has an upright nature and can draw out and channel the disposition of Gēng; but were one to provoke it with something hard instead, could the resulting calamity ever be told in full!",
+      "conf": "high",
+      "status": "draft",
+      "enNote": "引通 = to lead through / channel — Gēng's rigid Metal released into flowing Water.",
+      "terms": [
+        "壬",
+        "水",
+        "庚"
+      ]
+    },
+    {
+      "ch": "ch14",
+      "i": 3,
+      "origHash": "83406687",
+      "en": "Conversely, tempering the soft with the hard, if it fails to suit its nature, instead undoes its softness — like a woman who meets both favor and force and so turns wanton and base. For instance, Yǐ Wood born in the eighth month: meeting Jiǎ, Bǐng, or Rén it rejoices and unfolds its nature, but meeting Wù, Yín, or Gēng it takes fright and loses itself; better to temper it with that which is soft-within-the-firm. It is Dīng Fire. For Dīng Fire has an upright nature and can settle the disposition of Yǐ Wood; but were it joined with the soft-within-the-soft, where would the harm ever end? The rest follow by analogy.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "八月 = the eighth month, i.e. the Yǒu (酉) month when Metal reigns; 戊寅庚 kept verbatim although 寅 is a branch amid the stems Wù/Gēng; 刚之柔者 'soft-within-the-firm' = 丁 Dīng Fire; 柔之柔者 'soft-within-the-soft' is glossed by the vernacular as Guǐ Water.",
+      "terms": [
+        "乙",
+        "木",
+        "甲",
+        "丙",
+        "壬",
+        "戊",
+        "寅",
+        "庚",
+        "丁",
+        "火"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "book": "bazhai-mingjing",
+  "srcFile": "annotated/bazhai-mingjing.json",
+  "srcHash": "sha256:519984a45e89e274d397c9146335b7bf6ec63daa4fd13d1e296240ad6246b14e",
+  "titleEn": "Mirror of the Eight Mansions",
+  "titlePinyin": "Bāzhái Míngjìng",
+  "pipeline": "sonnet cited-first translate+adversarial-review (status=draft；须人工抽查 low-conf 后升 reviewed)",
+  "coverage": "cited-only (rules[].src 引用面；非全本)",
+  "sentences": [
+    {
+      "ch": "intro",
+      "i": 0,
+      "origHash": "0e29e627",
+      "en": "The 《八宅明镜》 *Bāzhái Míngjìng* (Mirror of the Eight Mansions) takes the \"Eight Mansions\" (bāzhái) as its core framework: by the direction of the sitting mountain (zuòshān) it divides dwellings into two groups — Qián (the Creative / Heaven ☰), Duì (the Joyous / Lake ☱), Gèn (Keeping Still / Mountain ☶), and Kūn (the Receptive / Earth ☷) (the West Four Mansions) and Zhèn (the Arousing / Thunder ☳), Xùn (the Gentle / Wind ☴), Lí (the Clinging / Fire ☲), and Kǎn (the Abysmal / Water ☵) (the East Four Mansions); each mansion has eight positions — Generating Breath (shēngqì), Heavenly Doctor (tiānyī), Prolonged Years (yánnián), and Stationary Position (fúwèi) (the Four Auspicious), together with Misfortune (huòhài), Six Killings (liùshà), Five Ghosts (wǔguǐ), and Severed Fate (juémìng) (the Four Inauspicious) — from which it deduces the auspiciousness or inauspiciousness of the room layout.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "Book-title per rule 7 (八宅明镜 en from bookTitles). Trigrams given their glossary §2.7 glosses (attribute/element sense) at first occurrence; the West/East Four Mansions grouping is kept verbatim from orig and no per-trigram compass direction is asserted beyond it. Eight-position and trigram terms follow the spec's canonical 'English gloss (pīnyīn)' example format (line 32); hanzi carried in terms[].",
+      "terms": [
+        "八宅",
+        "八宅明镜",
+        "坐山",
+        "乾",
+        "兑",
+        "艮",
+        "坤",
+        "震",
+        "巽",
+        "离",
+        "坎",
+        "生气",
+        "天医",
+        "延年",
+        "伏位",
+        "祸害",
+        "六煞",
+        "五鬼",
+        "绝命"
+      ]
+    }
+  ]
+}

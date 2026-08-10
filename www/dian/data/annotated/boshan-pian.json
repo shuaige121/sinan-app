@@ -1,0 +1,4284 @@
+{
+ "id": "boshan-pian",
+ "title": "博山篇",
+ "category": null,
+ "chapters": [
+  {
+   "id": "intro",
+   "label": "书目说明",
+   "annotation": "",
+   "sentences": [
+    {
+     "i": 0,
+     "orig": "《博山篇》为形势派堪舆经典，论龙、穴、砂、水之辨，尤重龙脉辨别与穴法取证。",
+     "bai": "《博山篇》是形势派（峦头派）的堪舆经典，全书辨析龙、穴、砂、水四大要素，尤其看重如何辨别龙脉、如何为定穴取得验证。",
+     "gloss": [
+      [
+       "堪舆",
+       "风水的别称，相地之术"
+      ],
+      [
+       "形势派",
+       "以山川形态(峦头)为据的风水流派，别于理气派"
+      ],
+      [
+       "取证",
+       "取得可验证的凭据"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "long",
+      "xue",
+      "sha",
+      "shui"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "博山篇 书目说明(编者按)原文",
+       "source": "司南 worklist"
+      },
+      {
+       "what": "龙/脉/穴/砂/水 术语古义与GIS量化口径",
+       "source": "DaoCore Shared Ontology v2.0.0"
+      }
+     ],
+     "conf": "high",
+     "notes": "编者按，非古籍正文。四要素 龙/穴/砂/水 对应本书四章。"
+    },
+    {
+     "i": 1,
+     "orig": "全书结构简洁，以问答体或论说体阐明峦头正法，历代堪舆师必读。",
+     "bai": "全书结构简洁，用问答体或论说体阐明峦头(山形)相地的正法，是历代堪舆师的必读之书。",
+     "gloss": [
+      [
+       "峦头",
+       "山峦形势，形势派相地的核心对象"
+      ],
+      [
+       "正法",
+       "正统方法"
+      ]
+     ],
+     "logic": null,
+     "terms": [],
+     "quant": null,
+     "src": [
+      {
+       "what": "博山篇 书目说明(编者按)原文",
+       "source": "司南 worklist"
+      }
+     ],
+     "conf": "high",
+     "notes": "编者按。"
+    },
+    {
+     "i": 2,
+     "orig": "因外网访问受限，全文暂未收录。",
+     "bai": "由于外网访问受限，当时全文尚未收录。",
+     "gloss": [],
+     "logic": null,
+     "terms": [],
+     "quant": null,
+     "src": [
+      {
+       "what": "博山篇 书目说明(编者按)原文",
+       "source": "司南 worklist"
+      }
+     ],
+     "conf": "high",
+     "notes": "编者按，已过时：本次翻译已从 luckclub.cn(古籍典藏) 抓得论龙/论穴/论砂/论水全文原文，见对应章节文件。"
+    },
+    {
+     "i": 3,
+     "orig": "【司南导读】司南龙脉地图模块辨别「正龙」（主山脊骨节分明、剥换有情）与「旁龙」（分枝散漫）的判断逻辑，参考本篇形势论。",
+     "bai": "【司南App用法】司南的龙脉地图模块，用来辨别“正龙”(主山脊骨节分明、一路剥换有情)与“旁龙”(分枝散乱)的判断逻辑，参考的就是本篇的形势论。",
+     "gloss": [
+      [
+       "剥换",
+       "龙脉行进中峰形/星体逐节变换，去粗存精"
+      ],
+      [
+       "有情",
+       "形势朝向穴场、顾盼相向，吉象"
+      ],
+      [
+       "正龙",
+       "主干真龙"
+      ],
+      [
+       "旁龙",
+       "分枝旁出之龙"
+      ]
+     ],
+     "logic": "IF 山脊连续&骨节分明(沿脊有规律起伏剥换)&主干居中 THEN 判为正龙; IF 分枝散漫&无主干贯连 THEN 判为旁龙",
+     "terms": [
+      "long",
+      "mai",
+      "zushan"
+     ],
+     "quant": {
+      "observables": [
+       "主山脊是否骨节分明、节节剥换(沿脊周期性起伏)",
+       "主干连续 vs 分枝散乱"
+      ],
+      "operational": "沿脊线追踪：脊线连续度/连通性(gap数)、along-ridge relief 起伏(节=relief 局部极大序列)、主干 vs 分枝的脊线分级(Strahler-like order)；正龙=高连续主脊，旁龙=低 order 分枝",
+      "metric_unit": "连续度(无量纲0-1)/relief(m)/脊线分级(序数)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；剥换/有情/分枝为定性描述，阈值为标准GIS地形派生量下的现代operational约定"
+     },
+     "src": [
+      {
+       "what": "博山篇 书目说明(编者按)原文",
+       "source": "司南 worklist"
+      },
+      {
+       "what": "龙/脉/穴/砂/水 术语古义与GIS量化口径",
+       "source": "DaoCore Shared Ontology v2.0.0"
+      }
+     ],
+     "conf": "high",
+     "notes": "编者按，描述App用法。术语剥换/有情释义采峦头派通义。"
+    },
+    {
+     "i": 4,
+     "orig": "本篇以问答体逐一辨明龙脉真伪、穴场成立条件及砂水格局优劣，与《撼龙经》同为司南龙穴评估的形势派理论参照。",
+     "bai": "本篇用问答体逐一辨明龙脉的真伪、穴场成立的条件、以及砂水格局的优劣，和《撼龙经》一样，都是司南做龙穴评估时所依据的形势派理论参照。",
+     "gloss": [
+      [
+       "真伪",
+       "真龙与假龙之别"
+      ],
+      [
+       "穴场",
+       "结穴之所"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "long",
+      "xue",
+      "sha",
+      "shui"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "博山篇 书目说明(编者按)原文",
+       "source": "司南 worklist"
+      },
+      {
+       "what": "龙/脉/穴/砂/水 术语古义与GIS量化口径",
+       "source": "DaoCore Shared Ontology v2.0.0"
+      }
+     ],
+     "conf": "high",
+     "notes": "编者按。《撼龙经》为同派经典，见 hanlong-jing。"
+    },
+    {
+     "i": 5,
+     "orig": "【待补】全文待从 ctext.org 抓取后补入。",
+     "bai": "【待补】全文有待从 ctext.org 抓取后补入。",
+     "gloss": [],
+     "logic": null,
+     "terms": [],
+     "quant": null,
+     "src": [
+      {
+       "what": "博山篇 书目说明(编者按)原文",
+       "source": "司南 worklist"
+      }
+     ],
+     "conf": "high",
+     "notes": "编者占位语。已更新:本次改从 luckclub.cn(古籍典藏)抓取论龙/论穴/论砂/论水全文(ctext.org 返回403)，正文见各章文件。"
+    }
+   ]
+  },
+  {
+   "id": "ch-lunlong",
+   "label": "论龙",
+   "annotation": "",
+   "sentences": [
+    {
+     "i": 0,
+     "orig": "寻龙法，寻祖宗，寻父母祖宗所居。",
+     "bai": "寻龙脉的方法，首先要追溯祖宗山，寻到父母山以及祖宗山所在之处。",
+     "gloss": [
+      [
+       "祖宗",
+       "祖山，龙脉发源的高大宗山"
+      ],
+      [
+       "父母",
+       "父母山，穴正后方最后一座靠山"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "long",
+      "zushan",
+      "fumushan"
+     ],
+     "quant": {
+      "observables": [
+       "龙脉发源的最高宗山",
+       "穴后最近的靠山"
+      ],
+      "operational": "沿脊线上溯，取 connected ridge graph 的 elevation-max / max-prominence 节点为祖山；穴近端 upslope local peak 为父母山",
+      "metric_unit": "elevation(m)/topographic_prominence(m)/distance(km,m)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；祖山/父母山在原文为定性宗源，最高/最近为操作化判据"
+     },
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      },
+      {
+       "what": "龙/祖山/父母山 古义与GIS量化口径",
+       "source": "DaoCore Shared Ontology v2.0.0"
+      }
+     ],
+     "conf": "high",
+     "notes": "章首总纲：寻龙先溯祖宗、父母。"
+    },
+    {
+     "i": 1,
+     "orig": "极高之方，火星所结，顿起楼殿漫天。水星与渠相映，曰水与火，乃成既济。",
+     "bai": "极高之处由火星（尖锐耸起的山峰）结成，气势如楼殿冲天；若有水星（圆润波状的山体）与之相映，便是水火相照，成既济之吉格。",
+     "gloss": [
+      [
+       "火星",
+       "五行火形峰，尖锐耸起"
+      ],
+      [
+       "水星",
+       "五行水形峰，低缓波曲"
+      ],
+      [
+       "既济",
+       "水火交合的吉象"
+      ]
+     ],
+     "logic": "IF 极高祖山为火星 且 有水星相映 THEN 水火既济（吉）",
+     "terms": [
+      "zushan",
+      "shan_feng"
+     ],
+     "quant": {
+      "observables": [
+       "祖山峰顶尖锐高耸（火）",
+       "旁有低缓波状山体（水）"
+      ],
+      "operational": "五星峰形→DEM 峰顶形态：火=尖峰高 profile_curvature/convexity；水=低 relief 起伏脊；二者并见判既济",
+      "metric_unit": "summit_curvature/relief(m)/slope(deg)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "五星形（火尖/水曲）为传统峦头分类；曲率/坡度阈值为现代operational，原文无数值"
+     },
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      },
+      {
+       "what": "五星峰形 火尖/水曲",
+       "source": "DaoCore Shared Ontology v2.0.0 (五星峰)"
+      }
+     ],
+     "conf": "high",
+     "notes": "祖山以火星为体，水星相映成既济。"
+    },
+    {
+     "i": 2,
+     "orig": "父母所居，中高之方，金星所结。爰有二星，内外相照，一父一母，是为对待。",
+     "bai": "父母山居于中高之处，由金星（圆顶浑厚的山体）结成；最宜内外二星相照，一父一母，形成阴阳对待之势。",
+     "gloss": [
+      [
+       "金星",
+       "五行金形峰，圆顶浑厚"
+      ],
+      [
+       "对待",
+       "阴阳相对成配"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "fumushan",
+      "shan_feng"
+     ],
+     "quant": {
+      "observables": [
+       "父母山圆顶（金）",
+       "内外二峰对照"
+      ],
+      "operational": "金=平滑凸顶圆穹（高而均匀的summit convexity、低尖度）；DEM 取穴近端 upslope 圆顶峰为父母山",
+      "metric_unit": "summit_convexity/elevation(m)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "金圆为传统五星形；曲率阈值现代operational，原文无数值"
+     },
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      },
+      {
+       "what": "五星峰形 金圆",
+       "source": "DaoCore Shared Ontology v2.0.0 (五星峰)"
+      }
+     ],
+     "conf": "high",
+     "notes": "源文'爰'作'爱'，据通行读法校为'爰有二星'。"
+    },
+    {
+     "i": 3,
+     "orig": "龙自此出，自此退卸，自此博换，才是行龙，才可结穴。",
+     "bai": "龙脉从父母山发出，经过退卸、博换（逐节剥换、由粗老转为细嫩），才算真正的行龙，才有资格结穴。",
+     "gloss": [
+      [
+       "退卸",
+       "褪去粗顽之质"
+      ],
+      [
+       "博换",
+       "即剥换，逐节变换星体、去粗存精"
+      ],
+      [
+       "行龙",
+       "龙脉行进"
+      ],
+      [
+       "结穴",
+       "聚气成穴"
+      ]
+     ],
+     "logic": "IF 龙自父母山出 且 经退卸博换（逐节剥换） THEN 为真行龙、可结穴",
+     "terms": [
+      "long",
+      "mai",
+      "xue"
+     ],
+     "quant": {
+      "observables": [
+       "龙脉自父母山发出后是否逐节剥换"
+      ],
+      "operational": "沿脊线追踪剥换=along-ridge relief 周期性起伏序列（一剥一换一峰起）；剥换节数多→嫩",
+      "metric_unit": "relief(m)/沿脊起伏节数(序数)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；剥换为定性，沿脊起伏为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      },
+      {
+       "what": "龙/脉/穴 古义；一剥一换一峰起",
+       "source": "DaoCore Shared Ontology v2.0.0 (long/mai 引《撼龙经》)"
+      }
+     ],
+     "conf": "high",
+     "notes": "真行龙必经退卸博换。"
+    },
+    {
+     "i": 4,
+     "orig": "若从大山便落，一节两边龙虎，名为假穴，何以故？不贯顶也。",
+     "bai": "若从大山直落而下，只一节、两侧带龙虎砂，而非从山顶贯穿剥换而出，便叫假穴——原因是它不贯顶（没有经过顶节剥换）。",
+     "gloss": [
+      [
+       "龙虎",
+       "穴位左右的护卫山体"
+      ],
+      [
+       "贯顶",
+       "龙脉自顶节贯穿剥换而下"
+      ]
+     ],
+     "logic": "IF 龙直落仅一节 且 不贯顶（未经顶节剥换） THEN 判为假穴",
+     "terms": [
+      "long",
+      "sha",
+      "xue"
+     ],
+     "quant": {
+      "observables": [
+       "龙是否自顶节贯穿剥换",
+       "仅一节直落"
+      ],
+      "operational": "贯顶=入首脊线与上游主脊连续贯通（gap=0）；仅一节直落=无上游剥换节点→低连续/假",
+      "metric_unit": "脊线连续度(0-1)/剥换节数",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；贯顶/假穴为定性，连续度为操作化判据"
+     },
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      }
+     ],
+     "conf": "high",
+     "notes": "假穴判据：不贯顶。"
+    },
+    {
+     "i": 5,
+     "orig": "认得真龙，真龙居中，后有托的，有送的，旁有护的，有缠的。托多，送多，护多，缠多，龙神大贵；中等，小贵，凭这可推。",
+     "bai": "辨认真龙，真龙居于正中，后方有托山、送山，两旁有护砂、缠砂；托、送、护、缠越多，龙神越贵——多则大贵，中等则小贵，可据此推断。",
+     "gloss": [
+      [
+       "托/送",
+       "龙身后扶托、相送之山"
+      ],
+      [
+       "护/缠",
+       "近身护卫、外围缠绕之砂"
+      ]
+     ],
+     "logic": "IF 真龙居中 且 托送护缠之砂越多 THEN 龙神越贵（多→大贵, 中→小贵）",
+     "terms": [
+      "long",
+      "sha"
+     ],
+     "quant": {
+      "observables": [
+       "真龙是否居中",
+       "后托送、旁护缠之砂数量"
+      ],
+      "operational": "护从砂数=主脊两侧次级脊/spur 数量与拥抱角；居中=主脊为局部最高连续轴",
+      "metric_unit": "侧翼脊数(计数)/enclosure角(deg)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；托送护缠为定性砂体，计数/角度为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      }
+     ],
+     "conf": "high",
+     "notes": "真龙居中、护从多则贵。"
+    },
+    {
+     "i": 6,
+     "orig": "行龙的度，人身相似，开两手，分八字，抽胸膛，直前去。身正的，身歪的，偏左的，偏右的，叠串的，倒转的，趋高的，趋下的，变化多端，汝谛汝谛。",
+     "bai": "行龙的态势如同人身：张开双手、分作八字、挺出胸膛向前行。有身正、身歪、偏左、偏右、叠串、倒转、趋高、趋下的，变化多端，须仔细审察。",
+     "gloss": [
+      [
+       "度",
+       "行度、态势"
+      ],
+      [
+       "谛",
+       "审视、细辨"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "long",
+      "mai"
+     ],
+     "quant": {
+      "observables": [
+       "行龙脊线走向（正/歪/偏左右）",
+       "脊线分叉（八字）",
+       "起伏（趋高趋下）"
+      ],
+      "operational": "脊线方位偏角、分叉角（八字=对称分枝）、along-ridge 高程趋势（趋高/趋下）",
+      "metric_unit": "azimuth(deg)/分叉角(deg)/沿脊坡度(deg)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；行龙姿态为定性，脊线几何为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      }
+     ],
+     "conf": "high",
+     "notes": "以人身喻行龙姿态。"
+    },
+    {
+     "i": 7,
+     "orig": "八个相法，相何等相？二十八形，形何等形？九八变星，星何等星？分富贵贱贫。",
+     "bai": "相法有八种、形体有二十八形、变星有九八之数，各自对应富、贵、贱、贫之别。",
+     "gloss": [
+      [
+       "变星",
+       "九星剥换变化之星体"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "long",
+      "shan_feng"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      }
+     ],
+     "conf": "high",
+     "notes": "八相/二十八形/九八变星为术数分类，非可量化数值。"
+    },
+    {
+     "i": 8,
+     "orig": "三样落法，自肩而落，自腰而落，中心而落，三落者各分枝，各分叶。中落，上肩落，次腰落，又次到尽处，真好真好！",
+     "bai": "落脉有三种：从肩落、从腰落、从中心落，各自分枝分叶。以中落为上、肩落次之、腰落又次之，行至尽头处结穴，方为真好。",
+     "gloss": [
+      [
+       "落",
+       "落脉，龙脉下落结作"
+      ],
+      [
+       "分枝分叶",
+       "主脉旁出枝脚"
+      ]
+     ],
+     "logic": "落法优劣排序：中落 > 肩落 > 腰落；行至尽处结穴为佳",
+     "terms": [
+      "mai",
+      "xue"
+     ],
+     "quant": {
+      "observables": [
+       "落脉自脊线何处下落（中/肩/腰）"
+      ],
+      "operational": "落脉位置=分枝spur 从主脊起点（中=轴端、肩/腰=侧出）；中落=主轴末端spur",
+      "metric_unit": "分枝起点沿脊相对位置(0-1)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；落法为定性，分枝位置为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      }
+     ],
+     "conf": "high",
+     "notes": "三落法优劣：中>肩>腰。"
+    },
+    {
+     "i": 9,
+     "orig": "辨五势，龙北发朝南来为正势，龙西发北作穴，南作朝为侧势，龙逆水上，朝顺水下，此乃逆势。龙顺水下，朝逆水上，此乃顺势。龙身回顾祖山作朝，此乃回势。",
+     "bai": "辨龙有五势：龙从北发、向南来为正势；龙从西发、于北作穴、以南为朝为侧势；龙逆水而上、朝顺水而下为逆势；龙顺水而下、朝逆水而上为顺势；龙身回顾祖山作为朝山为回势。",
+     "gloss": [
+      [
+       "五势",
+       "正/侧/逆/顺/回五种龙势"
+      ],
+      [
+       "朝",
+       "朝山，穴前来朝之山"
+      ]
+     ],
+     "logic": "正势=龙北发朝南; 侧势=龙西发北穴南朝; 逆势=龙逆水朝顺水; 顺势=龙顺水朝逆水; 回势=龙回顾祖山作朝",
+     "terms": [
+      "long",
+      "chaoshan",
+      "zushan",
+      "shui",
+      "xiang"
+     ],
+     "quant": {
+      "observables": [
+       "龙脉走向与穴/朝的方位关系",
+       "龙势相对来水方向（逆水/顺水）"
+      ],
+      "operational": "龙势=入首脊线方位 vs 朝山方位 vs 河道流向（flow direction）的相对几何；逆势=脊线走向与水流向相逆",
+      "metric_unit": "脊线azimuth(deg)/flow_direction(deg)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；五势为定性方位格局，azimuth/flow 为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      }
+     ],
+     "conf": "high",
+     "notes": "五势是论龙核心：正/侧/逆/顺/回。"
+    },
+    {
+     "i": 10,
+     "orig": "五者结穴，有顺局五，逆局五。以逆为贵，顺则减力。",
+     "bai": "五势结穴各有顺局五、逆局五，以逆局为贵，顺局则力量减弱。",
+     "gloss": [
+      [
+       "顺局/逆局",
+       "顺水成局/逆水成局"
+      ]
+     ],
+     "logic": "IF 逆局 THEN 贵; IF 顺局 THEN 减力",
+     "terms": [
+      "xue",
+      "long",
+      "shui"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      }
+     ],
+     "conf": "high",
+     "notes": "逆局贵于顺局。"
+    },
+    {
+     "i": 11,
+     "orig": "势之顺逆，论大江水。正、侧、逆、顺，祖山之水，皆可到堂。回势既远，盖砂障隔。祖山水难以到堂，但势盘旋兼水环绕，虽不到堂，其力反重。",
+     "bai": "论势的顺逆要看大江之水。正、侧、逆、顺四势，祖山之水都能到达明堂；唯回势因距离远、砂体障隔，祖山水难以到堂，但只要势能盘旋、水能环绕，虽不到堂，其力反而更重。",
+     "gloss": [
+      [
+       "到堂",
+       "水流到达穴前明堂"
+      ],
+      [
+       "障隔",
+       "砂体阻隔"
+      ]
+     ],
+     "logic": "IF 回势 且 势盘旋&水环绕 THEN 虽水不到堂而力反重",
+     "terms": [
+      "shi",
+      "shui",
+      "zushan",
+      "mingtang",
+      "sha"
+     ],
+     "quant": {
+      "observables": [
+       "祖山之水是否汇入穴前明堂",
+       "回势是否有砂障隔、水环绕"
+      ],
+      "operational": "到堂=上游汇水/河道是否汇入穴前 basin；环绕=channel 凹向穴（embrace angle 大）",
+      "metric_unit": "flow_accumulation/embrace_angle(deg)/distance(km)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；到堂/环绕为定性，汇水/环抱角为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      }
+     ],
+     "conf": "high",
+     "notes": "回势特例：水不到堂而力反重。"
+    },
+    {
+     "i": 12,
+     "orig": "既得势了，便看水口，兼看下砂。但在逆取，不向顺裁。",
+     "bai": "得势之后，便看水口和下砂——取穴只取逆势，不取顺裁。",
+     "gloss": [
+      [
+       "水口",
+       "水流出去的关口"
+      ],
+      [
+       "下砂",
+       "穴下方拦水之砂"
+      ],
+      [
+       "顺裁",
+       "顺势取裁"
+      ]
+     ],
+     "logic": "IF 得势 THEN 审水口+下砂; 取穴取逆不取顺",
+     "terms": [
+      "shui",
+      "sha"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      }
+     ],
+     "conf": "high",
+     "notes": "得势后看水口、下砂，取逆。"
+    },
+    {
+     "i": 13,
+     "orig": "逆势者，情得水无下砂亦结地，顺势者，无下砂，有的近案乃可用。",
+     "bai": "逆势之地，只要情得水，即使没有下砂也能结地；顺势之地若无下砂，须有近案才可用。",
+     "gloss": [
+      [
+       "近案",
+       "穴前近处的横山"
+      ]
+     ],
+     "logic": "IF 逆势&得水 THEN 虽无下砂亦结地; IF 顺势&无下砂 THEN 须有近案方可用",
+     "terms": [
+      "shui",
+      "sha",
+      "anshan",
+      "xue"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      }
+     ],
+     "conf": "high",
+     "notes": "逆势宽、顺势严（须近案）。"
+    },
+    {
+     "i": 14,
+     "orig": "顾祖者远为优，近不知，何以故？远者龙长得水为多，近者龙短得水为少。",
+     "bai": "回顾祖山者，远比近好——远则龙长、得水多，近则龙短、得水少。",
+     "gloss": [
+      [
+       "顾祖",
+       "回顾祖山"
+      ]
+     ],
+     "logic": "IF 龙长（顾祖远） THEN 得水多为优; IF 龙短（顾祖近） THEN 得水少",
+     "terms": [
+      "zushan",
+      "long",
+      "shui"
+     ],
+     "quant": {
+      "observables": [
+       "龙脉自祖山到穴的长度",
+       "沿程得水多少"
+      ],
+      "operational": "龙长=along-ridge length(m) 大；得水=沿程汇入 flow_accumulation 多",
+      "metric_unit": "along-ridge length(m)/flow_accumulation",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；龙长得水多为定性，长度/汇水为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      }
+     ],
+     "conf": "high",
+     "notes": "龙长得水多为优。"
+    },
+    {
+     "i": 15,
+     "orig": "龙犹树，有大干，有小枝。干长大，枝短小。干为荣，枝为卫。论低昂，何轩轾？若得水咸可用。枝干上，有疑龙，须细论。",
+     "bai": "龙好比树：有大干、有小枝；干长大、枝短小，干为主体之荣，枝为拱卫。论高低轻重，只要能得水皆可用；枝干之上有疑龙，须细加辨论。",
+     "gloss": [
+      [
+       "干/枝",
+       "主干龙/旁枝龙"
+      ],
+      [
+       "轩轾",
+       "高下轻重"
+      ],
+      [
+       "疑龙",
+       "真假难辨之龙"
+      ]
+     ],
+     "logic": "IF 得水 THEN 干龙枝龙皆可用; 枝干有疑龙须细辨",
+     "terms": [
+      "long",
+      "mai",
+      "shui"
+     ],
+     "quant": {
+      "observables": [
+       "主干龙 vs 旁枝龙（长大/短小）"
+      ],
+      "operational": "干龙=高阶主脊（Strahler-like 高 order、长且连续）；枝龙=低阶分枝",
+      "metric_unit": "脊线分级(序数)/along-ridge length(m)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；干/枝为定性，脊线分级为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      }
+     ],
+     "conf": "high",
+     "notes": "龙喻树，干荣枝卫。"
+    },
+    {
+     "i": 16,
+     "orig": "山双行，水居中，水双行，山内拥。水界龙。龙之行得水，界龙便止。何以故？气行地中，是曰内气。水流土上，是曰外气。外气界截，内气止聚。",
+     "bai": "两山并行则水在中间，两水并行则山被夹拥在内——这就是\"水界龙\"。龙脉行进遇水则止：因为气行于地中为内气，水流于地表为外气；外气界截，内气便止而聚。",
+     "gloss": [
+      [
+       "水界龙",
+       "水界断龙脉之气"
+      ],
+      [
+       "内气/外气",
+       "地中之气/地表水所成之气界"
+      ]
+     ],
+     "logic": "IF 水流（外气）界截 THEN 内气止聚（龙止）",
+     "terms": [
+      "qi",
+      "shui",
+      "long",
+      "mai",
+      "shan_feng"
+     ],
+     "quant": {
+      "observables": [
+       "两水夹一山（山居中）",
+       "水流横截龙脉处"
+      ],
+      "operational": "界水=相邻 flow_accumulation 通道夹一条脊线；龙止=河道横截脊线终端处",
+      "metric_unit": "flow_accumulation/脊线-河道交点",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；界水止龙呼应《葬书》'界水则止'，汇水通道为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      },
+      {
+       "what": "界水则止；气者水之母",
+       "source": "DaoCore Shared Ontology v2.0.0 (shui 引《葬书》)"
+      }
+     ],
+     "conf": "high",
+     "notes": "内气外气、水界龙止，本于《葬书》。"
+    },
+    {
+     "i": 17,
+     "orig": "枝中眠脉，土脊是脉。陇中眠，骨石脉是骨。遥遥是势，迩迩是形，势来形止，生气可乘。",
+     "bai": "平缓枝龙中潜行的脉，以土脊为脉体；高陇之中潜伏的脉，以石骨为脉骨。远望为势（宏观山脉气象），近看为形（局部山体形貌）；势来而形止，生气便可乘取。",
+     "gloss": [
+      [
+       "眠脉",
+       "潜伏之脉"
+      ],
+      [
+       "势/形",
+       "千尺为势（宏观）/百尺为形（局部）"
+      ]
+     ],
+     "logic": "IF 势来 且 形止 THEN 全气可乘（可结穴）",
+     "terms": [
+      "mai",
+      "ling",
+      "gang",
+      "shi",
+      "xing",
+      "qi"
+     ],
+     "quant": {
+      "observables": [
+       "远望宏观山势走向",
+       "近看局部山体形貌"
+      ],
+      "operational": "势=粗尺度DEM（z≈9,~305m/px）宏观脊向；形=精尺度（z≈12/13,~19-38m/px）局部曲率",
+      "metric_unit": "瓦片分辨率(m/px)/curvature",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "千尺≈300m/百尺≈30m 为现代换算近似；'势来形止'呼应《葬书》，分辨率映射为operational"
+     },
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      },
+      {
+       "what": "千尺为势百尺为形；势来形止是谓全气",
+       "source": "DaoCore Shared Ontology v2.0.0 (shi/xing 引《葬书》)"
+      }
+     ],
+     "conf": "high",
+     "notes": "势形之辨同《葬书》。"
+    },
+    {
+     "i": 18,
+     "orig": "龙欲其聚，不欲其散。龙欲其止，不欲其行。散余有聚，行余有止，得地之纪。何知是聚？城郭是聚。何知是止？结作是止。",
+     "bai": "龙宜聚不宜散，宜止不宜行；散中有聚、行中有止，方得相地的纲纪。怎样算聚？有如城郭般的环抱即是聚。怎样算止？有结作（融结成形）即是止。",
+     "gloss": [
+      [
+       "纪",
+       "纲纪、法度"
+      ],
+      [
+       "城郭",
+       "砂水环抱如城墙"
+      ],
+      [
+       "结作",
+       "融结成穴之象"
+      ]
+     ],
+     "logic": "聚的判据=城郭环抱; 止的判据=有结作",
+     "terms": [
+      "long",
+      "qi",
+      "sha",
+      "xue"
+     ],
+     "quant": {
+      "observables": [
+       "砂水是否环抱如城郭",
+       "是否有结作成形"
+      ],
+      "operational": "聚=砂环抱+水界形成闭合 enclosure（高遮蔽 viewshed occlusion、凹聚地形）；止=结穴节点",
+      "metric_unit": "enclosure角(deg)/viewshed遮蔽比/plan_curvature凹度",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；聚/止为定性，环抱遮蔽为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      }
+     ],
+     "conf": "high",
+     "notes": "聚=城郭，止=结作。"
+    },
+    {
+     "i": 19,
+     "orig": "陇龙属阴，其气浮如，最怕风吹。支龙属阳，其气沉如，不怕风吹。",
+     "bai": "山陇之龙属阴，其气上浮，最怕风吹；平支之龙属阳，其气下沉，不怕风吹。",
+     "gloss": [
+      [
+       "陇龙",
+       "高山之龙"
+      ],
+      [
+       "支龙",
+       "平地之龙"
+      ]
+     ],
+     "logic": "IF 陇龙（阴,气浮） THEN 怕风吹; IF 支龙（阳,气沉） THEN 不怕风吹",
+     "terms": [
+      "long",
+      "qi",
+      "sha_evil"
+     ],
+     "quant": {
+      "observables": [
+       "龙处高陇 vs 平支",
+       "穴处是否迎风暴露"
+      ],
+      "operational": "风吹=穴处迎风暴露（鞍部/风口、viewshed 开口、高 wind exposure）；陇龙高暴露故怕风",
+      "metric_unit": "wind exposure/viewshed开口角(deg)",
+      "falsifiable": true,
+      "engine": "RoomPalace",
+      "evidence": "现代GIS假说，非原文数值；'气乘风则散'本于《葬书》，风口暴露为operational"
+     },
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      }
+     ],
+     "conf": "high",
+     "notes": "陇龙阴气浮怕风、支龙阳气沉不怕风。"
+    },
+    {
+     "i": 20,
+     "orig": "何名峡山？断续这处是。两山相夹为蜂腰之吉，风吹水射峡是以凶。有正出的，有左出的，有转顾的，有正出斜过的，有侧出正过的，峡之出，穴如之，欲得穴，先推峡，能得峡，穴可明，两样地，十样过，宜细认。",
+     "bai": "什么叫峡山？龙脉断续过渡之处就是。两山紧夹如蜂腰为吉，风吹水射之峡则凶。峡的出法有正出、左出、转顾、正出斜过、侧出正过等；峡怎样出，穴就怎样应。欲得穴先推峡，能识峡则穴明；两样地、十样过，宜仔细辨认。",
+     "gloss": [
+      [
+       "峡/过峡",
+       "龙脉束气断续之处"
+      ],
+      [
+       "蜂腰",
+       "束窄如蜂腰之吉峡"
+      ]
+     ],
+     "logic": "IF 两山相夹束气（蜂腰） THEN 吉; IF 峡处风吹水射 THEN 凶; 识峡之出法 THEN 可定穴",
+     "terms": [
+      "rushou",
+      "mai",
+      "sha_evil",
+      "shui",
+      "xue"
+     ],
+     "quant": {
+      "observables": [
+       "龙脉束窄过峡处",
+       "峡两侧是否夹护、是否风射水射"
+      ],
+      "operational": "峡=脊线 relief 局部极小（saddle/束咽），两侧夹护；风射=鞍部风口暴露；束气紧=两侧坡陡夹合",
+      "metric_unit": "saddle relief(m)/两侧夹合坡度(deg)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；峡/蜂腰为定性，鞍部束咽为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      }
+     ],
+     "conf": "high",
+     "notes": "峡山束气，先推峡而后得穴。"
+    },
+    {
+     "i": 21,
+     "orig": "论向首，字对字。看何龙，作何向。看何峡，作何坐。因长短结远近。认得真，穴可定。",
+     "bai": "论向首，要字字对应：看是什么龙就作什么向，看是什么峡就作什么坐；依龙的长短定结穴的远近。认得真，穴位便可定。",
+     "gloss": [
+      [
+       "向首",
+       "立向"
+      ],
+      [
+       "字对字",
+       "以二十四山字字相配"
+      ]
+     ],
+     "logic": "龙→定向; 峡→定坐; 龙长短→定结穴远近",
+     "terms": [
+      "xiang",
+      "zuo",
+      "zuoxiang",
+      "long",
+      "rushou"
+     ],
+     "quant": {
+      "observables": [
+       "龙之方位定向",
+       "峡之方位定坐"
+      ],
+      "operational": "向/坐=二十四山每山15°的罗盘方位；入首脊线方位定坐向",
+      "metric_unit": "azimuth(deg, 24山×15°)",
+      "falsifiable": true,
+      "engine": "CompassModel",
+      "evidence": "24山×15°为传统罗盘刻度；连续 azimuth 为现代编码，原文不给度数"
+     },
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      }
+     ],
+     "conf": "high",
+     "notes": "向首字对字：龙定向、峡定坐。"
+    },
+    {
+     "i": 22,
+     "orig": "龙神博换，从大博小，从高博低，断了断，乱了乱，穴必嫩，不曾断，不曾乱，便丑样，遇凶星，须博吉，方可用。不博吉，若要用，间星从，流星从，须细认。顺制逆，逆求顺，不晓得，生恶业，胡可用。",
+     "bai": "龙神博换之理：从大换小、从高换低。断了又断、乱了又乱，穴必细嫩可用；若不曾断、不曾乱，则形体丑拙。遇凶星须剥换成吉星方可用；若不曾换吉而要用，须辨间星、流星，细加审认。顺中制逆、逆中求顺，若不明此理则造恶业，怎可妄用。",
+     "gloss": [
+      [
+       "博换",
+       "剥换"
+      ],
+      [
+       "嫩/丑样",
+       "细嫩有生气/粗顽"
+      ],
+      [
+       "间星/流星",
+       "过渡之星"
+      ]
+     ],
+     "logic": "IF 龙屡断屡乱（剥换充分） THEN 穴嫩（吉）; IF 不断不乱 THEN 丑样（顽）; IF 凶星&未博吉 THEN 不可用",
+     "terms": [
+      "long",
+      "mai",
+      "xue",
+      "shan_feng"
+     ],
+     "quant": {
+      "observables": [
+       "龙脉是否屡断屡乱（剥换充分）"
+      ],
+      "operational": "剥换=沿脊多次 relief 起伏+方向变换（节多、过峡多）；嫩=剥换充分",
+      "metric_unit": "沿脊起伏节数/过峡数(序数)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；嫩/丑为定性，剥换节数为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      }
+     ],
+     "conf": "high",
+     "notes": "博换求嫩、凶星须博吉。"
+    },
+    {
+     "i": 23,
+     "orig": "龙穿帐出，厥力乃重。含金含水，这帐为上，纯水为中，两角有带，这帐为上。下垂为中，穿胸的帐，这帐为上，穿角为下。帐下贵人，这帐为上。若居帐上，这个为下，左关右轴，这个为上。边有边，这个为下。灵泉养阴，异骨奇毛，都能作为龙的证验。",
+     "bai": "龙从帐幕状山体中间穿出，其力最重。帐含金含水为上、纯水为中；两角有带为上、下垂为中；穿胸（从帐中央穿）为上、穿角（从帐角穿）为下。帐下有贵人星为上、居帐之上者为下；左关右轴（左右关锁）为上、边外有边者为下。灵泉养荫、异骨、奇毛，都能作为龙脉真伪的证验。",
+     "gloss": [
+      [
+       "帐",
+       "帐幕状横列山体"
+      ],
+      [
+       "穿帐",
+       "龙从帐中穿出"
+      ],
+      [
+       "灵泉/异骨/奇毛",
+       "特异泉水/奇特石骨/异常草木"
+      ]
+     ],
+     "logic": "帐之吉序: 含金含水>纯水; 两角有带>下垂; 穿胸>穿角; 帐下贵人>居帐上; 左关右轴>边有边",
+     "terms": [
+      "long",
+      "shan_feng",
+      "sha"
+     ],
+     "quant": {
+      "observables": [
+       "龙是否从帐幕横列山中穿出",
+       "穿出位置（胸/角）"
+      ],
+      "operational": "帐=横展宽脊（沿等高线展开的横向高地）；穿胸=自帐中段spur 下出；穿角=自端部出",
+      "metric_unit": "横脊展宽(m)/出脉相对位置(0-1)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；穿帐为定性，横脊与出脉位置为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      }
+     ],
+     "conf": "high",
+     "notes": "穿帐力重；源文'养阴'当作'养荫'，'这企业上'为'这帐为上'之讹，已校。"
+    },
+    {
+     "i": 24,
+     "orig": "欲详穴，先辨龙。不识龙，胡识穴？得龙真穴，有病可医，修若龙，贱修无益。但这龙，众人母，诞贵儿，在何方？须细认，勿因龙贵，妄认媸穴，汝见龙形，当知穴形，莫待临穴乃尔失真。",
+     "bai": "想详察穴，先辨龙；不识龙，怎识穴？得真龙则穴虽有病也可医；若龙本身低贱，修整也无益。龙是众穴之母，贵儿生于何方须细认；不要因龙贵就妄认丑穴。见龙形当知穴形，莫等到临穴才失了真。",
+     "gloss": [
+      [
+       "媸穴",
+       "丑穴"
+      ]
+     ],
+     "logic": "IF 龙真 THEN 穴有病可医; IF 龙贱 THEN 修穴无益; 见龙形→预知穴形",
+     "terms": [
+      "long",
+      "xue"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      }
+     ],
+     "conf": "high",
+     "notes": "辨龙优先于点穴；'龙为众穴之母'。"
+    },
+    {
+     "i": 25,
+     "orig": "有飞龙的，龙蟠龙的，龙舞凤的，龙踞虎的，龙奔马的，龙游蛇的，龙平冈的，龙嵯峨的，龙尖射的，龙乱杂的，龙孤秀的，龙凡十一样，相穴状可知。",
+     "bai": "龙有十一种形态：飞龙、蟠龙、舞凤龙、踞虎龙、奔马龙、游蛇龙、平冈龙、嵯峨龙、尖射龙、乱杂龙、孤秀龙，由龙形可知对应的穴状。",
+     "gloss": [
+      [
+       "平冈",
+       "低缓长脊之龙"
+      ],
+      [
+       "嵯峨",
+       "高峻起伏之龙"
+      ]
+     ],
+     "logic": "由龙形（飞/蟠/平冈/嵯峨/尖射等十一样）推穴状",
+     "terms": [
+      "long",
+      "xing",
+      "xue"
+     ],
+     "quant": {
+      "observables": [
+       "龙脉整体形态分类（平冈/嵯峨/尖射等）"
+      ],
+      "operational": "龙形=脊线形态：平冈=低relief长脊、嵯峨=高relief起伏脊、尖射=尖锐直出spur",
+      "metric_unit": "relief(m)/脊线曲直/坡度(deg)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；龙形为定性比拟，脊线形态量为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      }
+     ],
+     "conf": "high",
+     "notes": "源文'龙舞风'当作'舞凤'，已校。"
+    },
+    {
+     "i": 26,
+     "orig": "或结禁经，或结蛟龙，或结鸾凤，或结狮象，或结马驼，或结弓剑，或结星月，或结将府，或结凶坛，或结营寨，或结神观，宜细沦，要博推，即后龙分年代，看何龙詹何属。审星宿，问方隅，亥、艮、兑、巽、丙、丁、辛、庚、己龙之吉，法宜插。壬、子、癸、震亦中。",
+     "bai": "龙所结之形或为禁经、蛟龙、鸾凤、狮象、马驼、弓剑、星月、将府、凶坛、营寨、神观等，宜细论、要博推。再按龙脉分年代，看是何龙、属何类；审星宿、问方位，亥、艮、兑、巽、丙、丁、辛、庚、己诸方之龙为吉，宜下穴（插穴）；壬、子、癸、震亦属中等。",
+     "gloss": [
+      [
+       "方隅",
+       "方位"
+      ],
+      [
+       "插",
+       "下穴、点穴"
+      ]
+     ],
+     "logic": "IF 龙属 亥艮兑巽丙丁辛庚己 THEN 吉宜插; IF 壬子癸震 THEN 中",
+     "terms": [
+      "long",
+      "xue",
+      "xiang",
+      "zuoxiang"
+     ],
+     "quant": {
+      "observables": [
+       "龙之入首方位（二十四山）"
+      ],
+      "operational": "龙方位=入首脊线方位（二十四山15°）；据吉位判宜插与否",
+      "metric_unit": "azimuth(deg, 24山×15°)",
+      "falsifiable": true,
+      "engine": "CompassModel",
+      "evidence": "24山为传统刻度；吉凶方位配属为理气派传统，非可证伪地形量"
+     },
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      }
+     ],
+     "conf": "high",
+     "notes": "源文'细沦'当作'细论'，'詹'同'占（属）'。"
+    },
+    {
+     "i": 27,
+     "orig": "论合穴，亥龙向，丙巽丁。艮龙向，丙庚丁兼辛巽。合星元，兑向艮卯巽。丁巽之向，亥艮辛丙之向，亦艮辛丁之向，亥奶临辛，合庚巽卯艮巳与亥对官，插壬之向，惟坤乙子癸向，俱午坤卯之向庚辛位，此龙穴，俱合贵。寻兜者，认峦星，望灵气。定龙脉，何者来？何者去？考方位，注真气，加制伏，方得利。",
+     "bai": "论合穴（龙与立向相配）：各龙各有相合之向——如亥龙宜配丙、巽、丁向，艮龙宜配丙、庚、丁兼辛、巽向，兑向配艮、卯、巽等，皆取龙与向相合的贵格。寻穴（寻兜）的人，要认峦头星体、望灵气、定龙脉的来去、考方位、注真气、加制伏，方能得其利。",
+     "gloss": [
+      [
+       "合穴",
+       "龙与立向相合"
+      ],
+      [
+       "寻兜",
+       "寻穴"
+      ],
+      [
+       "制伏",
+       "制化趋避"
+      ]
+     ],
+     "logic": "各龙配相合之向取贵（如 亥龙→丙巽丁、艮龙→丙庚丁兼辛巽、兑→艮卯巽）",
+     "terms": [
+      "long",
+      "xiang",
+      "zuoxiang",
+      "shan_feng"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      }
+     ],
+     "conf": "med",
+     "notes": "本段源文讹脱较多（如'亥奶临辛''与亥对官'等），方位逐字配法不可尽信，仅取'龙向相合取贵'大意。conf=med。"
+    },
+    {
+     "i": 28,
+     "orig": "论龙神，详且未。有星垣，会者稀。识全局，知大地，有紫微，在太微，有天市。天虹来，天马至，古名都。眠不眠，高著眼，锲心记，诲尔龙，龙如是。",
+     "bai": "论龙神之道，详尽却未尽。山有\"星垣\"之格，能领会者稀少；识得全局方知大地，有紫微垣、太微垣、天市垣三垣之格；天虹来、天马至，自古名都皆如此。该眠未眠之间，要高处着眼、刻心牢记。教你辨龙，龙的道理就是这样。",
+     "gloss": [
+      [
+       "星垣",
+       "天上三垣的地面对应大格局"
+      ],
+      [
+       "紫微/太微/天市",
+       "三垣"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "long",
+      "shan_feng"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "博山篇·论龙 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/002/"
+      }
+     ],
+     "conf": "high",
+     "notes": "论龙总收：星垣三垣之大格、勉学者高著眼。"
+    }
+   ]
+  },
+  {
+   "id": "ch-lunxue",
+   "label": "论穴",
+   "annotation": "",
+   "sentences": [
+    {
+     "i": 0,
+     "orig": "善知识，龙格下。有穴星。或金体，或木体，或水体，或火体或土体，此为正。有高圆金，有矮圆金，有金带水，有土带金，俱为全吉，金带火，金带木，水带荡，火带焰，俱凶星。",
+     "bai": "善于堪舆的人应当明白：龙脉行至尽头（龙格下），必有穴星（结穴处隆起的山体）。穴星有金、木、水、火、土五种正体；其中高圆金、矮圆金、金带水、土带金皆为全吉，金带火、金带木、水体散荡、火体带焰则皆为凶星。",
+     "gloss": [
+      [
+       "穴星",
+       "结穴处隆起的山体"
+      ],
+      [
+       "五体",
+       "金木水火土五星山形"
+      ]
+     ],
+     "logic": "吉穴星: 高圆金/矮圆金/金带水/土带金; 凶穴星: 金带火/金带木/水带荡/火带焰",
+     "terms": [
+      "xue",
+      "shan_feng"
+     ],
+     "quant": {
+      "observables": [
+       "穴星峰顶形态（圆/尖/方/直/波）",
+       "主辅星体搭配"
+      ],
+      "operational": "五星峰形→DEM 峰顶形态：金=平滑圆顶（吉）、火尖/水荡（凶）；以summit曲率/坡度分类",
+      "metric_unit": "summit_curvature/slope(deg)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "五星形（金圆/火尖/水曲）为传统峦头分类；曲率阈值为现代operational，原文无数值"
+     },
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      },
+      {
+       "what": "穴=生气融结之点；五星峰形",
+       "source": "DaoCore Shared Ontology v2.0.0 (xue/shan_feng)"
+      }
+     ],
+     "conf": "high",
+     "notes": "穴星五体之吉凶。"
+    },
+    {
+     "i": 1,
+     "orig": "有变的样子;无龙虎的，双龙虎的，有龙无虎的，有虎无龙的，左侧的，右偏的，左高右低的，右高左低的，开口的，不开口的，垂乳的.不垂乳的。",
+     "bai": "穴星也有种种变体：无龙虎的、双龙虎的、有龙无虎的、有虎无龙的、左侧的、右偏的、左高右低的、右高左低的、开口的、不开口的、垂乳的、不垂乳的。",
+     "gloss": [
+      [
+       "龙虎",
+       "穴左右护卫之砂"
+      ],
+      [
+       "垂乳",
+       "穴星下垂如乳之突"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "xue",
+      "sha"
+     ],
+     "quant": {
+      "observables": [
+       "穴左右侧翼脊（龙虎）的有无与对称"
+      ],
+      "operational": "龙虎=穴两侧次级脊/spur；左高右低=两翼相对高差；开口=前缘缺口",
+      "metric_unit": "两翼相对高差(m)/对称度",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；龙虎变体为定性，侧翼脊为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      }
+     ],
+     "conf": "high",
+     "notes": "穴星龙虎之变体。"
+    },
+    {
+     "i": 2,
+     "orig": "百千样子:或睡卧势，或大坐势,或耸立势。睡者身仰,上气下行，穴宜下，坐者身隐曲，气中聚，穴且中。立者身高耸，气上行，穴直上。",
+     "bai": "穴形千百样，大略分睡卧、端坐、耸立三势：睡卧者身仰、气向下行，穴宜取下部；端坐者身隐曲、气聚中央，穴取中部；耸立者身高耸、气向上行，穴取上部。",
+     "gloss": [
+      [
+       "睡/坐/立",
+       "穴星三种姿势"
+      ]
+     ],
+     "logic": "睡势→穴下; 坐势→穴中; 立势→穴上",
+     "terms": [
+      "xue",
+      "qi",
+      "po"
+     ],
+     "quant": {
+      "observables": [
+       "穴星山体姿势（缓仰/隐曲/高耸）"
+      ],
+      "operational": "山体坡势→定穴高低：缓仰（低坡）取下、高耸（陡坡）取上",
+      "metric_unit": "slope(deg)/穴沿坡相对位置(0-1)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；睡坐立为定性，坡势-穴位为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      }
+     ],
+     "conf": "high",
+     "notes": "睡坐立三势定穴上中下。"
+    },
+    {
+     "i": 3,
+     "orig": "五龙作穴，横、直、飞、潜、回，穴变多岐。高忽而低，亦低而高，北忽行南，亦西而东，有闪走的，有斜飞的，有背水的，有临岸的。",
+     "bai": "五龙作穴有横、直、飞、潜、回五法，穴的变化多端：高忽转低、低忽转高，北忽转南、西忽转东；有闪走的、斜飞的、背水的、临岸的。",
+     "gloss": [
+      [
+       "五龙作穴",
+       "横/直/飞/潜/回五法"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "long",
+      "xue",
+      "shui"
+     ],
+     "quant": {
+      "observables": [
+       "龙作穴时脊线走向的突变（高低/方位转折）"
+      ],
+      "operational": "脊线 along-ridge 高程突变与方位转折点（闪走=侧折、斜飞=偏向、临岸=近水）",
+      "metric_unit": "azimuth转折(deg)/沿脊高程突变(m)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；五龙作穴为定性，脊线突变为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      }
+     ],
+     "conf": "high",
+     "notes": "五龙作穴变化多端。"
+    },
+    {
+     "i": 4,
+     "orig": "穴有正体，有变体。正体如变，体难拘。有结水的，有结石中的，有散平地的，有现山脊的，有藏田心的，有逆跳翻身的，有斩截气的，有凭高取势的。势虽多端，要证佐.要得水。",
+     "bai": "穴有正体与变体之分，正体若变则形体难以拘泥。变体或结于水中、石中，或散于平地、现于山脊、藏于田心，或逆跳翻身、斩截来气、凭高取势——形虽多端，关键要有证佐印验、要能得水。",
+     "gloss": [
+      [
+       "证佐",
+       "可印证的凭据"
+      ],
+      [
+       "斩截气",
+       "截断来气而结"
+      ]
+     ],
+     "logic": "穴虽变体多端，必要有证佐 且 得水方真",
+     "terms": [
+      "xue",
+      "shui",
+      "mai"
+     ],
+     "quant": {
+      "observables": [
+       "穴是否得水（近水界/汇水环抱）"
+      ],
+      "operational": "得水=穴近 flow_accumulation 河道、水环抱（embrace 凹向穴）",
+      "metric_unit": "到河道距离(m)/embrace角(deg)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；得水为定性，近水/环抱为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      }
+     ],
+     "conf": "high",
+     "notes": "正变体皆须证佐、得水。"
+    },
+    {
+     "i": 5,
+     "orig": "故曰:地理几卷书，总总是太虚。个中四个字，一个是真如。上数穴，皆奇状，皆怪形。宜用乐，宜用鬼，宜开堂，直取水。审所宜，勿失一。",
+     "bai": "所以说：地理的几卷书，归根究底都讲那无形的天地自然；其中最要紧的四个字，第一个就是\"真如\"。上述各穴皆奇状怪形，宜用乐山、宜用鬼星、宜开明堂、直取水势；要审其所宜，一处也不可遗漏。",
+     "gloss": [
+      [
+       "乐山",
+       "穴后枕托之山"
+      ],
+      [
+       "鬼",
+       "穴后撑托的鬼星"
+      ],
+      [
+       "开堂",
+       "开明堂"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "xue",
+      "mingtang",
+      "shui",
+      "sha"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      }
+     ],
+     "conf": "high",
+     "notes": "义理收束：穴法以'真如'为本，乐鬼堂水各审所宜。"
+    },
+    {
+     "i": 6,
+     "orig": "认穴法，何者真?何者假?山水向是为真，山水背是为假。何者生?何者死?风藏水，逆气聚是生。风飘水荡，气散是死。",
+     "bai": "识穴之法：何者真、何者假？山水朝向此穴为真，山水背离此穴为假。何者生、何者死？风被藏聚、水势逆收、生气聚集为生；风吹飘散、水流荡漾、气机散逸为死。",
+     "gloss": [
+      [
+       "向/背",
+       "山水朝向穴/背离穴"
+      ]
+     ],
+     "logic": "IF 山水朝向穴 THEN 真; IF 山水背穴 THEN 假; IF 藏风&逆水&气聚 THEN 生; IF 风飘水荡&气散 THEN 死",
+     "terms": [
+      "xue",
+      "shui",
+      "sha",
+      "qi",
+      "sha_evil"
+     ],
+     "quant": {
+      "observables": [
+       "砂水是否凹向穴（向）",
+       "穴是否藏风、水逆收"
+      ],
+      "operational": "向=砂水 embrace 凹向穴；藏风=高 viewshed 遮蔽；逆水=水流向与来势相逆而收",
+      "metric_unit": "embrace角(deg)/viewshed遮蔽比/flow方向(deg)",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；'气乘风则散、界水则止'本于《葬书》，环抱/遮蔽为operational"
+     },
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      },
+      {
+       "what": "气乘风则散界水则止",
+       "source": "DaoCore Shared Ontology v2.0.0 (qi/sha_evil 引《葬书》)"
+      }
+     ],
+     "conf": "high",
+     "notes": "认穴真假生死：向真背假、藏风聚气为生。"
+    },
+    {
+     "i": 7,
+     "orig": "龙逆水，方成龙，穴逆水，方得穴，何以故?龙得水，在势逆，穴得水，在砂逆。龙将入首，逆转收收水，方得成龙。穴将融结，下砂逆水，方得成穴。",
+     "bai": "龙须逆水才成龙，穴须逆水才得穴。为什么？龙得水在于势逆，穴得水在于砂逆。龙将入首时，逆转收纳水流，方能成龙；穴将融结时，下砂逆拦水势，方能成穴。",
+     "gloss": [
+      [
+       "入首",
+       "龙到头结穴前最后一节"
+      ],
+      [
+       "下砂",
+       "穴下方逆拦之砂"
+      ]
+     ],
+     "logic": "IF 龙势逆水（入首逆转收水） THEN 成龙; IF 穴有下砂逆拦水 THEN 成穴",
+     "terms": [
+      "long",
+      "xue",
+      "shui",
+      "sha",
+      "rushou"
+     ],
+     "quant": {
+      "observables": [
+       "入首脊线/下砂走向与水流向是否相逆"
+      ],
+      "operational": "逆水=入首脊线或下砂走向与河道 flow direction 相逆（夹角大）→截收水流",
+      "metric_unit": "脊线/砂 azimuth vs flow方向(deg)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；逆水为定性，方位夹角为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      }
+     ],
+     "conf": "high",
+     "notes": "龙穴皆以逆水为成（势逆/砂逆）。"
+    },
+    {
+     "i": 8,
+     "orig": "穴局正偏大，宜细认。堂似弓，穴似箭，朝似的，把弓箭，执两匀，比对的，弓调匀，发必中，此可验。比对处，有明暗。明可见，暗不见。但正处，常在中，定穴左右乘气食。",
+     "bai": "穴局的正、偏、大小须细认。明堂如弓、穴如箭、朝山如靶；执弓箭、两端均匀比对，弓调匀则发必中——以此可验穴之正否。比对之处有明有暗：明的可见、暗的不可见；但正穴常在正中，定穴时左右须乘气而取。",
+     "gloss": [
+      [
+       "堂/穴/朝",
+       "明堂如弓、穴如箭、朝山如靶"
+      ]
+     ],
+     "logic": "弓(堂)-箭(穴)-的(朝)三点对直均匀 THEN 穴正（发必中）",
+     "terms": [
+      "xue",
+      "mingtang",
+      "chaoshan",
+      "qi"
+     ],
+     "quant": {
+      "observables": [
+       "明堂—穴—朝山三者是否对直居中"
+      ],
+      "operational": "堂-穴-朝三点共线=穴的向轴（视线）对准朝山中峰；偏则穴偏",
+      "metric_unit": "向轴对准偏角(deg)",
+      "falsifiable": true,
+      "engine": "CompassModel",
+      "evidence": "现代GIS假说，非原文数值；弓箭的之喻为定性，向轴对准为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      }
+     ],
+     "conf": "high",
+     "notes": "弓箭的喻：堂穴朝对直定正穴。"
+    },
+    {
+     "i": 9,
+     "orig": "水龙右气，左龙左气。右气若归左砂便左抱，气若归右砂便右抱，左插者，乘左气，食左水。右插者，乘右气，食右水。",
+     "bai": "水龙之气在右、左龙之气在左。右气若归向左砂便左抱，气若归向右砂便右抱；左插之穴乘左气、食左水，右插之穴乘右气、食右水。",
+     "gloss": [
+      [
+       "插",
+       "下穴、点穴"
+      ],
+      [
+       "食水",
+       "承纳该侧来水"
+      ]
+     ],
+     "logic": "左插→乘左气食左水; 右插→乘右气食右水（随气所归之砂而左右抱）",
+     "terms": [
+      "xue",
+      "sha",
+      "shui",
+      "qi"
+     ],
+     "quant": {
+      "observables": [
+       "气归左砂/右砂（砂偏左抱或右抱）",
+       "穴偏左插或右插"
+      ],
+      "operational": "左抱/右抱=砂体 embrace 凹向偏左或偏右；穴随抱侧偏插以承该侧来水",
+      "metric_unit": "砂embrace偏侧(deg)",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；左右抱食水为定性，环抱偏侧为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      }
+     ],
+     "conf": "high",
+     "notes": "左右插穴随气抱、食水。"
+    },
+    {
+     "i": 10,
+     "orig": "穴有高的，低的，大的，小的，瘦的、肥的。制要得宜，高宜避风，低宜避水。大宜阔作，小宜窄作。瘦宜下沉，肥直上浮。阴阳相度，妙在一心。",
+     "bai": "穴有高、低、大、小、瘦、肥之别，作法要各得其宜：高穴宜避风、低穴宜避水，大穴宜作得开阔、小穴宜作得狭窄，瘦穴宜下沉、肥穴宜上浮。阴阳相互斟酌，奥妙全在用心体悟。",
+     "gloss": [
+      [
+       "制",
+       "裁制、作穴"
+      ]
+     ],
+     "logic": "高穴→避风; 低穴→避水; 大→阔作; 小→窄作; 瘦→下沉; 肥→上浮",
+     "terms": [
+      "xue",
+      "sha_evil",
+      "shui",
+      "po"
+     ],
+     "quant": {
+      "observables": [
+       "穴所处高低（迎风/近水）",
+       "穴星肥瘦"
+      ],
+      "operational": "高穴=高程高迎风→避风口；低穴=近水低洼→避水淹；据 elevation/坡位/到水距裁制",
+      "metric_unit": "elevation(m)/到河道距(m)/wind exposure",
+      "falsifiable": true,
+      "engine": "RoomPalace",
+      "evidence": "现代GIS假说，非原文数值；避风/避水为定性，暴露/距离为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      }
+     ],
+     "conf": "high",
+     "notes": "高低大小瘦肥各得其宜。"
+    },
+    {
+     "i": 11,
+     "orig": "穴里元元，何以省得?审阴阳，定五行，决向背，究死生，推来历，论星峰，看以头，论分合，观其明暗，核其是非。察其缓急，慎其饶减，知□避忌，精其巧拙，定其正偏，审其隐露。",
+     "bai": "穴中的元妙怎样才能省悟？要审阴阳、定五行、决向背、究死生、推来历、论星峰、看入首（看以头）、论分合、观明暗、核是非；察缓急、慎饶减、知避忌、精巧拙、定正偏、审隐露。",
+     "gloss": [
+      [
+       "看以头",
+       "看入首到头处"
+      ],
+      [
+       "饶减",
+       "穴位左右增减取舍"
+      ]
+     ],
+     "logic": "省悟穴中元妙的方法纲目：审阴阳→定五行→决向背→究死生→推来历→论星峰→看入首→论分合→观明暗→核是非→察缓急→慎饶减→知避忌→精巧拙→定正偏→审隐露",
+     "terms": [
+      "xue",
+      "rushou",
+      "shan_feng",
+      "xiang"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      }
+     ],
+     "conf": "high",
+     "notes": "点穴方法论总纲；'□'为源文阙字。"
+    },
+    {
+     "i": 12,
+     "orig": "上乘金，下相水，中穴土，旁印木，外藏八，内秘五，不离隐约，一圈之中。这一圈，天地圈。圆不圆，方不方，扁不扁，长不长，短不短，窄不窄，阔不阔，尖不尖，秃不秃，在人意见，似有似无，自然圈也。",
+     "bai": "上乘金、下相水、中穴土、旁印木，外藏八方、内秘五位，不离那隐约含蓄的一圈之中。这一圈就是天地之圈：圆不全圆、方不全方、扁不全扁、长不全长、短不全短、窄不全窄、阔不全阔、尖不全尖、秃不全秃，全凭人的意会，似有似无，是天然之圈。",
+     "gloss": [
+      [
+       "乘金相水穴土印木",
+       "《葬书》定穴四象"
+      ],
+      [
+       "一圈",
+       "穴晕（太极晕）"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "xue",
+      "shui"
+     ],
+     "quant": {
+      "observables": [
+       "穴处微地形闭合圈（穴晕）"
+      ],
+      "operational": "一圈=穴处闭合的微地形圈（plan_curvature 闭合的内凹/外凸界线），似圆非圆、隐约可辨",
+      "metric_unit": "plan_curvature闭合圈尺度(m)",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；'乘金相水穴土印木'本于《葬书》，穴晕圈为operational"
+     },
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      },
+      {
+       "what": "乘金相水穴土印木",
+       "source": "DaoCore Shared Ontology v2.0.0 (xue 引《葬书》)"
+      }
+     ],
+     "conf": "high",
+     "notes": "穴晕一圈（天地圈），本《葬书》乘金相水穴土印木。"
+    },
+    {
+     "i": 13,
+     "orig": "阴阳此立，五行此出。圈内微凹 似水非水。圈外微起，似砂非砂，分阴分阳，妙哉至理!阴不离阳，阳不离阴，真个妙用。大阴阳，小阴阳。大交度，小我度。大分合，小分合。自一至九乃至九九，皆阴阳，妙也。五行妙也。",
+     "bai": "阴阳由此而立、五行由此而出。圈内微凹、似水非水，圈外微起、似砂非砂，分阴分阳，真是妙极的道理！阴不离阳、阳不离阴，有大阴阳、小阴阳，大交度、小交度，大分合、小分合；自一至九乃至九九，无不是阴阳之妙、五行之妙。",
+     "gloss": [
+      [
+       "圈内微凹/圈外微起",
+       "穴晕内凹外凸的微地貌"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "xue"
+     ],
+     "quant": {
+      "observables": [
+       "穴晕圈内微凹（似水）、圈外微起（似砂）"
+      ],
+      "operational": "圈内凹/圈外起=穴晕内外的 profile_curvature 反号（内负外正）",
+      "metric_unit": "profile_curvature(内凹/外凸)",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；阴阳分判为定性，微地形曲率为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      }
+     ],
+     "conf": "high",
+     "notes": "穴晕分阴阳：内凹似水、外起似砂。源文'大我度'当作'大交度'。"
+    },
+    {
+     "i": 14,
+     "orig": "善知识，知之乎?不知之乎?这阴阳，有聚散，何以辨?上小下大，是为阴脉，中微有突。上大下小，是为阳脉，中微有窝。阴气在里，厥脉沉如。阳气在表，厥脉浮如。",
+     "bai": "善知识啊，知道吗、不知道吗？这阴阳有聚有散，怎样分辨？上小下大、中间微突的为阴脉；上大下小、中间微窝的为阳脉。阴气在里则脉沉，阳气在表则脉浮。",
+     "gloss": [
+      [
+       "阴脉/阳脉",
+       "凸突之脉/凹窝之脉"
+      ],
+      [
+       "厥",
+       "其"
+      ]
+     ],
+     "logic": "IF 上小下大&中微突 THEN 阴脉（气沉在里）; IF 上大下小&中微窝 THEN 阳脉（气浮在表）",
+     "terms": [
+      "mai",
+      "xue",
+      "qi"
+     ],
+     "quant": {
+      "observables": [
+       "脉形上下宽窄",
+       "脉心微突或微窝"
+      ],
+      "operational": "阴脉=脉心微凸（正 profile_curvature）；阳脉=脉心微凹（负 profile_curvature）",
+      "metric_unit": "profile_curvature(突/窝)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；阴阳脉为定性，脉心凹凸为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      }
+     ],
+     "conf": "high",
+     "notes": "阴脉中突、阳脉中窝。"
+    },
+    {
+     "i": 15,
+     "orig": "高低之之法，瞻前顾后，视左应右，侬心为准。左一步，右一步，前一步，后一步，想一想，看一看。他是我，我是他。不要忙，不要乱，不可露，不可陷，案中准，咫验，眉上齐，心上应。浅中深，深中浅，最难辨。",
+     "bai": "定穴高低之法：瞻前顾后、视左应右，以己心为准。左一步、右一步、前一步、后一步，想一想、看一看，他是我、我是他。不要忙、不要乱，不可露出、不可陷下；以案山为准、咫尺验证，眉上要齐、心上要应。浅中有深、深中有浅，最难分辨。",
+     "gloss": [
+      [
+       "案中准",
+       "以案山高度为定穴准的"
+      ],
+      [
+       "眉上齐",
+       "案山顶约与人眉齐"
+      ]
+     ],
+     "logic": "定穴不露不陷; 以案山齐眉为高低之准",
+     "terms": [
+      "xue",
+      "anshan"
+     ],
+     "quant": {
+      "observables": [
+       "穴对案山的相对高度（齐眉）"
+      ],
+      "operational": "穴高=使案山顶约落在穴处视平线（齐眉）；以穴—案 vertical view angle ≈0 校高低",
+      "metric_unit": "穴对案山顶仰角(deg, 约0)",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；'眉上齐'为定性口诀，仰角为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      }
+     ],
+     "conf": "high",
+     "notes": "定穴高低以案山齐眉为准。源文'高低之之法'衍一'之'。"
+    },
+    {
+     "i": 16,
+     "orig": "气有浮沉，土有厚薄，晕有大小，翼有高低。土中痣，切须知，土中癜，切须忌。穴局员净，是为全吉，出直现尖，须力避却。一边直.一边尖，神煞露，法宜盖，高处穴也。左右低，带尖直，神煞窜，法宜落，低处穴也。",
+     "bai": "气有浮沉、土有厚薄、晕有大小、翼有高低。土中之痣切须知，土中之癜切须忌。穴局圆净为全吉；出现直硬、现出尖峰，须力避。一边直、一边尖，神煞外露，法宜盖（取高处穴）；左右低、带尖直，神煞窜走，法宜落（取低处穴）。",
+     "gloss": [
+      [
+       "晕/翼",
+       "穴晕/蝉翼砂"
+      ],
+      [
+       "神煞",
+       "形煞"
+      ],
+      [
+       "盖/落",
+       "上聚取高穴/下聚取低穴"
+      ]
+     ],
+     "logic": "IF 穴局圆净 THEN 全吉; IF 一边直尖&神煞露 THEN 法宜盖（高穴）; IF 左右低带尖直&神煞窜 THEN 法宜落（低穴）",
+     "terms": [
+      "xue",
+      "sha_evil"
+     ],
+     "quant": {
+      "observables": [
+       "穴星是否圆净（无尖直）",
+       "尖直煞在高处或低处"
+      ],
+      "operational": "圆净=穴星低尖度、圆顺；直尖=高曲率尖锐煞；盖=取上避煞、落=取下避煞",
+      "metric_unit": "summit曲率/尖锐度",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；圆净/尖直为定性，曲率为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      }
+     ],
+     "conf": "high",
+     "notes": "穴局圆净吉、尖直煞须避（盖/落）。"
+    },
+    {
+     "i": 17,
+     "orig": "左尖直，右而无，右尖直，左而无，神煞偏，法宜避，下侧穴也。苦认龙点穴，即善男信女，身到头来。龙格下顿星峰为男相。阳中阴，须有窜，有少阴窝，晕中韭叶窝，是有太阴窝，晕中锡底窝，是若阳龙下阳穴，主死别与生离。",
+     "bai": "左边尖直而右边无、右边尖直而左边无，神煞偏在一侧，法宜避（取下侧穴）。若认真依龙点穴，则善男信女终能身临其境。龙脉下顿起星峰为男相（阳）：阳中须有阴，有少阴窝（晕中韭叶状窝）、有太阴窝（晕中锡底状窝）；若阳龙又下阳穴（纯阳无配），则主死别生离。",
+     "gloss": [
+      [
+       "男相",
+       "阳脉顿峰之穴"
+      ],
+      [
+       "韭叶窝/锡底窝",
+       "穴晕微窝形态"
+      ]
+     ],
+     "logic": "IF 神煞偏一侧 THEN 避向下侧穴; IF 阳龙下阳穴（纯阳无阴配） THEN 凶（死别生离）",
+     "terms": [
+      "xue",
+      "mai",
+      "sha_evil"
+     ],
+     "quant": {
+      "observables": [
+       "尖直煞偏在左或右",
+       "阳脉顿峰穴是否有阴窝相配"
+      ],
+      "operational": "偏侧煞→穴避向无煞之下侧；阳穴（凸突）须配阴窝（微凹），纯凸无凹为病",
+      "metric_unit": "煞偏侧(deg)/穴心凹凸",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；男相/阴阳配为定性，凹凸/偏侧为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      }
+     ],
+     "conf": "high",
+     "notes": "偏煞避下侧；男相（阳）穴须阳中有阴，纯阳凶。源文'苦认'当作'若认'。"
+    },
+    {
+     "i": 18,
+     "orig": "龙格下即结穴，此女相。阴中阳，须有泡。有少阳泡，晕间微结块。是有太阳泡，晕中见乳泡 。是若阴龙下阴穴，主风声且破家，作之法，审缓急直斜，审长短高低，审阔狭浅深，审单双正偏脉。",
+     "bai": "龙脉下来即结穴为女相（阴）：阴中须有阳，有少阳泡（晕间微结小块）、有太阳泡（晕中见乳状泡）；若阴龙又下阴穴（纯阴无配），则主风声破家。作穴之法，须审缓急直斜、审长短高低、审阔狭浅深、审单双正偏之脉。",
+     "gloss": [
+      [
+       "女相",
+       "阴脉结穴之穴"
+      ],
+      [
+       "泡",
+       "穴晕中的微突起"
+      ]
+     ],
+     "logic": "IF 阴龙下阴穴（纯阴无阳配） THEN 凶（风声破家）; 阴穴须有阳泡相配",
+     "terms": [
+      "xue",
+      "mai"
+     ],
+     "quant": {
+      "observables": [
+       "阴脉结穴是否有阳泡（微突）相配"
+      ],
+      "operational": "阴穴（凹窝）须配阳泡（微凸），纯凹无凸为病；profile_curvature 凹中微凸",
+      "metric_unit": "穴心凹凸(profile_curvature)",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；女相/阴阳配为定性，凹凸为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      }
+     ],
+     "conf": "high",
+     "notes": "女相（阴）穴须阴中有阳，纯阴凶。点穴须审脉之缓急长短阔狭单双。"
+    },
+    {
+     "i": 19,
+     "orig": "缓高之脉，急下之脉，直偏之脉，斜正之，皆少阴作也。脉短，从头分之，脉长，从中分之.脉高露顶就之。脉低凑脚就之，皆少阳作也。脉狭，当心下之，脉阔取气而下，脉深揭起就高.脉浅浮上就气，皆太阴作也。脉单而虚则就其实，脉双而长则取其短。脉之正者当侧受之，脉之偏者当正受之窜，皆太阳作也。",
+     "bai": "缓而高之脉、急而下之脉、直而偏之脉、斜而正之脉，都属少阴之作。脉短从头分、脉长从中分，脉高露顶就顶取、脉低凑脚就脚取，都属少阳之作。脉狭当心下、脉阔取气而下，脉深揭起就高、脉浅浮上就气，都属太阴之作。脉单而虚则就其实、脉双而长则取其短，脉正者侧受、脉偏者正受，都属太阳之作。",
+     "gloss": [
+      [
+       "少阴/少阳/太阴/太阳",
+       "四象作穴法"
+      ],
+      [
+       "就",
+       "就而取穴"
+      ]
+     ],
+     "logic": "据脉之缓急/长短/阔狭/单双正偏分四象作穴: 短从头分、长从中分; 高就顶、低就脚; 深揭高、浅就气; 单就实、双取短; 正侧受、偏正受",
+     "terms": [
+      "mai",
+      "xue",
+      "qi"
+     ],
+     "quant": {
+      "observables": [
+       "脉之坡缓急、长短、阔狭、深浅、单双、正偏"
+      ],
+      "operational": "据脉的 slope（缓急）/length（长短）/width（阔狭）/relief（高低深浅）确定下穴点位",
+      "metric_unit": "slope(deg)/length(m)/width(m)/relief(m)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；四象作穴为定性口诀，地形量为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      }
+     ],
+     "conf": "high",
+     "notes": "四象作穴（少阴/少阳/太阴/太阳）随脉形定下穴点。"
+    },
+    {
+     "i": 20,
+     "orig": "脉之病急，须知首乱石，身浪痕，臂低折，脚走窜，水断肩，山破腹，唇上缺，嘴下尖，肚饱满，皆穴病，轻则整，重则弃。去水地，最可忌。龙虎窜，最可忌。穷龙无案，此亦可忌。孤龙无朝，此亦可忌。",
+     "bai": "脉有病象须知：首部乱石、身有浪痕、臂部低折、脚走窜逃、水断肩部、山破腹部、唇上缺陷、嘴下尖锐、肚部饱满，都是穴病——轻则修整、重则弃用。去水之地最可忌，龙虎窜走最可忌，穷龙无案也可忌，孤龙无朝也可忌。",
+     "gloss": [
+      [
+       "穴病",
+       "穴星的形貌缺陷"
+      ],
+      [
+       "去水",
+       "水直去无收"
+      ]
+     ],
+     "logic": "穴病（乱石/浪痕/低折/走窜/断肩/破腹/缺/尖/饱满）轻则整重则弃; 去水/龙虎窜/穷龙无案/孤龙无朝 皆忌",
+     "terms": [
+      "xue",
+      "sha",
+      "anshan",
+      "chaoshan",
+      "shui",
+      "sha_evil"
+     ],
+     "quant": {
+      "observables": [
+       "穴前水是否直去无收",
+       "龙虎是否外窜",
+       "有无案山、朝山"
+      ],
+      "operational": "去水=穴前河道直泻外流（无环抱、低 sinuosity）；龙虎窜=两翼脊外撇不抱；无案/无朝=前方缺横案/远朝峰",
+      "metric_unit": "河道sinuosity/两翼抱合角(deg)/前方案朝有无",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；去水/窜/无案朝为定性，环抱/曲率为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      }
+     ],
+     "conf": "high",
+     "notes": "穴病及四忌（去水/龙虎窜/无案/无朝）。"
+    },
+    {
+     "i": 21,
+     "orig": "穴有贼风，当避刚避;明堂低下，当培则培，相其轻重，细加剪裁。智者步龙，巧者得穴。得穴步龙，得者十八。步龙寻穴，得者十一。",
+     "bai": "穴若有贼风，该避就避；明堂低陷，该培就培——视其轻重，细加修剪裁度。智者步量龙脉、巧者点得穴位；先得穴再回头步龙，十得其八；先步龙再去寻穴，十得其一。",
+     "gloss": [
+      [
+       "贼风",
+       "隙缝间来的恶风"
+      ],
+      [
+       "培",
+       "培土补低"
+      ]
+     ],
+     "logic": "IF 有贼风 THEN 避; IF 明堂低下 THEN 培; 得穴步龙(成功率高)优于步龙寻穴",
+     "terms": [
+      "xue",
+      "mingtang",
+      "sha_evil"
+     ],
+     "quant": {
+      "observables": [
+       "穴侧是否有风隙（贼风）",
+       "明堂是否低陷"
+      ],
+      "operational": "贼风=穴侧鞍部/隙口风道（viewshed 开口、高风暴露）；明堂低=堂局相对穴过低洼",
+      "metric_unit": "风道开口角(deg)/明堂相对高差(m)",
+      "falsifiable": true,
+      "engine": "RoomPalace",
+      "evidence": "现代GIS假说，非原文数值；贼风/明堂低为定性，开口/高差为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      }
+     ],
+     "conf": "high",
+     "notes": "避贼风、培明堂；得穴步龙优于步龙寻穴。"
+    },
+    {
+     "i": 22,
+     "orig": "气不和，山不植，不可插。或奇纹，土隐中，法宜插。气未止，山走趋，不可插。或腰结，或横龙，法宜插。龙未会，山而孤，不可插。落平阳，水堂卫，法宜插。气不来，脉断续，不可插。自然断，断了断，法宜插。气不行，山磊石，不可插。或异骨，土隐中，法宜插。",
+     "bai": "气不和、山上草木不生，不可插穴；但若有奇纹隐于土中，法宜插。气未止、山势仍在奔走，不可插；但若有腰结、或横龙结作，法宜插。龙未会聚、山体孤单，不可插；但若落于平阳、有水护卫堂局，法宜插。气不来、脉断续，不可插；但若是自然断、断了又断，法宜插。气不行、山尽磊石，不可插；但若有异骨隐于土中，法宜插。",
+     "gloss": [
+      [
+       "插",
+       "下穴"
+      ],
+      [
+       "腰结/横龙",
+       "龙腰结作/横向结穴"
+      ]
+     ],
+     "logic": "不可插: 气不和(山不植)/气未止(山走趋)/龙未会(山孤)/气不来(脉断续)/气不行(山磊石); 例外宜插: 奇纹隐土/腰结横龙/落平阳水卫/自然断/异骨隐土",
+     "terms": [
+      "xue",
+      "qi",
+      "long",
+      "mai",
+      "shui",
+      "mingtang"
+     ],
+     "quant": {
+      "observables": [
+       "山是否走趋未止",
+       "脉是否自然过峡断",
+       "平阳是否有水护堂"
+      ],
+      "operational": "气未止=脊线持续高坡奔走无驻；自然断=过峡 saddle（非崩损）；平阳水卫=平地外有水环护",
+      "metric_unit": "沿脊坡度(deg)/saddle relief(m)/环水有无",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；可插/不可插为定性，坡势/过峡/环水为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      }
+     ],
+     "conf": "high",
+     "notes": "插穴五宜五忌（各有常例与例外）。"
+    },
+    {
+     "i": 23,
+     "orig": "五吉星，可取用，四凶星，勿妄裁。博好龙，逆好水，凶化吉，理须猜。论五星，辨贵贱。论传变，辨祸福。论形体，辨吉凶。合阴阳，化阳阴，较耳脸，扶龙神，吉宜挨。凶铁侵。",
+     "bai": "五吉星可取用，四凶星勿妄裁；剥换成好龙、逆收好水，凶也能化吉，其理须细加揣摩。论五星辨贵贱，论传变辨祸福，论形体辨吉凶；合阴阳、化阳阴，比较耳脸（穴星两侧），扶持龙神——吉则宜挨近，凶则如铁刃相侵须避。",
+     "gloss": [
+      [
+       "五吉星/四凶星",
+       "九星中吉/凶星体"
+      ],
+      [
+       "挨",
+       "挨近取用"
+      ]
+     ],
+     "logic": "IF 博好龙&逆好水 THEN 凶可化吉; 吉星宜挨近、凶星如铁侵须避",
+     "terms": [
+      "shan_feng",
+      "long",
+      "shui",
+      "xue"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      }
+     ],
+     "conf": "high",
+     "notes": "五吉四凶星之取舍；博龙逆水可化凶为吉。"
+    },
+    {
+     "i": 24,
+     "orig": "金线宫，玉缠位，分得明，为上瑞。课山主，何主星? 何年代?值则荫，课年命，何穴星?何生人?值则荫，课公位，是何星?是何位?值则阴，课年月，属何星?何年发?课坐向，属何星?何方坐?课山水，得几步，几世益。课去来，那边来，来则福。课生死，那边生，生则福。",
+     "bai": "金线宫、玉缠位若分得明白，为上等吉瑞。要逐项推课：课山主——何为主星、何年代，值则荫福；课年命——何穴星、何生人，值则荫福；课公位——是何星、何位，值则阴庇；课年月——属何星、何年发福；课坐向——属何星、何方坐；课山水——得几步、几世受益；课去来——从哪边来，来则有福；课生死——从哪边生，生则有福。",
+     "gloss": [
+      [
+       "课",
+       "推算"
+      ],
+      [
+       "公位",
+       "房分（子孙位次）"
+      ],
+      [
+       "几步",
+       "远近步数"
+      ]
+     ],
+     "logic": "逐项推课（山主/年命/公位/年月/坐向/山水/去来/生死），值其吉星/吉位则荫福",
+     "terms": [
+      "xue",
+      "shan_feng",
+      "zuoxiang",
+      "shui"
+     ],
+     "quant": {
+      "observables": [
+       "坐向方位",
+       "穴到砂水的步数（远近）"
+      ],
+      "operational": "课坐向=二十四山方位；课山水几步=穴到砂水距离（步）→对应应验世代",
+      "metric_unit": "azimuth(deg)/距离(步)→世代(序数)",
+      "falsifiable": false,
+      "engine": "CompassModel",
+      "evidence": "坐向二十四山为传统刻度；'几步对应几世'为术数对应，非可证伪地形量"
+     },
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      }
+     ],
+     "conf": "high",
+     "notes": "八课推穴（山主/年命/公位/年月/坐向/山水/去来/生死）。"
+    },
+    {
+     "i": 25,
+     "orig": "九者样，百者形，是不是，真不真，眼中见，心中眼。起起起，伏伏伏，来来来，堆堆堆，阳精转，阴血随。知牝牡，识雌雄。穿针眼，把翼肩，杖上取，指上安，罗纹固，土宿横，二星曜，决通灵，透地法，勿虚传。",
+     "bai": "九般样、百般形，是不是、真不真，要眼中见、心中有眼。起起起、伏伏伏、来来来、堆堆堆，阳精流转、阴血相随；知牝牡、识雌雄。穿针眼、把翼肩，杖上取穴、指上安穴，罗纹固定、土宿横列，二星照耀、决通灵验——这透地之法，切勿虚传。",
+     "gloss": [
+      [
+       "穿针/翼肩/杖法",
+       "点穴的手法"
+      ],
+      [
+       "透地",
+       "透地定穴法"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "xue",
+      "mai"
+     ],
+     "quant": {
+      "observables": [
+       "来龙是否起伏生动（起伏来堆）"
+      ],
+      "operational": "起伏=沿脊 relief 周期性起伏（生动）；来龙活则脉真",
+      "metric_unit": "沿脊relief起伏(m)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；起伏生动为定性，沿脊relief为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      }
+     ],
+     "conf": "high",
+     "notes": "点穴手法与透地法之要。"
+    },
+    {
+     "i": 26,
+     "orig": "验不验，然不然，辨五土，为正诠。或开堂，或穿圹，或作堆，俱有法。或开门，或放水，或取路，须端的，作用底，有专门。训尔曹，须勉旗。",
+     "bai": "验与不验、然与不然，辨五色之土才是正解。或开明堂、或穿圹（开穴坑）、或作堆，皆有法度；或开门、或放水、或取路，都须端正确实——其作用之法各有专门。训诫你们，须勉力振作。",
+     "gloss": [
+      [
+       "五土",
+       "五色穴土"
+      ],
+      [
+       "圹",
+       "墓穴坑"
+      ],
+      [
+       "勉旗",
+       "勉励振作"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "xue",
+      "mingtang",
+      "shui"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "博山篇·论穴 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/003/"
+      }
+     ],
+     "conf": "high",
+     "notes": "论穴收束：辨五土为正解，开堂放水各有专门法。"
+    }
+   ]
+  },
+  {
+   "id": "ch-lunsha",
+   "label": "论砂",
+   "annotation": "",
+   "sentences": [
+    {
+     "i": 0,
+     "orig": "砂关水，水关砂。抱穴之砂，关元辰水。龙虎之砂，关怀中水。近案之砂，关中堂水。外朝之砂，关外龙水。",
+     "bai": "砂（穴周围的护卫山丘）管住水、水也管住砂，二者互为表里。紧抱穴位的砂锁住元辰水，龙虎砂锁住怀中之水，近处案山之砂锁住中堂水，外围朝山之砂锁住外龙之水。",
+     "gloss": [
+      [
+       "砂",
+       "穴场周围拱卫的群山"
+      ],
+      [
+       "元辰水/怀中水/中堂水/外龙水",
+       "由近及远的四层来水"
+      ]
+     ],
+     "logic": "抱穴砂→关元辰水; 龙虎砂→关怀中水; 近案砂→关中堂水; 外朝砂→关外龙水",
+     "terms": [
+      "sha",
+      "shui",
+      "anshan",
+      "chaoshan"
+     ],
+     "quant": {
+      "observables": [
+       "各层砂体与对应汇水（由近及远）的拦束关系"
+      ],
+      "operational": "砂关水=砂体（侧翼脊/案/朝）逐层横拦对应的 flow_accumulation 汇水通道",
+      "metric_unit": "砂体-汇水通道层级对应",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；砂关水为定性，逐层拦汇为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论砂 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/004/"
+      },
+      {
+       "what": "砂=穴周拱卫群山；龙虎卫穴",
+       "source": "DaoCore Shared Ontology v2.0.0 (sha 引《葬书》)"
+      }
+     ],
+     "conf": "high",
+     "notes": "砂水互关，四层砂各关一层水。"
+    },
+    {
+     "i": 1,
+     "orig": "周围环抱，脚牙交插，砂之贵者，水之善者。",
+     "bai": "四周山体环抱、山脚交错穿插，这便是砂中之贵、水中之善。",
+     "gloss": [
+      [
+       "脚牙交插",
+       "山脚如齿牙交错穿插"
+      ]
+     ],
+     "logic": "IF 砂周围环抱 且 脚牙交插 THEN 砂贵、水善",
+     "terms": [
+      "sha",
+      "shui"
+     ],
+     "quant": {
+      "observables": [
+       "砂是否周围环抱",
+       "山脚是否交错锁口"
+      ],
+      "operational": "环抱=enclosure 周向角大；脚牙交插=两侧 spur 交错咬合（关锁紧）",
+      "metric_unit": "enclosure角(deg)/关锁交错度",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；环抱/交插为定性，enclosure角为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论砂 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/004/"
+      }
+     ],
+     "conf": "high",
+     "notes": "砂贵在环抱交插。"
+    },
+    {
+     "i": 2,
+     "orig": "两边鹄立，命曰侍砂，能遮恶风，最为有力。从龙抱拥，命曰卫砂。外御凹风，内增气势。挠抱穴前，命曰迎砂。平低似揖，拜参之职，面前特立，命曰朝砂。不论远近，特来为贵。",
+     "bai": "两旁高立如鹤的叫侍砂，能遮挡恶风、力量最大；随龙身拥护的叫卫砂，外御凹处来风、内增穴场气势；弯抱于穴前的叫迎砂，低平如作揖行礼；正前方独立而起的叫朝砂，不论远近、专程特来者为贵。",
+     "gloss": [
+      [
+       "侍/卫/迎/朝砂",
+       "四种砂的功能分类"
+      ],
+      [
+       "鹄立",
+       "如鹤般高立"
+      ]
+     ],
+     "logic": "侍砂=两边鹄立遮恶风; 卫砂=从龙抱拥御凹风; 迎砂=挠抱穴前; 朝砂=面前特立特来",
+     "terms": [
+      "sha",
+      "chaoshan",
+      "sha_evil"
+     ],
+     "quant": {
+      "observables": [
+       "两侧高立砂（遮风）",
+       "随龙抱拥砂（御凹风）",
+       "穴前弯抱砂",
+       "前方特立峰"
+      ],
+      "operational": "侍砂遮风=两侧高遮蔽 viewshed 挡风口；卫砂御凹风=外缘封堵风口凹处；迎砂=穴前凹抱低砂；朝砂=前方特立峰",
+      "metric_unit": "viewshed遮蔽比/风口封堵/embrace角(deg)",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；四砂为定性功能分类，遮蔽/封风为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论砂 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/004/"
+      }
+     ],
+     "conf": "high",
+     "notes": "侍/卫/迎/朝四砂之别。"
+    },
+    {
+     "i": 3,
+     "orig": "四砂惟朝，关系匪轻，高低穴法，只此可凭。本身横案，亦是朝神。插水砂，进田笔，祸福紧，万勿失。",
+     "bai": "四种砂中朝砂关系最重，高穴低穴之法全凭朝砂可断。本身横列的案山也算朝山之神。插入水口的砂、进田之笔砂，关乎祸福至紧，万不可疏忽。",
+     "gloss": [
+      [
+       "进田笔",
+       "插入田中如笔之砂"
+      ]
+     ],
+     "logic": "朝砂定高低穴法; 横案亦作朝神",
+     "terms": [
+      "sha",
+      "chaoshan",
+      "anshan",
+      "shui"
+     ],
+     "quant": {
+      "observables": [
+       "朝砂高低",
+       "横案有无",
+       "水口插砂、田中笔砂"
+      ],
+      "operational": "朝砂高低→定穴高低（穴-朝仰角）；横案=穴前横拦低脊；进田笔=插入堂田的尖长 spur",
+      "metric_unit": "穴-朝仰角(deg)",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；朝砂定穴为定性，仰角为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论砂 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/004/"
+      }
+     ],
+     "conf": "high",
+     "notes": "四砂以朝砂最重，定高低穴法。"
+    },
+    {
+     "i": 4,
+     "orig": "水左来，山右转;水右来，砂左转，抱内水，插外水，所以贵。龙与虎，吾掌中。随身取，为至功。穴若真，必不顺;穴若假，岂肯逆。",
+     "bai": "水从左来则砂向右转、水从右来则砂向左转——砂抱内水、插住外水，这才是贵格。龙砂虎砂如在掌中，随身而取乃最上之功。穴若是真穴，砂水必不顺流而去；穴若是假穴，砂水岂肯逆转回收。",
+     "gloss": [
+      [
+       "抱内水/插外水",
+       "环抱内层水、外层水插拦"
+      ]
+     ],
+     "logic": "水左来→砂右转; 水右来→砂左转（抱内插外为贵）; 真穴砂水逆收, 假穴不逆",
+     "terms": [
+      "sha",
+      "shui",
+      "long",
+      "xue"
+     ],
+     "quant": {
+      "observables": [
+       "砂转向与来水方向是否相逆",
+       "砂是否环抱截水"
+      ],
+      "operational": "砂逆来水方向横转=砂体凹向截收水流（embrace 逆 flow direction）",
+      "metric_unit": "砂走向 vs flow方向(deg)/embrace角",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；抱内插外为定性，逆向环抱为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论砂 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/004/"
+      }
+     ],
+     "conf": "high",
+     "notes": "砂随来水反转、抱内插外；真穴砂水逆收。"
+    },
+    {
+     "i": 5,
+     "orig": "若借外砂，名曰护从，环抱低平，左右相应。其或不变，藉案横拦，亦能收水，此亦可插。",
+     "bai": "若借用外围之砂，名为护从砂，须环抱低平、左右相应；即使本身砂不够完美，若得横案拦截也能收水，亦可取用。",
+     "gloss": [
+      [
+       "护从",
+       "借外围之砂作护卫"
+      ]
+     ],
+     "logic": "IF 本身砂不足 且 有案横拦收水 THEN 亦可插穴",
+     "terms": [
+      "sha",
+      "shui",
+      "anshan",
+      "xue"
+     ],
+     "quant": {
+      "observables": [
+       "外围护从砂是否低平环抱",
+       "横案是否拦收水"
+      ],
+      "operational": "护从=外缘低平砂环抱（低 relief、enclosure 补足）；横案收水=横脊拦截 flow",
+      "metric_unit": "enclosure角(deg)/横案拦水",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；护从/横拦为定性，环抱/拦水为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论砂 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/004/"
+      }
+     ],
+     "conf": "high",
+     "notes": "外砂护从、横案收水亦可插。"
+    },
+    {
+     "i": 6,
+     "orig": "上水宜长，下水直短。下水若长，下砂要转。",
+     "bai": "上水砂宜长、下水砂宜短；若下水砂长，则下砂必须回转（以收住水）。",
+     "gloss": [
+      [
+       "上水砂/下水砂",
+       "水来方之砂/水去方之砂"
+      ]
+     ],
+     "logic": "上水砂宜长、下水砂宜短; IF 下水砂长 THEN 下砂须回转",
+     "terms": [
+      "sha",
+      "shui"
+     ],
+     "quant": {
+      "observables": [
+       "上水方与下水方砂的相对长短",
+       "下砂是否回转关水口"
+      ],
+      "operational": "下砂转=出水口下方 spur 内勾回转封口（关锁水口）",
+      "metric_unit": "下砂回转角(deg)/水口关锁度",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；上长下短为定性，下砂回转为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论砂 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/004/"
+      }
+     ],
+     "conf": "high",
+     "notes": "上水砂长、下水砂短；下砂长须转收水。"
+    },
+    {
+     "i": 7,
+     "orig": "亦有偏龙，水自右来，左宫贵穴。亦有偏虎，水自左来，右宫贵穴，或正用，或斜裁，知正知变，顺逆安排。",
+     "bai": "也有偏龙之局，水从右来，贵穴在左宫；也有偏虎之局，水从左来，贵穴在右宫。或正用、或斜裁，知正知变，方能顺逆得当。",
+     "gloss": [
+      [
+       "偏龙/偏虎",
+       "龙砂或虎砂偏盛之局"
+      ],
+      [
+       "左宫/右宫",
+       "穴位偏左/偏右"
+      ]
+     ],
+     "logic": "IF 偏龙&水自右来 THEN 贵穴在左宫; IF 偏虎&水自左来 THEN 贵穴在右宫",
+     "terms": [
+      "sha",
+      "shui",
+      "xue",
+      "long"
+     ],
+     "quant": {
+      "observables": [
+       "龙虎偏盛侧",
+       "来水方向"
+      ],
+      "operational": "穴随来水反侧而偏（水右来→穴偏左承水）；据砂偏盛与 flow 来向定穴左右",
+      "metric_unit": "穴偏侧(deg)/来水方向(deg)",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；偏龙偏虎为定性，穴随水偏为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论砂 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/004/"
+      }
+     ],
+     "conf": "high",
+     "notes": "偏龙偏虎随来水定穴左右。"
+    },
+    {
+     "i": 8,
+     "orig": "又有龙虎，结成顺局，须抱过腕，臂末起峰，横拦亢前，亦多成地（或得近案逆水而上，又不可概以顺局）。",
+     "bai": "又有龙虎结成顺局的，须砂抱过手腕、臂末起峰、横拦于穴前，也多能成地；或得近案逆水而上，又不可一概以顺局论之。",
+     "gloss": [
+      [
+       "抱过腕",
+       "砂抱超过弯曲处"
+      ],
+      [
+       "亢前",
+       "穴前"
+      ]
+     ],
+     "logic": "IF 顺局 且 臂末起峰横拦穴前 THEN 亦多成地; 有近案逆水则不作顺局论",
+     "terms": [
+      "sha",
+      "anshan",
+      "shui",
+      "xue"
+     ],
+     "quant": {
+      "observables": [
+       "龙虎臂末是否起峰、横拦穴前"
+      ],
+      "operational": "臂末起峰横拦=侧翼脊末端再起 spur 封拦穴前（补收顺水）",
+      "metric_unit": "臂末起峰相对高(m)/横拦封口",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；顺局成地为定性，末端起峰封口为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论砂 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/004/"
+      }
+     ],
+     "conf": "high",
+     "notes": "顺局须臂末起峰横拦方成地。"
+    },
+    {
+     "i": 9,
+     "orig": "主短朝长，是朝逆主，主长朝短，是主逆朝，名为变势。若道其常，主朝相若，是为正势。",
+     "bai": "主山短而朝山长是朝逆主、主山长而朝山短是主逆朝，皆名变势；若主朝相当，才是正势。",
+     "gloss": [
+      [
+       "主/朝",
+       "主山/朝山"
+      ],
+      [
+       "变势/正势",
+       "主朝失衡之势/主朝相当之势"
+      ]
+     ],
+     "logic": "IF 主短朝长 THEN 朝逆主（变势）; IF 主长朝短 THEN 主逆朝（变势）; IF 主朝相若 THEN 正势",
+     "terms": [
+      "zushan",
+      "chaoshan",
+      "shi"
+     ],
+     "quant": {
+      "observables": [
+       "主山与朝山的相对高度/规模"
+      ],
+      "operational": "主朝相若=主山与朝峰 relief/prominence 相当；失衡（一长一短）为变势",
+      "metric_unit": "主/朝 relief比、prominence比",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；主朝长短为定性，relief比为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论砂 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/004/"
+      }
+     ],
+     "conf": "high",
+     "notes": "主朝相称为正势，失衡为变势。"
+    },
+    {
+     "i": 10,
+     "orig": "两山相会，水变相交，朝山贵峰，或三或五，尖员端秀，是为上格。短缩之形，虽秀减神，时或横过，突起对峰，意非行朝，亦有可取。身脚水路，不我相向，偏斜走窜，无所取裁。",
+     "bai": "两山相会、水流交合之处，朝山的贵峰或三或五，尖圆端秀为上格。短缩之形虽秀而减神；偶有横过、突起的对面之峰，虽非专程来朝，亦有可取。若山脚水路不向我而来、偏斜走窜，则无所取用。",
+     "gloss": [
+      [
+       "对峰",
+       "对面突起之峰"
+      ],
+      [
+       "走窜",
+       "偏斜逃逸不向穴"
+      ]
+     ],
+     "logic": "IF 朝峰三五座尖圆端秀 THEN 上格; IF 身脚水路偏斜走窜不向穴 THEN 无所取",
+     "terms": [
+      "chaoshan",
+      "shan_feng",
+      "shui"
+     ],
+     "quant": {
+      "observables": [
+       "朝峰数量与形态（尖圆端秀）",
+       "砂脚水路是否朝向穴"
+      ],
+      "operational": "贵峰=三五座秀峰（火尖/金圆高 prominence）；走窜=砂脚 spur 与水路偏斜不向穴（向轴偏角大）",
+      "metric_unit": "朝峰数/prominence(m)/向穴偏角(deg)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；尖圆端秀为定性，峰形/朝向为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论砂 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/004/"
+      }
+     ],
+     "conf": "high",
+     "notes": "朝峰尖圆端秀为上格；偏斜走窜无取。"
+    },
+    {
+     "i": 11,
+     "orig": "言山之水，赖朝锁纽。朝山之水，趋向主龙，休论尖员，何拘本方！查要端正，真水到堂。",
+     "bai": "朝山一带之水须赖朝砂锁纽（关锁）。朝山之水趋向主龙，不必拘泥尖圆形状，也不必拘泥方位，只要端正、真水到堂即可。",
+     "gloss": [
+      [
+       "锁纽",
+       "关锁结纽"
+      ],
+      [
+       "到堂",
+       "水到穴前明堂"
+      ]
+     ],
+     "logic": "朝水趋向主龙、真水到堂为要（不拘形状方位）",
+     "terms": [
+      "chaoshan",
+      "shui",
+      "sha",
+      "mingtang"
+     ],
+     "quant": {
+      "observables": [
+       "朝向之水是否汇入穴前明堂"
+      ],
+      "operational": "真水到堂=朝向来水 flow 汇入穴前 basin（明堂）；朝砂锁纽=水口处砂关锁",
+      "metric_unit": "flow汇入basin/水口关锁度",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；到堂/锁纽为定性，汇水/关锁为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论砂 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/004/"
+      }
+     ],
+     "conf": "high",
+     "notes": "朝水赖朝砂锁纽、真水到堂为要。"
+    },
+    {
+     "i": 12,
+     "orig": "有等大地，主山固逆，朝山迹逆，三阳之水，乃无走泄，发龙虎后，抱龙虎前，此名近案。或发龙腰，亦为案取，贵下生上，勿上生下。有案无朝，内水了收。有朝无案，亦赖前砂。朝案俱无，护砂前插，法若背此，穷龙之宅。",
+     "bai": "有等大地，主山逆收、朝山亦逆，穴前三阳方之水无处走泄；从龙虎之后发出、绕抱龙虎之前的，这便是近案。或从龙腰发出也可作案山取用——贵在自下生上、勿自上生下。有案无朝则内水仍可收聚，有朝无案则也赖前方砂体，朝案皆无则靠护砂前插；若违背此理，便是穷龙之宅。",
+     "gloss": [
+      [
+       "三阳之水",
+       "穴前三阳方来水"
+      ],
+      [
+       "下生上",
+       "自下而上发砂"
+      ]
+     ],
+     "logic": "案/朝层级: 有案无朝→内水了收; 有朝无案→赖前砂; 朝案俱无→护砂前插; 三者皆无→穷龙",
+     "terms": [
+      "zushan",
+      "chaoshan",
+      "anshan",
+      "sha",
+      "shui"
+     ],
+     "quant": {
+      "observables": [
+       "近案是否横拦使三阳水无走泄",
+       "案、朝、护砂的有无"
+      ],
+      "operational": "近案=龙虎后发、抱龙虎前的横拦脊；三阳水无泄=穴前 flow 被横案拦束（无直泻出口）",
+      "metric_unit": "横案拦束/出水口关锁度",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；近案/三阳水为定性，横拦/拦束为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论砂 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/004/"
+      }
+     ],
+     "conf": "high",
+     "notes": "近案收三阳水；案朝护砂层级缺失即穷龙之宅。"
+    },
+    {
+     "i": 13,
+     "orig": "朝不厌远，案固欲近。案秀尖员，厥形为上。一宇平过，得案正样，中高中低，几几相合，高凌低脱，云胡可论。",
+     "bai": "朝山不嫌远、案山务求近。案山以秀丽尖圆为上格，一字平过、端端正正为标准案形；中间高低彼此相合为佳；案过高则凌压、过低则脱气，皆不可取。",
+     "gloss": [
+      [
+       "一宇平过",
+       "如'一'字横平掠过"
+      ],
+      [
+       "凌/脱",
+       "逼压/脱开"
+      ]
+     ],
+     "logic": "朝宜远、案宜近; 案秀尖圆/一字平过为上; IF 案过高(凌压)或过低(脱气) THEN 不可取",
+     "terms": [
+      "chaoshan",
+      "anshan"
+     ],
+     "quant": {
+      "observables": [
+       "案距穴远近",
+       "案山高度（凌压/脱气）",
+       "案形（尖圆/平过）"
+      ],
+      "operational": "案近朝远=案距小、朝距大；案高适中（穴-案仰角小正值），过高=凌压（仰角大）、过低=脱气（仰角负）",
+      "metric_unit": "案距(m)/朝距(km)/穴-案仰角(deg)",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；远近高低为定性，距离/仰角为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论砂 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/004/"
+      }
+     ],
+     "conf": "high",
+     "notes": "朝远案近，案高适中（忌凌压脱气）。"
+    },
+    {
+     "i": 14,
+     "orig": "水口之砂，最关利害，交插紧密，龙神斯聚。走窜顺飞，真龙必去。砂有三，高、贵、贱。肥、圆、正为富局。秀尖丽为贵局，斜臃肿为贱局。",
+     "bai": "水口砂最关利害：交插紧密则龙神聚会，走窜顺飞则真龙必去。砂分三等：肥圆端正为富局，秀丽尖挺为贵局，歪斜臃肿为贱局。",
+     "gloss": [
+      [
+       "水口砂",
+       "把守水口之砂"
+      ]
+     ],
+     "logic": "IF 水口砂交插紧密 THEN 龙神聚; IF 走窜顺飞 THEN 真龙去; 砂三格: 肥圆正=富, 秀尖丽=贵, 斜臃肿=贱",
+     "terms": [
+      "sha",
+      "shui",
+      "long"
+     ],
+     "quant": {
+      "observables": [
+       "水口砂是否交插紧密关锁",
+       "砂体形态（肥圆正/秀尖/斜臃）"
+      ],
+      "operational": "水口交插=出水口两侧 spur 交错锁紧（高关锁度）；砂格由形态分（圆顺=富、尖秀=贵、斜臃=贱）",
+      "metric_unit": "水口关锁度/砂体曲率形态",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；交插/三格为定性，关锁/形态为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论砂 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/004/"
+      }
+     ],
+     "conf": "high",
+     "notes": "水口砂关锁聚龙；源文'砂有三，高、贵、贱'当作'富、贵、贱'，据下文校。"
+    },
+    {
+     "i": 15,
+     "orig": "砂砂有杀，汝知乎！有尖射的，破透顶的，探出头的，身反向的，顺水走的，高压穴的，皆凶相也。又有相斗的，破碎的，直强的，挟逼的，低陷的，斜乱的，粗大的，瘦弱的，短缩的，昂头的，背面的，断腰的，皆砂中祸也。",
+     "bai": "砂中带煞不可不知：尖射的、破透顶的、探出头的、身体反向的、顺水走的、高压穴场的，皆凶相；又有相斗的、破碎的、直强的、挟逼的、低陷的、斜乱的、粗大的、瘦弱的、短缩的、昂头的、背面的、断腰的，皆砂中之祸。",
+     "gloss": [
+      [
+       "砂杀（煞）",
+       "砂体形煞"
+      ],
+      [
+       "高压穴",
+       "砂高逼压穴场"
+      ]
+     ],
+     "logic": "砂煞（尖射/身反向/顺水走/高压穴/挟逼/断腰等）皆凶相、皆砂中祸",
+     "terms": [
+      "sha",
+      "sha_evil"
+     ],
+     "quant": {
+      "observables": [
+       "砂是否尖射正对穴",
+       "是否高压逼穴",
+       "是否反背/顺水走"
+      ],
+      "operational": "尖射=尖锐 spur 高曲率正指穴（aim 偏角小）；高压=砂相对穴过高逼压（仰角大）；反向=砂凸面背穴",
+      "metric_unit": "尖射aim偏角(deg)/穴-砂仰角(deg)/砂朝向",
+      "falsifiable": true,
+      "engine": "RoomPalace",
+      "evidence": "现代GIS假说，非原文数值；砂煞为定性分类，aim/仰角为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论砂 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/004/"
+      }
+     ],
+     "conf": "high",
+     "notes": "砂中诸煞（尖射/反背/高压/挟逼/断腰等）。"
+    },
+    {
+     "i": 16,
+     "orig": "夹护之砂，须要审详。左护的多，必为左穴。右护者多，必为右穴。迎托之砂，须认下落。后托之砂，有边长的，有边短的，穴在长边，此亦可据。",
+     "bai": "夹护之砂须仔细审察：左护多则穴偏左、右护多则穴偏右。迎托之砂须认其下落处。后托之砂有一边长、一边短的，穴在长边，这也是依据。",
+     "gloss": [
+      [
+       "夹护砂",
+       "左右夹护之砂"
+      ],
+      [
+       "后托砂",
+       "穴后扶托之砂"
+      ]
+     ],
+     "logic": "IF 左护砂多 THEN 穴偏左; IF 右护砂多 THEN 穴偏右; 后托砂长短不一则穴在长边",
+     "terms": [
+      "sha",
+      "xue"
+     ],
+     "quant": {
+      "observables": [
+       "左右护砂多寡",
+       "后托砂长边在哪侧"
+      ],
+      "operational": "护砂多寡→穴向砂厚一侧偏；后托长边→穴偏向长边",
+      "metric_unit": "左右护砂数/后托长短差(m)",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；护砂定穴偏侧为定性，砂数/长短为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论砂 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/004/"
+      }
+     ],
+     "conf": "high",
+     "notes": "护砂多寡、后托长短定穴偏侧。"
+    },
+    {
+     "i": 17,
+     "orig": "四砂法，若推磨，龙与虎，事若何?吉吉吉，凶亦多。后元武，要睡头。祸与福，谁与招?前朱雀，尤紧急，要翔舞，须轩豁。吉凶机，须早察，有盖砂，高大盖穴者是。有照砂，正照穴场者是。有乐山，出穴星，后者是。",
+     "bai": "四砂之法如推磨般运转，龙虎之事如何？有吉也有多凶。后方玄武要低伏如睡（睡头）。前方朱雀尤为紧急，要翔舞灵动、轩敞豁达。吉凶之机须及早察觉：有盖砂——高大盖覆穴场者是；有照砂——正面照射穴场者是；有乐山——出于穴星之后者是。",
+     "gloss": [
+      [
+       "玄武/朱雀",
+       "穴后/穴前之砂"
+      ],
+      [
+       "盖砂/照砂/乐山",
+       "高盖/正照/后枕之砂"
+      ]
+     ],
+     "logic": "玄武宜睡头（低伏）; 朱雀宜翔舞轩豁（开阔）; 盖砂高盖穴、照砂正照穴、乐山在穴后",
+     "terms": [
+      "sha",
+      "xue",
+      "zuo"
+     ],
+     "quant": {
+      "observables": [
+       "后山（玄武）是否低伏靠背",
+       "前方（朱雀）是否开阔翔舞",
+       "盖砂/照砂/乐山位置"
+      ],
+      "operational": "玄武睡头=后山平伏低坡可倚；朱雀轩豁=前方开阔（前视 viewshed 大）；乐山=穴后枕托峰",
+      "metric_unit": "后山坡度(deg)/前向viewshed/乐山位置",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；玄武睡头/朱雀轩豁为定性，坡度/视域为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论砂 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/004/"
+      }
+     ],
+     "conf": "high",
+     "notes": "玄武睡头、朱雀翔舞；盖砂照砂乐山之辨。源文'元武'即'玄武'（讳改）。"
+    },
+    {
+     "i": 18,
+     "orig": "尖尾鬼，尖属火，乃主贵。齐尾鬼，齐属士，只主富。横龙穴，须认此。若正出，任有无。",
+     "bai": "尖尾鬼星属火、主贵，齐尾鬼星属土、只主富——横龙结穴须认此；若是正出之龙，则鬼星有无皆可。",
+     "gloss": [
+      [
+       "鬼",
+       "穴后撑托的鬼星"
+      ],
+      [
+       "横龙",
+       "横向结穴之龙"
+      ]
+     ],
+     "logic": "IF 横龙穴 THEN 须认鬼（尖尾火主贵 / 齐尾土主富）; IF 正出龙 THEN 鬼可有可无",
+     "terms": [
+      "sha",
+      "long",
+      "xue",
+      "shan_feng"
+     ],
+     "quant": {
+      "observables": [
+       "穴后撑托砂（鬼）尾部尖或平齐"
+      ],
+      "operational": "尖尾鬼=后撑 spur 尖（火形高曲率）；齐尾鬼=后撑砂平齐（土形平顶）",
+      "metric_unit": "鬼砂尾部曲率/平顶度",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "五行形（火尖/土齐）为传统；曲率量为现代operational，原文无数值"
+     },
+     "src": [
+      {
+       "what": "博山篇·论砂 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/004/"
+      }
+     ],
+     "conf": "high",
+     "notes": "横龙穴须认鬼；源文'齐属士'当作'齐属土'。"
+    },
+    {
+     "i": 19,
+     "orig": "曜气何?插两臂，龙虎外，拖衣袖。官星何?前砂外。官属阴，曜属阳。不见者见，见者不见。前后左右，气之剩余。尖员直方，气之秀发。向外侧吉，反射则凶。参以龙穴，细细研穷。",
+     "bai": "曜气是什么？龙虎两臂之外拖出的如衣袖般的山体。官星是什么？前方砂体之外的星峰。官属阴、曜属阳；不见之处反见、见处反不见；前后左右皆是气之剩余，尖圆直方皆是气之秀发。向外侧出为吉，反射回穴为凶，须参合龙穴细细研究。",
+     "gloss": [
+      [
+       "曜气",
+       "龙虎臂外的余气山体"
+      ],
+      [
+       "官星",
+       "朝案之外的余气星峰"
+      ]
+     ],
+     "logic": "曜气/官星为气之剩余秀发; IF 向外侧出 THEN 吉; IF 反射回穴 THEN 凶",
+     "terms": [
+      "sha",
+      "sha_evil",
+      "long",
+      "xue"
+     ],
+     "quant": {
+      "observables": [
+       "龙虎外、前砂外的余脉指向（朝外或回指穴）"
+      ],
+      "operational": "曜/官=龙虎/案外的余脉 spur；向外吉=spur 朝外延展；反射凶=spur 回勾指向穴（aim 指穴）",
+      "metric_unit": "余脉指向角(deg, 朝外/指穴)",
+      "falsifiable": true,
+      "engine": "RoomPalace",
+      "evidence": "现代GIS假说，非原文数值；曜官/向外反射为定性，余脉指向为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论砂 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/004/"
+      }
+     ],
+     "conf": "high",
+     "notes": "曜气、官星之辨；向外吉、反射凶。"
+    },
+    {
+     "i": 20,
+     "orig": "天有北辰，地有镇星。生居水口，角幞分明。亦有兽星，与夫螺星，方员尖石，马象龟形，如鸾如凤，平地高冈，论力之重，夷掌水中。",
+     "bai": "天有北辰星、地有镇星砂，生在水口之处，如角如幞、形态分明。也有兽星、螺星，方圆尖石，马象龟形，如鸾如凤；无论平地高冈，论其力量之重，以平铺水中（夷掌水中）者为最。",
+     "gloss": [
+      [
+       "镇星/兽星/螺星",
+       "水口守口诸星砂（罗星）"
+      ],
+      [
+       "夷掌水中",
+       "平铺于水中"
+      ]
+     ],
+     "logic": null,
+     "terms": [
+      "sha",
+      "shui"
+     ],
+     "quant": {
+      "observables": [
+       "水口处的孤石/小阜（镇星、罗星）"
+      ],
+      "operational": "水口镇/罗星=出水口流路中的孤立小阜/石墩（被水环绕的局部高点）",
+      "metric_unit": "水口孤阜有无/相对高(m)",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；镇星罗星为定性，水中孤阜为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论砂 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/004/"
+      }
+     ],
+     "conf": "high",
+     "notes": "水口镇星/兽星/螺星，水中者力重。"
+    },
+    {
+     "i": 21,
+     "orig": "印砂何取?鱼砂何论?顾我为真，真我弗问。西方为佳。妙在艮巽。巽丙丁，砂之秀，乾坤艮，亦吉曜。若罗列，可推究。木克土，土克水，水克火，火克金，金克木。木生火，火生士，土生金，金生水，水生木。生中克，克中生，看何方，何星属，何星旺，是的地。",
+     "bai": "印砂取其顾我为真（真不真不必强问），以西方为佳；鱼砂妙在艮、巽方位。巽、丙、丁方之砂最秀，乾、坤、艮方也是吉曜，若逐方罗列可一一推究。五行生克：木克土、土克水、水克火、火克金、金克木；木生火、火生土、土生金、金生水、水生木；生中有克、克中有生——看在何方、属何星、何星旺，方是真地。",
+     "gloss": [
+      [
+       "印砂/鱼砂",
+       "印形/鱼形之砂"
+      ],
+      [
+       "顾我",
+       "砂顾向穴"
+      ]
+     ],
+     "logic": "五行相克: 木克土→土克水→水克火→火克金→金克木; 五行相生: 木生火→火生土→土生金→金生水→水生木; 据何方/何星属/何星旺定真地",
+     "terms": [
+      "sha",
+      "shan_feng"
+     ],
+     "quant": {
+      "observables": [
+       "砂体五行形（方/圆/尖等）及其方位生克"
+      ],
+      "operational": "五行生克可形式化为 5x5 符号矩阵（生+1/克-1）；砂形→五行→按方位生克评吉凶（关系传统、编码现代）",
+      "metric_unit": "五行生克矩阵(符号编码)",
+      "falsifiable": false,
+      "engine": "CompassModel",
+      "evidence": "五行生克关系为传统；矩阵数值编码为现代encoding，原文不给数值。见 ontology sheng_ke_matrix"
+     },
+     "src": [
+      {
+       "what": "博山篇·论砂 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/004/"
+      },
+      {
+       "what": "五行生克矩阵编码",
+       "source": "DaoCore Shared Ontology v2.0.0 (five_phases.sheng_ke_matrix)"
+      }
+     ],
+     "conf": "high",
+     "notes": "印砂鱼砂取顾我；以五行生克论砂吉凶。源文'火生士'当作'火生土'。"
+    },
+    {
+     "i": 22,
+     "orig": "砂之形，穴之应。勿失真，认而认。宜立堆，宜作坪，论生克，讨分明。宜开池，宜筑坝。论制化，俱有验。化凶吉，随龙神。妙中妙，心中明。喝砂形，随时见。是何方，则何荫。",
+     "bai": "砂之形即穴之应，切勿认错、要再三审认。宜立堆、宜作坪，须论生克分明；宜开池、宜筑坝，须论制化——皆有应验。化凶为吉，随龙神而定。妙中之妙全在心中明了。喝砂之形随时可见，在何方位则应何等福荫。",
+     "gloss": [
+      [
+       "喝砂",
+       "以形喝名（喝形点穴）"
+      ],
+      [
+       "制化",
+       "以人工立堆筑坝开池来制化"
+      ]
+     ],
+     "logic": "砂形对应穴应; 砂在何方位 THEN 应何等福荫",
+     "terms": [
+      "sha",
+      "xue",
+      "shan_feng"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "博山篇·论砂 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/004/"
+      }
+     ],
+     "conf": "high",
+     "notes": "论砂收束：砂形对应穴应，立堆筑坝可制化趋吉。"
+    }
+   ]
+  },
+  {
+   "id": "ch-lunshui",
+   "label": "论水",
+   "annotation": "",
+   "sentences": [
+    {
+     "i": 0,
+     "orig": "聚水法，要到堂。第一水，元辰方，食母乳，养孩婴。第二水，怀中方，食堂馔，会养生。第三水，中堂水。积钱谷，家计隆。第四水，龙神方。广田宅，大官方。",
+     "bai": "聚水之法，关键在于水能聚到明堂之中。第一层水在元辰方（穴前最近处），如母乳哺育婴儿；第二层水在怀中方（穴内环抱处），如日常饮食养身；第三层水为中堂水（明堂正中），主积财、家业兴隆；第四层水在龙神方（龙脉大势处），主田宅广增、官位高升。",
+     "gloss": [
+      [
+       "到堂",
+       "水聚到穴前明堂"
+      ],
+      [
+       "元辰/怀中/中堂/龙神",
+       "由近及远的四层来水"
+      ]
+     ],
+     "logic": "四水由近及远: 元辰水(养)→怀中水(养生)→中堂水(积财)→龙神水(广田宅/官位)",
+     "terms": [
+      "shui",
+      "mingtang"
+     ],
+     "quant": {
+      "observables": [
+       "穴前由近及远的四层汇水",
+       "水是否聚入明堂"
+      ],
+      "operational": "四水=穴前由近及远的汇水层级（flow_accumulation 多级）；到堂=汇入穴前 basin（明堂）",
+      "metric_unit": "flow_accumulation/到堂汇入",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；四水/到堂为定性，汇水层级为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论水 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/005/"
+      },
+      {
+       "what": "水=界气止聚；得水为上；明堂聚水纳气",
+       "source": "DaoCore Shared Ontology v2.0.0 (shui/mingtang 引《葬书》)"
+      }
+     ],
+     "conf": "high",
+     "notes": "聚水到堂；四水由近及远各主一事。"
+    },
+    {
+     "i": 1,
+     "orig": "水口山，论远近。龙长短，此正应。识大小。辨逆顺。",
+     "bai": "水口处的山峰须论其远近，与龙脉的长短正相应；要能识水之大小、辨水之逆顺。",
+     "gloss": [
+      [
+       "水口山",
+       "守水口之山"
+      ]
+     ],
+     "logic": "水口山远近 ↔ 龙长短相应; 须识水大小、辨逆顺",
+     "terms": [
+      "shui",
+      "long",
+      "sha"
+     ],
+     "quant": {
+      "observables": [
+       "水口山距穴远近",
+       "龙脉长短"
+      ],
+      "operational": "水口距与龙长相称（龙长则水口远）；水大小=流量/河宽；逆顺=水流向 vs 龙势",
+      "metric_unit": "水口距(m)/龙长(m)/流量",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；远近/逆顺为定性，距离/流向为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论水 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/005/"
+      }
+     ],
+     "conf": "high",
+     "notes": "水口山远近应龙长短。"
+    },
+    {
+     "i": 2,
+     "orig": "何以分，来者是。何以合，止者是。堂中受，瓮中贮。",
+     "bai": "怎样算\"分\"？水分开来的地方就是。怎样算\"合\"？水交合停止处就是。水在明堂中承接，如瓮中贮存般聚而不泄。",
+     "gloss": [
+      [
+       "分/合",
+       "水的分流处/合流处"
+      ]
+     ],
+     "logic": "分=来水处; 合=止水处; 吉水须堂中受、瓮中贮（聚而不泄）",
+     "terms": [
+      "shui",
+      "mingtang"
+     ],
+     "quant": {
+      "observables": [
+       "水的分流（来）与合流（止）",
+       "明堂是否蓄水不泄"
+      ],
+      "operational": "分=上游分水（来）；合=下游汇流停蓄；瓮中贮=低洼蓄水（汇水洼地、慢流）",
+      "metric_unit": "flow分汇/蓄水洼地",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；分合/堂受为定性，分汇/蓄水为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论水 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/005/"
+      }
+     ],
+     "conf": "high",
+     "notes": "水分于来、合于止；堂受瓮贮则聚。"
+    },
+    {
+     "i": 3,
+     "orig": "欲识龙，在识水。欲识水，在识中。识得中，逆之中。",
+     "bai": "想认识龙，先在认识水；想认识水，先在找准\"中\"（穴位中线）；找到了中心，便能识得水的逆收之妙。",
+     "gloss": [
+      [
+       "中",
+       "穴位中线、堂局之中"
+      ]
+     ],
+     "logic": "识龙 ← 识水 ← 识中（穴中线）; 识中则得逆收之妙",
+     "terms": [
+      "long",
+      "shui",
+      "xue"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "博山篇·论水 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/005/"
+      }
+     ],
+     "conf": "high",
+     "notes": "识龙在识水、识水在识中。"
+    },
+    {
+     "i": 4,
+     "orig": "水近穴，须梭织。到穴前，须环曲。既过穴，又梭织。若此水，水之吉。",
+     "bai": "水接近穴时要如织布梭子般来回交织，到穴前要弯环曲折，流过穴后还要交织缠绕——这样之水才是吉水。",
+     "gloss": [
+      [
+       "梭织",
+       "如梭来回交织"
+      ],
+      [
+       "环曲",
+       "弯环曲折"
+      ]
+     ],
+     "logic": "IF 水近穴梭织 且 穴前环曲 且 过穴梭织 THEN 吉水",
+     "terms": [
+      "shui",
+      "xue"
+     ],
+     "quant": {
+      "observables": [
+       "穴前后水道是否弯曲交织"
+      ],
+      "operational": "梭织/环曲=河道高 sinuosity（曲折度大）；直去=低 sinuosity（凶）",
+      "metric_unit": "channel sinuosity(曲折度)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；梭织/环曲为定性，sinuosity 为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论水 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/005/"
+      }
+     ],
+     "conf": "high",
+     "notes": "吉水：近穴梭织、穴前环曲、过穴梭织。"
+    },
+    {
+     "i": 5,
+     "orig": "与龙逆，与穴逆，与砂逆，水之得。",
+     "bai": "水的流向与龙脉、穴位、砂山都相逆而行，才是水的得法。",
+     "gloss": [
+      [
+       "逆",
+       "水流方向与龙/穴/砂相逆"
+      ]
+     ],
+     "logic": "IF 水与龙逆 且 与穴逆 且 与砂逆 THEN 水之得",
+     "terms": [
+      "shui",
+      "long",
+      "xue",
+      "sha"
+     ],
+     "quant": {
+      "observables": [
+       "水流向与龙/砂走向是否相逆"
+      ],
+      "operational": "逆=水流 flow direction 与龙脊/砂走向夹角大（相向截收）",
+      "metric_unit": "flow vs 龙/砂走向夹角(deg)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；逆水为定性，方位夹角为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论水 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/005/"
+      }
+     ],
+     "conf": "high",
+     "notes": "水与龙穴砂三逆为得。"
+    },
+    {
+     "i": 6,
+     "orig": "山趋东，水自西。水趋东，山自西。山返转，水如如。水返转，山如如。皆真逆，见莫拘。",
+     "bai": "山往东行则水从西来，水往东流则山从西转；山势回转处水流安稳，水势回转处山形沉稳——这些都是\"真逆\"之局，见到时不必拘泥于一种形态。",
+     "gloss": [
+      [
+       "如如",
+       "安稳、沉静貌"
+      ],
+      [
+       "真逆",
+       "山水相向相逆的真局"
+      ]
+     ],
+     "logic": "山东行↔水西来; 水东流↔山西转; 山转↔水稳; 水转↔山稳; 皆真逆",
+     "terms": [
+      "shui",
+      "shan_feng"
+     ],
+     "quant": {
+      "observables": [
+       "山脊走向与水流向是否反向相迎"
+      ],
+      "operational": "真逆=山脊走向与河道 flow 反向（山去东则水来西）；二者相向交锁",
+      "metric_unit": "脊向 vs flow向(≈180° 相逆)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；真逆为定性，反向夹角为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论水 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/005/"
+      }
+     ],
+     "conf": "high",
+     "notes": "山水相向为真逆，形态不拘。"
+    },
+    {
+     "i": 7,
+     "orig": "两水合，无逆局，穴亦非。",
+     "bai": "两水交合之处若没有逆收之局，则此处也并非真穴。",
+     "gloss": [
+      [
+       "逆局",
+       "水逆收成局"
+      ]
+     ],
+     "logic": "IF 两水合 且 无逆局 THEN 非真穴",
+     "terms": [
+      "shui",
+      "xue"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "博山篇·论水 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/005/"
+      }
+     ],
+     "conf": "high",
+     "notes": "两水合而无逆局则非真穴。"
+    },
+    {
+     "i": 8,
+     "orig": "看水城，转何处。论得穴，此足据。",
+     "bai": "观察水流环绕形成的\"水城\"在何处回转，就是论定穴位的可靠依据。",
+     "gloss": [
+      [
+       "水城",
+       "水流环绕如城墙"
+      ]
+     ],
+     "logic": "水城回转处 → 定穴依据",
+     "terms": [
+      "shui",
+      "xue"
+     ],
+     "quant": {
+      "observables": [
+       "水流环抱弧的最大回转点"
+      ],
+      "operational": "水城=河道环抱弧（concave 朝穴）；最大环抱/回转点对应穴前",
+      "metric_unit": "河道环抱弧顶点/embrace角(deg)",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；水城为定性，环抱弧顶为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论水 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/005/"
+      }
+     ],
+     "conf": "high",
+     "notes": "看水城回转处定穴。"
+    },
+    {
+     "i": 9,
+     "orig": "山坐北，面向南，水自西，趋而东，转而北，北有地。何以故?水之抱，抱在北，气斯聚。宜融结。类而推，穴易得。",
+     "bai": "以坐北朝南的山地为例：水从西向东流、再转向北，则北面有穴可寻。为什么？因为水的环抱在北面，地气因此凝聚于此，宜于融结成穴。以此类推，穴位便不难寻得。",
+     "gloss": [
+      [
+       "水之抱",
+       "水流环抱的所在方位"
+      ]
+     ],
+     "logic": "IF 水环抱在某方 THEN 该方气聚宜结穴（如水抱在北→北有地）",
+     "terms": [
+      "shui",
+      "qi",
+      "xue",
+      "zuoxiang"
+     ],
+     "quant": {
+      "observables": [
+       "水流环抱所在的方位",
+       "坐向"
+      ],
+      "operational": "水抱方=河道凹向所在（embrace 侧）；气聚=环抱内侧凹聚处；该侧宜结穴",
+      "metric_unit": "embrace方位(deg)/坐向(deg)",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；'气者水之母'本于《葬书》，环抱聚气为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论水 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/005/"
+      }
+     ],
+     "conf": "high",
+     "notes": "水抱之方气聚宜结穴（举坐北朝南为例）。"
+    },
+    {
+     "i": 10,
+     "orig": "有捍门，守御固。有罗星，纽会全，为剑戟，为旗槊。为车马，为狮象，为鹅雁，为凤鸾。",
+     "bai": "水口处若有如门卫的两山对峙（捍门），则守御牢固；有独立的小峰或石墩（罗星）把守，则关锁周全。罗星形态多样，或如剑戟、旗槊、车马、狮象、鹅雁、凤鸾，皆为贵格。",
+     "gloss": [
+      [
+       "捍门",
+       "水口两山对峙如门"
+      ],
+      [
+       "罗星",
+       "水口独立小峰/石墩"
+      ]
+     ],
+     "logic": "捍门 → 守御固; 罗星 → 关锁全",
+     "terms": [
+      "shui",
+      "sha"
+     ],
+     "quant": {
+      "observables": [
+       "水口两侧是否有对峙高地（捍门）",
+       "水口流路是否有孤阜（罗星）"
+      ],
+      "operational": "捍门=出水口两侧对峙高地（夹峙）；罗星=水口流路中的孤立小阜/石墩",
+      "metric_unit": "水口夹峙/孤阜有无",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；捍门/罗星为定性，夹峙/孤阜为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论水 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/005/"
+      }
+     ],
+     "conf": "high",
+     "notes": "捍门、罗星把守水口为贵。"
+    },
+    {
+     "i": 11,
+     "orig": "看二星，论头尾，高与低，穴之据。观紧慢，知有无。观形势，知大小。寻龙门，点穴户。",
+     "bai": "观察捍门、罗星这二星的朝向头尾、高低，可作为穴位等级的依据；看关锁的紧慢便知穴之有无，看形势规模便知穴之大小；寻得龙脉出口（龙门）的关键处，来点定穴位（穴户）。",
+     "gloss": [
+      [
+       "龙门/穴户",
+       "龙脉出口/点穴之处"
+      ]
+     ],
+     "logic": "二星头尾高低 → 穴之据; 关锁紧 → 有穴; 形势大 → 穴大",
+     "terms": [
+      "shui",
+      "sha",
+      "xue",
+      "long"
+     ],
+     "quant": {
+      "observables": [
+       "水口关锁紧慢",
+       "流域形势大小"
+      ],
+      "operational": "关锁紧=水口窄+下砂内勾（高关锁度）→有穴；形势大=上游汇水流域规模大→穴大",
+      "metric_unit": "水口关锁度/流域面积",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；紧慢/大小为定性，关锁度/流域为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论水 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/005/"
+      }
+     ],
+     "conf": "high",
+     "notes": "观二星紧慢形势，定穴有无大小。"
+    },
+    {
+     "i": 12,
+     "orig": "水口密，下砂顾。龙若住，水口狭。若不住，便宽阔。",
+     "bai": "水口关锁紧密、下手砂回头护穴，说明龙脉已停驻、水口自然收窄；若龙脉未停驻，水口就宽阔无收。",
+     "gloss": [
+      [
+       "下砂顾",
+       "下手砂回头护穴"
+      ],
+      [
+       "龙住",
+       "龙脉停驻结作"
+      ]
+     ],
+     "logic": "IF 龙住（脉止） THEN 水口狭（密）; IF 龙不住 THEN 水口宽阔",
+     "terms": [
+      "shui",
+      "sha",
+      "long"
+     ],
+     "quant": {
+      "observables": [
+       "水口宽窄",
+       "下砂是否内勾"
+      ],
+      "operational": "水口狭=出水口窄+下砂内勾回护（高关锁）；宽阔=出口开敞无关锁（龙未止）",
+      "metric_unit": "水口宽(m)/下砂内勾角(deg)",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；龙住水口狭为定性，水口宽窄为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论水 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/005/"
+      }
+     ],
+     "conf": "high",
+     "notes": "龙住则水口狭，龙不住则水口阔。"
+    },
+    {
+     "i": 13,
+     "orig": "见怪形，论得水，五龙落，四水聚。真血脉，真生气。",
+     "bai": "遇到特殊地形，从水局去论：五条龙脉汇落、四方之水聚合，就是真正的血脉与生气所在。",
+     "gloss": [
+      [
+       "五龙落/四水聚",
+       "多脉汇落、多水聚合"
+      ]
+     ],
+     "logic": "IF 五龙落 且 四水聚 THEN 真血脉真生气",
+     "terms": [
+      "shui",
+      "long",
+      "qi",
+      "mai"
+     ],
+     "quant": {
+      "observables": [
+       "多条脊线是否汇落一处",
+       "多向水是否聚合一处"
+      ],
+      "operational": "五龙落四水聚=多条脊线汇聚+多向汇水（flow）聚于一汇水中心",
+      "metric_unit": "脊线汇聚数/多向汇水度",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；五龙四水为定性，脊汇/水聚为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论水 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/005/"
+      }
+     ],
+     "conf": "high",
+     "notes": "五龙落、四水聚为真血脉生气。"
+    },
+    {
+     "i": 14,
+     "orig": "洋潮汪汪，水格之富。湾环曲折，水格之贵。直流直去，下贱无比。",
+     "bai": "宽阔汪洋的水主富，湾环曲折迂回的水主贵，直来直去毫无停蓄则格局低贱无比。",
+     "gloss": [
+      [
+       "洋潮汪汪",
+       "水面宽阔浩荡"
+      ]
+     ],
+     "logic": "洋潮汪汪→富; 湾环曲折→贵; 直流直去→下贱",
+     "terms": [
+      "shui"
+     ],
+     "quant": {
+      "observables": [
+       "水面是否宽阔",
+       "水道是否曲折或直去"
+      ],
+      "operational": "湾环曲折=高 channel sinuosity（贵）；直流直去=低 sinuosity（贱）；洋潮=大水面",
+      "metric_unit": "channel sinuosity/水面面积",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "现代GIS假说，非原文数值；曲折/直去为定性，sinuosity 为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论水 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/005/"
+      }
+     ],
+     "conf": "high",
+     "notes": "水格：洋潮主富、曲折主贵、直去下贱。"
+    },
+    {
+     "i": 15,
+     "orig": "有形与穴克的，穴小水大的，穿破堂局的，穴前割脚的，过穴反背的，尖射穴的，皆从凶论。",
+     "bai": "凡水形与穴相克的、穴小而来水过大的、水流穿破明堂的、在穴前割脚的、流过穴后反身背离的、尖锐水流直射穴场的，全按凶局论。",
+     "gloss": [
+      [
+       "割脚",
+       "水贴穴脚冲刷"
+      ],
+      [
+       "反背",
+       "水过穴后背离"
+      ],
+      [
+       "尖射",
+       "直水尖锐冲射穴"
+      ]
+     ],
+     "logic": "凶水: 与穴克 / 穴小水大 / 穿破堂局 / 穴前割脚 / 过穴反背 / 尖射穴",
+     "terms": [
+      "shui",
+      "xue",
+      "mingtang",
+      "sha_evil",
+      "chong"
+     ],
+     "quant": {
+      "observables": [
+       "水是否割穴脚冲刷",
+       "是否直射穴",
+       "是否过穴反背"
+      ],
+      "operational": "割脚=水紧贴穴脚（近距高 flow 冲刷）；尖射=直河正对穴（冲，aim 偏角小）；反背=水凸面背穴",
+      "metric_unit": "到穴距(m)/直冲aim偏角(deg)/水凸凹向",
+      "falsifiable": true,
+      "engine": "RoomPalace",
+      "evidence": "现代GIS假说，非原文数值；割脚/尖射/反背为定性，距离/aim 为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论水 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/005/"
+      },
+      {
+       "what": "冲=直来急射、气乘风则散界水则止",
+       "source": "DaoCore Shared Ontology v2.0.0 (chong/sha_evil)"
+      }
+     ],
+     "conf": "high",
+     "notes": "诸凶水：克穴/穴小水大/穿堂/割脚/反背/尖射。"
+    },
+    {
+     "i": 16,
+     "orig": "寻龙认气，认气尝水，其色碧，其味甘，其气香，主上贵。其色白，其味清，其气温，主中贵。其色淡，其昧辛，其气烈，主下贵。若酸涩，若发馊，不足论。",
+     "bai": "寻龙先认气，认气须尝水：水色碧绿、味甘、气香，主上等富贵；水色白净、味清、气温和，主中等富贵；水色淡薄、味辛、气猛烈，主下等富贵；若水味酸涩或发馊，则此地不值一论。",
+     "gloss": [
+      [
+       "尝水",
+       "品尝水的色味气"
+      ]
+     ],
+     "logic": "水质分等: 碧甘香→上贵; 白清温→中贵; 淡辛烈→下贵; 酸涩/发馊→不足论",
+     "terms": [
+      "shui",
+      "qi",
+      "long"
+     ],
+     "quant": {
+      "observables": [
+       "水的色、味、气（感官品质）"
+      ],
+      "operational": "水之色味气为感官判据（水质化学/感官评价），非地形派生量；不纳入 DEM 量化",
+      "metric_unit": "感官分级(上/中/下/不足论)",
+      "falsifiable": false,
+      "engine": null,
+      "evidence": "原文以色味气定贵贱，属水质感官判据，非现代地形GIS量；无原文数值"
+     },
+     "src": [
+      {
+       "what": "博山篇·论水 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/005/"
+      }
+     ],
+     "conf": "high",
+     "notes": "尝水辨气：以色味气定上中下贵。属水质感官判据，非GIS量化对象。"
+    },
+    {
+     "i": 17,
+     "orig": "水为朱雀，亦是贵局。有声为凶，无声为吉。咚咚可取，最忌悲泣。",
+     "bai": "穴前的水如朱雀之象，也是贵局。水声宜静不宜喧：无声为吉、有声为凶；声如低沉鼓响（咚咚）尚可取用，最忌水声如人悲泣。",
+     "gloss": [
+      [
+       "朱雀",
+       "穴前之象"
+      ]
+     ],
+     "logic": "水无声→吉; 有声→凶（咚咚尚可取, 悲泣最忌）",
+     "terms": [
+      "shui",
+      "sha"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "博山篇·论水 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/005/"
+      }
+     ],
+     "conf": "high",
+     "notes": "水声宜静；属听觉判据，非GIS量化对象。"
+    },
+    {
+     "i": 18,
+     "orig": "论水远近，当山高低，加减之则，此亦可推。或绕穴后，或绕左右，皆为吉地。面前水法，尤宜精细。",
+     "bai": "论水的远近，应结合山的高低来加减衡量，可据此推求。水或绕穴后、或绕穴左右，皆为吉地；但穴前的水法尤须精细审辨。",
+     "gloss": [
+      [
+       "加减之则",
+       "随山高低增减权衡"
+      ]
+     ],
+     "logic": "水远近 ↔ 山高低相称; 水绕穴后/左右皆吉; 面前水法须精细",
+     "terms": [
+      "shui",
+      "xue",
+      "shan_feng"
+     ],
+     "quant": {
+      "observables": [
+       "水绕穴的方位（后/左右/前）",
+       "水远近与山高低的相称"
+      ],
+      "operational": "水绕穴=河道环抱穴（各向 embrace 凹向穴）；远近随山高低加减",
+      "metric_unit": "环抱方位/embrace角(deg)",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；水绕为定性，环抱为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论水 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/005/"
+      }
+     ],
+     "conf": "high",
+     "notes": "水远近随山高低；绕穴后或左右皆吉，面前水尤须精细。"
+    },
+    {
+     "i": 19,
+     "orig": "水口重重，将相之关。山欲水口，倍加结。平阳水口，势自停纡。外海洋潮，胜于交织。",
+     "bai": "水口重重关锁层叠，是出将入相的大格局。山地的水口贵在加倍紧结；平原的水口虽势缓，自然有停蓄纡回之态；外局若有大江大湖潮水，其力量胜过小水交织。",
+     "gloss": [
+      [
+       "停纡",
+       "停蓄纡回"
+      ]
+     ],
+     "logic": "水口重重→大贵(将相); 山地水口宜紧结; 平阳水口自停纡; 外海洋潮力胜",
+     "terms": [
+      "shui",
+      "sha"
+     ],
+     "quant": {
+      "observables": [
+       "水口是否多重关锁",
+       "平阳水口是否停蓄纡回"
+      ],
+      "operational": "水口重重=多道 spur 层层锁口（多重关锁度）；平阳停纡=平地低坡蓄水纡回（低流速）",
+      "metric_unit": "水口关锁层数/平地流速",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；重重/停纡为定性，关锁层数为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论水 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/005/"
+      }
+     ],
+     "conf": "high",
+     "notes": "水口重重主将相；山地宜紧结，平阳自停纡。"
+    },
+    {
+     "i": 20,
+     "orig": "水口虽阔，纳水之域，或无朝山，真水无山，或无朝山。或无朝水，真山错环，左右变牙，气聚其间。",
+     "bai": "水口虽然宽阔，只要是纳水汇聚的区域，即使没有朝山（真有水可无山）；或者没有朝水，只要真山错落环绕、左右交互咬合如齿牙，地气照样聚于其间。",
+     "gloss": [
+      [
+       "纳水之域",
+       "汇纳众水之处"
+      ],
+      [
+       "变牙",
+       "左右交错咬合如齿牙"
+      ]
+     ],
+     "logic": "IF 纳水之域(水口阔但聚水) THEN 可无朝山; IF 真山错环左右变牙 THEN 虽无朝水气亦聚",
+     "terms": [
+      "shui",
+      "chaoshan",
+      "shan_feng",
+      "qi"
+     ],
+     "quant": {
+      "observables": [
+       "是否为汇水盆域",
+       "左右山是否错环咬合"
+      ],
+      "operational": "纳水之域=大汇水盆（高 flow_accumulation 汇区）；错环变牙=两侧 spur 交错咬合形成 enclosure",
+      "metric_unit": "汇水面积/两侧交错enclosure",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "现代GIS假说，非原文数值；纳水/错环为定性，汇水/交错为操作化映射"
+     },
+     "src": [
+      {
+       "what": "博山篇·论水 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/005/"
+      }
+     ],
+     "conf": "high",
+     "notes": "纳水之域可无朝山；山错环变牙则气聚。源文'或无朝山'似重出，疑衍。"
+    },
+    {
+     "i": 21,
+     "orig": "山应稍迟，水应神速。山行益后，水行益前。大约世数，不过十步。",
+     "bai": "山的风水应验较慢、水的应验神速；山主长远之福、水主眼前之利。推算世代，大致以十步为度。",
+     "gloss": [
+      [
+       "山应/水应",
+       "山主之应验/水主之应验"
+      ]
+     ],
+     "logic": "山应迟(主远福)、水应速(主近利); 世数约以十步计",
+     "terms": [
+      "shui",
+      "shan_feng"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "博山篇·论水 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/005/"
+      }
+     ],
+     "conf": "high",
+     "notes": "山应迟、水应速；'十步对应世数'为术数对应，非可证伪地形量。"
+    },
+    {
+     "i": 22,
+     "orig": "若问祸福，断在何方。占水乘舟，决水量地，阳脉几尺，阴脉几尺，要知水法，元情空色。",
+     "bai": "若要推断祸福在哪一方，须观水势（如乘舟占水）、量度地脉，阳脉几尺、阴脉几尺；要知水法的根本，全在参透\"元、情、空、色\"四字。",
+     "gloss": [
+      [
+       "元情空色",
+       "水法的四字要诀"
+      ]
+     ],
+     "logic": "断祸福方位须占水量地（阳脉/阴脉几尺）; 水法根本在'元情空色'",
+     "terms": [
+      "shui",
+      "mai"
+     ],
+     "quant": {
+      "observables": [
+       "地脉的阳脉/阴脉尺寸量度"
+      ],
+      "operational": "阳脉/阴脉几尺=古制量地脉尺寸，对应脊/水的距离量度；古尺为概略，非现代标准量",
+      "metric_unit": "古制尺(概略)",
+      "falsifiable": false,
+      "engine": null,
+      "evidence": "'几尺'为古制概略量地譬语，非现代GIS标准量；原文不给可换算确数"
+     },
+     "src": [
+      {
+       "what": "博山篇·论水 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/005/"
+      }
+     ],
+     "conf": "high",
+     "notes": "占水量地断祸福；水法要诀'元情空色'。"
+    },
+    {
+     "i": 23,
+     "orig": "何为阳?巽丙及丁、震、庚、艮、亥、辛、巳、壬方水，法之吉，嗣以凶祥。",
+     "bai": "哪些方位属阳水？巽、丙、丁、震、庚、艮、亥、辛、巳、壬诸方来水，合法度则吉，其后续吉凶仍需兼看。",
+     "gloss": [
+      [
+       "阳水",
+       "属阳方位的来水"
+      ],
+      [
+       "嗣以凶祥",
+       "其后续吉凶尚须兼看"
+      ]
+     ],
+     "logic": "阳水方位: 巽丙丁震庚艮亥辛巳壬 → 合法则吉(后续吉凶须兼看)",
+     "terms": [
+      "shui",
+      "xiang"
+     ],
+     "quant": {
+      "observables": [
+       "来水的方位（二十四山）"
+      ],
+      "operational": "来水方位=二十四山方位（每山15°）；据阳水吉方判吉",
+      "metric_unit": "来水azimuth(deg, 24山×15°)",
+      "falsifiable": false,
+      "engine": "CompassModel",
+      "evidence": "24山为传统罗盘刻度；阳水方位吉凶为理气派传统配属，非可证伪地形量"
+     },
+     "src": [
+      {
+       "what": "博山篇·论水 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/005/"
+      }
+     ],
+     "conf": "high",
+     "notes": "阳水方位之吉。"
+    },
+    {
+     "i": 24,
+     "orig": "上中下格，还看龙神。龙贱水贵，亦非全吉。水贱龙贵，也堪从革。",
+     "bai": "最终定上、中、下等格局，还要回到龙脉来看：龙脉差而水局好，并非全吉；水局差而龙脉佳，还可以变通补救。",
+     "gloss": [
+      [
+       "从革",
+       "变通改造、补救"
+      ]
+     ],
+     "logic": "IF 龙贱水贵 THEN 非全吉; IF 水贱龙贵 THEN 可从革(变通补救)",
+     "terms": [
+      "shui",
+      "long"
+     ],
+     "quant": null,
+     "src": [
+      {
+       "what": "博山篇·论水 原文与白话译文",
+       "source": "古籍典藏 luckclub.cn",
+       "url": "https://www.luckclub.cn/dixiang/001/005/"
+      }
+     ],
+     "conf": "high",
+     "notes": "论水收束：格局终归看龙神，龙水须相称。"
+    }
+   ]
+  }
+ ]
+}

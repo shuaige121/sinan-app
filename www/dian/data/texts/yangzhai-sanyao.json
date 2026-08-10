@@ -1,0 +1,62 @@
+{
+  "id": "yangzhai-sanyao",
+  "title": "阳宅三要",
+  "subtitle": "陽宅三要",
+  "author": "清·赵九峰",
+  "dynasty": "清",
+  "authorNote": "赵九峰，清代堪舆学者，著有《阳宅三要》《地理五诀》等书，主张以门、主、灶三者为阳宅风水之要，影响后世阳宅学颇深。",
+  "licenseNote": "公有领域",
+  "source": "https://ctext.org",
+  "sourceName": "中国哲学书电子化计划",
+  "fetchNote": "外网全文尚未收录。以下片段均为二手引用，非一手全文，待核。",
+  "status": "部分",
+  "chapters": [
+    {
+      "id": "intro",
+      "label": "书目说明",
+      "fragments": [
+        {
+          "text": "《阳宅三要》清·赵九峰著，以「大门、主房、灶门」三者为阳宅风水三大要素，论述开门、立向、安灶的选择原则，兼述八卦方位与房室布局之关系，是清代阳宅风水最流行的专著之一。此书为清代阳宅风水的核心文献。\n\n以下已收录片段为二手引用，全文待补。",
+          "attribution": "书目说明（站方自撰，非原文）"
+        }
+      ]
+    },
+    {
+      "id": "ch-sanyao-zong",
+      "label": "三要总论",
+      "fragments": [
+        {
+          "text": "門乃宅之口，主乃宅之主，竈乃宅之腹。",
+          "src": "《阳宅三要》卷一·论三要",
+          "attribution": "二手引用，注明出处「清·赵九峰《阳宅三要》卷一」，非一手原文。"
+        }
+      ]
+    },
+    {
+      "id": "ch-damen",
+      "label": "大门",
+      "fragments": [{ "text": "【待补】" }]
+    },
+    {
+      "id": "ch-zhufang",
+      "label": "主房",
+      "fragments": [{ "text": "【待补】" }]
+    },
+    {
+      "id": "ch-zaomen",
+      "label": "灶门",
+      "fragments": [{ "text": "【待补】" }]
+    },
+    {
+      "id": "ch-lunanzhuang",
+      "label": "论安装（论安床）",
+      "fragments": [
+        {
+          "text": "床首朝吉星方為宜。",
+          "src": "《阳宅三要》卷下·论安床",
+          "attribution": "二手引用，注明出处「《阳宅三要》·卷下「论安床」」。"
+        }
+      ]
+    }
+  ]
+}

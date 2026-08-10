@@ -1,0 +1,336 @@
+{
+  "book": "sanming-tonghui",
+  "srcFile": "annotated/sanming-tonghui.json",
+  "srcHash": "sha256:01dddfb9e4ed2e79687d3da5da91b02acc5bd4e2fa209556566aa68599e1c8a1",
+  "titleEn": "Comprehensive Compendium of the Three Fates",
+  "titlePinyin": "Sānmìng Tōnghuì",
+  "pipeline": "sonnet cited-first translate+adversarial-review (status=draft；须人工抽查 low-conf 后升 reviewed)",
+  "coverage": "cited-only (rules[].src 引用面；非全本)",
+  "sentences": [
+    {
+      "ch": "ch10",
+      "i": 1,
+      "origHash": "9c66c1ff",
+      "en": "Although 丑 Chǒu (Ox) lies in deep winter, with ice and frost to be feared, the season has already turned to the second yang; so the 己 Jǐ (yin Earth) stored within Chǒu is warm and can generate the myriad things, and it serves as the Nurture-ground of 辛 Xīn (yin Metal) — how could it be merely deep-hidden? Meeting 戌 Xū (Dog) it forms a Punishment, meeting 未 Wèi (Goat) a Clash; a storehouse-ground most benefits from Punishment and Clash and is by no means useless. Meeting 巳 Sì (Snake) and 酉 Yǒu (Rooster), the 三合 sānhé (Three Harmonies) rouse a Metal frame. If a person is born in the Chǒu month yet the day and hour pillars show much Water and Wood, one must move aslant toward the 巽 Xùn (SE) and 离 Lí (Fire ☲, S) quarters, so that the Earth phase does not decline.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "Orig writes 己酉, read here as 巳酉 — with 丑 present this makes the 巳酉丑 Metal trine; '二陽' = the two rising yang lines after the winter solstice.",
+      "terms": [
+        "丑",
+        "己",
+        "辛",
+        "戌",
+        "未",
+        "巳",
+        "酉",
+        "三合",
+        "巽",
+        "离",
+        "土"
+      ]
+    },
+    {
+      "ch": "ch10",
+      "i": 2,
+      "origHash": "4b5bcfb0",
+      "en": "寅 Yín (Tiger) establishes in spring, its qi gathering the three yang, and 丙 Bǐng (yang Fire) takes its Birth here. Yín punishes Sì, and Sì combines with 申 Shēn (Monkey); both thriving, it becomes an honored guest. It reaches Prime at 卯 Mǎo (Rabbit) and is stored at 未 (Wèi) — of one kind, they form a single family. Reaching 午 Wǔ (Horse), the fire blazes with the splendor of surpassing the common and entering the sagely. Meeting Shēn, Yín suffers a Clash, bringing the worry of breaking its 禄 lù (Prosperity) and injuring the month-command. If the 四柱 sìzhù (Four Pillars) hold much Fire, one must not enter the southern Fire region — as the saying goes, 'Wood does not gallop south.'",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "Orig 寅刑己巳合申 read as 寅刑巳、巳合申: Yín–Sì is part of the 寅巳申 Three Punishments, and 巳申 is a Six-Harmony. '提' = 提綱, the month-command.",
+      "terms": [
+        "寅",
+        "丙",
+        "巳",
+        "申",
+        "卯",
+        "未",
+        "午",
+        "禄",
+        "四柱",
+        "月令"
+      ]
+    },
+    {
+      "ch": "ch10",
+      "i": 3,
+      "origHash": "03e85ba9",
+      "en": "卯 (Mǎo) Wood, at mid-spring, is endowed with flourishing qi; although it draws on Metal and Water, these must not be excessive. If 庚 Gēng (yang Metal) and 辛 (Xīn) appear stacked in the stems, the branches must not also show 申 (Shēn) and 酉 (Yǒu), lest there be the harm of hacking and felling; if 亥 Hài (Pig) and 子 Zǐ (Rat) recur in the branches, the stems must not show 癸 Guǐ (yin Water) and 壬 Rén (yang Water), for that portends the injury of drifting adrift. Meeting Yǒu, the Clash makes the wood shed its leaves; meeting Hài and 未 (Wèi), the harmony makes the wood grow into a forest. If the hour and day fall to heavy Metal and the 大运 dàyùn (Great Luck cycle) runs further west, the affliction cannot be endured.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "卯",
+        "庚",
+        "辛",
+        "申",
+        "酉",
+        "亥",
+        "子",
+        "癸",
+        "壬",
+        "未",
+        "大运"
+      ]
+    },
+    {
+      "ch": "ch10",
+      "i": 4,
+      "origHash": "ca90a9b6",
+      "en": "辰 Chén (Dragon) establishes in late spring, the dampness of watery mud, and the roots of all things rely on it for nurture. 甲 Jiǎ (yang Wood), reaching here, is in 衰 shuāi (Decline), yet the residual qi of 乙 Yǐ (yin Wood) remains; 壬 (Rén), reaching here, is in 墓 mù (Tomb), yet the returning soul of 癸 (Guǐ) abides. Meeting 戌 (Xū) is like a key that opens the goods within the vault; but if three Xū clash heavily and break the gate, it is not auspicious. If the day and hour show much Water and Wood and the luck-cycle runs further northwest, then the Chén Earth cannot endure.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "辰",
+        "甲",
+        "乙",
+        "壬",
+        "癸",
+        "戌",
+        "衰",
+        "墓"
+      ]
+    },
+    {
+      "ch": "ch10",
+      "i": 5,
+      "origHash": "34c90d71",
+      "en": "巳 (Sì) falls at early summer, its fire growing brighter — the very apex of the six yang. 庚 (Gēng), lodging its Birth here, is hard-pressed and leans on its mother 戊 Wù (yang Earth); the Wù Earth reaches its 禄 (lù, Prosperity) here by riding upon its fire-mother. Meeting 申 (Shēn) makes a Punishment, but within the punishment lies a combination, so it turns out harmless; meeting 亥 (Hài) makes a Clash, and a clash must break, so there is injury. If the luck-cycle again runs to the southeast, the region of sprouting growth, it becomes the force of sky-scorching, blazing flames.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "火孃 'fire-mother' = Fire (丙), which generates Earth; Wù Earth's 禄 at Sì derives from the Fire that produces it.",
+      "terms": [
+        "巳",
+        "庚",
+        "戊",
+        "禄",
+        "申",
+        "亥"
+      ]
+    },
+    {
+      "ch": "ch10",
+      "i": 6,
+      "origHash": "5473e7f1",
+      "en": "In the 午 (Wǔ) month, blazing fire is just rising; as it enters the mid-qi (the Summer Solstice), one yin is born. 庚 (Gēng), reaching here, is useless; 己 (Jǐ), reaching here, returns to its own domain. Meeting 申 (Shēn) and 子 (Zǐ) there must be battle and overcoming; meeting 寅 (Yín) and 戌 (Xū) it grows the brighter. When the luck runs southeast, that is precisely the ground where the self is strong; but entering the northwest, it lies dormant and confined and loses its form.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "Orig writes 已 for 己 (Jǐ, yin Earth); read as 己 — 己 takes its Prosperity (禄) at 午, hence 'returns to its own domain.'",
+      "terms": [
+        "午",
+        "庚",
+        "己",
+        "申",
+        "子",
+        "寅",
+        "戌"
+      ]
+    },
+    {
+      "ch": "ch10",
+      "i": 7,
+      "origHash": "69995327",
+      "en": "未 (Wèi) falls at late summer, when the yin deepens and fire slowly declines. Within Wèi are 乙 (Yǐ) and 丁 Dīng (yin Fire): it stores an Officer star and a Resource star, but no Wealth star. Without 亥 (Hài) and 卯 (Mǎo) to meet with it, its form is hard to transform and one reckons it merely as Fire-and-Earth; without 丑 (Chǒu) and 戌 (Xū) to punish and clash it, the Officer-and-Resource strength of its vault is still not hard to obtain. If the pillars lack Fire, one dreads running the Metal-and-Water luck; if day and hour are mostly cold, it favors the region of 丙 (Bǐng) and Dīng. For the likes and dislikes of the 用神 yòngshén (governing element) must be most clearly discerned — one may not err by a hair.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "未",
+        "乙",
+        "丁",
+        "正官",
+        "正印",
+        "亥",
+        "卯",
+        "丑",
+        "戌",
+        "丙",
+        "用神"
+      ]
+    },
+    {
+      "ch": "ch10",
+      "i": 8,
+      "origHash": "729d9f1f",
+      "en": "The 申 (Shēn) palace is the ground where Water and Earth take their 长生 chángshēng (Birth). Entering 巳 (Sì) and 午 (Wǔ), it meets the tempering of fire and becomes swords and halberds; meeting 子 (Zǐ) and 辰 (Chén), it meets the quenching of water and gains a bright edge. So even if Wood is abundant and Fire absent, the Metal can in the end prevail; but if Earth is heavy, heaping up and burying the Metal, there is instead misfortune — for Shēn is a coarse, blunt metal, unlike the gentle pearl and jade, and so it is.",
+      "conf": "high",
+      "status": "draft",
+      "enNote": "Orig 已午 read as 巳午 (Sì and Wǔ).",
+      "terms": [
+        "申",
+        "长生",
+        "巳",
+        "午",
+        "子",
+        "辰"
+      ]
+    },
+    {
+      "ch": "ch10",
+      "i": 9,
+      "origHash": "af18099a",
+      "en": "酉 (Yǒu) establishes in the eighth month; its metal is white in color, its water flows clear. Should the day and hour meet much Fire, its luck all the more dreads going east; should the day and hour hold flourishing Water, its luck likewise fears going south. If the pillars show watery mud, that should prove useful, and luck running northwest is by no means without favor. Yet meeting 巳 (Sì) and 丑 (Chǒu), the 三合 (sānhé, Three Harmonies) can still make it firm and keen — how could one, taking yin metal for gentle pearl and jade, judge it so rigidly?",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "Orig 己丑 read as 巳丑 — with 酉 present this is the 巳酉丑 Metal trine.",
+      "terms": [
+        "酉",
+        "三合",
+        "巳",
+        "丑"
+      ]
+    },
+    {
+      "ch": "ch10",
+      "i": 10,
+      "origHash": "09467e6e",
+      "en": "戌 (Xū) is the vault of the great furnace, on which blunt iron and coarse metal depend to be smelted into form. Meeting 辰 (Chén), the Clash draws out 壬 (Rén) Water, and rain and dew are born; meeting 寅 (Yín), it rouses 丙 (Bǐng) Fire, and literary brilliance emerges. Yet a Fire destiny that meets it enters the 墓 (mù, Tomb) — how could it escape unharmed?",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "戌",
+        "辰",
+        "壬",
+        "寅",
+        "丙",
+        "墓"
+      ]
+    },
+    {
+      "ch": "ch11",
+      "i": 4,
+      "origHash": "a330ceb7",
+      "en": "戊 (Wù) Earth is the sunset glow. Earth has no qi of its own and relies on Fire to be generated; the glow has no fixed body and borrows the sun to appear. Knowing that 丙 (Bǐng) is the sun, one knows that Wù Earth is the glow. The glow is the sun's remainder: when the sun is spent the glow fades away, and when the fire dies out Earth has no living impulse — hence it is called the glow. When 大挠氏 Dà Náo shì expounded the 纳音 nàyīn (sound-value) images of the 五行 wǔxíng (Five Phases), he took the pillar 戊午 Wùwǔ to be 'Fire in the Sky' — the sense is just this. Thus if Wù Earth is the 日主 rìzhǔ (Day Master), it loves the Four Pillars to carry Water, which makes a superior chart, for glow and water mirroring each other form brilliant patterns; still more it delights to see 癸 (Guǐ) in the year and month stems, for Guǐ is rain, and after the rain the glow appears — one beholds a bright refinement.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "戊",
+        "丙",
+        "纳音",
+        "五行",
+        "日主",
+        "癸"
+      ]
+    },
+    {
+      "ch": "ch11",
+      "i": 5,
+      "origHash": "52d63016",
+      "en": "己 (Jǐ) Earth is cloud. Jǐ Earth takes its Birth at 酉 (Yǒu); Yǒu is the 兑 Duì (the Joyous / Lake ☱) quarter, whose image is the marsh. A former worthy said, 'When Heaven sends down timely rain, the mountains and streams put forth clouds' — and so clouds are the qi of mountains and marshes. Though Jǐ belongs to Earth, reckoned thus it is fitting to call it cloud. Hence 甲 (Jiǎ) and Jǐ combine and transform into Earth: their qi rises and clouds spread; cloud and thunder meet and make rain; the moisture penetrates below and the earth is enriched — this is the utmost marvel of creation, the utmost marvel indeed! For anyone whose Day Master is Jǐ Earth, it is prized to sit on Yǒu, prized to be born in spring, prized to see a Resource star; but one who sits on 亥 (Hài) must not see 乙 (Yǐ) Wood, for a cloud rising skyward and meeting wind is scattered in disarray beyond bearing.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "Orig writes 巳土/已 for 己土 (Jǐ Earth), per the passage's theme. 甲己合化土 is one of the Five Stem-Combinations; '先正' quote echoes the Book of Rites.",
+      "terms": [
+        "己",
+        "酉",
+        "兑",
+        "甲",
+        "乙",
+        "亥",
+        "日主",
+        "正印",
+        "天干五合"
+      ]
+    },
+    {
+      "ch": "ch11",
+      "i": 6,
+      "origHash": "db4d9db6",
+      "en": "庚 (Gēng) is the moon. Gēng is the yang metal of the 酉 (Yǒu, west) quarter — how does one know it pairs with the moon? One answers: that the 五行 (wǔxíng, Five Phases) have Gēng is like the four seasons having the moon. Gēng does not wait for autumn to take its Birth, yet must reach autumn to first flourish; the moon does not wait for autumn to exist, yet must reach autumn to grow brighter. By color, the moon is indeed white — their color is the same; by qi, Metal generates Water and the tides answer the moon — their qi is the same. The ancient sexagenary names take Gēng as 'Shàngzhāng,' showing that it rises in brightness with the sun; a classic says 'Metal sinks at 子 (Zǐ),' showing that it sinks beneath the waves with the moon; on the third day the moon appears in the Gēng quarter, showing that the newborn moon shares Gēng's position — hence it is said that Gēng Metal is the moon. If a person is born on a Gēng day and the Four Pillars bring forth the graphs 乙 (Yǐ) and 巳 (Sì), this is called 'moon-white and wind-clear': autumn is best, winter next, spring and summer of no worth.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "'上章 Shàngzhāng' is the archaic Ěryǎ stem-name for 庚; '金沉在子' reflects Metal's weakness at the 子 stage.",
+      "terms": [
+        "庚",
+        "酉",
+        "五行",
+        "子",
+        "乙",
+        "巳",
+        "四柱"
+      ]
+    },
+    {
+      "ch": "ch11",
+      "i": 8,
+      "origHash": "57807504",
+      "en": "壬 (Rén) Water is autumn dew. Spring too has dew — why liken it only to autumn? Because spring dew is the dew of which it is said 'the rain and dew have moistened,' while autumn dew is the dew of which it is said 'the frost and dew have descended.' Dew is one, yet spring governs generation and autumn governs killing — their functions differ just so. Still I take Rén to be autumn dew: for dew belongs to Water, and Rén Water takes its Birth at 申 (Shēn). Water is by nature able to generate Wood — yet since Water is born here, why should Wood instead reach its 绝 jué (Extinction) here? Hence one knows that Rén as dew is autumn dew. Thus if one is born on a Rén day in autumn, to see 丁 (Dīng) Fire is most illustrious: Dīng is the star-river, Rén is the autumn dew, and once it washes away the sweltering heat, the celestial patterns shine forth clearly.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "'雨露既濡' / '霜露既降' are classical allusions — nourishing spring dew vs. withering autumn dew; 申 is Water's Birth but Wood's Extinction, which marks Rén's dew as autumn's killing dew.",
+      "terms": [
+        "壬",
+        "申",
+        "长生",
+        "绝",
+        "丁"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 0,
+      "origHash": "a7c6b5a1",
+      "en": "子 (Zǐ) is the ink-pool. Zǐ lies due north and belongs to Water; its color resembles ink, hence the image of an ink-pool. For any chart born in a Zǐ year, the hour delights to meet 癸亥 Guǐhài (Guǐ over Hài) — this is called 'water returning to the great sea,' and also 'twin fish sporting in ink': such a one will surely be a person of letters.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "子",
+        "癸",
+        "亥"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 1,
+      "origHash": "b823f057",
+      "en": "午 (Wǔ) is the beacon-mound. Wǔ stands due south and belongs to Fire and Earth; its color is red-yellow, and that is why it is named the beacon-mound. Again, Wǔ is the horse-post, the place of war-horses and the fires of battle. A person born in Wǔ benefits from meeting 辰 (Chén) in the hour: when the true dragon appears, the common horses are made void — this is called 'the horse transformed into a dragon-colt.'",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "午",
+        "辰"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 2,
+      "origHash": "3db9e211",
+      "en": "卯 (Mǎo) is the jade-forest. Mǎo belongs to 乙 (Yǐ) Wood, sits due east, and in season is mid-spring, when the myriad things are born; its color is like the green of 琅玕 lánggān jade, hence it is called the jade-forest. One born in a Mǎo year who meets a 己未 Jǐwèi (Jǐ over Wèi) hour has the image of 'the rabbit entering the moon-palace' — this portends great nobility.",
+      "conf": "high",
+      "status": "draft",
+      "enNote": "琅玕 lánggān = a jade-like green stone.",
+      "terms": [
+        "卯",
+        "乙",
+        "己",
+        "未"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 3,
+      "origHash": "04f28f18",
+      "en": "酉 (Yǒu) is the temple-bell. Yǒu belongs to Metal and sits near 戌 (Xū) and 亥 (Hài) — Xū and Hài being the Gate of Heaven — and a bell is a thing of metal; when the temple-bell is struck, its sound pierces the Gate of Heaven. Again, Yǒu sits due west, and the temple is the Buddha-realm of the West. Yǒu meeting 寅 (Yín) is auspicious — this is called 'the bell rings and the valley answers.'",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "酉",
+        "戌",
+        "亥",
+        "寅"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 4,
+      "origHash": "cac11834",
+      "en": "寅 (Yín) is the broad valley. Yín is the 艮 Gèn (Keeping Still / Mountain ☶) quarter, and Gèn is the mountain, where 戊 (Wù) Earth takes its Birth — so the sense of 'broad valley' becomes manifest. Yet the Yín palace holds the tiger: a person born in Yín whose hour is 戊辰 Wùchén (Wù over Chén) is said to embody 'the tiger roars and the valley-wind rises, its might shaking ten thousand li.'",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "寅",
+        "艮",
+        "戊",
+        "辰",
+        "长生"
+      ]
+    }
+  ]
+}

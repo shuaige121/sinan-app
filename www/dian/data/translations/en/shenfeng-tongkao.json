@@ -1,0 +1,1515 @@
+{
+  "book": "shenfeng-tongkao",
+  "srcFile": "annotated/shenfeng-tongkao.json",
+  "srcHash": "sha256:2eff08c9c448647aaa2bb1efb4fb71b4dcf456111e597f2e587a7856395cc238",
+  "titleEn": "Shenfeng's Comprehensive Examination",
+  "titlePinyin": "Shénfēng Tōngkǎo",
+  "pipeline": "sonnet cited-first translate+adversarial-review (status=draft；须人工抽查 low-conf 后升 reviewed)",
+  "coverage": "cited-only (rules[].src 引用面；非全本)",
+  "sentences": [
+    {
+      "ch": "ch03",
+      "i": 47,
+      "origHash": "8a6cdce8",
+      "en": "Therefore, when one examines a woman's chart, one takes the husband star as primary and the child star as secondary; if there is a husband star among the pillars, one judges by the husband star, and if there is originally no husband star, one seeks another pattern.",
+      "conf": "high",
+      "status": "draft"
+    },
+    {
+      "ch": "ch03",
+      "i": 52,
+      "origHash": "2862102c",
+      "en": "Generally, in a woman's chart, where there is a husband there is a child, for the child is generated from the husband; where there is no husband there is no child—so from where would the child be sought?",
+      "conf": "high",
+      "status": "draft"
+    },
+    {
+      "ch": "ch03",
+      "i": 58,
+      "origHash": "d704dc3c",
+      "en": "For if there is no husband star among the pillars of the eight characters (bāzì), then out of what could the child star be generated?",
+      "conf": "high",
+      "status": "draft"
+    },
+    {
+      "ch": "ch05",
+      "i": 35,
+      "origHash": "112f7001",
+      "en": "By distinguishing in this way, one knows why a thing is strong and which one is strong: [when Wealth is too strong,] one should move through the Companion and Rob-Wealth luck to remove the Wealth star; when the Resource star is too strong, one should move through the Wealth-star luck to break its Resource; and when the day stem is too strong, one should move through the Officer and Killings luck to restrain its Day Master.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "orig is corrupt here: 由引 for 由此, and the opening clause naming an over-strong Wealth star is elided before 宜行比劫; 动 read as 运 ('luck period'). Rendered per the parallel structure.",
+      "terms": [
+        "比肩",
+        "劫财",
+        "正财",
+        "正印",
+        "正官",
+        "七杀"
+      ]
+    },
+    {
+      "ch": "ch05",
+      "i": 50,
+      "origHash": "a59c7058",
+      "en": "If the Officer star is too weak, one should move into a region where the Officer flourishes; if the Wealth star is too weak, into a place where Wealth flourishes; if the Day Master is too weak, into a place where the self flourishes.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "正官",
+        "正财"
+      ]
+    },
+    {
+      "ch": "ch06",
+      "i": 22,
+      "origHash": "81529512",
+      "en": "For example, Jiǎ Wood (甲) takes its Birth stage (长生 chángshēng) at Hài (亥); within Hài there is Rén Water (壬), which comes to nourish the Jiǎ Wood.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "甲",
+        "亥",
+        "壬",
+        "木",
+        "水",
+        "长生"
+      ]
+    },
+    {
+      "ch": "ch06",
+      "i": 24,
+      "origHash": "1a450a56",
+      "en": "For example, Yǐ Wood (乙) takes its Birth stage at Wǔ (午); within Wǔ there is Dīng Fire (丁), which drains off Wood's finest essence, and Jǐ Earth (己), which bends and obstructs the Yǐ Wood.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "乙",
+        "午",
+        "丁",
+        "己",
+        "木",
+        "火",
+        "土"
+      ]
+    },
+    {
+      "ch": "ch06",
+      "i": 28,
+      "origHash": "80bf4385",
+      "en": "For example, when Wood is born at Hài (亥), its root-breath (qì) is still withered and dry, so one cannot yet regard the Wood as strong.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "犹桔 read as 犹枯, 'still withered,' per sense (桔 apparently a graphic error for 枯).",
+      "terms": [
+        "木",
+        "亥",
+        "气"
+      ]
+    },
+    {
+      "ch": "ch06",
+      "i": 29,
+      "origHash": "96a54485",
+      "en": "For example, when Fire is born at Yín (寅), its flaming breath (qì) is still cold, so one cannot yet regard the Fire as strong.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "火",
+        "寅",
+        "气"
+      ]
+    },
+    {
+      "ch": "ch07",
+      "i": 25,
+      "origHash": "1e2ec039",
+      "en": "For example, the Chǒu branch (丑) requires the Wèi branch (未) to clash with it; nothing else can break it open.",
+      "conf": "high",
+      "status": "draft",
+      "enNote": "Chǒu here functions as a storage-vault (库) that only its clashing branch, Wèi, can open.",
+      "terms": [
+        "丑",
+        "未"
+      ]
+    },
+    {
+      "ch": "ch09",
+      "i": 0,
+      "origHash": "52f19949",
+      "en": "Wealth and Officer on the year pillar signifies the glory and eminence of the ancestors; Officer and Killings on the month pillar signifies the withering of one's brothers.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "财官 is a paired compound; rendered 'Wealth and Officer' for consistency with i2's 临财官之地.",
+      "terms": [
+        "正财",
+        "正官",
+        "七杀"
+      ]
+    },
+    {
+      "ch": "ch09",
+      "i": 2,
+      "origHash": "c510682c",
+      "en": "Now the year is the palace of the ancestors; when it adjoins ground of Wealth and Officer, it sits in the region of Lù-Mǎ (禄马, the Prosperity and Traveling-Horse stars), so glory and eminence follow as a matter of course.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "禄马: 禄 the Prosperity/rank star and 驿马 the Traveling-Horse star; not in the glossary, glossed here.",
+      "terms": [
+        "正财",
+        "正官"
+      ]
+    },
+    {
+      "ch": "ch09",
+      "i": 6,
+      "origHash": "9cfea64a",
+      "en": "If the year and month pillars hold no Wealth or Officer, both signify shallow foundations and a household built from bare hands; and if within the month command (月令) the Officer and Killings wields authority, it too signifies harm to one's brothers.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "正财",
+        "正官",
+        "七杀"
+      ]
+    },
+    {
+      "ch": "ch09",
+      "i": 8,
+      "origHash": "306d2539",
+      "en": "The Companion (比肩 bǐjiān) is the longevity star of one's brothers; when it meets the Officer and Killings overcoming it face to face, how could the brothers escape harm?",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "比肩",
+        "正官",
+        "七杀"
+      ]
+    },
+    {
+      "ch": "ch09",
+      "i": 9,
+      "origHash": "903a1323",
+      "en": "Hence the saying: 'When Officer-then-Killings line up at the gate, the elder brother's years are cut short; when Killings-then-Officer command the door, the younger brothers come in ranks.'",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "A mnemonic couplet; the contrast turns on the order 官杀 versus 杀官 at the household 'gate/door' position.",
+      "terms": [
+        "正官",
+        "七杀"
+      ]
+    },
+    {
+      "ch": "ch09",
+      "i": 16,
+      "origHash": "c9e98fbe",
+      "en": "Now Wealth can harm the mother and Officer can overcome the brothers, so it often signifies the withering of both parents and brothers.",
+      "conf": "high",
+      "status": "draft",
+      "enNote": "'mother' = the Direct Resource (正印) star, 'brothers' = the Companion (比肩), per the overcoming logic (Wealth overcomes Resource; Officer overcomes Companion).",
+      "terms": [
+        "正财",
+        "正官",
+        "正印",
+        "比肩"
+      ]
+    },
+    {
+      "ch": "ch09",
+      "i": 18,
+      "origHash": "91c6b5d6",
+      "en": "Now the Yǐ-Sì day (乙巳) sits over a hidden Gēng (庚) that serves as husband, and the Dīng-Sì day (丁巳) sits over a hidden Gēng that serves as Wealth; since Wealth can generate the husband, one cannot say she has no husband.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "orig 不可谓夫婿也 taken as 不可谓无夫婿也, 'cannot be said to lack a husband,' per the 白话; 会下 read as 'beneath, within the day-branch.' Gēng is the Officer/husband star for Yǐ and the Wealth star for Dīng.",
+      "terms": [
+        "乙",
+        "巳",
+        "庚",
+        "丁",
+        "正财",
+        "正官"
+      ]
+    },
+    {
+      "ch": "ch09",
+      "i": 19,
+      "origHash": "b34c48c0",
+      "en": "A woman born on these two days [Yǐ-Sì or Dīng-Sì] mostly signifies one who makes both husband and children prosper.",
+      "conf": "high",
+      "status": "draft"
+    },
+    {
+      "ch": "ch09",
+      "i": 20,
+      "origHash": "5a825131",
+      "en": "'The Metal Pig has no husband'—this refers to the Xīn-Hài day (辛亥); the Xīn-Hài day sits over a hidden Direct Wealth (正财 zhèngcái), and since Wealth too can produce the husband, how can one say she has no husband?",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "辛",
+        "亥",
+        "甲",
+        "正财",
+        "金"
+      ]
+    },
+    {
+      "ch": "ch09",
+      "i": 21,
+      "origHash": "458080fc",
+      "en": "'The Earth Monkey long lies alone'—this is the Wù-Shēn day (戊申); it sits over Gēng Metal (庚), which can overcome the husband.",
+      "conf": "high",
+      "status": "draft",
+      "enNote": "For Wù Earth the husband star is Wood (the Officer); the hidden Gēng Metal overcomes that Wood, hence harm to the husband.",
+      "terms": [
+        "戊",
+        "申",
+        "庚",
+        "金"
+      ]
+    },
+    {
+      "ch": "ch09",
+      "i": 22,
+      "origHash": "991a6835",
+      "en": "A chart on the Wù-Shēn day (戊申) most severely harms the husband.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "发命 taken as the (woman's) natal chart, per the 白话.",
+      "terms": [
+        "戊",
+        "申"
+      ]
+    },
+    {
+      "ch": "ch09",
+      "i": 27,
+      "origHash": "8a624909",
+      "en": "If the four branches Chén (辰), Xū (戌), Chǒu (丑), and Wèi (未) are all present, this is to sit within the four prisons of Heaven and Earth—how then could she bear children?",
+      "conf": "high",
+      "status": "draft",
+      "enNote": "辰戌丑未 are the four storage-vault (墓库) branches.",
+      "terms": [
+        "辰",
+        "戌",
+        "丑",
+        "未"
+      ]
+    },
+    {
+      "ch": "ch10",
+      "i": 34,
+      "origHash": "d36c4759",
+      "en": "Sīmǎ Jìzhǔ (司马季主) says: 'When a true Officer is met at the hour, one attains early the investiture of gold and purple.'",
+      "conf": "high",
+      "status": "draft",
+      "enNote": "金紫 = the gold seal and purple ribbon, i.e. high office. Name hanzi 司马季主 supplied on first occurrence per the name-handling rule.",
+      "terms": [
+        "正官"
+      ]
+    },
+    {
+      "ch": "ch10",
+      "i": 35,
+      "origHash": "5d8565c8",
+      "en": "A supplementary note says: '\"A true Officer met at the hour\" means a genuine Direct Officer star encountered at the hour pillar of birth—precisely what the 《渊源》 *Yuānyuán* calls the \"hour Direct Officer pattern\" (时土正官格)—so that one will surely gain early the honor of gold at the waist and purple robes.'",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "时土正官格: 土 likely a graphic error for 上, i.e. 时上正官格, 'Direct Officer on the hour pillar.' 《渊源》 kept verbatim—probably an abbreviation of 《渊海子平》 Yuānhǎi Zǐpíng (in the glossary bookTitles), but not emended here, so pinyin only and no forced English title.",
+      "terms": [
+        "正官"
+      ]
+    },
+    {
+      "ch": "ch10",
+      "i": 78,
+      "origHash": "68691609",
+      "en": "Nán (楠) says: 'Dīng (丁) meeting Wù Earth (戊) heaped too thick, the Rén Water (壬) is repeatedly overcome and restrained—inauspicious.'",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "楠 = the commentator, very likely Zhāng Nán (张楠) of the 《神峰通考》 Shénfēng Tōngkǎo tradition; the source gives only the mononym 楠, so it is kept as written rather than expanded to a full name. Heavy Wù Earth (戊, Dīng's output) overcomes the Rén Water (壬, Dīng's Officer/husband star).",
+      "terms": [
+        "丁",
+        "戊",
+        "壬",
+        "土",
+        "水"
+      ]
+    },
+    {
+      "ch": "ch10",
+      "i": 91,
+      "origHash": "1d8233ef",
+      "en": "Nán (楠) says: 'Guǐ (癸) born in the month of Xū (戌), the Earth heaped thick upon thick; Jiǎ (甲) exercising control at the head of the stems instead proves meritorious.'",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "楠 = the commentator (same as ch10 i78, likely Zhāng Nán 张楠); mononym kept as written. 干头 = the head of the stems (the heavenly-stem line); Jiǎ Wood controls the over-heavy Earth (甲木克土), relieving the pressure on Guǐ Water.",
+      "terms": [
+        "癸",
+        "戌",
+        "甲",
+        "土"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 17,
+      "origHash": "e1ea1b05",
+      "en": "If the eight characters have Hurting Officer (伤官 shāngguān) and Eating God (食神 shíshén) piled up while the Day Master is originally declining and weak, one must urgently move through Resource (印) luck to break the Hurting Officer and through Wealth luck to sustain the Day Master; this is a chart with an ailment, and once it obtains its remedy and is rescued, it too yields much wealth and rank.",
+      "conf": "high",
+      "status": "draft",
+      "enNote": "有病这命 = 有病之命 (这 for 之), 'a chart that has an ailment,' invoking the 病药 ailment-and-cure doctrine. 资其日主 rendered literally per orig, though the drain-vs-nourish logic is the classic's own claim.",
+      "terms": [
+        "伤官",
+        "食神",
+        "正印",
+        "正财"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 25,
+      "origHash": "b0497f6c",
+      "en": "Now in the Wood-Fire Hurting Officer pattern: suppose Jiǎ or Yǐ Wood (甲乙) is born in the first month; then meeting Fire yields a false Hurting Officer—for its fire is a hollow fire, its flame not yet blazing, and the Wood-breath (qì) is plain and firm, so that although it meets Fire the true nature of the Wood is not burned.",
+      "conf": "high",
+      "status": "draft",
+      "enNote": "正月, the first lunar month, is the Yín (寅) month.",
+      "terms": [
+        "甲",
+        "乙",
+        "木",
+        "火",
+        "伤官",
+        "气"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 28,
+      "origHash": "17c96c73",
+      "en": "If Jiǎ or Yǐ Wood is born into the Sì (巳) or Wǔ (午) month, the blazing Fire steals the breath (qì) of the Jiǎ-Yǐ Wood; this is then called a true Hurting Officer.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "甲",
+        "乙",
+        "巳",
+        "午",
+        "木",
+        "火",
+        "气",
+        "伤官"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 29,
+      "origHash": "7c468941",
+      "en": "Since it already drains too much of the Wood's essence, if Gēng or Xīn (庚辛, Metal) as Officer and Killings is further added to restrain the Day Master, then this Wood-Fire Hurting Officer likewise dreads meeting the Officer.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "庚",
+        "辛",
+        "正官",
+        "七杀",
+        "伤官",
+        "木",
+        "金"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 30,
+      "origHash": "3fd9fc66",
+      "en": "If the Day Master is strong and the Hurting Officer abundant, then meeting the Officer and Seven Killings (官杀) instead becomes one's own 'power-Killings' (权杀), and this too often yields wealth and rank.",
+      "conf": "high",
+      "status": "draft",
+      "enNote": "官杀 = the Direct Officer and Seven Killings taken together; 权杀 'power-Killings' = the Killings converted into usable authority when the Day Master is strong.",
+      "terms": [
+        "日主",
+        "伤官",
+        "七杀"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 32,
+      "origHash": "5d522386",
+      "en": "If a Gēng or Xīn Metal Day Master is born in the Zǐ month (or the Hài or Chǒu month), where layer upon layer of Water-breath drains and weakens the breath of Gēng-Xīn Metal, this is called 'Metal and Water gone cold'; it then welcomes Bǐng or Dīng Fire as the Officer star, to warm the Metal's breath.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "庚",
+        "辛",
+        "日主",
+        "子",
+        "亥",
+        "丑",
+        "水",
+        "金",
+        "丙",
+        "丁",
+        "火",
+        "正官"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 40,
+      "origHash": "81a648cf",
+      "en": "As for the true Hurting Officer: a Jiǎ or Yǐ day born in the Sì, Wǔ, or Wèi month, where true Fire acts as the Hurting Officer in command; for the Jiǎ-Yǐ day has its finest essence burned by Fire, and if Fire is excessive so that the nature of Wood is lost, it then welcomes a northern Water luck-period to break that Hurting Officer and prop up the Wood-breath; if there are but one or two points of Fire, it also fears the Resource breaking it — hence the saying, 'break the Hurting Officer and you injure the root of one's lifespan'; but if Jiǎ-Yǐ Wood is born in the first or second month, then meeting Fire makes it a false Hurting Officer.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "伤官",
+        "甲",
+        "乙",
+        "巳",
+        "午",
+        "未",
+        "火",
+        "木",
+        "水",
+        "正印"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 52,
+      "origHash": "8f1c78e5",
+      "en": "For when the Day Master's breath is broken and its finest essence drained out, its brilliance issues outward, and so such a person is often clever; if the day-stem is strong and the essence delights to be drained, then one becomes a high minister and chancellor.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "orig reads 为儿卿为相; 儿 appears to be a textual corruption — read as 为卿为相, 'becomes a minister (卿) and a chancellor (相).'",
+      "terms": [
+        "日主",
+        "气"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 57,
+      "origHash": "75e5d9aa",
+      "en": "If two or three points appear, it is then read as merging into the Hurting Officer; if only a single point of the Eating God appears, it forms the 'Eating God generating Wealth' structure, which likewise needs the day-stem strong so the Eating God generates its Wealth star; what it most dislikes is the Indirect Resource acting as the food-robbing 'Owl' (枭神).",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "混为人伤官看: 人 likely a corruption of 入 ('merging into'). 枭神, the food-robbing 'Owl,' is the colloquial name for the Indirect Resource (偏印).",
+      "terms": [
+        "食神",
+        "伤官",
+        "正财",
+        "偏印",
+        "日主"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 67,
+      "origHash": "d7c07ecb",
+      "en": "It is also named the 'breath-thief' (盗气): it welcomes a strong self, the Resource (印绶), the Wealth star, and the Hurting Officer; it dislikes a weak self, the absence of Wealth, and the Officer star — the flowing year and the luck cycle are judged the same.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "伤官",
+        "正印",
+        "正财",
+        "正官",
+        "身强 / 身弱",
+        "大运",
+        "流年"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 69,
+      "origHash": "f3728dcc",
+      "en": "Hence the saying: 'when the Hurting Officer meets the Officer, calamities arise in a hundred forms'; only having Wealth and having the Resource then resolves it.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "伤官",
+        "正官",
+        "正财",
+        "正印"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 70,
+      "origHash": "47c728f3",
+      "en": "If the Hurting Officer has hurt the Officer to exhaustion, so that the Four Pillars keep not a single point of the Officer star, and one then travels a luck-period of a strong self and of the Resource, this instead makes for rank and honor.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "伤官",
+        "四柱",
+        "正官",
+        "身强 / 身弱",
+        "正印",
+        "大运"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 71,
+      "origHash": "957945d4",
+      "en": "Hence the 《定真篇》 *Dìngzhēn Piān* (Essay on Determining the True) says: 'when the Hurting Officer meets the Resource (印绶), the honor is beyond words.'",
+      "conf": "high",
+      "status": "draft",
+      "enNote": "《定真篇》 is not in the glossary; the title is given as a site translation.",
+      "terms": [
+        "伤官",
+        "正印"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 74,
+      "origHash": "eabb6303",
+      "en": "A Hurting Officer together with Seven Killings is worse than Seven Killings that directly harm the self; its confirmation is uncannily accurate, as if divine.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "伤官",
+        "七杀"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 75,
+      "origHash": "30f322b6",
+      "en": "When the year pillar carries the Hurting Officer, the parents are not whole; when the month carries it, the brothers are not intact; when the hour carries it, the offspring are fierce and unruly; when the day carries it, wife and concubine cannot be spared.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "orig 只弟 read as 兄弟 ('brothers'), a textual corruption confirmed by context.",
+      "terms": [
+        "伤官"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 79,
+      "origHash": "3fa0ef92",
+      "en": "If the original chart already has much Hurting Officer, it is not fitting to travel through Hurting Officer luck again; one must meet the Officer for it to flourish — hence the saying: 'a Hurting Officer with no Officer, met again, brings hardship and stagnation.'",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "伤官",
+        "正官"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 80,
+      "origHash": "843dcb34",
+      "en": "When the luck-period enters the Officer's territory, the chart instead turns noble.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "大运",
+        "正官"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 82,
+      "origHash": "842f6cc2",
+      "en": "It also says: the Hurting Officer structure makes a person of high talent and haughty temper, one who constantly holds everyone under Heaven to be inferior to himself, full of words that wound others, so the crowd mostly detests him, and even noble persons dread him.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "多词悔人: 悔 read as 毁/诲 ('words that slander/wound'); 惮这: 这 read as 之 ('dread him').",
+      "terms": [
+        "伤官"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 83,
+      "origHash": "b9b7b2ac",
+      "en": "Hence the 《古歌》 *Gǔgē* (an old verse) says: 'The Hurting Officer's ambition scorns kings and marquises; in the arena of rivalry he forces himself to the fore.'",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "伤官"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 85,
+      "origHash": "3344c33c",
+      "en": "It also says: the Hurting Officer indeed does not like to meet the Officer star; but for a Metal person whose Hurting Officer is Water, a Water person whose Hurting Officer is Wood, or a Wood person whose Hurting Officer is Fire, meeting the Officer star is not greatly taboo.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "伤官",
+        "正官",
+        "金",
+        "水",
+        "木",
+        "火"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 86,
+      "origHash": "2140194a",
+      "en": "Hence the 《古歌》 *Gǔgē* (an old verse) says: 'The Fire-Earth Hurting Officer should hurt the Officer to exhaustion; the Metal-Water Hurting Officer delights to meet the Officer.'",
+      "conf": "high",
+      "status": "draft",
+      "enNote": "'Fire-Earth' = a Fire Day Master whose output-phase Earth is the Hurting Officer; 'Metal-Water' likewise.",
+      "terms": [
+        "伤官",
+        "火",
+        "土",
+        "金",
+        "水",
+        "正官"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 87,
+      "origHash": "e54ec4c1",
+      "en": "The Wood-Fire Hurting Officer needs the Officer to be strong; for the Earth-Metal one, when the Officer is removed one instead attains rank.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "Continues the verse; 'Wood-Fire' = a Wood Day Master with Fire as Hurting Officer, 'Earth-Metal' = an Earth Day Master with Metal. In 官去反成官 the two 官 differ in sense: the first is the Officer star (which is removed), the second is officialdom/rank (which one then attains) — not the same 'Officer pattern.'",
+      "terms": [
+        "伤官",
+        "木",
+        "火",
+        "土",
+        "金",
+        "正官"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 88,
+      "origHash": "42cb81a5",
+      "en": "Only in the Wood-Water Hurting Officer structure do Wealth and Officer, both appearing together, instead become a delight.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "木水 is an inversion of 水木 — a Water Day Master with Wood as its Hurting Officer.",
+      "terms": [
+        "伤官",
+        "正财",
+        "正官",
+        "水",
+        "木"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 90,
+      "origHash": "481c64b1",
+      "en": "It also says: a man with heavy Hurting Officer indeed harms his heirs; yet if the Hurting Officer has Wealth, he still has many sons.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "男重人伤官: 人 is likely a stray/corrupt graph; read 'a man whose chart is heavy in Hurting Officer.'",
+      "terms": [
+        "伤官",
+        "正财"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 92,
+      "origHash": "d4063e05",
+      "en": "A woman who bears the Hurting Officer indeed afflicts her husband; yet if both Wealth and Resource are present, she likewise brings her husband honor.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "伤官",
+        "正财",
+        "正印"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 93,
+      "origHash": "6e5fa4a1",
+      "en": "Hence the saying: in a woman's chart, the Hurting Officer is the great taboo of the structure.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "伤官"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 111,
+      "origHash": "844f15d2",
+      "en": "Hence an old verse says: 'The Hurting Officer atop the year is most to be disliked; heavy and dreaded, the Hurting Officer is hateful and cannot be cleared away.'",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "The couplet's second line (重怕伤官可嫌不可蠲) is repetitive and appears textually corrupt; 蠲 juān = 'to remove / clear away.'",
+      "terms": [
+        "伤官"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 128,
+      "origHash": "d892e08b",
+      "en": "Bǐng's Prosperity (禄) lies in Sì, and a Jiǎ person takes Bǐng as its Eating God, so also seeing the character Sì; Dīng's Prosperity lies in Wǔ, and a Yǐ person takes Dīng, so also seeing the character Wǔ — this is called the 'Heavenly Kitchen' (天厨) Eating God.",
+      "conf": "high",
+      "status": "draft",
+      "enNote": "天厨 'Heavenly Kitchen' rendered as a site translation; 禄 here = the Prosperity/emolument position (临官).",
+      "terms": [
+        "丙",
+        "禄神",
+        "巳",
+        "甲",
+        "食神",
+        "丁",
+        "午",
+        "乙"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 134,
+      "origHash": "2b13a954",
+      "en": "It also dislikes traveling the Eating God's Death and Extinction luck-periods, and the Indirect Resource ('Owl-god' 枭神) luck; these bring calamity, blame, and disadvantage — only the Indirect Wealth can restrain the Owl and rescue the food.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "食神",
+        "死",
+        "绝",
+        "偏印",
+        "偏财",
+        "大运"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 135,
+      "origHash": "342d727f",
+      "en": "Hence the 《洪范》 *Hóngfàn* says: 'the Indirect Wealth can benefit longevity and prolong the years,' because it can restrain the Owl (the Indirect Resource).",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "This 洪范 is cited as a fate-calculation source; it is not identified here with the 尚书·洪范 ('The Great Plan') chapter, so that gloss is not asserted.",
+      "terms": [
+        "偏财",
+        "偏印"
+      ]
+    },
+    {
+      "ch": "ch12",
+      "i": 138,
+      "origHash": "10e526f8",
+      "en": "An old verse says: 'When the Eating God is flourishing (in Birth and Prime) it delights to generate Wealth, and when the Day Master is firm and strong, blessings and emolument come; when the self is weak and the Eating Gods many, it turns instead to harm; and should it meet the Owl-god, it portends dire calamity.'",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "食神",
+        "正财",
+        "日主",
+        "身强 / 身弱",
+        "偏印"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 7,
+      "origHash": "1e086489",
+      "en": "There is also a true Resource and a false Resource: for instance, a person born on a Bǐng day into the Hài month may use the Jiǎ Wood hidden within the Hài month to serve as the ground of a false Resource.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "正印",
+        "丙",
+        "亥",
+        "甲",
+        "木"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 9,
+      "origHash": "43703d24",
+      "en": "If the heavenly stems obtain Rén, Guǐ, Jiǎ, Yǐ, Bǐng, or Dīng as a cap overhead, then even a calamity is slight; and if a Bǐng or Dīng Day Master reaches the Yín or Mǎo ground rich in roots, this is called the true Resource.",
+      "conf": "high",
+      "status": "draft",
+      "enNote": "盖头 'cap overhead' = a favorable stem sitting atop the branch.",
+      "terms": [
+        "壬",
+        "癸",
+        "甲",
+        "乙",
+        "丙",
+        "丁",
+        "日主",
+        "寅",
+        "卯",
+        "正印"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 10,
+      "origHash": "10fe6ca8",
+      "en": "If the Resource is abundant it does not fear the Wealth star; but if the Day Master is light — as when there are only one or two points of Resource — then it too fears Wealth.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "正印",
+        "正财",
+        "日主"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 23,
+      "origHash": "eff8ee3f",
+      "en": "An old verse holds: when the month meets the Resource star (印绶 yìnshòu), it welcomes the Officer star (官星); and when the luck cycle enters the Officer's territory, the fortune is sure to be pure.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "福必清: 清 here = pure/unmixed (clean, well-ordered fortune), not 'plentiful.'",
+      "terms": [
+        "印绶",
+        "正官"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 24,
+      "origHash": "8519570d",
+      "en": "When the luck of the Death and Extinction stages (死绝 sǐ-jué) comes upon it, this is unfavorable to the self; and running the Wealth luck thereafter, of a hundred endeavors none succeeds.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "死",
+        "绝",
+        "正财"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 26,
+      "origHash": "0d30812b",
+      "en": "If within the Four Pillars (四柱 sìzhù) there is originally an Officer star, this is the Officer and the Resource generating each other (官印相生); only then does one become a person of rank, and this is truly what the Resource structure (印绶格 yìnshòu-gé) most welcomes.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "四柱",
+        "正官",
+        "正印",
+        "相生"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 27,
+      "origHash": "c39f2e28",
+      "en": "If one travels the Officer-territory luck, then the fortune it brings forth is pure and rich.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "几: read as an intensifier ('quite/how') per the sense 'pure and substantial'; possibly a scribal variant, so slightly uncertain.",
+      "terms": [
+        "正官"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 29,
+      "origHash": "f724b5dc",
+      "en": "If one travels the Wealth territory, greed for wealth ruins the Resource (贪财坏印), and its calamities take a hundred forms.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "正财",
+        "正印"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 32,
+      "origHash": "74bad4d4",
+      "en": "The supplement says: the month generates the Day-stem, and the year and hour pillars both hold the Resource star (印绶) — this is called layer upon layer of the Generating Breath (生气 shēngqì); only where an Officer is present may it be reckoned as noble.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "日干 = the Day Master's stem (the self); 重重生气 here = the resource repeatedly generating the Day Master.",
+      "terms": [
+        "印绶",
+        "生气",
+        "正官",
+        "日主"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 47,
+      "origHash": "33243454",
+      "en": "It further says: the Resource star of the indirect kind is the Owl-spirit (枭神 xiāoshén); within the pillars it most welcomes seeing the Wealth star.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "枭神 = the colloquial name for 偏印 Indirect Resource; the source text is defining the term, so it is rendered rather than replaced.",
+      "terms": [
+        "偏印",
+        "枭神",
+        "正财"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 48,
+      "origHash": "5c25effc",
+      "en": "When the Day Master is strong and meets it, only then is it fortune; when the Day Master is weak and the Owl-spirit (枭神) is strong, it is all the more merciless.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "遇之: 'it' = the Wealth star, per the surrounding argument.",
+      "terms": [
+        "身强",
+        "枭神"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 50,
+      "origHash": "906a9dbe",
+      "en": "Where there is no Eating God it is the Indirect Resource (偏印 piānyìn); where an Eating God is present it becomes the Owl-spirit (枭神).",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "食神",
+        "偏印",
+        "枭神"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 51,
+      "origHash": "81dba072",
+      "en": "When the pillars show Indirect Wealth or Direct Wealth it is auspicious; hence it is said, \"the Indirect Resource meeting Wealth then prospers,\" and again, \"Indirect Wealth can prolong the years when it meets the annual pillar, and when the Day Master is strong, meeting it is auspicious.\"",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "偏财",
+        "正财",
+        "偏印",
+        "身强",
+        "流年"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 54,
+      "origHash": "1eb8f504",
+      "en": "The 《络绎赋》 *Luòyì Fù* (Rhapsody of Endless Succession) holds: when the Resource occupies the offspring position, one receives glory from one's offspring.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "子位 = the offspring position (the hour pillar); 子 here = children, not the branch Zǐ. Book title has no conventional English; rendered literally as a site translation.",
+      "terms": [
+        "正印",
+        "络绎赋"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 55,
+      "origHash": "53a76c4f",
+      "en": "When the Owl-spirit (枭神) occupies the ancestral position, it breaks the foundation of the ancestors.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "祖位 = the ancestral position (the year pillar).",
+      "terms": [
+        "枭神"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 56,
+      "origHash": "480f6a3e",
+      "en": "The supplement says: some hold that when the Owl-spirit (枭神) occupies the ancestral position it breaks the ancestral foundation — and this proves highly borne out.",
+      "conf": "low",
+      "status": "draft",
+      "enNote": "The orig is garbled by a dittography ('...破祖之基，甚祖之基，甚...'); rendered by the reconstructed intended sense (甚应验 = 'is greatly confirmed').",
+      "terms": [
+        "枭神"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 59,
+      "origHash": "1b3d19eb",
+      "en": "The 《玉匣赋》 *Yùxiá Fù* (Rhapsody of the Jade Casket) holds: when the Canopy Star (华盖 huágài) and the Literary Star (文星 wénxīng) meet together, one becomes like Yùchí (尉迟), a worthy minister to the Five Hegemons (五伯 wǔbà).",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "尉迟 Yùchí = the Tang general Yuchi Gong; 五伯 = the Five Hegemons (=五霸), with 伯 read bà. Book title rendered literally as a site translation.",
+      "terms": [
+        "华盖",
+        "文星",
+        "玉匣赋"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 63,
+      "origHash": "67f8407b",
+      "en": "When the Eight Characters (八字 bāzì) meet Wealth there is nothing to be done with it; running the Wealth luck is unfavorable, and yet without apparent cause.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "Context: Wealth overcoming the Resource (财克印) leaves the Resource with no use.",
+      "terms": [
+        "八字",
+        "正财"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 65,
+      "origHash": "837454c0",
+      "en": "When this stem travels to the Prime stage (帝旺 dìwàng), the Resource there meets its Death; hence it is said, \"meeting it, too, brings no joy.\" When the Eight Characters show a Wealth star one wants an Officer star to appear as well; but if one runs the Wealth-flourishing territory, then greed for wealth ruins the Resource, and calamities take a hundred forms.",
+      "conf": "low",
+      "status": "draft",
+      "enNote": "The orig is a run-on with a dittography ('如如') and a likely corruption ('中产见'→'中若见'); punctuation and sense reconstructed. 印逢则死: when the day-stem is at 帝旺, the Resource sits at its 死 Death stage.",
+      "terms": [
+        "帝旺",
+        "死",
+        "八字",
+        "正财",
+        "正官",
+        "正印"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 69,
+      "origHash": "7b77b3cc",
+      "en": "The 《渊源歌》 *Yuānyuán Gē* (Song of the Deep Source) holds: to have the Resource without Wealth is a go-between of fortune; it delights to meet the Officer, but dreads Wealth drawing near.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "Book title rendered literally as a site translation.",
+      "terms": [
+        "正印",
+        "正财",
+        "正官",
+        "渊源歌"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 73,
+      "origHash": "0c6a0728",
+      "en": "For Jiǎ (甲, yang Wood) is born at Hài (亥) — its Birth stage (长生) — so there is no fault.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "生于亥 = 亥 is Jiǎ's 长生 (Birth/Life-Sprout) position; 无咎 = 'no blame/fault' (a Book of Changes phrase).",
+      "terms": [
+        "甲",
+        "亥",
+        "长生"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 77,
+      "origHash": "d59d8e23",
+      "en": "This speaks of Jiǎ Wood coming to rest at Zǐ (子) — a Water branch that is Jiǎ's own ground of Bathing-and-defeat (沐浴/败) — where the chart's Water as Resource is over-abundant and lacks Earth to stem it.",
+      "conf": "low",
+      "status": "draft",
+      "enNote": "子 is Jiǎ's 沐浴 Bathing stage (also called 败, the 'defeat' position); the 败 belongs to Jiǎ-Wood, while 子 itself is a Water(-element) branch (Water is actually at its Prime at 子). 水印 = Water in the Resource role (Water generates Wood).",
+      "terms": [
+        "甲",
+        "子",
+        "沐浴",
+        "水",
+        "土"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 79,
+      "origHash": "23f22f44",
+      "en": "Meeting an Earth luck that checks the Water, the fortune unfolds and turns to glory.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "土",
+        "水"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 82,
+      "origHash": "961d2f16",
+      "en": "Hence the 《奥旨赋》 *Àozhǐ Fù* (Rhapsody of the Profound Import) holds: \"When the year, month, and hour pillars contain the Indirect Resource (偏印), fortune and misfortune have not yet sprouted.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "岁 = the year pillar; the closing quotation mark is absent in the orig (a fragment). Book title rendered literally as a site translation.",
+      "terms": [
+        "偏印",
+        "奥旨赋"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 93,
+      "origHash": "caee2832",
+      "en": "It is most fitting for an Earth luck to come and overcome the Water; then riches — money, gold, and pearls — bring joy to spare.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "克 = to overcome (Earth conquers Water in the mutual-conquest cycle, 相克); 财帛金珠 = riches: money-and-silk plus gold and pearls.",
+      "terms": [
+        "土",
+        "水",
+        "相克"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 94,
+      "origHash": "3832870b",
+      "en": "Yǐ (乙, yin Wood) is born at Hài (亥), layers of Water-breath (水气) setting it adrift; early on it runs Guǐ-Yǒu (癸酉) and Rén-Shēn (壬申), and Wood, meeting much Water, fares ill; but once it enters the four periods Xīn-Wèi (辛未), Gēng-Wǔ (庚午), Jǐ-Sì (己巳), and Wù-Chén (戊辰), Earth stems the flowing Water, and wealth breaks forth by ten thousand strings of cash — precisely what is meant by \"if the Resource is abundant, Wealth must appear.\"",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "万缗 = ten thousand strings of cash (缗 mín = a string of 1,000 coins); the named pairs are sexagenary stem-branch luck periods.",
+      "terms": [
+        "乙",
+        "亥",
+        "水",
+        "正财",
+        "印绶",
+        "土"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 96,
+      "origHash": "752463cc",
+      "en": "Nán (楠) says: Yǐ (乙) born in the Hài (亥) month, Water heaped layer on layer; the Killings and the Resource plainly set out, the ancestral estate is rich.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "楠 = Zhāng Nán, the author (styled Shénfēng); 杀 = the Seven Killings (七杀), 印 = the Resource.",
+      "terms": [
+        "乙",
+        "亥",
+        "水",
+        "七杀",
+        "正印"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 97,
+      "origHash": "c0e5fd28",
+      "en": "Through the Wù (戊) and Jǐ (己) Earth luck periods fortune does flourish; but run a Water luck once more, and the span of life comes to its end.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "戊",
+        "己",
+        "土",
+        "水"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 178,
+      "origHash": "757d4fb9",
+      "en": "Since the Day Master is strong, and the original dwelling holds no Wealth or Officer within it, there is no ancestral estate; yet if the strong Day Master can bear its Wealth, is this not making a fortune from empty hands?",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "庐舍 ('cottage/dwelling') is a metaphor for the natal chart; 任其财 = to carry/handle the Wealth.",
+      "terms": [
+        "身强",
+        "正财",
+        "正官"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 194,
+      "origHash": "a6fa1d92",
+      "en": "There is the Rob-Wealth Goat-Blade type (劫财羊刃 jiécái yángrèn) — Jiǎ (甲) seeing Yǐ (乙) is this case — which is unfavorable to the Wealth-and-Officer structure.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "Yǐ is Jiǎ's 劫财 Rob Wealth; the 羊刃 Goat-Blade branch is 卯, which hides Yǐ.",
+      "terms": [
+        "劫财",
+        "羊刃",
+        "甲",
+        "乙"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 195,
+      "origHash": "a9392543",
+      "en": "The 'guarding-the-Prosperity, submerging-the-Blade' type — Jiǎ (甲) seeing Mǎo (卯) is this case — is greatly favorable to the Returning-Prosperity structure (归禄格 guīlù-gé).",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "禄 = the Prosperity Star (禄神 lùshén); 卯 is Jiǎ's Goat-Blade (羊刃) branch; 淹刃 = to drown/submerge the Blade.",
+      "terms": [
+        "禄神",
+        "羊刃",
+        "甲",
+        "卯"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 197,
+      "origHash": "0c2dd47f",
+      "en": "If one says that Yǐ (乙) seeing Bǐng (丙) is the 'reversed-Prosperity Goat-Blade,' that is wrong.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "倒禄 = the reversed/inverted Prosperity (禄神); 羊刃 = the Goat-Blade.",
+      "terms": [
+        "乙",
+        "丙",
+        "禄神",
+        "羊刃"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 198,
+      "origHash": "f8bf77ed",
+      "en": "For Jǐ (己) meeting Bǐng (丙) is named the 'turning-from-Prosperity Hurting Officer' (背禄伤官), and is truly of great benefit to the path of 'removing the Officer and retaining the Killing' (去官留杀).",
+      "conf": "low",
+      "status": "draft",
+      "enNote": "己 is almost certainly a scribal error for 乙 (Yǐ): Bǐng is Yǐ's 伤官 Hurting Officer, whereas Bǐng is Jǐ's Direct Resource, so 己见丙 cannot yield 伤官. 去官留杀 = remove the Direct Officer (正官), keep the Seven Killings (七杀).",
+      "terms": [
+        "己",
+        "丙",
+        "禄神",
+        "伤官",
+        "正官",
+        "七杀"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 200,
+      "origHash": "60e66e57",
+      "en": "There is also the saying that when Yǐ (yin Wood) meets Bǐng (yang Fire), one probably does not attain the seal-ribbon of office (shòu) — and this is indeed so.",
+      "conf": "low",
+      "status": "draft",
+      "enNote": "绶 shòu = the ribbon fastening an official seal, i.e. the emblem of rank/office; 恐不绶 taken literally as 'probably will not attain office.' The earlier reading 绶=印绶 (the Direct Resource 印 pattern) is doubtful, since 乙见丙 is Yǐ generating Fire (an output / Hurting-Officer relation), not a Resource relation, and the graph may be corrupt — hence conf low.",
+      "terms": [
+        "乙",
+        "丙"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 204,
+      "origHash": "972afeb4",
+      "en": "It also says: Jiǎ (yang Wood) gives his younger sister Yǐ (yin Wood) in marriage to Gēng (yang Metal), so that what was inauspicious becomes an auspicious sign.",
+      "conf": "high",
+      "status": "draft",
+      "enNote": "The 'sister-marriage' device: Yǐ and Gēng combine (乙庚合), so Jiǎ need not fear Gēng as its officer/killing.",
+      "terms": [
+        "甲",
+        "乙",
+        "庚"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 207,
+      "origHash": "fd8a051c",
+      "en": "It also says: when the Day Master is weak (shēnruò) but Wealth is abundant, one welcomes the Goat-Blade (yángrèn) and the brothers as helpers.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "'brothers' = the Companion and Rob Wealth peers (比劫); the text writes 史弟, a graphic error for 兄弟 'brothers.'",
+      "terms": [
+        "身弱",
+        "羊刃"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 215,
+      "origHash": "72a15c9e",
+      "en": "The 《万尚书赋》 *Wàn Shàngshū Fù* (Rhapsody of Minister Wan): when the Officer star (zhèngguān, the Direct Officer) carries the Blade, one wields authority over ten thousand generals; it also says: when the Hurting Officer (shāngguān) has the Blade, one becomes a general, minister, duke, or marquis.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "《万尚书赋》 is not in the glossary; the title is rendered literally as a site name (尚书 = Minister, 赋 = rhapsody). 刃 = the Goat-Blade.",
+      "terms": [
+        "正官",
+        "伤官",
+        "羊刃"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 219,
+      "origHash": "456666ff",
+      "en": "It also says: when the Blade assists the Hurting Officer, one meets in a single day the gathering of wind and cloud.",
+      "conf": "high",
+      "status": "draft",
+      "enNote": "风云之会 'meeting of wind and cloud' is an idiom for a sudden, opportune ascent to power.",
+      "terms": [
+        "羊刃",
+        "伤官"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 226,
+      "origHash": "3c4f96cb",
+      "en": "It also says: the Hurting Officer does not shun encountering Rob Wealth (jiécái); for the Seven Killings (qīshā), the Indirect Officer, the principle is likewise the same.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "伤官",
+        "劫财",
+        "七杀"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 227,
+      "origHash": "f20efc5c",
+      "en": "If there is no Officer, one does not shun Rob Wealth; but when the Day Master is strong (shēnqiáng) and meets the Companion (bǐjiān) and Rob Wealth peers, they are unwelcome as too heavy.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "正官",
+        "比肩",
+        "劫财",
+        "身强"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 234,
+      "origHash": "eeb6a870",
+      "en": "A Wealth luck-period without a clash (chōng) is still not to be shunned; when the Officer star restrains the Blade, one attains honor and glory.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "六冲",
+        "正官",
+        "羊刃"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 235,
+      "origHash": "87db369c",
+      "en": "When the month pillar holds the Resource (yìn), the Resource flows through; when the luck-period reaches the Officer's quarter, honor comes just the same.",
+      "conf": "high",
+      "status": "draft",
+      "enNote": "官乡 lit. 'the Officer's country' = the branch/luck-period governed by the Officer.",
+      "terms": [
+        "正印",
+        "正官"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 236,
+      "origHash": "976c2618",
+      "en": "If the pillars hold much Wealth, one dislikes a Seven-Killings luck-period; with no Wealth, a Seven-Killings luck-period is welcomed for its flourishing.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "七杀"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 266,
+      "origHash": "b1a2dbb4",
+      "en": "For instance, Jiǎ meeting Jiǎ, or Yǐ meeting Yǐ, and the like, bring harm to the wife and harm to the children.",
+      "conf": "high",
+      "status": "draft",
+      "enNote": "甲见甲 / 乙见乙 = the same stem repeating, i.e. the Companion (比肩).",
+      "terms": [
+        "甲",
+        "乙",
+        "比肩"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 267,
+      "origHash": "354a0085",
+      "en": "The five yang stems meeting the five yin — as when Jiǎ meets Yǐ — is elder brother meeting younger brother; this is Rob Wealth, and it does not overcome (xiāngkè) the wife.",
+      "conf": "high",
+      "status": "draft",
+      "enNote": "Wife = Wealth (财), what the Day Master conquers; a peer of opposite polarity is Rob Wealth (劫财), which does not directly conquer the wife.",
+      "terms": [
+        "甲",
+        "乙",
+        "劫财",
+        "相克"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 269,
+      "origHash": "dd29dd53",
+      "en": "The 《六亲捷要论》 *Liùqīn Jiéyào Lùn* (Treatise on the Essentials of the Six Relations) says: dividing the Prosperity (lù) is bound to harm the one who keeps the household provisions [the wife]; when the Companion piles up in layers, it injures the stern parent [the father].",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "比肓 is a graphic error for 比肩 (Companion); 主馈人 = keeper of household provisions, i.e. the wife; 严亲 = the stern parent, i.e. the father. Title not in glossary, rendered literally as a site name.",
+      "terms": [
+        "六亲",
+        "禄神",
+        "比肩"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 271,
+      "origHash": "4935267d",
+      "en": "Therefore it is said: for a man who meets the Goat-Blade, if the Day Master is weak when it is met, it is a remarkable boon; but if Wealth is light and the Day Master strong, one shuns its plundering.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "羊刃",
+        "身弱",
+        "身强"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 274,
+      "origHash": "ee563d17",
+      "en": "A verse says: when Jiǎ and Yǐ meet, they must obstruct the wife; ruining Wealth and overcoming the father — of this there is no doubt.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "甲",
+        "乙",
+        "相克"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 275,
+      "origHash": "657a6972",
+      "en": "The 《金不换》 *Jīnbùhuàn* (Not Exchanged for Gold) says: when the Day Master is flourishing and the Companion and Rob Wealth peers are heavy, Wealth is damaged and the wife is harmed.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "《金不换》 (lit. 'not [to be] exchanged [even] for gold' = priceless) is not in the glossary; rendered literally as a site name.",
+      "terms": [
+        "身强",
+        "比肩",
+        "劫财"
+      ]
+    },
+    {
+      "ch": "ch13",
+      "i": 280,
+      "origHash": "90a12b39",
+      "en": "The 《撮要》 *Cuōyào* (The Digest) says: the Companion (bǐjiān) needs to meet the Seven Killings (qīshā) to be held in check.",
+      "conf": "high",
+      "status": "draft",
+      "enNote": "《撮要》 (lit. 'gathering the essentials') is not in the glossary; rendered literally as a site name.",
+      "terms": [
+        "比肩",
+        "七杀"
+      ]
+    }
+  ]
+}

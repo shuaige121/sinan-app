@@ -1,0 +1,6 @@
+{
+  "appId": "work.leonardchow.dao",
+  "appName": "司南",
+  "webDir": "www",
+  "server": { "androidScheme": "https", "allowNavigation": ["dao.leonardchow.work"] }
+}

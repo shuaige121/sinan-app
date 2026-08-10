@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://daos.leonardchow.work/schema/translation.en.schema.json",
+  "title": "司南 · 古籍英译 sidecar（Layer B）",
+  "description": "每部古籍一份英译分片，按 (book, ch, i) 坐标挂靠 annotated/<book>.json 的句子。原文永不落库（只存 origHash 钉定），译文缺失即诚实空白（渲染层只显 orig，不回落 bai）。术语宪法见 docs/i18n-style-guide.md §0/§5；不得写回 annotated/*.json（会作废 rules 的 corpus_hash provenance）。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["book", "srcFile", "srcHash", "sentences"],
+  "properties": {
+    "book": { "type": "string", "description": "书 id，须等于 annotated 文件名 stem，如 zangshu" },
+    "srcFile": { "type": "string", "description": "源文件相对路径，如 annotated/zangshu.json" },
+    "srcHash": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$", "description": "整书源 sha256（复用 rules corpus_hash 模式；粗粒度失效信号）" },
+    "generatedAt": { "type": "string", "description": "生成时间（ISO8601），可选" },
+    "pipeline": { "type": "string", "description": "生产管线标识（如 batch-agent+schema+lint+adversarial-review），可选" },
+    "coverage": { "type": "string", "description": "覆盖面标识，如 'cited-only (rules[].src 引用面；非全本)' 或 'full'；缺省视为全本，可选" },
+    "titleEn": { "type": "string", "description": "书名英文（§0 decision2），种子取 glossary.json bookTitles" },
+    "titlePinyin": { "type": "string", "description": "书名拼音（斜体呈现），带声调" },
+    "chapters": {
+      "type": "array",
+      "description": "章级导读英译（§5 未规定，本架构列为第二优先；语域标 modern synthesis）。可选。",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["ch", "en"],
+        "properties": {
+          "ch": { "type": "string", "description": "章 id，须等于 annotated chapter.id" },
+          "labelEn": { "type": "string" },
+          "en": { "type": "string", "description": "章导读英译（annotation 的 modern-synthesis 英文）" },
+          "status": { "$ref": "#/$defs/status" }
+        }
+      }
+    },
+    "sentences": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["ch", "i", "origHash", "en"],
+        "properties": {
+          "ch": { "type": "string", "description": "章 id，须等于 annotated chapter.id" },
+          "i": { "type": "integer", "minimum": 0, "description": "句序号，等于 annotated sentence.i" },
+          "origHash": { "type": "string", "pattern": "^[0-9a-f]{8}$", "description": "该句 orig 的 sha256 前 8 位（NFC 归一后计算）；与 annotated 现值不符即视为过期，渲染层静默不显 en（只显 orig）" },
+          "en": { "type": "string", "minLength": 1, "description": "§5.1 site translation caption：直译 orig（非译 bai），literal/faithful，博物馆讲解语域；禁语见 §1.4。不得为 TBD/待确认/占位。" },
+          "enNote": { "type": "string", "description": "§5.1 rule4 的 note: 行（原文晦涩时的说明），可选" },
+          "terms": { "type": "array", "items": { "type": "string" }, "description": "命中的 glossary.json 术语 hanzi（供 lint 校验首现/复现体例），可选" },
+          "conf": { "$ref": "#/$defs/conf" },
+          "status": { "$ref": "#/$defs/status" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "conf": { "type": "string", "enum": ["high", "med", "low"], "description": "译文置信度（收敛为三档，杜绝 high/medium/med/mid 漂移）" },
+    "status": { "type": "string", "enum": ["seed", "draft", "reviewed", "stale"], "description": "seed=样式指南直录/人工种子；draft=管线初稿未过审；reviewed=对抗盲审通过；stale=origHash 失效待重译" }
+  }
+}

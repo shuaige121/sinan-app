@@ -1,0 +1,66 @@
+# macOS / editors
+.DS_Store
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Environment and credentials
+.env
+.env.*
+!.env.example
+*.p8
+*.pem
+*.key
+*.cer
+*.csr
+*.p12
+*.mobileprovision
+*.keystore
+*.jks
+**/keystore.properties
+**/local.properties
+ios/debug.xcconfig
+
+# Dependencies and local service state
+node_modules/
+.wrangler/
+
+# Logs and temporary exports
+*.log
+dist-signing/
+ExportOptions.plist
+
+# Machine-specific App Store release automation contains account identifiers.
+/asc-*.js
+/archive-*.sh
+/dist-export.sh
+/export-only.sh
+
+# Build output
+/build/
+android/.gradle/
+android/**/build/
+android/capacitor-cordova-android-plugins/
+android/app/src/main/assets/public/
+android/app/src/main/assets/capacitor.config.json
+android/app/src/main/assets/capacitor.plugins.json
+android/app/src/main/res/xml/config.xml
+ios/App/build/
+ios/App/DerivedData/
+ios/App/App/public/
+ios/App/Pods/
+ios/App/output/
+ios/capacitor-cordova-ios-plugins/
+ios/App/CapApp-SPM/.swiftpm/
+*.xcarchive/
+*.ipa
+*.apk
+*.aab
+
+# Generated illustration/PDF working files; final exports remain tracked.
+assets/ten-archetypes/illustrated-guide/build/
+
+# Local historical scratch copies are preserved on disk/iCloud, not versioned.
+*.bak
+*.bak[0-9]*

@@ -1,0 +1,30 @@
+# ============================================================
+#  dist/_headers — 由 deploy/assemble.sh 自动生成，请勿手工编辑。
+#  源：web/_headers（主站 /）+ daos/_headers（典籍阁，重写到 /dian/）
+# ============================================================
+
+# ── 主站 dao（/）── 原样取自 web/_headers ──────────────────
+# CF Pages 缓存策略：JS/CSS 即时再验证，部署立即生效（此前 max-age=14400 导致客户端钉旧版 4 小时）
+/js/*
+  Cache-Control: public, max-age=0, must-revalidate
+/css/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+# ── 典籍阁 dianjige（/dian/）── 由 daos/_headers 派生，路径加 /dian 前缀 ──
+# 安全头 + CSP：覆盖 /dian/ 全部响应（js/css/json 亦受 nosniff 等保护）；
+# 本块不含 Cache-Control，避免与下方缓存规则被 CF Pages 逗号合并成脏头。
+/dian/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'self' https://dao.leonardchow.work
+
+# 缓存策略：每类路径唯一、互不重叠。js/css 即时再验证（部署秒生效，
+# 对齐主站 /js/*、/css/*，根治旧版本被长缓存钉死的问题）。
+/dian/js/*
+  Cache-Control: public, max-age=0, must-revalidate
+/dian/css/*
+  Cache-Control: public, max-age=0, must-revalidate
+# JSON 数据（书目/正文/搜索索引）：短缓存 + stale-while-revalidate，取自 daos/_headers。
+/dian/*.json
+  Cache-Control: public, max-age=600, stale-while-revalidate=3600

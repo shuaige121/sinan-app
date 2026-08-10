@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="description" content="司南·典籍阁 — 司南应用引用古籍原文汇编，手机电子书格式">
+  <meta name="theme-color" content="#8b5e3c">
+  <title>司南·典籍阁</title>
+
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+
+  <link rel="stylesheet" href="./css/style.css?v=20260810b">
+
+  <!-- Noto Serif SC 宋体（Google Fonts CDN，网络可用时加载，无网退回系统宋体） -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header">
+    <span class="logo" onclick="navigate('#/')" data-i18n="dj.header.logo">司南·典籍阁</span>
+    <span class="subtitle" data-i18n="dj.header.subtitle">古籍电子书·逐句译注</span>
+    <button class="header-btn lang-toggle" data-i18n-aria="dj.lang.toggleAria" aria-label="切换语言"></button>
+    <button class="header-btn" id="theme-btn" onclick="toggleTheme()">🌙 夜间</button>
+  </header>
+
+  <div id="app">
+    <div class="reader-skeleton" data-i18n="dj.reader.loading">典籍载入中…</div>
+  </div>
+  <noscript><div class="empty-state" data-i18n="dj.noscript">本站需启用 JavaScript 方可阅读。</div></noscript>
+
+  <!-- i18n：运行时 + 字典，须在 app.js 前（供 applyStatic 静态接线与 app.js 内 L() 取词）。
+       运行时同步自 web/js/i18n.js（单一逻辑源、物理副本）。'app-lang' 键与主站共享语义。 -->
+  <script src="./js/i18n/zh.js?v=20260716"></script>
+  <script src="./js/i18n/en.js?v=20260716"></script>
+  <script src="./js/i18n.js?v=20260716"></script>
+  <script src="./js/app.js?v=20260810b"></script>
+  <script>
+    // 初始化主题按钮文字（i18n 化：EN 模式经 I18N.t 取英文，无 I18N 时回落中文母本）
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('theme-btn');
+      const theme = localStorage.getItem('dj-theme') || 'antique';
+      const tt = (k, zh) => (window.I18N ? window.I18N.t(k) : zh);
+      if (btn) btn.textContent = theme === 'night'
+        ? tt('dj.theme.toDay', '☀ 古纸')
+        : tt('dj.theme.toNight', '🌙 夜间');
+    });
+    // PWA Service Worker 注册
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js').catch(() => {});
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,487 @@
+{
+ "id": "dili-wujue",
+ "title": "地理五诀",
+ "category": null,
+ "chapters": [
+  {
+   "id": "intro",
+   "label": "书目说明",
+   "annotation": "",
+   "sentences": [
+    {
+     "i": 0,
+     "orig": "《地理五诀》清·赵九峰著，以「觅龙、察砂、观水、点穴、取向」五大步骤系统阐述风水堪舆方法，将形势派的判穴原则梳理成便于记忆与实践的五诀体系，后世列入形势派入门必读书目。",
+     "bai": "《地理五诀》由清代赵九峰（名玉材，字九峰，磁州人）撰著，用「觅龙、察砂、观水、点穴、取向」五个步骤系统讲解风水堪舆的方法，把形势派判定穴位的原则整理成便于记忆与实践的「五诀」体系；后世将其列为形势派入门的必读书。",
+     "gloss": [
+      [
+       "觅龙",
+       "寻找、辨认生气所钟的主干山脉（龙脉）的来路与真假"
+      ],
+      [
+       "察砂",
+       "审察穴场四周拱卫的群山形势"
+      ],
+      [
+       "观水",
+       "观察来水去水的吉凶与聚散"
+      ],
+      [
+       "点穴",
+       "在龙止气聚处定下穴位"
+      ],
+      [
+       "取向",
+       "用罗盘确定坐向方位"
+      ],
+      [
+       "堪舆",
+       "相地之术；堪为天道、舆为地道，即风水"
+      ]
+     ],
+     "logic": "IF 龙真（主干真龙）AND 砂环（左右环卫）AND 水聚（界水聚气）AND 穴的（龙止气聚处）AND 向吉（合罗盘吉向）THEN 判为吉地 —— 形势派按『觅龙→察砂→观水→点穴→取向』依序逐项判别",
+     "terms": [
+      "long",
+      "sha",
+      "shui",
+      "xue",
+      "xiang"
+     ],
+     "quant": {
+      "observables": "五诀对应的可观测地物：龙=连续山脊系统；砂=穴左右及前后侧翼山岭/建筑；水=汇水/河流；穴=龙止砂环水聚的缓坡凹聚点；向=朝向方位",
+      "operational": "觅龙→DEM 山脊线连续度+沿脊 relative_relief(m)+坡度 slope(°)；察砂→侧翼地物相对高(m)+环抱张角(deg)+viewshed 遮蔽比；观水→flow_accumulation+河道环抱角(deg)；点穴→低坡度 slope(°)+凹聚 plan_curvature+靠山/界水距离(m)；取向→facing azimuth(deg, true-north)",
+      "metric_unit": "deg / m / m^2 / cell-count",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine, TempleScore, CompassModel",
+      "evidence": "本句为现代书目说明、非古文原文，未给任何数值；以上为标准GIS方法学下的现代operational假说，非原文数值"
+     },
+     "src": [
+      {
+       "what": "《地理五诀》清·赵九峰(赵玉材)著、八卷结构、五诀「龙穴砂水向」与寻龙/察砂/观水/点穴/定向五步骤",
+       "source": "百度百科·地理五诀",
+       "url": "https://baike.baidu.com/item/%E5%9C%B0%E7%90%86%E4%BA%94%E8%AF%80/2962128"
+      },
+      {
+       "what": "风水五大步骤：觅龙/察砂/观水/点穴/取向 各步骤释义",
+       "source": "360doc 风水五大步骤",
+       "url": "http://www.360doc.com/content/19/0616/14/34973859_842782052.shtml"
+      },
+      {
+       "what": "觅龙/察砂/观水/点穴/取向 ↔ long/sha/shui/xue/xiang 术语映射与GIS量化口径",
+       "source": "司南术语本体（今人整理）"
+      }
+     ],
+     "conf": "high",
+     "notes": "本句为现代书目说明（非古文原文）；bai 为精确转述并补足作者全名与出处。"
+    },
+    {
+     "i": 1,
+     "orig": "因外网访问受限，全文暂未收录。",
+     "bai": "由于外网访问受限，本书全文目前尚未收录（仅有上述说明）。",
+     "gloss": [
+      [
+       "收录",
+       "收集编入（数据集/书目）"
+      ]
+     ],
+     "logic": null,
+     "terms": [],
+     "quant": null,
+     "src": [],
+     "conf": "high",
+     "notes": "数据集状态说明，非古籍内容，无需外部译注。"
+    },
+    {
+     "i": 2,
+     "orig": "【司南导读】司南堪舆阳宅模块的砂法（察砂：论周围山峰建筑高低朝揖）与水法（观水：论来去水吉凶聚散），以本书五诀体系为框架参考。",
+     "bai": "（司南导读）司南 App 堪舆阳宅模块中的「砂法」（即察砂：评判周围山峰与建筑的高低及是否朝揖拱卫）与「水法」（即观水：评判来水去水的吉凶与聚散），均以本书的五诀体系作为框架参考。",
+     "gloss": [
+      [
+       "砂法",
+       "察砂之法，评断穴周群砂（含现代建筑）的形势"
+      ],
+      [
+       "水法",
+       "观水之法，评断来去水的吉凶聚散"
+      ],
+      [
+       "朝揖",
+       "群砂面朝穴场如人拱手作揖，主有情"
+      ],
+      [
+       "聚散",
+       "水流的汇聚（聚气）或流散（散气）"
+      ]
+     ],
+     "logic": "砂法：IF 周围山峰/建筑 高度适宜 AND 朝揖环抱 THEN 吉（藏风聚气）ELSE 凶（孤露/压迫）；水法：IF 来去水环抱缠绕、聚而不冲 THEN 吉 ELSE（直冲/反弓/急泻）凶",
+     "terms": [
+      "sha",
+      "shui"
+     ],
+     "quant": {
+      "observables": "砂：穴左右及前后山峰、建筑的相对高度与朝向；水：来水去水的路径、环抱方向与聚散",
+      "operational": "砂→侧翼/前后地物相对高(m)+环抱张角(deg)+viewshed 遮蔽比(藏风度)+左右对称；水→flow_accumulation(汇水量)+河道相对穴的环抱/反弓角(deg)+去水口约束",
+      "metric_unit": "m / deg / cell-count",
+      "falsifiable": true,
+      "engine": "TempleScore, DragonVeinEngine",
+      "evidence": "本句为司南使用说明，未给数值；高低/朝揖/聚散的吉凶阈值为现代GIS operational 假说，非原文数值"
+     },
+     "src": [
+      {
+       "what": "砂(flank ridges, 朝揖环抱/viewshed)与水(flow_accumulation/环抱角)的可观测量与GIS口径",
+       "source": "司南术语本体（今人整理）"
+      }
+     ],
+     "conf": "high",
+     "notes": "本句为司南产品使用说明；砂法/水法对应本体 sha/shui 术语。"
+    },
+    {
+     "i": 3,
+     "orig": "「觅龙→察砂→观水→点穴→取向」五步逻辑链贯穿司南从地形分析（龙脉地图）到阳宅评估（堪舆页）的整体流程。",
+     "bai": "「觅龙→察砂→观水→点穴→取向」这条五步逻辑链，贯穿了司南从地形分析（龙脉地图）到阳宅评估（堪舆页）的整个流程。",
+     "gloss": [
+      [
+       "逻辑链",
+       "按固定顺序串联、前一步通过才进入下一步的判断流程"
+      ],
+      [
+       "龙脉",
+       "主干山脉绵延起伏的走势与过脉"
+      ]
+     ],
+     "logic": "流程 = 觅龙(辨主干真龙) → 察砂(左右环卫) → 观水(界水聚气) → 点穴(龙止气聚) → 取向(罗盘定向)；前一步成立方进入下一步",
+     "terms": [
+      "long",
+      "mai",
+      "sha",
+      "shui",
+      "xue",
+      "xiang"
+     ],
+     "quant": {
+      "observables": "地形分析阶段的山脊/汇水/坡度，到阳宅阶段的坐向方位",
+      "operational": "觅龙/察砂/观水/点穴→DragonVeinEngine+TempleScore（脊线连续度、relative_relief、flow_accumulation、slope/plan_curvature、viewshed）；取向→CompassModel（facing azimuth deg；24山×15°）",
+      "metric_unit": "deg / m / cell-count",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine, TempleScore, CompassModel",
+      "evidence": "本句为流程说明，未给数值；各步↔引擎/GIS量映射为现代operational设计，非原文数值"
+     },
+     "src": [
+      {
+       "what": "五诀术语↔引擎（DragonVeinEngine/TempleScore/CompassModel）与GIS派生量映射",
+       "source": "司南术语本体（今人整理）"
+      }
+     ],
+     "conf": "high",
+     "notes": "本句描述司南内部处理流程；五步对应本体术语 long/sha/shui/xue/xiang。"
+    },
+    {
+     "i": 4,
+     "orig": "《阳宅三要》亦为同一作者赵九峰所著，两书合为司南阳宅模块的清代形势派理论依据。",
+     "bai": "《阳宅三要》也是同一位作者赵九峰（赵玉材）所著；该书论「门、主、灶」三要，与《地理五诀》两书共同构成司南阳宅模块所依据的清代形势派理论。",
+     "gloss": [
+      [
+       "阳宅三要",
+       "赵九峰另一著作，以门、主、灶三者的五行生克判宅之吉凶"
+      ],
+      [
+       "门主灶",
+       "大门、主房（主卧）、灶位——阳宅三大要素"
+      ]
+     ],
+     "logic": "IF 门、主、灶三者五行相生 THEN 吉宅（人财两旺）ELSE 三者相克 THEN 凶宅（《阳宅三要》判则）",
+     "terms": [],
+     "quant": null,
+     "src": [
+      {
+       "what": "《阳宅三要》作者为赵玉材(字九峰)，与《地理五诀》同一作者；论门/主/灶三要及其五行生克吉凶",
+       "source": "百度百科·阳宅三要",
+       "url": "https://baike.baidu.com/item/%E9%98%B3%E5%AE%85%E4%B8%89%E8%A6%81/7361610"
+      }
+     ],
+     "conf": "high",
+     "notes": "作者同一性与门主灶内容已据百度百科核实；本体 kanyu_terms 未单列阳宅三要/门主灶，故 terms 为空，五行生克判则见 ontology.five_phases。"
+    },
+    {
+     "i": 5,
+     "orig": "【待补】全文待从 ctext.org 抓取后补入。",
+     "bai": "（待补）全文有待日后从 ctext.org 抓取后再补充录入。",
+     "gloss": [
+      [
+       "待补",
+       "有待补充、尚未完成"
+      ]
+     ],
+     "logic": null,
+     "terms": [],
+     "quant": null,
+     "src": [],
+     "conf": "high",
+     "notes": "数据集占位说明。本次已尝试检索：ctext.org 未提供《地理五诀》结构化全文，常见可得本为微信读书/scribd/360doc 等；正文待从其他源补全后再逐句翻译。"
+    }
+   ]
+  },
+  {
+   "id": "ch-milong",
+   "label": "觅龙诀",
+   "annotation": "",
+   "sentences": [
+    {
+     "i": 0,
+     "orig": "【待补】",
+     "bai": "（本章「觅龙诀」正文尚未收录，此处为占位。）觅龙：观察、辨认主干山脉即龙脉，分辨五势九龙、走向与阴阳向背，论定吉凶宜忌，据以选定大局所在。",
+     "gloss": [
+      [
+       "觅龙",
+       "寻找、辨认生气所钟的主干真龙（龙脉）"
+      ],
+      [
+       "龙",
+       "绵延起伏如龙之行的连续山脉/山脊系统"
+      ]
+     ],
+     "logic": "IF 山脉连续起伏、剥换起峰、两水夹送（真龙有气）THEN 可取；IF 孤露断续、无护送（假龙/死龙）THEN 弃",
+     "terms": [
+      "long",
+      "mai",
+      "zushan",
+      "shaozu",
+      "fumushan",
+      "rushou"
+     ],
+     "quant": {
+      "observables": "主干山脉的连续山脊、起伏过峡、两侧夹送之水",
+      "operational": "DEM 山脊线连续度/连通度 + 沿脊 relative_relief(m) + 坡度中段(~15-35°) + 两侧 flow_accumulation 夹送",
+      "metric_unit": "m / deg / cell-count",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine",
+      "evidence": "本章原文未收录（worklist 仅【待补】占位）；relief/slope/连续度阈值为标准GIS方法学下的现代operational假说，非原文数值"
+     },
+     "src": [
+      {
+       "what": "觅龙＝对山脉的观察选择，分辨五势九龙、走向、阴阳向背",
+       "source": "百度百科·地理五诀 / 360doc 风水五大步骤",
+       "url": "https://baike.baidu.com/item/%E5%9C%B0%E7%90%86%E4%BA%94%E8%AF%80/2962128"
+      },
+      {
+       "what": "龙/脉/祖山/少祖/父母山/入首 术语义与GIS量化口径",
+       "source": "司南术语本体（今人整理）"
+      }
+     ],
+     "conf": "low",
+     "notes": "本章在 worklist 中仅有【待补】占位，无可逐句翻译的古文原文；bai 给出据百科核实的章题概述并明确标注正文待补。待全文补入后须逐句重译。"
+    }
+   ]
+  },
+  {
+   "id": "ch-chaisha",
+   "label": "察砂诀",
+   "annotation": "",
+   "sentences": [
+    {
+     "i": 0,
+     "orig": "【待补】",
+     "bai": "（本章「察砂诀」正文尚未收录，此处为占位。）察砂：审察怀抱穴场的群山，要求主山前后左右皆有环护之砂，砂形以端庄、秀丽为吉（砂要秀）；实即寻找能聚气藏气的环抱地形。",
+     "gloss": [
+      [
+       "砂",
+       "穴四周拱卫的群山；左青龙、右白虎、前朱雀、后玄武"
+      ],
+      [
+       "秀",
+       "砂形端庄秀丽、不破碎尖射"
+      ]
+     ],
+     "logic": "IF 砂端庄秀丽、四面环抱拱卫（藏风聚气）THEN 吉；IF 砂破碎、尖射、失位或空缺 THEN 凶",
+     "terms": [
+      "sha",
+      "anshan",
+      "chaoshan",
+      "mingtang"
+     ],
+     "quant": {
+      "observables": "穴左右及前后侧翼山岭的相对高度、环抱程度与朝向",
+      "operational": "侧翼山岭相对穴的高(m) + 环抱/张开张角(deg) + viewshed 遮蔽比(藏风度) + 左右对称度",
+      "metric_unit": "m / deg",
+      "falsifiable": true,
+      "engine": "TempleScore",
+      "evidence": "本章原文未收录（worklist 仅【待补】占位）；enclosure/viewshed 阈值为标准GIS方法学下的现代operational假说，非原文数值"
+     },
+     "src": [
+      {
+       "what": "察砂＝审察怀抱穴场的群山，要前后左右环护、砂要秀，求聚气藏气",
+       "source": "百度百科·地理五诀 / 360doc 风水五大步骤",
+       "url": "https://baike.baidu.com/item/%E5%9C%B0%E7%90%86%E4%BA%94%E8%AF%80/2962128"
+      },
+      {
+       "what": "砂/案山/朝山/明堂 术语义（龙虎抱卫、四象）与GIS量化口径",
+       "source": "司南术语本体（今人整理）"
+      }
+     ],
+     "conf": "low",
+     "notes": "本章在 worklist 中仅有【待补】占位，无可逐句翻译的古文原文；bai 给出据百科核实的章题概述并明确标注正文待补。待全文补入后须逐句重译。"
+    }
+   ]
+  },
+  {
+   "id": "ch-guanshui",
+   "label": "观水诀",
+   "annotation": "",
+   "sentences": [
+    {
+     "i": 0,
+     "orig": "【待补】",
+     "bai": "（本章「观水诀」正文尚未收录，此处为占位。）观水：考察地表与地下水的形态、流向与水质，水清味甘为吉、水浊味涩为凶；水形以随龙、拱揖、绕城、腰带等环抱有情为吉，并论来去水的进神（吉）退神（凶）。",
+     "gloss": [
+      [
+       "观水",
+       "考察来水去水的形态、聚散与水质"
+      ],
+      [
+       "腰带水",
+       "水如玉带环抱穴前，主有情聚气"
+      ],
+      [
+       "进神/退神",
+       "水法术语；来去水合局为进神(吉)、失局为退神(凶)"
+      ]
+     ],
+     "logic": "IF 水环抱缠绕（腰带/绕城/拱揖）、聚而有情、去口关锁 THEN 吉；IF 直冲、反弓、急泻、直去无关 THEN 凶",
+     "terms": [
+      "shui",
+      "mingtang",
+      "chong",
+      "sha_evil"
+     ],
+     "quant": {
+      "observables": "来水去水的路径、环抱方向、汇聚程度与去水口",
+      "operational": "flow_accumulation(汇水量) + 河道弯曲度(sinuosity) + 河道相对穴的环抱/反弓角(deg) + 至河道距离(m) + 去水口约束",
+      "metric_unit": "m / deg / cell-count",
+      "falsifiable": true,
+      "engine": "DragonVeinEngine, TempleScore",
+      "evidence": "本章原文未收录（worklist 仅【待补】占位）；flow_accumulation 阈值与环抱判据为标准GIS方法学下的现代operational假说，非原文数值"
+     },
+     "src": [
+      {
+       "what": "观水＝考察水源水流形态与水质，水清味甘为吉、水浊味涩为凶，水形随龙/拱揖/绕城/腰带",
+       "source": "百度百科·地理五诀 / 360doc 风水五大步骤",
+       "url": "https://baike.baidu.com/item/%E5%9C%B0%E7%90%86%E4%BA%94%E8%AF%80/2962128"
+      },
+      {
+       "what": "水/明堂/冲/煞 术语义（得水为上、界水则止、环抱反弓）与GIS量化口径",
+       "source": "司南术语本体（今人整理）"
+      }
+     ],
+     "conf": "low",
+     "notes": "本章在 worklist 中仅有【待补】占位，无可逐句翻译的古文原文；bai 给出据百科核实的章题概述并明确标注正文待补。待全文补入后须逐句重译。"
+    }
+   ]
+  },
+  {
+   "id": "ch-dianxue",
+   "label": "点穴诀",
+   "annotation": "",
+   "sentences": [
+    {
+     "i": 0,
+     "orig": "【待补】",
+     "bai": "（本章「点穴诀」正文尚未收录，此处为占位。）点穴：穴是龙脉止聚、砂山护卫、川溆萦回的核点；点穴要求「穴要的」，即在龙止气聚、藏风得水之处选中最佳一点定穴。",
+     "gloss": [
+      [
+       "穴",
+       "生气融结之点；龙止、砂环、水聚之中心"
+      ],
+      [
+       "的",
+       "准、恰中要害（穴位精确）"
+      ],
+      [
+       "萦回",
+       "（水）回环缠绕"
+      ]
+     ],
+     "logic": "IF 龙止、砂环、水聚、缓坡凹蓄（乘金相水、穴土印木）THEN 真穴可点；IF 龙未止/砂飞/水走/坡急 THEN 假穴弃之",
+     "terms": [
+      "xue",
+      "qi",
+      "fumushan",
+      "rushou"
+     ],
+     "quant": {
+      "observables": "靠山入首、左右砂、前水交汇处的缓坡凹聚点",
+      "operational": "局部坡度 slope(~3-15°) + plan_curvature 凹聚(藏风) + 至靠山/界水距离(m) + 明堂前向 viewshed 开度",
+      "metric_unit": "deg / m",
+      "falsifiable": true,
+      "engine": "TempleScore, DragonVeinEngine",
+      "evidence": "本章原文未收录（worklist 仅【待补】占位）；slope/curvature/viewshed 复合判据为标准GIS方法学下的现代operational假说，非原文数值"
+     },
+     "src": [
+      {
+       "what": "点穴＝穴为龙脉止聚、砂山护、川溆萦回之核点，穴要的（选中最佳位置）",
+       "source": "百度百科·地理五诀 / 360doc 风水五大步骤",
+       "url": "https://baike.baidu.com/item/%E5%9C%B0%E7%90%86%E4%BA%94%E8%AF%80/2962128"
+      },
+      {
+       "what": "穴/气(生气)/父母山/入首 术语义（势来形止、乘金相水穴土印木）与GIS量化口径",
+       "source": "司南术语本体（今人整理）"
+      }
+     ],
+     "conf": "low",
+     "notes": "本章在 worklist 中仅有【待补】占位，无可逐句翻译的古文原文；bai 给出据百科核实的章题概述并明确标注正文待补。待全文补入后须逐句重译。"
+    }
+   ]
+  },
+  {
+   "id": "ch-quxiang",
+   "label": "取向诀",
+   "annotation": "",
+   "sentences": [
+    {
+     "i": 0,
+     "orig": "【待补】",
+     "bai": "（本章「取向诀」正文尚未收录，此处为占位。）取向（定向）：定下穴宅的位置与坐向布局，方位按八卦四正四隅划分，并依坐向与人之五行相生相克的原则判定吉凶。",
+     "gloss": [
+      [
+       "取向",
+       "确定穴宅所朝之方位（坐之对宫）"
+      ],
+      [
+       "四正四隅",
+       "八卦方位；四正=子午卯酉(北南东西)，四隅=乾坤艮巽(四角)"
+      ],
+      [
+       "坐向",
+       "背靠为坐、面朝为向，相差180°"
+      ]
+     ],
+     "logic": "IF 坐向合二十四山吉度 AND 与命主五行相生 THEN 吉；IF 犯空亡/差错线 OR 与命主五行相克 THEN 凶",
+     "terms": [
+      "xiang",
+      "zuo",
+      "zuoxiang"
+     ],
+     "quant": {
+      "observables": "穴宅面朝的罗盘方位（与背靠相对）",
+      "operational": "facing azimuth(deg, true-north)；二十四山每山 15°；坐 = (向+180) mod 360",
+      "metric_unit": "deg",
+      "falsifiable": true,
+      "engine": "CompassModel",
+      "evidence": "二十四山×15° 为传统罗盘明确刻度（古籍既有离散数值）；连续 azimuth 编码为现代encoding；与命主五行生克判则为传统关系。本章原文未收录（worklist 仅【待补】占位）"
+     },
+     "src": [
+      {
+       "what": "取向＝位置选定及布局，方向按八卦四正四隅并依人之五行生克判吉凶",
+       "source": "百度百科·地理五诀 / 360doc 风水五大步骤",
+       "url": "https://baike.baidu.com/item/%E5%9C%B0%E7%90%86%E4%BA%94%E8%AF%80/2962128"
+      },
+      {
+       "what": "向/坐/坐向 术语义（24山×15°、坐+180=向）与罗盘刻度模型",
+       "source": "司南术语本体（今人整理）"
+      }
+     ],
+     "conf": "low",
+     "notes": "本章在 worklist 中仅有【待补】占位，无可逐句翻译的古文原文；bai 给出据百科核实的章题概述并明确标注正文待补。待全文补入后须逐句重译。"
+    }
+   ]
+  }
+ ]
+}

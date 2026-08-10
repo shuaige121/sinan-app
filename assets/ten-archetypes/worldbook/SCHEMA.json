@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "常明城世界书 · 条目格式",
+  "description": "从母本生成的产物，永远不手改。改母本后重新生成。字段设计兼容 SillyTavern World Info 与自建 App 检索层。",
+  "type": "object",
+  "required": ["meta", "entries"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["name", "version", "source", "generated_from", "token_budget"],
+      "properties": {
+        "name": { "const": "常明城世界书" },
+        "version": { "type": "string", "description": "语义化版本，母本变更即升版" },
+        "source": {
+          "type": "array",
+          "description": "生成来源文件，全部相对 assets/ten-archetypes/",
+          "items": { "type": "string" }
+        },
+        "generated_from": { "type": "string", "description": "母本的 git hash 或修改时间戳，用于检测漂移" },
+        "token_budget": {
+          "type": "object",
+          "description": "注入预算。常驻层超限会挤掉真正相关的条目。",
+          "properties": {
+            "always_on_max": { "const": 300, "description": "常驻层字数上限" },
+            "per_query_max": { "const": 1800, "description": "单次注入总上限" }
+          }
+        },
+        "naming_placeholders": {
+          "type": "object",
+          "description": "十人显示名占位符映射。改名只改这里，条目正文不动。",
+          "patternProperties": {
+            "^(甲|乙|丙|丁|戊|己|庚|辛|壬|癸)$": { "type": "string" }
+          }
+        }
+      }
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "layer", "keys", "content", "priority", "always_on"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^(core|person|place|relation|special|era|object|term|forbid)\\.[a-z0-9_]+$",
+            "description": "层.slug，例：person.jia、relation.sheng、special.jia_geng_chong"
+          },
+          "layer": {
+            "enum": ["core", "person", "place", "relation", "special", "era", "object", "term", "forbid"],
+            "description": "core=常驻核心 person=十人 place=五部与衡枢 relation=五种关系语法 special=五合四冲 era=时序 object=器物 term=行话度量 forbid=禁写总表"
+          },
+          "title": { "type": "string", "description": "人可读标题，不注入" },
+          "keys": {
+            "type": "array",
+            "minItems": 1,
+            "description": "主触发词。命中即注入。十人条目必须同时挂天干、显示名、元素象。",
+            "items": { "type": "string" }
+          },
+          "secondary_keys": {
+            "type": "array",
+            "description": "次级触发词。需与主触发词同时命中才注入，用于降噪。",
+            "items": { "type": "string" }
+          },
+          "content": {
+            "type": "string",
+            "description": "条目正文。必须是可判定的事实陈述，不是散文。禁止叙述性铺陈。人物名一律写占位符 {{甲}} 形式。",
+            "maxLength": 600
+          },
+          "forbid": {
+            "type": "array",
+            "description": "跟随本条一起注入的负面约束。AI 世界书的关键字段——红线必须贴着相关条目走，不能只放在总表里。",
+            "items": { "type": "string" }
+          },
+          "recursive_keys": {
+            "type": "array",
+            "description": "本条注入后应连带拉取的其它条目 id。用于衡枢、五行、关系这类高关联概念。",
+            "items": { "type": "string" }
+          },
+          "priority": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "预算不足时的取舍顺序，大者先入。core=100，forbid=95，person=80，special=70，relation=60，era=50，place=40，object=30，term=20"
+          },
+          "always_on": {
+            "type": "boolean",
+            "description": "是否常驻注入。仅 core 与 forbid 为 true，且两者合计不得超过 always_on_max。"
+          },
+          "insertion_depth": {
+            "type": "integer",
+            "description": "距对话末尾的插入深度。0=最贴近当前轮，越大越靠前。硬约束用小值以防被稀释。",
+            "default": 4
+          },
+          "person_fields": {
+            "type": "object",
+            "description": "仅 layer=person 使用。字段顺序即输出顺序。用户入口在前、伤疤在后：epithet → praised → shadow → scar → excess → gift（设计规范 §4：伤疤仍是人物设计第一锚点，但不是用户第一入口）。",
+            "required": ["gan", "element", "yin_yang", "bu", "silhouette", "epithet", "praised", "shadow", "scar", "excess", "gift", "speech", "owned_imagery", "highlight", "unhealed"],
+            "properties": {
+              "gan": { "enum": ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"] },
+              "display_name": { "type": "string", "description": "占位符形式 {{甲}}" },
+              "element": { "enum": ["木", "火", "土", "金", "水"] },
+              "yin_yang": { "enum": ["阳", "阴"], "description": "阴阳不是性别。此字段禁止驱动任何性别化表达。" },
+              "bu": { "type": "string" },
+              "silhouette": { "type": "string", "description": "一句话体感轮廓" },
+              "epithet": { "type": "string", "description": "称号。用户入口第一层，身份卡正面可展示。文案母本 stories/EPITHETS.md。" },
+              "praised": { "type": "string", "description": "自称句。被夸的那一面，含标点不超过 30 字，身份卡正面可展示、可分享。" },
+              "shadow": { "type": "string", "description": "反面。典故的下一句，扎心层。只进关系解读与漫画后半段，不上身份卡正面。" },
+              "scar": { "type": "string", "description": "认同锚点／伤疤。比反面更深一层，产品第一屏不展示。" },
+              "excess": { "type": "string", "description": "过量时会变成什么" },
+              "gift": { "type": "string", "description": "给团队的东西。排在伤疤之后。" },
+              "speech": { "type": "string", "description": "说话方式" },
+              "owned_imagery": {
+                "type": "array",
+                "description": "独占意象。他人条目不得在叙述层使用。",
+                "items": { "type": "string" }
+              },
+              "highlight": { "type": "string", "description": "主线中不可替代的高光，一句话" },
+              "unhealed": { "type": "string", "description": "高光之后仍未解决的部分。必填——高光不治愈伤疤。" }
+            }
+          },
+          "source_ref": {
+            "type": "array",
+            "description": "本条在母本中的出处，便于漂移排查",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,403 @@
+{
+  "book": "xinji-bianfang",
+  "srcFile": "annotated/xinji-bianfang.json",
+  "srcHash": "sha256:00596253e770ab03882ff707df2abcfc49d6f55b74fb94670e206e3b749d9400",
+  "titleEn": "Imperially Endorsed Treatise on Harmonizing Times and Distinguishing Directions",
+  "titlePinyin": "Qīndìng Xiéjì Biànfāng Shū",
+  "pipeline": "sonnet cited-first translate+adversarial-review (status=draft；须人工抽查 low-conf 后升 reviewed)",
+  "coverage": "cited-only (rules[].src 引用面；非全本)",
+  "sentences": [
+    {
+      "ch": "ch02",
+      "i": 11,
+      "origHash": "d7da035e",
+      "en": "Grand Year (Tàisuì) at 午 Wǔ; Year-Breaker (Suìpò) at 子 Zǐ; Three Killings (Sānshà) at 亥 Hài, 子 Zǐ, and 丑 Chǒu.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "太岁",
+        "岁破",
+        "三煞"
+      ]
+    },
+    {
+      "ch": "ch02",
+      "i": 12,
+      "origHash": "e1526031",
+      "en": "Sitting-Killing (zuòshà) at 壬 Rén and 癸 Guǐ, Facing-Killing (xiàngshà) at 丙 Bǐng and 丁 Dīng; Floating-Heaven Void (fútiān kōngwáng) at 離 Lí and 壬 Rén.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "坐煞 (rear/sitting) and 向煞 (front/facing) are the two sub-groups in the parentheses; 坐煞/向煞/浮天空亡 are annual siting sha not in the glossary, rendered literally.",
+      "terms": [
+        "离"
+      ]
+    },
+    {
+      "ch": "ch02",
+      "i": 13,
+      "origHash": "ef9a9bf5",
+      "en": "Inauspicious for opening the mountain (kāishān, siting the rear): the Year Overcoming the Mountains (nián kè shānjiā) — the 甲 Jiǎ, 寅 Yín, 辰 Chén, 巽 Xùn, 戌 Xū, 坎 Kǎn, 辛 Xīn, 申 Shēn, 丑 Chǒu, 癸 Guǐ, 坤 Kūn, 庚 Gēng, and 未 Wèi mountains; the Yin-Bureau Grand Year (yīnfǔ tàisuì) at 艮 Gèn and 巽 Xùn; the Six Harms (liùhài) at 丑 Chǒu; the Death Tally (sǐfú) at 亥 Hài; Moxa-Retreat (jiǔtuì) at 酉 Yǒu.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "開山=breaking ground on the sitting-mountain; 年尅(克)山家=the year's phase overcoming these mountain-sectors; 隂府太歲/死符/灸退 not in glossary, rendered literally.",
+      "terms": [
+        "六害",
+        "巽",
+        "坎",
+        "坤",
+        "艮"
+      ]
+    },
+    {
+      "ch": "ch02",
+      "i": 14,
+      "origHash": "4f5c72ac",
+      "en": "Inauspicious for setting the facing (lìxiàng): the Mountain-Patrolling Rāhu (xúnshān Luóhóu) at 丁 Dīng; the Illness Tally (bìngfú) at 巳 Sì.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "巡山羅㬋 = 巡山罗睺, the eclipse-node demon Rāhu on mountain patrol; not in glossary."
+    },
+    {
+      "ch": "ch03",
+      "i": 12,
+      "origHash": "4fe5e3ac",
+      "en": "Sitting-Killing (zuòshà) at 庚 Gēng and 辛 Xīn, Facing-Killing (xiàngshà) at 甲 Jiǎ and 乙 Yǐ; Floating-Heaven Void (fútiān kōngwáng) at 坎 Kǎn and 癸 Guǐ.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "坎"
+      ]
+    },
+    {
+      "ch": "ch03",
+      "i": 13,
+      "origHash": "e78b3319",
+      "en": "Inauspicious for opening the mountain (kāishān): the Year Overcoming the Mountains (nián kè shānjiā) — the 震 Zhèn, 艮 Gèn, and 巳 Sì mountains; the Yin-Bureau Grand Year (yīnfǔ tàisuì) at 兌 Duì and 乾 Qián; the Six Harms (liùhài) at 子 Zǐ; the Death Tally (sǐfú) at 子 Zǐ; Moxa-Retreat (jiǔtuì) at 午 Wǔ.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "六害",
+        "震",
+        "艮",
+        "兑",
+        "乾"
+      ]
+    },
+    {
+      "ch": "ch03",
+      "i": 14,
+      "origHash": "a2104416",
+      "en": "Inauspicious for setting the facing (lìxiàng): the Mountain-Patrolling Rāhu (xúnshān Luóhóu) at 坤 Kūn; the Illness Tally (bìngfú) at 午 Wǔ.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "坤"
+      ]
+    },
+    {
+      "ch": "ch05",
+      "i": 13,
+      "origHash": "060879ec",
+      "en": "Inauspicious for opening the mountain (kāishān): the Year Overcoming the Mountains (nián kè shānjiā) — the 離 Lí, 壬 Rén, 丙 Bǐng, and 乙 Yǐ mountains; the Yin-Bureau Grand Year (yīnfǔ tàisuì) at 乾 Qián; the Six Harms (liùhài) at 離 Lí; the Death Tally (sǐfú) at 戌 Xū; Moxa-Retreat (jiǔtuì) at 寅 Yín.",
+      "conf": "low",
+      "status": "draft",
+      "enNote": "隂府太歲 prints （山乾）; 山 'mountain' is not one of the twenty-four points and is likely a copyist/OCR slip (the term takes two trigrams in every other chapter), so only 乾 Qián is rendered — flagged, not corrected.",
+      "terms": [
+        "六害",
+        "离",
+        "乾"
+      ]
+    },
+    {
+      "ch": "ch05",
+      "i": 15,
+      "origHash": "b61e002e",
+      "en": "Inauspicious for renovating a sector (xiūfāng): the Heaven-Office Tally (tiānguānfú) at 申 Shēn; the Earth-Office Tally (dìguānfú) at 申 Shēn; the Great Killing (dàshà) at 丑 Chǒu; the Grand General (dàjiāngjūn) at 酉 Yǒu; the Strongman (lìshì) at 午 Wǔ; the Silkworm Chamber (cánshì) at 乾 Qián; the Silkworm Officer (cánguān) at 巽 Xùn; the Silkworm Fate (cánmìng) at 辰 Chén; the Year-Punishment (suìxíng) at 巳 Sì; the Yellow Banner (huángfān) at 酉 Yǒu; the Leopard-Tail (bàowěi) at 丑 Chǒu; Fēilián (a swift wind-spirit sha) at 未 Wèi; the Mourning Gate (sāngmén) at 亥 Hài; the Condolence Guest (diàokè) at 亥 Hài; the White Tiger (báihǔ) at 未 Wèi; the Metal Spirit (jīnshén) at 巳 Sì, 寅 Yín, 卯 Mǎo, and 戌 Xū; the Solitary Fire (dúhuǒ) at 亥 Hài; the Five Ghosts (wǔguǐ) at 坤 Kūn; the Ruinous Five Ghosts (pòbài wǔguǐ) at 未 Wèi.",
+      "conf": "low",
+      "status": "draft",
+      "enNote": "修方=working a directional sector; almost all these annual sha are not in the glossary and are rendered literally. 歲刑 prints the non-directional glyph 已; emended to 巳 Sì (歲刑 takes a branch, and 已≈巳/己 in print) — an editorial reading, verify against source (conf lowered for this emendation).",
+      "terms": [
+        "白虎",
+        "五鬼",
+        "乾",
+        "巽",
+        "坤"
+      ]
+    },
+    {
+      "ch": "ch06",
+      "i": 12,
+      "origHash": "6daa0c05",
+      "en": "Sitting-Killing (zuòshà) at 壬 Rén and 癸 Guǐ, Facing-Killing (xiàngshà) at 丙 Bǐng and 丁 Dīng; Floating-Heaven Void (fútiān kōngwáng) at 坤 Kūn and 乙 Yǐ.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "坤"
+      ]
+    },
+    {
+      "ch": "ch06",
+      "i": 13,
+      "origHash": "d3eb0927",
+      "en": "Inauspicious for opening the mountain (kāishān): the Year Overcoming the Mountains (nián kè shānjiā) — the 甲 Jiǎ, 寅 Yín, 辰 Chén, 巽 Xùn, 戌 Xū, 坎 Kǎn, 辛 Xīn, 申 Shēn, 丑 Chǒu, 癸 Guǐ, 坤 Kūn, 庚 Gēng, and 未 Wèi mountains; the Yin-Bureau Grand Year (yīnfǔ tàisuì) at 坤 Kūn and 震 Zhèn; the Six Harms (liùhài) at 酉 Yǒu; the Death Tally (sǐfú) at 卯 Mǎo; Moxa-Retreat (jiǔtuì) at 酉 Yǒu.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "六害",
+        "巽",
+        "坎",
+        "坤",
+        "震"
+      ]
+    },
+    {
+      "ch": "ch06",
+      "i": 14,
+      "origHash": "0c615432",
+      "en": "Inauspicious for setting the facing (lìxiàng): the Mountain-Patrolling Rāhu (xúnshān Luóhóu) at 乾 Qián; the Illness Tally (bìngfú) at 酉 Yǒu.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "乾"
+      ]
+    },
+    {
+      "ch": "ch07",
+      "i": 11,
+      "origHash": "c411990c",
+      "en": "Grand Year (Tàisuì) at 亥 Hài; Year-Breaker (Suìpò) at 巳 Sì; Three Killings (Sānshà) at 申 Shēn, 酉 Yǒu, and 戌 Xū.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "太岁",
+        "岁破",
+        "三煞"
+      ]
+    },
+    {
+      "ch": "ch07",
+      "i": 12,
+      "origHash": "9d493e84",
+      "en": "Sitting-Killing (zuòshà) at 庚 Gēng and 辛 Xīn, Facing-Killing (xiàngshà) at 甲 Jiǎ and 乙 Yǐ; Floating-Heaven Void (fútiān kōngwáng) at 乾 Qián and 甲 Jiǎ.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "乾"
+      ]
+    },
+    {
+      "ch": "ch07",
+      "i": 13,
+      "origHash": "9fea7dae",
+      "en": "Inauspicious for opening the mountain (kāishān): the Year Overcoming the Mountains (nián kè shānjiā) — the 震 Zhèn, 艮 Gèn, and 巳 Sì mountains; the Yin-Bureau Grand Year (yīnfǔ tàisuì) at 巽 Xùn and 艮 Gèn; the Six Harms (liùhài) at 申 Shēn; the Death Tally (sǐfú) at 辰 Chén; Moxa-Retreat (jiǔtuì) at 午 Wǔ.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "六害",
+        "震",
+        "艮",
+        "巽"
+      ]
+    },
+    {
+      "ch": "ch07",
+      "i": 14,
+      "origHash": "e6040aa6",
+      "en": "Inauspicious for setting the facing (lìxiàng): the Mountain-Patrolling Rāhu (xúnshān Luóhóu) at 壬 Rén; the Illness Tally (bìngfú) at 戌 Xū.",
+      "conf": "med",
+      "status": "draft"
+    },
+    {
+      "ch": "ch08",
+      "i": 11,
+      "origHash": "e1f04a96",
+      "en": "Grand Year (Tàisuì) at 子 Zǐ; Year-Breaker (Suìpò) at 午 Wǔ; Three Killings (Sānshà) at 巳 Sì, 午 Wǔ, and 未 Wèi.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "太岁",
+        "岁破",
+        "三煞"
+      ]
+    },
+    {
+      "ch": "ch08",
+      "i": 12,
+      "origHash": "382706b6",
+      "en": "Sitting-Killing (zuòshà) at 丙 Bǐng and 丁 Dīng, Facing-Killing (xiàngshà) at 壬 Rén and 癸 Guǐ; Floating-Heaven Void (fútiān kōngwáng) at 兌 Duì and 丁 Dīng.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "兑"
+      ]
+    },
+    {
+      "ch": "ch08",
+      "i": 14,
+      "origHash": "2bda358f",
+      "en": "Inauspicious for setting the facing (lìxiàng): the Mountain-Patrolling Rāhu (xúnshān Luóhóu) at 癸 Guǐ; the Illness Tally (bìngfú) at 亥 Hài.",
+      "conf": "med",
+      "status": "draft"
+    },
+    {
+      "ch": "ch09",
+      "i": 2,
+      "origHash": "9d6af84e",
+      "en": "the Year Virtue (suìdé) at 丙 Bǐng; the Year-Virtue Combination (suìdéhé) at 辛 Xīn; the Year-Branch Virtue (suìzhīdé) at 午 Wǔ.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "歲徳/歲徳合/歲枝徳 are auspicious annual spirits not in the glossary; 德=Virtue, 合=combination, 枝(=支)=branch."
+    },
+    {
+      "ch": "ch09",
+      "i": 3,
+      "origHash": "50bb8838",
+      "en": "the Yang Noble (yángguìrén) at 寅 Yín; the Yin Noble (yīnguìrén) at 午 Wǔ; the Year Prosperity-Star (suìlù) at 酉 Yǒu.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "貴人=noble/benefactor (cf. glossary 天乙贵人); 歲禄=the annual 禄 (Prosperity Star). Not in glossary, rendered literally."
+    },
+    {
+      "ch": "ch09",
+      "i": 4,
+      "origHash": "170d2310",
+      "en": "the Year Horse (suìmǎ) at 亥 Hài; the Memorial Scribe (zòushū) at 乾 Qián; the Erudite (bóshì) at 巽 Xùn.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "歲馬 = the annual Traveling Horse (cf. glossary 驿马); 奏書 (memorial-presenting official) and 博士 (learned officer) are auspicious annual spirits, not in glossary.",
+      "terms": [
+        "乾",
+        "巽"
+      ]
+    },
+    {
+      "ch": "ch09",
+      "i": 6,
+      "origHash": "c6404c95",
+      "en": "the Cover-Mountain Yellow Way (gàishān huángdào): Greedy Wolf (tānláng) at 艮 Gèn and 丙 Bǐng; Great Gate (jùmén) at 巽 Xùn and 辛 Xīn; Military Arts (wǔqǔ) at 兌 Duì, 丁 Dīng, 巳 Sì, and 丑 Chǒu; Literary Arts (wénqǔ) at 離 Lí, 壬 Rén, 寅 Yín, and 戌 Xū.",
+      "conf": "high",
+      "status": "draft",
+      "enNote": "蓋山黄道=the 'cover-mountain' auspicious rota; the four star-names are glossary terms.",
+      "terms": [
+        "黄道",
+        "贪狼",
+        "巨门",
+        "武曲",
+        "文曲",
+        "艮",
+        "巽",
+        "兑",
+        "离"
+      ]
+    },
+    {
+      "ch": "ch09",
+      "i": 9,
+      "origHash": "0b7378fb",
+      "en": "the Four-Advantage Three-Origins (sìlì sānyuán): the Sun (Tàiyáng) at 寅 Yín; the Moon (Tàiyīn) at 辰 Chén; the Dragon Virtue (lóngdé) at 申 Shēn; the Blessing Virtue (fúdé) at 戌 Xū.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "四利三元 is an annual auspicious sub-cycle; here 太陽/太隂 are the Sun/Moon spirits, 龍徳/福徳 the Dragon-Virtue/Blessing-Virtue spirits — not in glossary, rendered literally."
+    },
+    {
+      "ch": "ch09",
+      "i": 11,
+      "origHash": "8a264fd6",
+      "en": "Grand Year (Tàisuì) at 丑 Chǒu; Year-Breaker (Suìpò) at 未 Wèi; Three Killings (Sānshà) at 寅 Yín, 卯 Mǎo, and 辰 Chén.",
+      "conf": "high",
+      "status": "draft",
+      "terms": [
+        "太岁",
+        "岁破",
+        "三煞"
+      ]
+    },
+    {
+      "ch": "ch09",
+      "i": 12,
+      "origHash": "dd225a49",
+      "en": "Sitting-Killing (zuòshà) at 甲 Jiǎ and 乙 Yǐ, Facing-Killing (xiàngshà) at 庚 Gēng and 辛 Xīn; Floating-Heaven Void (fútiān kōngwáng) at 艮 Gèn and 丙 Bǐng.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "艮"
+      ]
+    },
+    {
+      "ch": "ch09",
+      "i": 14,
+      "origHash": "8eab5859",
+      "en": "Inauspicious for setting the facing (lìxiàng): the Mountain-Patrolling Rāhu (xúnshān Luóhóu) at 艮 Gèn; the Illness Tally (bìngfú) at 子 Zǐ.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "艮"
+      ]
+    },
+    {
+      "ch": "ch09",
+      "i": 15,
+      "origHash": "f99c645c",
+      "en": "Inauspicious for renovating a sector (xiūfāng): the Heaven-Office Tally (tiānguānfú) at 申 Shēn; the Earth-Office Tally (dìguānfú) at 巳 Sì; the Great Killing (dàshà) at 酉 Yǒu; the Grand General (dàjiāngjūn) at 酉 Yǒu; the Strongman (lìshì) at 艮 Gèn; the Silkworm Chamber (cánshì) at 坤 Kūn; the Silkworm Officer (cánguān) at 未 Wèi; the Silkworm Fate (cánmìng) at 申 Shēn; the Year-Punishment (suìxíng) at 戌 Xū; the Yellow Banner (huángfān) at 丑 Chǒu; the Leopard-Tail (bàowěi) at 未 Wèi; Fēilián (a swift wind-spirit sha) at 酉 Yǒu; the Mourning Gate (sāngmén) at 卯 Mǎo; the Condolence Guest (diàokè) at 亥 Hài; the White Tiger (báihǔ) at 酉 Yǒu; the Metal Spirit (jīnshén) at 寅 Yín, 卯 Mǎo, 午 Wǔ, 未 Wèi, 子 Zǐ, and 丑 Chǒu; the Solitary Fire (dúhuǒ) at 震 Zhèn; the Five Ghosts (wǔguǐ) at 卯 Mǎo; the Ruinous Five Ghosts (pòbài wǔguǐ) at 乾 Qián.",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "修方=working a directional sector; most sha here are not in the glossary and are rendered literally (see ch05 i15). 獨火 given as the trigram-direction 震 Zhèn. 歲刑（戌）confirms the almanac's 刑 rule for a 丑 year (丑→戌).",
+      "terms": [
+        "白虎",
+        "五鬼",
+        "艮",
+        "坤",
+        "震",
+        "乾"
+      ]
+    },
+    {
+      "ch": "ch10",
+      "i": 12,
+      "origHash": "9e5891ce",
+      "en": "Sitting-Killing (zuòshà) at 壬 Rén and 癸 Guǐ, Facing-Killing (xiàngshà) at 丙 Bǐng and 丁 Dīng; Floating-Heaven Void (fútiān kōngwáng) at 乾 Qián and 甲 Jiǎ.",
+      "conf": "med",
+      "status": "draft",
+      "terms": [
+        "乾"
+      ]
+    },
+    {
+      "ch": "ch10",
+      "i": 14,
+      "origHash": "cd5f14f0",
+      "en": "Inauspicious for setting the facing (lìxiàng): the Mountain-Patrolling Rāhu (xúnshān Luóhóu) at 甲 Jiǎ; the Illness Tally (bìngfú) at 丑 Chǒu.",
+      "conf": "med",
+      "status": "draft"
+    },
+    {
+      "ch": "ch11",
+      "i": 12,
+      "origHash": "b0e17ae0",
+      "en": "The sitting-sha (rear-direction malign influence) at Gēng and Xīn (庚, 辛); the facing-sha (front-direction malign influence) at Jiǎ and Yǐ (甲, 乙); the Floating-Heaven Void (Fútiān Kōngwáng) at Kūn and Yǐ (坤, 乙).",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "坐煞/向煞/浮天空亡 are named directional sha (malign influences) absent from the glossary; rendered literally. Per the parenthetical order, 庚辛 pairs with 坐煞 and 甲乙 with 向煞. 空亡 here is the directional-void sense of the 神煞 浮天空亡, distinct from the BaZi 旬空/空亡 (decade void) in the glossary.",
+      "terms": [
+        "庚",
+        "辛",
+        "甲",
+        "乙",
+        "坤"
+      ]
+    },
+    {
+      "ch": "ch11",
+      "i": 14,
+      "origHash": "51250711",
+      "en": "Setting the facing — inauspicious: the Mountain-Patrolling Luóhóu (Xúnshān Luóhóu) at Wǔ (午); the Illness Token (Bìngfú) at Yǐ (乙).",
+      "conf": "med",
+      "status": "draft",
+      "enNote": "巡山羅㬋 = 巡山羅睺 Xúnshān Luóhóu, the mountain-patrolling Rāhu (eclipse node); 病符 Bìngfú, the sickness-token star. Both are named directional sha not in the glossary; 立向 = establishing the facing orientation.",
+      "terms": [
+        "午",
+        "乙"
+      ]
+    }
+  ]
+}

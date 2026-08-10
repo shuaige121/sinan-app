@@ -1,0 +1,60 @@
+{
+  "book": "zangshu",
+  "srcFile": "annotated/zangshu.json",
+  "srcHash": "sha256:de7d7da50afadcb92b7ddadaf1cfbb0df827ad7a1ff37d3e3fa7b26453fdf6a5",
+  "titleEn": "Book of Burial",
+  "titlePinyin": "Zàngshū",
+  "pipeline": "seed/hand-vetted (proof-of-concept; 正式内容须走 batch-agent+schema+lint+对抗盲审管线)",
+  "chapters": [
+    {
+      "ch": "ch01",
+      "labelEn": "Inner Chapter I",
+      "en": "The opening statement of the treatise: burial means taking in the Generating Breath (shēngqì). The breath of the Five Phases courses within the earth; the ancestral bones, obtaining this breath, shelter the descendants. Cited with the natural resonances of the collapsing bronze mountain and the sprouting spring shoots to establish that burial rests on sympathetic response. (modern synthesis)",
+      "status": "seed"
+    }
+  ],
+  "sentences": [
+    {
+      "ch": "ch01",
+      "i": 0,
+      "origHash": "5b90a39b",
+      "en": "To bury is to take in the Generating Breath (shēngqì).",
+      "terms": [
+        "生氣"
+      ],
+      "conf": "high",
+      "status": "seed"
+    },
+    {
+      "ch": "ch01",
+      "i": 1,
+      "origHash": "e977bf4e",
+      "en": "The breath of the Five Phases (wǔxíng) courses within the earth; issuing forth, it gives life to the ten thousand things.",
+      "terms": [
+        "五行"
+      ],
+      "conf": "high",
+      "status": "seed"
+    },
+    {
+      "ch": "ch01",
+      "i": 2,
+      "origHash": "3f61a169",
+      "en": "A person receives their body from father and mother; when the ancestral bones obtain the breath, the remains left behind receive its shelter.",
+      "conf": "med",
+      "status": "seed"
+    },
+    {
+      "ch": "ch02",
+      "i": 1,
+      "origHash": "38554c96",
+      "en": "The classic says: breath, riding the wind, scatters; meeting water, it halts.",
+      "enNote": "The line from which the word fēngshuǐ (wind-water) is traditionally derived.",
+      "terms": [
+        "風水"
+      ],
+      "conf": "high",
+      "status": "seed"
+    }
+  ]
+}

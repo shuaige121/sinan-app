@@ -1,0 +1,2930 @@
+{
+  "meta": {
+    "source": "docs/i18n-style-guide.md §2 + §5.4",
+    "note": "术语单一真源；由样式指南转录，勿手改，改样式指南后重新生成",
+    "frozen": "§0 宪法级决策见样式指南"
+  },
+  "terms": [
+    {
+      "hanzi": "阴阳",
+      "pinyin": "yīnyáng",
+      "en": "yin and yang",
+      "label": "conv",
+      "section": "2.1",
+      "notes": "Lowercase, roman, no gloss needed (English dictionary word). 阴 yīn / 阳 yáng individually if needed."
+    },
+    {
+      "hanzi": "五行",
+      "pinyin": "wǔxíng",
+      "en": "the Five Phases",
+      "label": "conv",
+      "section": "2.1",
+      "notes": "Prefer \"Five Phases\" over \"Five Elements\" — 行 = phase/process, not static element. May note \"(also Five Agents)\" once. (conv. source: Needham)"
+    },
+    {
+      "hanzi": "气",
+      "pinyin": "qì",
+      "en": "breath / vital breath",
+      "label": "conv",
+      "section": "2.1",
+      "notes": "Keep pinyin qì; gloss \"vital breath.\" Not \"energy\" (mystical drift). In 生气 render as Breath."
+    },
+    {
+      "hanzi": "八卦",
+      "pinyin": "bāguà",
+      "en": "the eight trigrams",
+      "label": "conv",
+      "section": "2.1",
+      "notes": "The three-line figures. Distinct from 六十四卦."
+    },
+    {
+      "hanzi": "六十四卦",
+      "pinyin": "liùshísì guà",
+      "en": "the sixty-four hexagrams",
+      "label": "conv",
+      "section": "2.1",
+      "notes": "Six-line figures."
+    },
+    {
+      "hanzi": "卦",
+      "pinyin": "guà",
+      "en": "trigram / hexagram",
+      "label": "conv",
+      "section": "2.1",
+      "notes": "Disambiguate by line-count in context."
+    },
+    {
+      "hanzi": "爻",
+      "pinyin": "yáo",
+      "en": "line (of a gua)",
+      "label": "conv",
+      "section": "2.1",
+      "notes": "阳爻 solid line, 阴爻 broken line. (conv. source: Wilhelm)"
+    },
+    {
+      "hanzi": "河图",
+      "pinyin": "Hétú",
+      "en": "the Yellow River Chart",
+      "label": "conv",
+      "section": "2.1",
+      "notes": "First occurrence full; then 河图 (Hétú)."
+    },
+    {
+      "hanzi": "洛书",
+      "pinyin": "Luòshū",
+      "en": "the Luo River Writing",
+      "label": "conv",
+      "section": "2.1",
+      "notes": "Basis of the nine-palace magic square."
+    },
+    {
+      "hanzi": "九宫",
+      "pinyin": "jiǔgōng",
+      "en": "the nine palaces",
+      "label": "site",
+      "section": "2.1",
+      "notes": "The 3×3 sector grid; \"palace\" is the standard functional word."
+    },
+    {
+      "hanzi": "太极",
+      "pinyin": "tàijí",
+      "en": "the Supreme Ultimate",
+      "label": "conv",
+      "section": "2.1",
+      "notes": "(conv. source: Wilhelm/Legge)"
+    },
+    {
+      "hanzi": "天人合一",
+      "pinyin": "tiān rén hé yī",
+      "en": "the unity of Heaven and humankind",
+      "label": "site",
+      "section": "2.1",
+      "notes": "Concept phrase; gloss, don't sloganize."
+    },
+    {
+      "hanzi": "木",
+      "pinyin": "mù",
+      "en": "Wood",
+      "label": "conv",
+      "section": "2.2",
+      "notes": "Phase, capitalized when naming the phase."
+    },
+    {
+      "hanzi": "火",
+      "pinyin": "huǒ",
+      "en": "Fire",
+      "label": "conv",
+      "section": "2.2",
+      "notes": ""
+    },
+    {
+      "hanzi": "土",
+      "pinyin": "tǔ",
+      "en": "Earth",
+      "label": "conv",
+      "section": "2.2",
+      "notes": "\"Earth\" the phase; not \"Soil.\""
+    },
+    {
+      "hanzi": "金",
+      "pinyin": "jīn",
+      "en": "Metal",
+      "label": "conv",
+      "section": "2.2",
+      "notes": "Not \"Gold\" in the phase sense."
+    },
+    {
+      "hanzi": "水",
+      "pinyin": "shuǐ",
+      "en": "Water",
+      "label": "conv",
+      "section": "2.2",
+      "notes": ""
+    },
+    {
+      "hanzi": "相生",
+      "pinyin": "xiāngshēng",
+      "en": "mutual generation",
+      "label": "conv",
+      "section": "2.2",
+      "notes": "The productive cycle. (conv. source: Needham)"
+    },
+    {
+      "hanzi": "相克",
+      "pinyin": "xiāngkè",
+      "en": "mutual conquest / overcoming",
+      "label": "conv",
+      "section": "2.2",
+      "notes": "Needham \"conquest\"; site may use \"overcoming.\" (conv. source: Needham)"
+    },
+    {
+      "hanzi": "甲",
+      "pinyin": "jiǎ",
+      "en": "Jiǎ (yang Wood)",
+      "label": "",
+      "section": "2.3",
+      "notes": "Stem 1."
+    },
+    {
+      "hanzi": "乙",
+      "pinyin": "yǐ",
+      "en": "Yǐ (yin Wood)",
+      "label": "",
+      "section": "2.3",
+      "notes": "Stem 2."
+    },
+    {
+      "hanzi": "丙",
+      "pinyin": "bǐng",
+      "en": "Bǐng (yang Fire)",
+      "label": "",
+      "section": "2.3",
+      "notes": "Stem 3."
+    },
+    {
+      "hanzi": "丁",
+      "pinyin": "dīng",
+      "en": "Dīng (yin Fire)",
+      "label": "",
+      "section": "2.3",
+      "notes": "Stem 4."
+    },
+    {
+      "hanzi": "戊",
+      "pinyin": "wù",
+      "en": "Wù (yang Earth)",
+      "label": "",
+      "section": "2.3",
+      "notes": "Stem 5."
+    },
+    {
+      "hanzi": "己",
+      "pinyin": "jǐ",
+      "en": "Jǐ (yin Earth)",
+      "label": "",
+      "section": "2.3",
+      "notes": "Stem 6. Note tone jǐ (not jī)."
+    },
+    {
+      "hanzi": "庚",
+      "pinyin": "gēng",
+      "en": "Gēng (yang Metal)",
+      "label": "",
+      "section": "2.3",
+      "notes": "Stem 7."
+    },
+    {
+      "hanzi": "辛",
+      "pinyin": "xīn",
+      "en": "Xīn (yin Metal)",
+      "label": "",
+      "section": "2.3",
+      "notes": "Stem 8."
+    },
+    {
+      "hanzi": "壬",
+      "pinyin": "rén",
+      "en": "Rén (yang Water)",
+      "label": "",
+      "section": "2.3",
+      "notes": "Stem 9. Read rén, not wáng."
+    },
+    {
+      "hanzi": "癸",
+      "pinyin": "guǐ",
+      "en": "Guǐ (yin Water)",
+      "label": "",
+      "section": "2.3",
+      "notes": "Stem 10."
+    },
+    {
+      "hanzi": "子",
+      "pinyin": "zǐ",
+      "en": "Zǐ (Rat / 23:00–01:00)",
+      "label": "",
+      "section": "2.4",
+      "notes": "Branch 1."
+    },
+    {
+      "hanzi": "丑",
+      "pinyin": "chǒu",
+      "en": "Chǒu (Ox)",
+      "label": "",
+      "section": "2.4",
+      "notes": "Branch 2."
+    },
+    {
+      "hanzi": "寅",
+      "pinyin": "yín",
+      "en": "Yín (Tiger)",
+      "label": "",
+      "section": "2.4",
+      "notes": "Branch 3."
+    },
+    {
+      "hanzi": "卯",
+      "pinyin": "mǎo",
+      "en": "Mǎo (Rabbit)",
+      "label": "",
+      "section": "2.4",
+      "notes": "Branch 4."
+    },
+    {
+      "hanzi": "辰",
+      "pinyin": "chén",
+      "en": "Chén (Dragon)",
+      "label": "",
+      "section": "2.4",
+      "notes": "Branch 5."
+    },
+    {
+      "hanzi": "巳",
+      "pinyin": "sì",
+      "en": "Sì (Snake)",
+      "label": "",
+      "section": "2.4",
+      "notes": "Branch 6."
+    },
+    {
+      "hanzi": "午",
+      "pinyin": "wǔ",
+      "en": "Wǔ (Horse / 11:00–13:00)",
+      "label": "",
+      "section": "2.4",
+      "notes": "Branch 7."
+    },
+    {
+      "hanzi": "未",
+      "pinyin": "wèi",
+      "en": "Wèi (Goat)",
+      "label": "",
+      "section": "2.4",
+      "notes": "Branch 8."
+    },
+    {
+      "hanzi": "申",
+      "pinyin": "shēn",
+      "en": "Shēn (Monkey)",
+      "label": "",
+      "section": "2.4",
+      "notes": "Branch 9."
+    },
+    {
+      "hanzi": "酉",
+      "pinyin": "yǒu",
+      "en": "Yǒu (Rooster)",
+      "label": "",
+      "section": "2.4",
+      "notes": "Branch 10."
+    },
+    {
+      "hanzi": "戌",
+      "pinyin": "xū",
+      "en": "Xū (Dog)",
+      "label": "",
+      "section": "2.4",
+      "notes": "Branch 11. Read xū, not shù."
+    },
+    {
+      "hanzi": "亥",
+      "pinyin": "hài",
+      "en": "Hài (Pig)",
+      "label": "",
+      "section": "2.4",
+      "notes": "Branch 12."
+    },
+    {
+      "hanzi": "干支",
+      "pinyin": "gānzhī",
+      "en": "stem-branch / the sexagenary pair",
+      "label": "conv",
+      "section": "2.4",
+      "notes": "The 60-cycle; \"sexagenary\" is standard."
+    },
+    {
+      "hanzi": "生肖",
+      "pinyin": "shēngxiào",
+      "en": "the zodiac animals",
+      "label": "conv",
+      "section": "2.4",
+      "notes": "Keep the branch and the 生肖 distinct in copy."
+    },
+    {
+      "hanzi": "正官",
+      "pinyin": "zhèngguān",
+      "en": "Direct Officer",
+      "label": "site",
+      "section": "2.5",
+      "notes": "The regulated authority role."
+    },
+    {
+      "hanzi": "七杀",
+      "pinyin": "qīshā",
+      "en": "Seven Killings",
+      "label": "site",
+      "section": "2.5",
+      "notes": "Also 偏官 Indirect Officer. Gloss \"unrestrained authority.\" Keep \"Seven Killings\"; do not soften to \"Power.\""
+    },
+    {
+      "hanzi": "正财",
+      "pinyin": "zhèngcái",
+      "en": "Direct Wealth",
+      "label": "site",
+      "section": "2.5",
+      "notes": ""
+    },
+    {
+      "hanzi": "偏财",
+      "pinyin": "piāncái",
+      "en": "Indirect Wealth",
+      "label": "site",
+      "section": "2.5",
+      "notes": ""
+    },
+    {
+      "hanzi": "正印",
+      "pinyin": "zhèngyìn",
+      "en": "Direct Resource",
+      "label": "site",
+      "section": "2.5",
+      "notes": "印 = \"seal/resource\"; render \"Resource,\" not \"Seal-blessing.\""
+    },
+    {
+      "hanzi": "偏印",
+      "pinyin": "piānyìn",
+      "en": "Indirect Resource",
+      "label": "site",
+      "section": "2.5",
+      "notes": "Colloquial 枭神 avoid in EN."
+    },
+    {
+      "hanzi": "食神",
+      "pinyin": "shíshén",
+      "en": "Eating God / Gourmet",
+      "label": "site",
+      "section": "2.5",
+      "notes": "Beware: same pinyin shíshén as 十神 (the category). Disambiguate by hanzi."
+    },
+    {
+      "hanzi": "伤官",
+      "pinyin": "shāngguān",
+      "en": "Hurting Officer",
+      "label": "site",
+      "section": "2.5",
+      "notes": ""
+    },
+    {
+      "hanzi": "比肩",
+      "pinyin": "bǐjiān",
+      "en": "Companion / Shoulder-to-Shoulder",
+      "label": "site",
+      "section": "2.5",
+      "notes": "Peer of same polarity."
+    },
+    {
+      "hanzi": "劫财",
+      "pinyin": "jiécái",
+      "en": "Rob Wealth",
+      "label": "site",
+      "section": "2.5",
+      "notes": "Peer of opposite polarity."
+    },
+    {
+      "hanzi": "长生",
+      "pinyin": "chángshēng",
+      "en": "Birth / Life-Sprout",
+      "label": "site",
+      "section": "2.6",
+      "notes": "Stage 1. Also the cycle's name."
+    },
+    {
+      "hanzi": "沐浴",
+      "pinyin": "mùyù",
+      "en": "Bathing",
+      "label": "site",
+      "section": "2.6",
+      "notes": "⚠ Collides with almanac activity 沐浴 (ritual bathing, §2.15). Same hanzi, different domain → gloss to disambiguate."
+    },
+    {
+      "hanzi": "冠带",
+      "pinyin": "guàndài",
+      "en": "Capping (coming-of-age)",
+      "label": "site",
+      "section": "2.6",
+      "notes": ""
+    },
+    {
+      "hanzi": "临官",
+      "pinyin": "línguān",
+      "en": "Office / Ascending",
+      "label": "site",
+      "section": "2.6",
+      "notes": ""
+    },
+    {
+      "hanzi": "帝旺",
+      "pinyin": "dìwàng",
+      "en": "Prime / Imperial Peak",
+      "label": "site",
+      "section": "2.6",
+      "notes": "Peak vigor."
+    },
+    {
+      "hanzi": "衰",
+      "pinyin": "shuāi",
+      "en": "Decline",
+      "label": "site",
+      "section": "2.6",
+      "notes": ""
+    },
+    {
+      "hanzi": "病",
+      "pinyin": "bìng",
+      "en": "Illness",
+      "label": "site",
+      "section": "2.6",
+      "notes": ""
+    },
+    {
+      "hanzi": "死",
+      "pinyin": "sǐ",
+      "en": "Death",
+      "label": "site",
+      "section": "2.6",
+      "notes": "Stage label only — never a prognosis about the person."
+    },
+    {
+      "hanzi": "墓",
+      "pinyin": "mù",
+      "en": "Tomb / Storage",
+      "label": "site",
+      "section": "2.6",
+      "notes": "墓库 \"storage-vault\" sense."
+    },
+    {
+      "hanzi": "绝",
+      "pinyin": "jué",
+      "en": "Extinction / Cut-off",
+      "label": "site",
+      "section": "2.6",
+      "notes": ""
+    },
+    {
+      "hanzi": "胎",
+      "pinyin": "tāi",
+      "en": "Conception",
+      "label": "site",
+      "section": "2.6",
+      "notes": ""
+    },
+    {
+      "hanzi": "养",
+      "pinyin": "yǎng",
+      "en": "Nurture / Gestation",
+      "label": "site",
+      "section": "2.6",
+      "notes": ""
+    },
+    {
+      "hanzi": "乾",
+      "pinyin": "qián",
+      "en": "Qián (the Creative / Heaven ☰)",
+      "label": "conv",
+      "section": "2.7",
+      "notes": ""
+    },
+    {
+      "hanzi": "坎",
+      "pinyin": "kǎn",
+      "en": "Kǎn (the Abysmal / Water ☵)",
+      "label": "conv",
+      "section": "2.7",
+      "notes": ""
+    },
+    {
+      "hanzi": "艮",
+      "pinyin": "gèn",
+      "en": "Gèn (Keeping Still / Mountain ☶)",
+      "label": "conv",
+      "section": "2.7",
+      "notes": ""
+    },
+    {
+      "hanzi": "震",
+      "pinyin": "zhèn",
+      "en": "Zhèn (the Arousing / Thunder ☳)",
+      "label": "conv",
+      "section": "2.7",
+      "notes": ""
+    },
+    {
+      "hanzi": "巽",
+      "pinyin": "xùn",
+      "en": "Xùn (the Gentle / Wind ☴)",
+      "label": "conv",
+      "section": "2.7",
+      "notes": ""
+    },
+    {
+      "hanzi": "离",
+      "pinyin": "lí",
+      "en": "Lí (the Clinging / Fire ☲)",
+      "label": "conv",
+      "section": "2.7",
+      "notes": ""
+    },
+    {
+      "hanzi": "坤",
+      "pinyin": "kūn",
+      "en": "Kūn (the Receptive / Earth ☷)",
+      "label": "conv",
+      "section": "2.7",
+      "notes": ""
+    },
+    {
+      "hanzi": "兑",
+      "pinyin": "duì",
+      "en": "Duì (the Joyous / Lake ☱)",
+      "label": "conv",
+      "section": "2.7",
+      "notes": ""
+    },
+    {
+      "hanzi": "生气",
+      "pinyin": "shēngqì",
+      "en": "Generating Breath",
+      "label": "site",
+      "section": "2.8",
+      "notes": "⚠ Best/most auspicious. This is the paradigm term (decision 1): 生气 Shēngqì (the Generating Breath). Also collides with philosophical 生气 — same rendering intended."
+    },
+    {
+      "hanzi": "天医",
+      "pinyin": "tiānyī",
+      "en": "Heavenly Doctor",
+      "label": "site",
+      "section": "2.8",
+      "notes": "Auspicious (health)."
+    },
+    {
+      "hanzi": "延年",
+      "pinyin": "yánnián",
+      "en": "Prolonged Years",
+      "label": "site",
+      "section": "2.8",
+      "notes": "Auspicious (longevity, relationships)."
+    },
+    {
+      "hanzi": "伏位",
+      "pinyin": "fúwèi",
+      "en": "Stationary Position",
+      "label": "site",
+      "section": "2.8",
+      "notes": "Auspicious (stability); the \"self\" star."
+    },
+    {
+      "hanzi": "绝命",
+      "pinyin": "juémìng",
+      "en": "Severed Fate",
+      "label": "site",
+      "section": "2.8",
+      "notes": "Most inauspicious. Star: 破军 Pòjūn (Metal)."
+    },
+    {
+      "hanzi": "五鬼",
+      "pinyin": "wǔguǐ",
+      "en": "Five Ghosts",
+      "label": "site",
+      "section": "2.8",
+      "notes": "Inauspicious. Star: 廉贞 Liánzhēn (Fire)."
+    },
+    {
+      "hanzi": "六煞",
+      "pinyin": "liùshà",
+      "en": "Six Killings",
+      "label": "site",
+      "section": "2.8",
+      "notes": "Inauspicious. Star: 文曲 Wénqǔ (Water)."
+    },
+    {
+      "hanzi": "祸害",
+      "pinyin": "huòhài",
+      "en": "Misfortune",
+      "label": "site",
+      "section": "2.8",
+      "notes": "Inauspicious. Star: 禄存 Lùcún (Earth)."
+    },
+    {
+      "hanzi": "贪狼",
+      "pinyin": "tānláng",
+      "en": "Greedy Wolf",
+      "label": "site",
+      "section": "2.9",
+      "notes": "Star 1, Wood; pairs with 生气."
+    },
+    {
+      "hanzi": "巨门",
+      "pinyin": "jùmén",
+      "en": "Great Gate",
+      "label": "site",
+      "section": "2.9",
+      "notes": "Star 2, Earth; pairs with 天医."
+    },
+    {
+      "hanzi": "禄存",
+      "pinyin": "lùcún",
+      "en": "Rank-Preserver",
+      "label": "site",
+      "section": "2.9",
+      "notes": "Star 3, Earth; pairs with 祸害."
+    },
+    {
+      "hanzi": "文曲",
+      "pinyin": "wénqǔ",
+      "en": "Literary Arts",
+      "label": "site",
+      "section": "2.9",
+      "notes": "Star 4, Water; pairs with 六煞."
+    },
+    {
+      "hanzi": "廉贞",
+      "pinyin": "liánzhēn",
+      "en": "Pure-and-Upright",
+      "label": "site",
+      "section": "2.9",
+      "notes": "Star 5, Fire; pairs with 五鬼."
+    },
+    {
+      "hanzi": "武曲",
+      "pinyin": "wǔqǔ",
+      "en": "Military Arts",
+      "label": "site",
+      "section": "2.9",
+      "notes": "Star 6, Metal; pairs with 延年."
+    },
+    {
+      "hanzi": "破军",
+      "pinyin": "pòjūn",
+      "en": "Army-Breaker",
+      "label": "site",
+      "section": "2.9",
+      "notes": "Star 7, Metal; pairs with 绝命."
+    },
+    {
+      "hanzi": "左辅",
+      "pinyin": "zuǒfǔ",
+      "en": "Left Assistant",
+      "label": "site",
+      "section": "2.9",
+      "notes": "Star 8; with 右弼 pairs 伏位."
+    },
+    {
+      "hanzi": "右弼",
+      "pinyin": "yòubì",
+      "en": "Right Support",
+      "label": "site",
+      "section": "2.9",
+      "notes": "Star 9."
+    },
+    {
+      "hanzi": "建",
+      "pinyin": "jiàn",
+      "en": "Establish",
+      "label": "site",
+      "section": "2.10",
+      "notes": "The day the month-branch \"establishes\"; \"Establish\" is the literal ritual sense and anchors the cycle's name."
+    },
+    {
+      "hanzi": "除",
+      "pinyin": "chú",
+      "en": "Remove",
+      "label": "site",
+      "section": "2.10",
+      "notes": "Clearing/eliminating the old; \"Remove\" over \"Eliminate\" (shorter, neutral)."
+    },
+    {
+      "hanzi": "满",
+      "pinyin": "mǎn",
+      "en": "Full",
+      "label": "site",
+      "section": "2.10",
+      "notes": "Fullness/completion of a measure; adjective keeps parallel with 平/危."
+    },
+    {
+      "hanzi": "平",
+      "pinyin": "píng",
+      "en": "Even",
+      "label": "site",
+      "section": "2.10",
+      "notes": "\"Even/Level,\" not \"Peace\" (平 here = leveling, balance), not \"Peaceful.\""
+    },
+    {
+      "hanzi": "定",
+      "pinyin": "dìng",
+      "en": "Settle",
+      "label": "site",
+      "section": "2.10",
+      "notes": "Fixing/settling; \"Settle\" over \"Stable\" to keep a verb and imply the settling act."
+    },
+    {
+      "hanzi": "执",
+      "pinyin": "zhí",
+      "en": "Grasp",
+      "label": "site",
+      "section": "2.10",
+      "notes": "Holding/executing office; avoid \"Execute\" (penal misread). \"Grasp/Hold.\""
+    },
+    {
+      "hanzi": "破",
+      "pinyin": "pò",
+      "en": "Break",
+      "label": "site",
+      "section": "2.10",
+      "notes": "⚠ \"Break,\" not \"Destruction.\" The almanac's 破 is the breaking/opposition day, not catastrophe; melodrama here is the classic register error."
+    },
+    {
+      "hanzi": "危",
+      "pinyin": "wēi",
+      "en": "Peril",
+      "label": "site",
+      "section": "2.10",
+      "notes": "\"Peril\" over \"Danger\" for register; a caution day, not an alarm."
+    },
+    {
+      "hanzi": "成",
+      "pinyin": "chéng",
+      "en": "Complete",
+      "label": "site",
+      "section": "2.10",
+      "notes": "Completion/accomplishment; \"Complete/Success\" — prefer \"Complete\" (verb-like, matches the rota)."
+    },
+    {
+      "hanzi": "收",
+      "pinyin": "shōu",
+      "en": "Gather",
+      "label": "site",
+      "section": "2.10",
+      "notes": "Harvesting/receiving-in; \"Gather\" over \"Receive\" (agricultural sense of the rota)."
+    },
+    {
+      "hanzi": "开",
+      "pinyin": "kāi",
+      "en": "Open",
+      "label": "site",
+      "section": "2.10",
+      "notes": "Opening/beginning; straightforward."
+    },
+    {
+      "hanzi": "闭",
+      "pinyin": "bì",
+      "en": "Shut",
+      "label": "site",
+      "section": "2.10",
+      "notes": "\"Shut/Close\"; prefer \"Shut\" to pair antonymically with \"Open\" and avoid confusion with 收."
+    },
+    {
+      "hanzi": "青龙",
+      "pinyin": "qīnglóng",
+      "en": "Azure Dragon (Yellow Way)",
+      "label": "site",
+      "section": "2.11",
+      "notes": "Auspicious. Also a 砂水 term (§2.20) — same beast, disambiguate by context."
+    },
+    {
+      "hanzi": "明堂",
+      "pinyin": "míngtáng",
+      "en": "Bright Hall (Yellow Way)",
+      "label": "site",
+      "section": "2.11",
+      "notes": "Auspicious."
+    },
+    {
+      "hanzi": "金匮",
+      "pinyin": "jīnguì",
+      "en": "Golden Coffer (Yellow Way)",
+      "label": "site",
+      "section": "2.11",
+      "notes": "Auspicious. 匮 guì \"chest/coffer.\""
+    },
+    {
+      "hanzi": "天德",
+      "pinyin": "tiāndé",
+      "en": "Heavenly Virtue (Yellow Way)",
+      "label": "site",
+      "section": "2.11",
+      "notes": "Auspicious. ⚠ Collides with 神煞 天德 (§2.21) — different system; gloss to disambiguate."
+    },
+    {
+      "hanzi": "玉堂",
+      "pinyin": "yùtáng",
+      "en": "Jade Hall (Yellow Way)",
+      "label": "site",
+      "section": "2.11",
+      "notes": "Auspicious."
+    },
+    {
+      "hanzi": "司命",
+      "pinyin": "sīmìng",
+      "en": "Director of Destinies (Yellow Way)",
+      "label": "site",
+      "section": "2.11",
+      "notes": "Auspicious. The stove-god title; keep \"Director of Destinies.\""
+    },
+    {
+      "hanzi": "天刑",
+      "pinyin": "tiānxíng",
+      "en": "Heavenly Punishment (Black Way)",
+      "label": "site",
+      "section": "2.11",
+      "notes": "Inauspicious."
+    },
+    {
+      "hanzi": "朱雀",
+      "pinyin": "zhūquè",
+      "en": "Vermilion Bird (Black Way)",
+      "label": "site",
+      "section": "2.11",
+      "notes": "Inauspicious. Also a 砂水 term — disambiguate."
+    },
+    {
+      "hanzi": "白虎",
+      "pinyin": "báihǔ",
+      "en": "White Tiger (Black Way)",
+      "label": "site",
+      "section": "2.11",
+      "notes": "Inauspicious. Also 砂水."
+    },
+    {
+      "hanzi": "天牢",
+      "pinyin": "tiānláo",
+      "en": "Heavenly Prison (Black Way)",
+      "label": "site",
+      "section": "2.11",
+      "notes": "Inauspicious."
+    },
+    {
+      "hanzi": "玄武",
+      "pinyin": "xuánwǔ",
+      "en": "Dark Warrior (Black Way)",
+      "label": "site",
+      "section": "2.11",
+      "notes": "Inauspicious. Render \"Dark Warrior\" (the Black-Tortoise-and-Snake); also 砂水."
+    },
+    {
+      "hanzi": "勾陈",
+      "pinyin": "gōuchén",
+      "en": "Curved Array / Gōuchén (Black Way)",
+      "label": "site",
+      "section": "2.11",
+      "notes": "Inauspicious. 勾陈 is a circumpolar asterism; keep pinyin + literal \"Curved Array.\""
+    },
+    {
+      "hanzi": "黄道",
+      "pinyin": "huángdào",
+      "en": "the Yellow Way (auspicious rota)",
+      "label": "site",
+      "section": "2.11",
+      "notes": "Gloss, not \"ecliptic,\" in almanac context."
+    },
+    {
+      "hanzi": "黑道",
+      "pinyin": "hēidào",
+      "en": "the Black Way (inauspicious rota)",
+      "label": "site",
+      "section": "2.11",
+      "notes": ""
+    },
+    {
+      "hanzi": "二十四山",
+      "pinyin": "èrshísì shān",
+      "en": "the twenty-four mountains",
+      "label": "site",
+      "section": "2.12",
+      "notes": "\"Mountain\" = the standard directional-sector term; keep it."
+    },
+    {
+      "hanzi": "巽",
+      "pinyin": "xùn",
+      "en": "Xùn (SE corner)",
+      "label": "conv",
+      "section": "2.12",
+      "notes": "As mountain = the 45° SE point."
+    },
+    {
+      "hanzi": "坤",
+      "pinyin": "kūn",
+      "en": "Kūn (SW corner)",
+      "label": "conv",
+      "section": "2.12",
+      "notes": ""
+    },
+    {
+      "hanzi": "乾",
+      "pinyin": "qián",
+      "en": "Qián (NW corner)",
+      "label": "conv",
+      "section": "2.12",
+      "notes": ""
+    },
+    {
+      "hanzi": "艮",
+      "pinyin": "gèn",
+      "en": "Gèn (NE corner)",
+      "label": "conv",
+      "section": "2.12",
+      "notes": ""
+    },
+    {
+      "hanzi": "坐向",
+      "pinyin": "zuòxiàng",
+      "en": "sitting-and-facing",
+      "label": "site",
+      "section": "2.12",
+      "notes": "坐 sitting (rear), 向 facing (front); the core siting axis."
+    },
+    {
+      "hanzi": "坐山",
+      "pinyin": "zuòshān",
+      "en": "the sitting mountain",
+      "label": "site",
+      "section": "2.12",
+      "notes": "Rear direction."
+    },
+    {
+      "hanzi": "向首",
+      "pinyin": "xiàngshǒu",
+      "en": "the facing head",
+      "label": "site",
+      "section": "2.12",
+      "notes": "Front direction."
+    },
+    {
+      "hanzi": "子时",
+      "pinyin": "zǐshí",
+      "en": "Zǐ hour",
+      "label": "site",
+      "section": "2.13",
+      "notes": "Clock: 23:00–01:00"
+    },
+    {
+      "hanzi": "丑时",
+      "pinyin": "chǒushí",
+      "en": "Chǒu hour",
+      "label": "site",
+      "section": "2.13",
+      "notes": "Clock: 01:00–03:00"
+    },
+    {
+      "hanzi": "寅时",
+      "pinyin": "yínshí",
+      "en": "Yín hour",
+      "label": "site",
+      "section": "2.13",
+      "notes": "Clock: 03:00–05:00"
+    },
+    {
+      "hanzi": "卯时",
+      "pinyin": "mǎoshí",
+      "en": "Mǎo hour",
+      "label": "site",
+      "section": "2.13",
+      "notes": "Clock: 05:00–07:00"
+    },
+    {
+      "hanzi": "辰时",
+      "pinyin": "chénshí",
+      "en": "Chén hour",
+      "label": "site",
+      "section": "2.13",
+      "notes": "Clock: 07:00–09:00"
+    },
+    {
+      "hanzi": "巳时",
+      "pinyin": "sìshí",
+      "en": "Sì hour",
+      "label": "site",
+      "section": "2.13",
+      "notes": "Clock: 09:00–11:00"
+    },
+    {
+      "hanzi": "午时",
+      "pinyin": "wǔshí",
+      "en": "Wǔ hour",
+      "label": "site",
+      "section": "2.13",
+      "notes": "Clock: 11:00–13:00"
+    },
+    {
+      "hanzi": "未时",
+      "pinyin": "wèishí",
+      "en": "Wèi hour",
+      "label": "site",
+      "section": "2.13",
+      "notes": "Clock: 13:00–15:00"
+    },
+    {
+      "hanzi": "申时",
+      "pinyin": "shēnshí",
+      "en": "Shēn hour",
+      "label": "site",
+      "section": "2.13",
+      "notes": "Clock: 15:00–17:00"
+    },
+    {
+      "hanzi": "酉时",
+      "pinyin": "yǒushí",
+      "en": "Yǒu hour",
+      "label": "site",
+      "section": "2.13",
+      "notes": "Clock: 17:00–19:00"
+    },
+    {
+      "hanzi": "戌时",
+      "pinyin": "xūshí",
+      "en": "Xū hour",
+      "label": "site",
+      "section": "2.13",
+      "notes": "Clock: 19:00–21:00"
+    },
+    {
+      "hanzi": "亥时",
+      "pinyin": "hàishí",
+      "en": "Hài hour",
+      "label": "site",
+      "section": "2.13",
+      "notes": "Clock: 21:00–23:00"
+    },
+    {
+      "hanzi": "刻",
+      "pinyin": "kè",
+      "en": "quarter (¼ double-hour ≈ 15 min)",
+      "label": "conv",
+      "section": "2.13",
+      "notes": "The 一刻 sub-unit; gloss on first use."
+    },
+    {
+      "hanzi": "立春",
+      "pinyin": "Lìchūn",
+      "en": "Beginning of Spring",
+      "label": "conv",
+      "section": "2.14",
+      "notes": "Season: Spring"
+    },
+    {
+      "hanzi": "雨水",
+      "pinyin": "Yǔshuǐ",
+      "en": "Rain Water",
+      "label": "conv",
+      "section": "2.14",
+      "notes": "Season: Spring"
+    },
+    {
+      "hanzi": "惊蛰",
+      "pinyin": "Jīngzhé",
+      "en": "Awakening of Insects",
+      "label": "conv",
+      "section": "2.14",
+      "notes": "Season: Spring"
+    },
+    {
+      "hanzi": "春分",
+      "pinyin": "Chūnfēn",
+      "en": "Spring Equinox",
+      "label": "conv",
+      "section": "2.14",
+      "notes": "Season: Spring"
+    },
+    {
+      "hanzi": "清明",
+      "pinyin": "Qīngmíng",
+      "en": "Pure Brightness",
+      "label": "conv",
+      "section": "2.14",
+      "notes": "Season: Spring"
+    },
+    {
+      "hanzi": "谷雨",
+      "pinyin": "Gǔyǔ",
+      "en": "Grain Rain",
+      "label": "conv",
+      "section": "2.14",
+      "notes": "Season: Spring"
+    },
+    {
+      "hanzi": "立夏",
+      "pinyin": "Lìxià",
+      "en": "Beginning of Summer",
+      "label": "conv",
+      "section": "2.14",
+      "notes": "Season: Summer"
+    },
+    {
+      "hanzi": "小满",
+      "pinyin": "Xiǎomǎn",
+      "en": "Grain Buds (Lesser Fullness)",
+      "label": "conv",
+      "section": "2.14",
+      "notes": "Season: Summer"
+    },
+    {
+      "hanzi": "芒种",
+      "pinyin": "Mángzhòng",
+      "en": "Grain in Ear",
+      "label": "conv",
+      "section": "2.14",
+      "notes": "Season: Summer. 种 read zhòng here."
+    },
+    {
+      "hanzi": "夏至",
+      "pinyin": "Xiàzhì",
+      "en": "Summer Solstice",
+      "label": "conv",
+      "section": "2.14",
+      "notes": "Season: Summer"
+    },
+    {
+      "hanzi": "小暑",
+      "pinyin": "Xiǎoshǔ",
+      "en": "Minor Heat",
+      "label": "conv",
+      "section": "2.14",
+      "notes": "Season: Summer"
+    },
+    {
+      "hanzi": "大暑",
+      "pinyin": "Dàshǔ",
+      "en": "Major Heat",
+      "label": "conv",
+      "section": "2.14",
+      "notes": "Season: Summer"
+    },
+    {
+      "hanzi": "立秋",
+      "pinyin": "Lìqiū",
+      "en": "Beginning of Autumn",
+      "label": "conv",
+      "section": "2.14",
+      "notes": "Season: Autumn"
+    },
+    {
+      "hanzi": "处暑",
+      "pinyin": "Chǔshǔ",
+      "en": "End of Heat",
+      "label": "conv",
+      "section": "2.14",
+      "notes": "Season: Autumn. 处 read chǔ."
+    },
+    {
+      "hanzi": "白露",
+      "pinyin": "Báilù",
+      "en": "White Dew",
+      "label": "conv",
+      "section": "2.14",
+      "notes": "Season: Autumn"
+    },
+    {
+      "hanzi": "秋分",
+      "pinyin": "Qiūfēn",
+      "en": "Autumn Equinox",
+      "label": "conv",
+      "section": "2.14",
+      "notes": "Season: Autumn"
+    },
+    {
+      "hanzi": "寒露",
+      "pinyin": "Hánlù",
+      "en": "Cold Dew",
+      "label": "conv",
+      "section": "2.14",
+      "notes": "Season: Autumn"
+    },
+    {
+      "hanzi": "霜降",
+      "pinyin": "Shuāngjiàng",
+      "en": "Frost's Descent",
+      "label": "conv",
+      "section": "2.14",
+      "notes": "Season: Autumn. 降 read jiàng."
+    },
+    {
+      "hanzi": "立冬",
+      "pinyin": "Lìdōng",
+      "en": "Beginning of Winter",
+      "label": "conv",
+      "section": "2.14",
+      "notes": "Season: Winter"
+    },
+    {
+      "hanzi": "小雪",
+      "pinyin": "Xiǎoxuě",
+      "en": "Minor Snow",
+      "label": "conv",
+      "section": "2.14",
+      "notes": "Season: Winter"
+    },
+    {
+      "hanzi": "大雪",
+      "pinyin": "Dàxuě",
+      "en": "Major Snow",
+      "label": "conv",
+      "section": "2.14",
+      "notes": "Season: Winter"
+    },
+    {
+      "hanzi": "冬至",
+      "pinyin": "Dōngzhì",
+      "en": "Winter Solstice",
+      "label": "conv",
+      "section": "2.14",
+      "notes": "Season: Winter"
+    },
+    {
+      "hanzi": "小寒",
+      "pinyin": "Xiǎohán",
+      "en": "Minor Cold",
+      "label": "conv",
+      "section": "2.14",
+      "notes": "Season: Winter"
+    },
+    {
+      "hanzi": "大寒",
+      "pinyin": "Dàhán",
+      "en": "Major Cold",
+      "label": "conv",
+      "section": "2.14",
+      "notes": "Season: Winter"
+    },
+    {
+      "hanzi": "宜",
+      "pinyin": "yí",
+      "en": "appropriate (for)",
+      "label": "site",
+      "section": "2.15",
+      "notes": "The category header. Not \"lucky.\""
+    },
+    {
+      "hanzi": "忌",
+      "pinyin": "jì",
+      "en": "to avoid",
+      "label": "site",
+      "section": "2.15",
+      "notes": "Not \"unlucky/forbidden by fate.\""
+    },
+    {
+      "hanzi": "嫁娶",
+      "pinyin": "jiàqǔ",
+      "en": "Marriage (weddings)",
+      "label": "site",
+      "section": "2.15",
+      "notes": "嫁 (bride out) + 娶 (groom takes in); English merges."
+    },
+    {
+      "hanzi": "纳采",
+      "pinyin": "nàcǎi",
+      "en": "Betrothal gifts",
+      "label": "site",
+      "section": "2.15",
+      "notes": "First of the six wedding rites."
+    },
+    {
+      "hanzi": "问名",
+      "pinyin": "wènmíng",
+      "en": "Asking the name (matchmaking rite)",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "订盟",
+      "pinyin": "dìngméng",
+      "en": "Engagement pact",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "纳婿",
+      "pinyin": "nàxù",
+      "en": "Taking a son-in-law",
+      "label": "site",
+      "section": "2.15",
+      "notes": "Uxorilocal marriage."
+    },
+    {
+      "hanzi": "冠笄",
+      "pinyin": "guànjī",
+      "en": "Coming-of-age (capping & pinning)",
+      "label": "site",
+      "section": "2.15",
+      "notes": "冠 for men, 笄 for women."
+    },
+    {
+      "hanzi": "会亲友",
+      "pinyin": "huì qīnyǒu",
+      "en": "Meeting kin and friends",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "进人口",
+      "pinyin": "jìn rénkǒu",
+      "en": "Adding to the household",
+      "label": "site",
+      "section": "2.15",
+      "notes": "Taking in members/servants."
+    },
+    {
+      "hanzi": "合帐",
+      "pinyin": "hézhàng",
+      "en": "Making the bed-curtains",
+      "label": "site",
+      "section": "2.15",
+      "notes": "Bridal furnishing rite."
+    },
+    {
+      "hanzi": "动土",
+      "pinyin": "dòngtǔ",
+      "en": "Breaking ground (building)",
+      "label": "site",
+      "section": "2.15",
+      "notes": "⚠ Building groundbreaking. Contrast 破土."
+    },
+    {
+      "hanzi": "破土",
+      "pinyin": "pòtǔ",
+      "en": "Breaking earth (for a grave)",
+      "label": "site",
+      "section": "2.15",
+      "notes": "⚠ Burial earth-breaking only. The 动土/破土 split is a top pitfall — never merge."
+    },
+    {
+      "hanzi": "安葬",
+      "pinyin": "ānzàng",
+      "en": "Burial / interment",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "修坟",
+      "pinyin": "xiūfén",
+      "en": "Repairing a grave",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "立碑",
+      "pinyin": "lìbēi",
+      "en": "Erecting a gravestone",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "开生坟",
+      "pinyin": "kāi shēngfén",
+      "en": "Preparing a pre-need tomb",
+      "label": "site",
+      "section": "2.15",
+      "notes": "生坟 = tomb built while alive."
+    },
+    {
+      "hanzi": "谢土",
+      "pinyin": "xiètǔ",
+      "en": "Thanking the earth-god",
+      "label": "site",
+      "section": "2.15",
+      "notes": "Post-construction rite."
+    },
+    {
+      "hanzi": "平治道涂",
+      "pinyin": "píngzhì dàotú",
+      "en": "Leveling roads and paths",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "修造",
+      "pinyin": "xiūzào",
+      "en": "Construction & repair",
+      "label": "site",
+      "section": "2.15",
+      "notes": "General building."
+    },
+    {
+      "hanzi": "起基",
+      "pinyin": "qǐjī",
+      "en": "Laying foundations",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "定磉",
+      "pinyin": "dìngsǎng",
+      "en": "Setting plinth-stones",
+      "label": "site",
+      "section": "2.15",
+      "notes": "磉 sǎng = column plinth."
+    },
+    {
+      "hanzi": "筑堤",
+      "pinyin": "zhùdī",
+      "en": "Building embankments",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "补垣",
+      "pinyin": "bǔyuán",
+      "en": "Mending walls",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "坏垣",
+      "pinyin": "huàiyuán",
+      "en": "Demolishing walls",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "塞穴",
+      "pinyin": "sāixué",
+      "en": "Stopping up holes",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "造仓",
+      "pinyin": "zàocāng",
+      "en": "Building a granary",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "造庙",
+      "pinyin": "zàomiào",
+      "en": "Building a temple",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "造桥",
+      "pinyin": "zàoqiáo",
+      "en": "Building a bridge",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "破屋",
+      "pinyin": "pòwū",
+      "en": "Demolishing a house",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "修门",
+      "pinyin": "xiūmén",
+      "en": "Repairing a door",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "安门",
+      "pinyin": "ānmén",
+      "en": "Installing a door",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "栽种",
+      "pinyin": "zāizhòng",
+      "en": "Planting",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "上梁",
+      "pinyin": "shàngliáng",
+      "en": "Raising the ridgepole",
+      "label": "site",
+      "section": "2.15",
+      "notes": "Roof-beam raising; major rite."
+    },
+    {
+      "hanzi": "作梁",
+      "pinyin": "zuòliáng",
+      "en": "Making the roof-beam",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "竖柱",
+      "pinyin": "shùzhù",
+      "en": "Raising pillars",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "架马",
+      "pinyin": "jiàmǎ",
+      "en": "Setting up trestles",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "盖屋",
+      "pinyin": "gàiwū",
+      "en": "Roofing a house",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "开柱眼",
+      "pinyin": "kāi zhùyǎn",
+      "en": "Cutting mortises",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "合脊",
+      "pinyin": "héjǐ",
+      "en": "Closing the roof-ridge",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "牧养",
+      "pinyin": "mùyǎng",
+      "en": "Herding & raising livestock",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "纳畜",
+      "pinyin": "nàchù",
+      "en": "Acquiring livestock",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "教牛马",
+      "pinyin": "jiào niúmǎ",
+      "en": "Training oxen and horses",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "造畜稠",
+      "pinyin": "zào chùchóu",
+      "en": "Building animal pens",
+      "label": "site",
+      "section": "2.15",
+      "notes": "畜稠 = livestock enclosure."
+    },
+    {
+      "hanzi": "入学",
+      "pinyin": "rùxué",
+      "en": "Starting school",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "习艺",
+      "pinyin": "xíyì",
+      "en": "Learning a craft",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "结网",
+      "pinyin": "jiéwǎng",
+      "en": "Making nets",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "经络",
+      "pinyin": "jīngluò",
+      "en": "Warping the loom (weaving)",
+      "label": "site",
+      "section": "2.15",
+      "notes": "Textile sense, not the medical meridians."
+    },
+    {
+      "hanzi": "裁衣",
+      "pinyin": "cáiyī",
+      "en": "Cutting cloth for clothes",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "造船",
+      "pinyin": "zàochuán",
+      "en": "Building a boat",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "造车器",
+      "pinyin": "zào chēqì",
+      "en": "Making carts and tools",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "作灶",
+      "pinyin": "zuòzào",
+      "en": "Building the stove",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "出火",
+      "pinyin": "chūhuǒ",
+      "en": "Removing the hearth-fire (moving out)",
+      "label": "site",
+      "section": "2.15",
+      "notes": "Ritual relocation of the stove-fire."
+    },
+    {
+      "hanzi": "塑绘",
+      "pinyin": "sùhuì",
+      "en": "Sculpting & painting (icons)",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "开光",
+      "pinyin": "kāiguāng",
+      "en": "Consecrating an image",
+      "label": "site",
+      "section": "2.15",
+      "notes": "\"Opening the eyes\" of a statue."
+    },
+    {
+      "hanzi": "斋醮",
+      "pinyin": "zhāijiào",
+      "en": "Daoist fasting-rites (jiao offering)",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "普渡",
+      "pinyin": "pǔdù",
+      "en": "Universal salvation rite",
+      "label": "site",
+      "section": "2.15",
+      "notes": "Ghost-festival offering."
+    },
+    {
+      "hanzi": "安香",
+      "pinyin": "ānxiāng",
+      "en": "Installing the incense-altar",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "安香火",
+      "pinyin": "ān xiānghuǒ",
+      "en": "Enshrining the incense-fire",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "祭祀",
+      "pinyin": "jìsì",
+      "en": "Offering sacrifices (to ancestors/spirits)",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "祈福",
+      "pinyin": "qífú",
+      "en": "Praying for blessings",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "求嗣",
+      "pinyin": "qiúsì",
+      "en": "Praying for offspring",
+      "label": "site",
+      "section": "2.15",
+      "notes": "An heir."
+    },
+    {
+      "hanzi": "入宅",
+      "pinyin": "rùzhái",
+      "en": "Moving into a new home",
+      "label": "site",
+      "section": "2.15",
+      "notes": "Housewarming. Contrast 移徙."
+    },
+    {
+      "hanzi": "出行",
+      "pinyin": "chūxíng",
+      "en": "Travel (setting out)",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "乘船",
+      "pinyin": "chéngchuán",
+      "en": "Going by boat",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "取渔",
+      "pinyin": "qǔyú",
+      "en": "Fishing",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "捕捉",
+      "pinyin": "bǔzhuō",
+      "en": "Trapping (pests/game)",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "畋猎",
+      "pinyin": "tiánliè",
+      "en": "Hunting",
+      "label": "site",
+      "section": "2.15",
+      "notes": "畋 tián."
+    },
+    {
+      "hanzi": "放水",
+      "pinyin": "fàngshuǐ",
+      "en": "Releasing water (irrigation)",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "开池",
+      "pinyin": "kāichí",
+      "en": "Digging a pond",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "开渠",
+      "pinyin": "kāiqú",
+      "en": "Cutting a channel",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "掘井",
+      "pinyin": "juéjǐng",
+      "en": "Digging a well",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "沐浴",
+      "pinyin": "mùyù",
+      "en": "Ritual bathing",
+      "label": "site",
+      "section": "2.15",
+      "notes": "⚠ Same hanzi as 长生 stage 沐浴 (§2.6) — gloss \"ritual bathing\" to separate."
+    },
+    {
+      "hanzi": "归岫",
+      "pinyin": "guīxiù",
+      "en": "Penning returning animals",
+      "label": "site",
+      "section": "2.15",
+      "notes": "岫 xiù = den/cave."
+    },
+    {
+      "hanzi": "割蜜",
+      "pinyin": "gēmì",
+      "en": "Harvesting honey",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "断蚁",
+      "pinyin": "duànyǐ",
+      "en": "Exterminating ants",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "归宁",
+      "pinyin": "guīníng",
+      "en": "A bride's homecoming visit",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "移徙",
+      "pinyin": "yíxǐ",
+      "en": "Relocation (moving house)",
+      "label": "site",
+      "section": "2.15",
+      "notes": "⚠ Contrast 入宅 (entering a new home) — 移徙 = the move itself."
+    },
+    {
+      "hanzi": "开市",
+      "pinyin": "kāishì",
+      "en": "Opening for business",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "交易",
+      "pinyin": "jiāoyì",
+      "en": "Trade / transactions",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "纳财",
+      "pinyin": "nàcái",
+      "en": "Receiving wealth",
+      "label": "site",
+      "section": "2.15",
+      "notes": "Taking in money/goods."
+    },
+    {
+      "hanzi": "立券",
+      "pinyin": "lìquàn",
+      "en": "Drawing up contracts/deeds",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "出货财",
+      "pinyin": "chū huòcái",
+      "en": "Shipping out goods",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "开仓",
+      "pinyin": "kāicāng",
+      "en": "Opening the storehouse",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "置产",
+      "pinyin": "zhìchǎn",
+      "en": "Acquiring property",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "安机械",
+      "pinyin": "ān jīxiè",
+      "en": "Installing machinery",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "安碓磑",
+      "pinyin": "ān duìwèi",
+      "en": "Installing mill and pestle",
+      "label": "site",
+      "section": "2.15",
+      "notes": "碓 duì pestle, 磑 wèi millstone."
+    },
+    {
+      "hanzi": "雕刻",
+      "pinyin": "diāokè",
+      "en": "Carving / engraving",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "理发",
+      "pinyin": "lǐfà",
+      "en": "Haircutting",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "整手足甲",
+      "pinyin": "zhěng shǒuzújiǎ",
+      "en": "Trimming nails",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "拆卸",
+      "pinyin": "chāixiè",
+      "en": "Dismantling",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "伐木",
+      "pinyin": "fámù",
+      "en": "Felling timber",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "针灸",
+      "pinyin": "zhēnjiǔ",
+      "en": "Acupuncture & moxibustion",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "挂匾",
+      "pinyin": "guàbiǎn",
+      "en": "Hanging a name-plaque",
+      "label": "site",
+      "section": "2.15",
+      "notes": ""
+    },
+    {
+      "hanzi": "大运",
+      "pinyin": "dàyùn",
+      "en": "the Great Luck cycle / decade luck",
+      "label": "site",
+      "section": "2.16",
+      "notes": "Ten-year fortune periods."
+    },
+    {
+      "hanzi": "流年",
+      "pinyin": "liúnián",
+      "en": "the annual pillar / flowing year",
+      "label": "site",
+      "section": "2.16",
+      "notes": "The year's ganzhi acting on the natal chart."
+    },
+    {
+      "hanzi": "月令",
+      "pinyin": "yuèlìng",
+      "en": "the month-command",
+      "label": "site",
+      "section": "2.16",
+      "notes": "The season's governance; controls 用神."
+    },
+    {
+      "hanzi": "月建",
+      "pinyin": "yuèjiàn",
+      "en": "the month-establishing branch",
+      "label": "site",
+      "section": "2.16",
+      "notes": "Anchors the Jianchu rota (§2.10)."
+    },
+    {
+      "hanzi": "节月",
+      "pinyin": "jiéyuè",
+      "en": "the solar-term month",
+      "label": "site",
+      "section": "2.16",
+      "notes": "Month bounded by 节 solar terms, not the lunar month."
+    },
+    {
+      "hanzi": "立春切年",
+      "pinyin": "Lìchūn qiènián",
+      "en": "year-boundary at 立春 (Beginning of Spring)",
+      "label": "site",
+      "section": "2.16",
+      "notes": "The astronomical year switch; note \"±1 day.\""
+    },
+    {
+      "hanzi": "命卦",
+      "pinyin": "mìngguà",
+      "en": "natal trigram (life-gua)",
+      "label": "site",
+      "section": "2.17",
+      "notes": "Basis of Eight-Mansions."
+    },
+    {
+      "hanzi": "东四命",
+      "pinyin": "dōngsì mìng",
+      "en": "East Four Life group",
+      "label": "site",
+      "section": "2.17",
+      "notes": "坎离震巽 group."
+    },
+    {
+      "hanzi": "西四命",
+      "pinyin": "xīsì mìng",
+      "en": "West Four Life group",
+      "label": "site",
+      "section": "2.17",
+      "notes": "乾坤艮兑 group."
+    },
+    {
+      "hanzi": "日主",
+      "pinyin": "rìzhǔ",
+      "en": "the Day Master",
+      "label": "conv",
+      "section": "2.17",
+      "notes": "standard BaZi English. The day-stem = the self."
+    },
+    {
+      "hanzi": "四柱",
+      "pinyin": "sìzhù",
+      "en": "the Four Pillars",
+      "label": "conv",
+      "section": "2.17",
+      "notes": "Year/month/day/hour ganzhi."
+    },
+    {
+      "hanzi": "八字",
+      "pinyin": "bāzì",
+      "en": "the Eight Characters (BaZi)",
+      "label": "conv",
+      "section": "2.17",
+      "notes": "The four-pillar birth data."
+    },
+    {
+      "hanzi": "排盘",
+      "pinyin": "páipán",
+      "en": "to cast the chart",
+      "label": "site",
+      "section": "2.17",
+      "notes": "Button verb; \"Cast chart.\""
+    },
+    {
+      "hanzi": "命盘",
+      "pinyin": "mìngpán",
+      "en": "the natal chart",
+      "label": "site",
+      "section": "2.17",
+      "notes": ""
+    },
+    {
+      "hanzi": "纳音",
+      "pinyin": "nàyīn",
+      "en": "the sound-value (Nàyīn)",
+      "label": "site",
+      "section": "2.17",
+      "notes": "The 60 melodic-phase names (e.g. 海中金 \"Gold in the Sea\"). Keep pinyin + gloss; render each nayin literally as site when surfaced."
+    },
+    {
+      "hanzi": "旬空",
+      "pinyin": "xúnkōng",
+      "en": "the decade void (empty branches)",
+      "label": "site",
+      "section": "2.17",
+      "notes": "Also 空亡. The 2 branches absent from the day-pillar's decade of 60."
+    },
+    {
+      "hanzi": "身强 / 身弱",
+      "pinyin": "shēnqiáng / shēnruò",
+      "en": "strong / weak (Day Master)",
+      "label": "site",
+      "section": "2.17",
+      "notes": "Binary support-vs-drain (modern method)."
+    },
+    {
+      "hanzi": "喜用神",
+      "pinyin": "xǐyòngshén",
+      "en": "the favorable elements (useful gods)",
+      "label": "site",
+      "section": "2.17",
+      "notes": "喜神 + 用神; the phases the chart wants."
+    },
+    {
+      "hanzi": "忌神",
+      "pinyin": "jìshén",
+      "en": "the unfavorable elements",
+      "label": "site",
+      "section": "2.17",
+      "notes": ""
+    },
+    {
+      "hanzi": "玄空",
+      "pinyin": "xuánkōng",
+      "en": "Xuánkōng (the \"Mysterious Void\" method)",
+      "label": "site",
+      "section": "2.18",
+      "notes": "The time-space Flying-Star school."
+    },
+    {
+      "hanzi": "飞星",
+      "pinyin": "fēixīng",
+      "en": "the Flying Stars",
+      "label": "site",
+      "section": "2.18",
+      "notes": "The nine numbers flying the palaces."
+    },
+    {
+      "hanzi": "元运",
+      "pinyin": "yuányùn",
+      "en": "the era-cycle (20-year period)",
+      "label": "site",
+      "section": "2.18",
+      "notes": "Sān Yuán Jiǔ Yùn structure."
+    },
+    {
+      "hanzi": "受气元运",
+      "pinyin": "shòuqì yuányùn",
+      "en": "the era of qi-reception",
+      "label": "site",
+      "section": "2.18",
+      "notes": "The building's construction/occupation era; ≠ current year."
+    },
+    {
+      "hanzi": "当运",
+      "pinyin": "dāngyùn",
+      "en": "the ruling period",
+      "label": "site",
+      "section": "2.18",
+      "notes": "The currently governing yun."
+    },
+    {
+      "hanzi": "山星 / 向星",
+      "pinyin": "shānxīng / xiàngxīng",
+      "en": "the Sitting Star / Facing Star",
+      "label": "site",
+      "section": "2.18",
+      "notes": "Mountain (▲) and Facing (▼) stars."
+    },
+    {
+      "hanzi": "三元九运",
+      "pinyin": "sānyuán jiǔyùn",
+      "en": "Three Cycles, Nine Periods",
+      "label": "site",
+      "section": "2.18",
+      "notes": "The 180-year time frame."
+    },
+    {
+      "hanzi": "堪舆",
+      "pinyin": "kānyú",
+      "en": "Kānyú (the art of siting)",
+      "label": "conv",
+      "section": "2.19",
+      "notes": "The discipline; \"siting/geomancy.\" Prefer \"siting.\""
+    },
+    {
+      "hanzi": "风水",
+      "pinyin": "fēngshuǐ",
+      "en": "feng shui",
+      "label": "conv",
+      "section": "2.19",
+      "notes": "English dictionary word; roman, lowercase."
+    },
+    {
+      "hanzi": "八宅",
+      "pinyin": "bāzhái",
+      "en": "the Eight Mansions",
+      "label": "conv",
+      "section": "2.19",
+      "notes": "Eight-Mansions school. The 八宅 method; \"Mansions\" is the settled term (cf. 《八宅明镜》)."
+    },
+    {
+      "hanzi": "阳宅",
+      "pinyin": "yángzhái",
+      "en": "a yang dwelling (house of the living)",
+      "label": "site",
+      "section": "2.19",
+      "notes": "Standard feng-shui usage; contrast 阴宅 (tomb)."
+    },
+    {
+      "hanzi": "阴宅",
+      "pinyin": "yīnzhái",
+      "en": "a yin dwelling (grave-site)",
+      "label": "site",
+      "section": "2.19",
+      "notes": ""
+    },
+    {
+      "hanzi": "罗盘 / 罗经",
+      "pinyin": "luópán / luójīng",
+      "en": "the luopan (geomantic compass)",
+      "label": "conv",
+      "section": "2.19",
+      "notes": "luopan is the established transliteration."
+    },
+    {
+      "hanzi": "户型",
+      "pinyin": "hùxíng",
+      "en": "the floor-plan",
+      "label": "site",
+      "section": "2.19",
+      "notes": "UI term."
+    },
+    {
+      "hanzi": "砂水",
+      "pinyin": "shāshuǐ",
+      "en": "sand-and-water (protective forms)",
+      "label": "site",
+      "section": "2.20",
+      "notes": "砂 = surrounding heights, 水 = watercourses."
+    },
+    {
+      "hanzi": "形煞",
+      "pinyin": "xíngshà",
+      "en": "form-sha (malign forms)",
+      "label": "site",
+      "section": "2.20",
+      "notes": "Threatening physical forms; keep \"sha\" glossed as \"malign influence.\""
+    },
+    {
+      "hanzi": "四象 / 四神",
+      "pinyin": "sìxiàng / sìshén",
+      "en": "the Four Emblems / Four Guardians",
+      "label": "conv",
+      "section": "2.20",
+      "notes": "The protective quartet below."
+    },
+    {
+      "hanzi": "青龙",
+      "pinyin": "qīnglóng",
+      "en": "Azure Dragon (east/left)",
+      "label": "conv",
+      "section": "2.20",
+      "notes": "⚠ Also a 值神 (§2.11); here = terrain guardian."
+    },
+    {
+      "hanzi": "白虎",
+      "pinyin": "báihǔ",
+      "en": "White Tiger (west/right)",
+      "label": "conv",
+      "section": "2.20",
+      "notes": ""
+    },
+    {
+      "hanzi": "玄武",
+      "pinyin": "xuánwǔ",
+      "en": "Dark Warrior / Black Tortoise (rear)",
+      "label": "conv",
+      "section": "2.20",
+      "notes": ""
+    },
+    {
+      "hanzi": "朱雀",
+      "pinyin": "zhūquè",
+      "en": "Vermilion Bird (front)",
+      "label": "conv",
+      "section": "2.20",
+      "notes": ""
+    },
+    {
+      "hanzi": "明堂",
+      "pinyin": "míngtáng",
+      "en": "the Bright Hall (the open front)",
+      "label": "site",
+      "section": "2.20",
+      "notes": "The open space before the site; ⚠ also a 值神."
+    },
+    {
+      "hanzi": "穴",
+      "pinyin": "xué",
+      "en": "the dragon's lair (the siting point)",
+      "label": "site",
+      "section": "2.20",
+      "notes": "The precise auspicious spot."
+    },
+    {
+      "hanzi": "羊刃",
+      "pinyin": "yángrèn",
+      "en": "the Goat-Blade",
+      "label": "site",
+      "section": "2.21",
+      "notes": "The峰-blade star (峰 of the stem's 禄)."
+    },
+    {
+      "hanzi": "禄神",
+      "pinyin": "lùshén",
+      "en": "the Prosperity Star (禄)",
+      "label": "site",
+      "section": "2.21",
+      "notes": "Stem's 临官 position; \"rank/emolument.\""
+    },
+    {
+      "hanzi": "天乙贵人",
+      "pinyin": "tiānyǐ guìrén",
+      "en": "the Heavenly Noble",
+      "label": "site",
+      "section": "2.21",
+      "notes": "The premier benefactor star."
+    },
+    {
+      "hanzi": "桃花",
+      "pinyin": "táohuā",
+      "en": "the Peach Blossom",
+      "label": "site",
+      "section": "2.21",
+      "notes": "Romance/charm star (咸池 Xiánchí)."
+    },
+    {
+      "hanzi": "驿马",
+      "pinyin": "yìmǎ",
+      "en": "the Traveling Horse",
+      "label": "site",
+      "section": "2.21",
+      "notes": "Movement/travel star."
+    },
+    {
+      "hanzi": "华盖",
+      "pinyin": "huágài",
+      "en": "the Canopy Star",
+      "label": "site",
+      "section": "2.21",
+      "notes": "Solitude/arts/religion star."
+    },
+    {
+      "hanzi": "将星",
+      "pinyin": "jiàngxīng",
+      "en": "the General Star",
+      "label": "site",
+      "section": "2.21",
+      "notes": "Leadership star."
+    },
+    {
+      "hanzi": "天德",
+      "pinyin": "tiāndé",
+      "en": "the Heavenly Virtue (benefactor)",
+      "label": "site",
+      "section": "2.21",
+      "notes": "⚠ Distinct from 值神 天德 (§2.11)."
+    },
+    {
+      "hanzi": "月德",
+      "pinyin": "yuèdé",
+      "en": "the Monthly Virtue (benefactor)",
+      "label": "site",
+      "section": "2.21",
+      "notes": ""
+    },
+    {
+      "hanzi": "倒戈",
+      "pinyin": "dàogē",
+      "en": "the Turned-Spear (site-internal marker)",
+      "label": "site",
+      "section": "2.21",
+      "notes": "⚠ Not a traditional shénshà — an engine-internal predicate (stem contains 戊). Flag as site, engine-defined and never present it as classical."
+    },
+    {
+      "hanzi": "六冲",
+      "pinyin": "liùchōng",
+      "en": "the Six Clashes",
+      "label": "site",
+      "section": "2.22",
+      "notes": "Opposing branch pairs."
+    },
+    {
+      "hanzi": "六合",
+      "pinyin": "liùhé",
+      "en": "the Six Harmonies",
+      "label": "site",
+      "section": "2.22",
+      "notes": "Binding pairs."
+    },
+    {
+      "hanzi": "三合",
+      "pinyin": "sānhé",
+      "en": "the Three Harmonies (trine)",
+      "label": "site",
+      "section": "2.22",
+      "notes": "Three-branch phase-frames."
+    },
+    {
+      "hanzi": "三会",
+      "pinyin": "sānhuì",
+      "en": "the Three Meetings (directional)",
+      "label": "site",
+      "section": "2.22",
+      "notes": "Seasonal directional trios."
+    },
+    {
+      "hanzi": "六害",
+      "pinyin": "liùhài",
+      "en": "the Six Harms",
+      "label": "site",
+      "section": "2.22",
+      "notes": ""
+    },
+    {
+      "hanzi": "三刑",
+      "pinyin": "sānxíng",
+      "en": "the Three Punishments",
+      "label": "site",
+      "section": "2.22",
+      "notes": "Incl. 无礼之刑 \"Punishment of Rudeness,\" 无恩之刑 \"of Ingratitude,\" 恃势之刑 \"of Bullying.\""
+    },
+    {
+      "hanzi": "自刑",
+      "pinyin": "zìxíng",
+      "en": "self-punishment",
+      "label": "site",
+      "section": "2.22",
+      "notes": "A branch repeating itself."
+    },
+    {
+      "hanzi": "天干五合",
+      "pinyin": "tiāngān wǔhé",
+      "en": "the Five Stem-Combinations",
+      "label": "site",
+      "section": "2.22",
+      "notes": "甲己→土 etc."
+    },
+    {
+      "hanzi": "太岁",
+      "pinyin": "tàisuì",
+      "en": "the Grand Year (Tàisuì)",
+      "label": "site",
+      "section": "2.23",
+      "notes": "Jupiter's counter-orbital station; the year-god. Gloss astronomically, not \"the wrath of the Grand Duke.\""
+    },
+    {
+      "hanzi": "岁破",
+      "pinyin": "suìpò",
+      "en": "the Year-Breaker",
+      "label": "site",
+      "section": "2.23",
+      "notes": "Direction opposite 太岁."
+    },
+    {
+      "hanzi": "三煞",
+      "pinyin": "sānshà",
+      "en": "the Three Killings",
+      "label": "site",
+      "section": "2.23",
+      "notes": "劫煞/灾煞/岁煞 trio of sectors."
+    },
+    {
+      "hanzi": "五黄",
+      "pinyin": "wǔhuáng",
+      "en": "the Five Yellow",
+      "label": "site",
+      "section": "2.23",
+      "notes": "The 5-star, most malign Flying-Star sector."
+    },
+    {
+      "hanzi": "紫白",
+      "pinyin": "zǐbái",
+      "en": "the Purple-White stars",
+      "label": "site",
+      "section": "2.23",
+      "notes": "The annual/monthly Flying-Star layer."
+    },
+    {
+      "hanzi": "伏吟",
+      "pinyin": "fúyín",
+      "en": "Reduplication (fúyín)",
+      "label": "site",
+      "section": "2.23",
+      "notes": "Star repeats its natal palace (\"lying prostrate, unmoving\"). Gloss functionally."
+    },
+    {
+      "hanzi": "反吟",
+      "pinyin": "fǎnyín",
+      "en": "Reversal (fǎnyín)",
+      "label": "site",
+      "section": "2.23",
+      "notes": "Star flung to the opposite palace."
+    },
+    {
+      "hanzi": "两法异说",
+      "pinyin": "liǎngfǎ yìshuō",
+      "en": "Two-method divergence",
+      "label": "site",
+      "section": "2.23",
+      "notes": "UI flag: Eight-Mansions vs Ziping disagree; the engine does not adjudicate."
+    },
+    {
+      "hanzi": "诸家异说",
+      "pinyin": "zhūjiā yìshuō",
+      "en": "Divergence among schools",
+      "label": "site",
+      "section": "2.23",
+      "notes": "UI flag: multiple traditions differ; both shown, none forced."
+    },
+    {
+      "hanzi": "宜伏",
+      "pinyin": "yífú",
+      "en": "best left dormant",
+      "label": "site",
+      "section": "2.23",
+      "notes": "Overlay note on a malign star's sector: \"suited to lie low / suppress, not for primary use.\""
+    }
+  ],
+  "collisions": [
+    {
+      "hanzi": "沐浴",
+      "senses": [
+        "§2.6 长生 沐浴 mùyù Bathing (Twelve Life-Stages)",
+        "§2.15 沐浴 mùyù Ritual bathing (almanac activity)"
+      ],
+      "rule": "same hanzi, different domain → gloss 消歧"
+    },
+    {
+      "hanzi": "生气",
+      "senses": [
+        "§2.8 游年八星 生气 shēngqì Generating Breath (Eight-Mansions star)",
+        "philosophical 生气 (the Generating Breath, §2.1 cosmological core)"
+      ],
+      "rule": "same rendering intended (not disambiguated); paradigm term of decision 1"
+    },
+    {
+      "hanzi": "天德",
+      "senses": [
+        "§2.11 值神 天德 tiāndé Heavenly Virtue (Yellow Way)",
+        "§2.21 神煞 天德 tiāndé the Heavenly Virtue (benefactor)"
+      ],
+      "rule": "different system; gloss 消歧"
+    },
+    {
+      "hanzi": "动土 / 破土",
+      "senses": [
+        "§2.15 动土 dòngtǔ Breaking ground (building)",
+        "§2.15 破土 pòtǔ Breaking earth (for a grave)"
+      ],
+      "rule": "never merge — 动土 = building groundbreaking vs 破土 = burial earth-breaking (top pitfall)"
+    },
+    {
+      "hanzi": "青龙",
+      "senses": [
+        "§2.11 值神 青龙 qīnglóng Azure Dragon (Yellow Way)",
+        "§2.20 砂水 青龙 qīnglóng Azure Dragon (east/left, terrain guardian)"
+      ],
+      "rule": "same beast across 值神 & 砂水 — disambiguate by context"
+    },
+    {
+      "hanzi": "白虎",
+      "senses": [
+        "§2.11 值神 白虎 báihǔ White Tiger (Black Way)",
+        "§2.20 砂水 白虎 báihǔ White Tiger (west/right)"
+      ],
+      "rule": "same beast across 值神 & 砂水 — disambiguate by context"
+    },
+    {
+      "hanzi": "玄武",
+      "senses": [
+        "§2.11 值神 玄武 xuánwǔ Dark Warrior (Black Way)",
+        "§2.20 砂水 玄武 xuánwǔ Dark Warrior / Black Tortoise (rear)"
+      ],
+      "rule": "same beast across 值神 & 砂水 — disambiguate by context"
+    },
+    {
+      "hanzi": "朱雀",
+      "senses": [
+        "§2.11 值神 朱雀 zhūquè Vermilion Bird (Black Way)",
+        "§2.20 砂水 朱雀 zhūquè Vermilion Bird (front)"
+      ],
+      "rule": "same beast across 值神 & 砂水 — disambiguate by context"
+    },
+    {
+      "hanzi": "明堂",
+      "senses": [
+        "§2.11 值神 明堂 míngtáng Bright Hall (Yellow Way)",
+        "§2.20 砂水 明堂 míngtáng the Bright Hall (the open front)"
+      ],
+      "rule": "same term across 值神 & 砂水 — disambiguate by context"
+    }
+  ],
+  "bookTitles": [
+    {
+      "hanzi": "周易",
+      "pinyin": "Zhōuyì",
+      "en": "Book of Changes",
+      "label": "conv",
+      "convSource": "Legge / Wilhelm — also \"I Ching\""
+    },
+    {
+      "hanzi": "道德经",
+      "pinyin": "Dàodéjīng",
+      "en": "Tao Te Ching / Daodejing",
+      "label": "conv",
+      "convSource": ""
+    },
+    {
+      "hanzi": "论语",
+      "pinyin": "Lúnyǔ",
+      "en": "The Analects",
+      "label": "conv",
+      "convSource": "Legge"
+    },
+    {
+      "hanzi": "庄子",
+      "pinyin": "Zhuāngzǐ",
+      "en": "Zhuangzi",
+      "label": "conv",
+      "convSource": ""
+    },
+    {
+      "hanzi": "黄帝内经·素问",
+      "pinyin": "Huángdì Nèijīng · Sùwèn",
+      "en": "Inner Classic — Basic Questions",
+      "label": "conv",
+      "convSource": "Unschuld — re-verify"
+    },
+    {
+      "hanzi": "黄帝内经·灵枢",
+      "pinyin": "Huángdì Nèijīng · Língshū",
+      "en": "Inner Classic — Divine Pivot",
+      "label": "conv",
+      "convSource": "Unschuld — re-verify"
+    },
+    {
+      "hanzi": "难经",
+      "pinyin": "Nànjīng",
+      "en": "Classic of Difficult Issues",
+      "label": "conv",
+      "convSource": "Unschuld — re-verify"
+    },
+    {
+      "hanzi": "礼记·月令",
+      "pinyin": "Lǐjì · Yuèlìng",
+      "en": "Book of Rites — \"Proceedings of Government in the Different Months\"",
+      "label": "conv",
+      "convSource": "Legge — re-verify"
+    },
+    {
+      "hanzi": "尚书·洪范",
+      "pinyin": "Shàngshū · Hóngfàn",
+      "en": "Book of Documents — \"The Great Plan\"",
+      "label": "conv",
+      "convSource": "Legge — re-verify"
+    },
+    {
+      "hanzi": "说文解字",
+      "pinyin": "Shuōwén Jiězì",
+      "en": "Shuowen Jiezi (Explaining Graphs)",
+      "label": "conv",
+      "convSource": ""
+    },
+    {
+      "hanzi": "吕氏春秋",
+      "pinyin": "Lǚshì Chūnqiū",
+      "en": "The Annals of Lü Buwei",
+      "label": "conv",
+      "convSource": "Knoblock & Riegel — re-verify"
+    },
+    {
+      "hanzi": "春秋繁露",
+      "pinyin": "Chūnqiū Fánlù",
+      "en": "Luxuriant Gems of the Spring and Autumn",
+      "label": "site",
+      "convSource": "cf. Queen & Major — verify before claiming conv."
+    },
+    {
+      "hanzi": "白虎通义",
+      "pinyin": "Báihǔ Tōngyì",
+      "en": "Comprehensive Discussions in the White Tiger Hall",
+      "label": "conv",
+      "convSource": "Tjan Tjoe Som — re-verify"
+    },
+    {
+      "hanzi": "抱朴子",
+      "pinyin": "Bàopǔzǐ",
+      "en": "The Master Who Embraces Simplicity",
+      "label": "conv",
+      "convSource": "Ware — re-verify"
+    },
+    {
+      "hanzi": "云笈七签",
+      "pinyin": "Yúnjí Qīqiān",
+      "en": "Seven Slips from the Cloudy Satchel",
+      "label": "site",
+      "convSource": ""
+    },
+    {
+      "hanzi": "梦溪笔谈",
+      "pinyin": "Mèngxī Bǐtán",
+      "en": "Brush Talks from Dream Brook",
+      "label": "site",
+      "convSource": "widely used; verify before conv."
+    },
+    {
+      "hanzi": "太上感应篇",
+      "pinyin": "Tàishàng Gǎnyìng Piān",
+      "en": "Treatise on Action and Response",
+      "label": "conv",
+      "convSource": "Legge — re-verify"
+    },
+    {
+      "hanzi": "本草纲目",
+      "pinyin": "Běncǎo Gāngmù",
+      "en": "Compendium of Materia Medica",
+      "label": "conv",
+      "convSource": "re-verify"
+    },
+    {
+      "hanzi": "葬书",
+      "pinyin": "Zàngshū",
+      "en": "Book of Burial",
+      "label": "conv",
+      "convSource": "Field — re-verify"
+    },
+    {
+      "hanzi": "撼龙经",
+      "pinyin": "Hànlóng Jīng",
+      "en": "Classic of Rousing the Dragon",
+      "label": "site",
+      "convSource": ""
+    },
+    {
+      "hanzi": "疑龙经",
+      "pinyin": "Yílóng Jīng",
+      "en": "Classic of Doubting the Dragon",
+      "label": "site",
+      "convSource": ""
+    },
+    {
+      "hanzi": "葬法倒杖",
+      "pinyin": "Zàngfǎ Dàozhàng",
+      "en": "Burial Method of the Reversed Staff",
+      "label": "site",
+      "convSource": ""
+    },
+    {
+      "hanzi": "博山篇",
+      "pinyin": "Bóshān Piān",
+      "en": "The Boshan Essay",
+      "label": "site",
+      "convSource": ""
+    },
+    {
+      "hanzi": "地理人子须知",
+      "pinyin": "Dìlǐ Rénzǐ Xūzhī",
+      "en": "What Every Filial Son Must Know of Siting",
+      "label": "site",
+      "convSource": ""
+    },
+    {
+      "hanzi": "地理辨正",
+      "pinyin": "Dìlǐ Biànzhèng",
+      "en": "Correcting the Errors in Siting",
+      "label": "site",
+      "convSource": ""
+    },
+    {
+      "hanzi": "八宅明镜",
+      "pinyin": "Bāzhái Míngjìng",
+      "en": "Mirror of the Eight Mansions",
+      "label": "site",
+      "convSource": "八宅 = Eight Mansions is conv.; full title is ours — per decision 2"
+    },
+    {
+      "hanzi": "阳宅三要",
+      "pinyin": "Yángzhái Sānyào",
+      "en": "Three Essentials of the Yang Dwelling",
+      "label": "site",
+      "convSource": ""
+    },
+    {
+      "hanzi": "阳宅十书",
+      "pinyin": "Yángzhái Shíshū",
+      "en": "Ten Books on the Yang Dwelling",
+      "label": "site",
+      "convSource": ""
+    },
+    {
+      "hanzi": "沈氏玄空学",
+      "pinyin": "Shěnshì Xuánkōng Xué",
+      "en": "Master Shen's Study of Xuankong",
+      "label": "site",
+      "convSource": ""
+    },
+    {
+      "hanzi": "钦定协纪辨方书",
+      "pinyin": "Qīndìng Xiéjì Biànfāng Shū",
+      "en": "Imperially Endorsed Treatise on Harmonizing Times and Distinguishing Directions",
+      "label": "site",
+      "convSource": "Richard J. Smith cites it as Xieji bianfang shu — transliteration only"
+    },
+    {
+      "hanzi": "子平真诠",
+      "pinyin": "Zǐpíng Zhēnquán",
+      "en": "True Interpretation of Ziping",
+      "label": "site",
+      "convSource": ""
+    },
+    {
+      "hanzi": "渊海子平",
+      "pinyin": "Yuānhǎi Zǐpíng",
+      "en": "Yuanhai Ziping (Ocean-Deep Ziping)",
+      "label": "site",
+      "convSource": ""
+    },
+    {
+      "hanzi": "三命通会",
+      "pinyin": "Sānmìng Tōnghuì",
+      "en": "Comprehensive Compendium of the Three Fates",
+      "label": "site",
+      "convSource": ""
+    },
+    {
+      "hanzi": "神峰通考",
+      "pinyin": "Shénfēng Tōngkǎo",
+      "en": "Shenfeng's Comprehensive Examination",
+      "label": "site",
+      "convSource": ""
+    },
+    {
+      "hanzi": "滴天髓",
+      "pinyin": "Dītiānsuǐ",
+      "en": "Dripping Heaven's Marrow",
+      "label": "site",
+      "convSource": ""
+    }
+  ]
+}
