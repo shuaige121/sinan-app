@@ -7118,12 +7118,11 @@
     const role = characterText(a, 'role', en);
     const tags = en ? a.tagsEn : a.tagsZh;
     const desc = characterText(a, 'desc', en);
-    const kicker = en ? 'CHANGMING CAST · YOUR CHARACTER' : '常明城十干 · 你的角色';
+    const kicker = en ? 'FROM THE CHART · INTO CHANGMING' : '从命盘进入 · 常明城人物志';
     const basis = en
       ? `Derived from Day Master ${c.dm} (${polarity} ${element}). Yin and Yang are not gender. This is a cultural narrative, not a scientific personality diagnosis.`
       : `由日主${c.dm}${c.dmEl}（${polarity}${c.dmEl}）推演。阴阳不是性别；这是传统文化叙事，并非科学人格诊断。`;
     const alt = en ? `${stem}, ${name}, ${role}` : `${stem}·${name}·${role}人物立绘`;
-    const pending = en ? 'Character PNG reserved' : '人物 PNG 待导入';
     const archHex = C.EL_HEX[c.dmEl] || '#c9a227';
     const archNum = parseInt(archHex.slice(1), 16);
     host.style.setProperty('--arch-color', archHex);
@@ -7131,21 +7130,19 @@
     host.dataset.stem = c.dm;
     host.classList.remove('awaken', 'image-missing', 'asset-ready');
     host.innerHTML = `
-      <span class="bazi-arch-kicker">${escapeHtml(kicker)}</span>
-      <div class="bazi-arch-stage">
+      <div class="bazi-arch-stage" style="--arch-bg:url('../${escapeHtml(a.background)}')">
+        <span class="bazi-arch-backdrop" aria-hidden="true"></span>
         <span class="bazi-arch-orbit o1" aria-hidden="true"></span>
         <span class="bazi-arch-orbit o2" aria-hidden="true"></span>
-        <div class="bazi-arch-fallback" aria-hidden="true">
-          <span class="bazi-arch-human"><i></i><i></i></span>
-          <b>${escapeHtml(c.dm)}</b><small>${escapeHtml(pending)}</small>
-        </div>
         <img class="bazi-arch-image" src="${escapeHtml(a.asset)}" alt="${escapeHtml(alt)}" decoding="async">
       </div>
       <div class="bazi-arch-copy">
+        <span class="bazi-arch-kicker">${escapeHtml(kicker)}</span>
         <h2 class="bazi-arch-title"><b>${escapeHtml(stem)}</b><small>${escapeHtml(polarity + ' ' + element + ' · ' + name + ' · ' + role)}</small></h2>
         <div class="bazi-arch-tags">${tags.map(tag => `<span>${escapeHtml(tag)}</span>`).join('')}</div>
         <p class="bazi-arch-desc">${escapeHtml(desc)}</p>
         <p class="bazi-arch-basis">${escapeHtml(basis)}</p>
+        <button type="button" class="bazi-arch-enter" data-changming-open data-stem="${escapeHtml(c.dm)}"><span>${en ? 'Open the character chronicle' : '进入人物志，看五色如何照进城中'}</span><b aria-hidden="true">↗</b></button>
       </div>`;
     host.hidden = false;
     setCharacterImageState(host.querySelector('.bazi-arch-image'), host);
@@ -7164,7 +7161,7 @@
     const headings = en
       ? ['The unspoken wound', 'An irreplaceable moment', 'Still unfolding']
       : ['没有说出口的事', '不可替代的高光', '仍在发生'];
-    const storyAsset = a.poses && a.poses.story ? a.poses.story : a.asset;
+    const storyAsset = a.fullBody || (a.poses && a.poses.story) || a.asset;
     const storyAlt = en
       ? `${characterText(a, 'name', true)} character-story pose`
       : `${characterText(a, 'name', false)}人物志动作`;
@@ -7179,17 +7176,19 @@
         <span class="seal">${escapeHtml(label)}</span>
         <h3><b>${escapeHtml(c.dm + '·' + characterText(a, 'name', en))}</b><small>${escapeHtml(characterText(a, 'role', en))}</small></h3>
       </div>
-      <div class="character-story-visual">
-        <img src="${escapeHtml(storyAsset)}" alt="${escapeHtml(storyAlt)}" loading="lazy" decoding="async">
+      <div class="character-story-visual" style="--story-bg:url('../${escapeHtml(a.background)}')">
+        <span class="character-story-background" aria-hidden="true"></span>
+        <img class="character-story-person" src="${escapeHtml(storyAsset)}" alt="${escapeHtml(storyAlt)}" loading="lazy" decoding="async">
       </div>
       <div class="character-story-grid">
         <article class="character-story-beat is-scar"><span>${escapeHtml(headings[0])}</span><p>${escapeHtml(characterText(a, 'scar', en))}</p></article>
         <article class="character-story-beat is-highlight"><span>${escapeHtml(headings[1])}</span><p>${escapeHtml(characterText(a, 'highlight', en))}</p></article>
         <article class="character-story-beat is-open"><span>${escapeHtml(headings[2])}</span><p>${escapeHtml(characterText(a, 'ongoing', en))}</p></article>
       </div>
+      <button type="button" class="character-world-link" data-changming-open data-stem="${escapeHtml(c.dm)}"><span>${en ? 'Continue in Changming' : '继续进入常明城'}</span><b aria-hidden="true">↗</b></button>
       ${comicMarkup}
     </div>`;
-    const storyImage = host.querySelector('.character-story-visual img');
+    const storyImage = host.querySelector('.character-story-person');
     const imageMissing = () => host.classList.add('story-image-missing');
     host.classList.remove('story-image-missing');
     if (storyImage.complete) { if (!storyImage.naturalWidth) imageMissing(); }
@@ -7208,6 +7207,7 @@
     const sub = en
       ? 'Choose kin, generation, control, combination, or clash to see the exact heavenly stems involved. This describes direction, not fortune.'
       : '选择同类、生、制、合、冲，查看与你发生作用的具体天干；只说明关系方向，不作吉凶判断。';
+    const self = CharacterSystem.get(c.dm);
     host.innerHTML = `<div class="card character-relations-card">
       <span class="seal">${en ? 'FIVE-PHASE RELATION MAP' : '五行关系图谱'}</span>
       <h3>${escapeHtml(title)}</h3><p class="dim">${escapeHtml(sub)}</p>
@@ -7221,17 +7221,18 @@
       const people = sceneStems.map((stem, index) => {
         const person = CharacterSystem.get(stem);
         if (!person) return '';
-        const asset = index === 0 ? person.asset : ((person.poses && person.poses.open) || person.asset);
+        const asset = person.fullBody || (index === 0 ? person.asset : ((person.poses && person.poses.open) || person.asset));
         const name = `${stem}·${characterText(person, 'name', en)}`;
         return `<figure class="relation-character${index === 0 ? ' is-self' : ''}" data-stem="${escapeHtml(stem)}">
           <img src="${escapeHtml(asset)}" alt="${escapeHtml(name)}" loading="lazy" decoding="async">
           <figcaption>${index === 0 ? (en ? 'YOU · ' : '我 · ') : ''}${escapeHtml(name)}</figcaption>
         </figure>`;
       }).join('');
-      panel.innerHTML = `<div class="relation-character-scene" aria-label="${escapeHtml(sceneStems.join('、'))}">${people}</div>
+      panel.innerHTML = `<div class="relation-character-scene" style="--relation-bg:url('../${escapeHtml((self && self.background) || '')}')" aria-label="${escapeHtml(sceneStems.join('、'))}">${people}</div>
         <div class="relation-panel-meta"><span>${escapeHtml(card.term)}</span><b>${escapeHtml(card.related)}</b></div>
         <p class="relation-plain">${escapeHtml(card.plain)}</p>
-        <small>${en ? 'Derived from the Day Master and five-phase generation, control, combination, and clash; not a fixed compatibility or fortune result.' : '依据日主与五行生克合冲关系显示；不等于现实人格配对，也不是吉凶结论。'}</small>`;
+        <small>${en ? 'Derived from the Day Master and five-phase generation, control, combination, and clash; not a fixed compatibility or fortune result.' : '依据日主与五行生克合冲关系显示；不等于现实人格配对，也不是吉凶结论。'}</small>
+        <button type="button" class="character-world-link is-compact" data-changming-open data-stem="${escapeHtml(c.dm)}"><span>${en ? 'Read this relation in Changming' : '进入常明城看这段关系'}</span><b aria-hidden="true">↗</b></button>`;
       panel.querySelectorAll('.relation-character img').forEach(image => {
         image.addEventListener('error', () => image.closest('.relation-character')?.classList.add('image-missing'), { once: true });
       });

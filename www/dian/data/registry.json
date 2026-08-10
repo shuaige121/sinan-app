@@ -5,9 +5,9 @@
     "url": "https://daos.leonardchow.work",
     "license": "古籍本身公有领域；维基文库来源内容遵 CC-BY-SA 4.0，须署名并标明出处链接",
     "notice": "本站所有古文均须从权威全文站实际抓取，不凭记忆默写。待补章节标「待补」，来源链接供核实。",
-    "lastUpdated": "2026-07-16-r16",
-    "textCount": 37,
-    "totalCount": 45
+    "lastUpdated": "2026-08-11-r17",
+    "textCount": 38,
+    "totalCount": 46
   },
   "categories": [
     {
@@ -750,6 +750,53 @@
       "hasTextData": true,
       "chapterCount": 17,
       "charCount": 3671,
+      "hasAnnotated": true
+    },
+    {
+      "id": "shanhaijing",
+      "title": "山海经",
+      "subtitle": "山海經",
+      "category": "kanyu",
+      "author": "作者不详，非一人一时之作",
+      "dynasty": "战国至西汉",
+      "authorNote": "旧题大禹、伯益，学界视为战国至汉初多人积累而成的地理博物志。今本十八卷，经西汉刘向、刘歆父子校定，晋郭璞作注。",
+      "licenseNote": "公有领域",
+      "source": "https://zh.wikisource.org/wiki/%E5%B1%B1%E6%B5%B7%E7%B6%93",
+      "sourceName": "维基文库·山海經",
+      "sourceCC": "CC-BY-SA",
+      "status": "全",
+      "statusNote": "十八卷原文全部实抓完整，无「待补」章节，共 38221 字。逐句白话：海外南經、海外西經、海外北經、海外東經、海內南經、海內西經、海內北經、海內東經、大荒東經、大荒南經、大荒西經、大荒北經、海內經 已全卷逐句完成；南山經、西山經、北山經、東山經、中山經（五臧山经）原文全录，白话先做重点段落——各经开篇、各列山末的「凡…山…里」祭祀总结、卷末统计，以及昆仑、西王母、精卫、帝江等名段，其余段落白话待补。",
+      "fragments": [
+        {
+          "ref": "不周山",
+          "text": "西北海之外，大荒之隅，有山而不合，名曰不周，有兩黄獸守之。",
+          "source": "《山海经·大荒西经》"
+        },
+        {
+          "ref": "昆仑之丘",
+          "text": "西南四百里，曰昆侖之丘，是實惟帝之下都，神陸吾司之。",
+          "source": "《山海经·西山经》"
+        },
+        {
+          "ref": "精卫填海",
+          "text": "是炎帝之少女，名曰女娃，女娃游于東海，溺而不返，故為精衛，常銜西山之木石，以堙于東海。",
+          "source": "《山海经·北山经》"
+        },
+        {
+          "ref": "夸父逐日",
+          "text": "夸父與日逐走，入日。",
+          "source": "《山海经·海外北经》"
+        },
+        {
+          "ref": "五臧山经总计",
+          "text": "禹曰：天下名山，經五千三百七十山，六萬四千五十六里，居地也。",
+          "source": "《山海经·中山经》"
+        }
+      ],
+      "chapters": [],
+      "hasTextData": true,
+      "chapterCount": 18,
+      "charCount": 38221,
       "hasAnnotated": true
     },
     {

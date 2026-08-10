@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
-<link rel="stylesheet" href="css/style.css?v=20260810f">
+<link rel="stylesheet" href="css/style.css?v=20260811b">
 </head>
 <body>
 
@@ -569,14 +569,14 @@
       <button type="button" id="bazi-solar-diverge-btn" class="diverge-chip" hidden aria-expanded="false" data-i18n="common.diverge_two">两法异说</button>
       <div id="bazi-solar-diverge-pop" class="diverge-pop" hidden></div>
     </div>
-    <!-- 司南十象：以日主（十天干）映射人格化角色。人物只属于八字结果页，不进入罗盘/堪舆页。 -->
-    <section id="bazi-archetype" class="bazi-archetype" aria-live="polite" hidden></section>
     <div class="card" id="bazi-pillars-card">
       <div id="bazi-pillars"></div>
     </div>
     <!-- B1 生辰黄历回放卡（排盘后·命盘卡之后填充）：出生当日 干支/宜忌/时卦/节气，lunar-js 回算。未排盘为空。 -->
     <div id="bazi-birthday"></div>
     <div class="card" id="bazi-bars"></div>
+    <!-- 司南十象：学术命盘之后的文化叙事入口。保持紧凑，不抢四柱与五行结构的阅读顺序。 -->
+    <section id="bazi-archetype" class="bazi-archetype" aria-live="polite" hidden></section>
     <div class="card">
       <span class="seal" data-i18n="bazi.verdict_seal">断语</span><span class="gold" id="bazi-strength" style="font-size:14px"></span>
       <p class="dim" id="bazi-minggua" style="font-size:13px;margin:7px 0 0"></p>
@@ -609,6 +609,16 @@
     </div>
   </div>
 </section>
+
+<!-- 常明城：由八字日主进入的沉浸式第二层，不占用底部主导航。 -->
+<aside id="changming-world" class="changming-world" role="dialog" aria-modal="true" aria-label="常明城十干人物志" aria-hidden="true" hidden>
+  <header class="cm-topbar">
+    <button type="button" id="cm-close" class="cm-back" aria-label="返回司南">‹ <span>返回司南</span></button>
+    <div class="cm-brand"><b>常明城</b><small>十干人物志</small></div>
+    <button type="button" id="cm-mine" class="cm-mine">我的角色</button>
+  </header>
+  <main id="cm-content" class="cm-content" tabindex="-1"></main>
+</aside>
 
 
 <!-- 底部导航 -->
@@ -718,8 +728,9 @@
 <script src="js/ai-reading.js?v=20260706a"></script>
 <script src="js/share-card.js?v=20260707a"></script>
 <script src="js/birth-places.js?v=20260810a"></script>
-<script src="js/character-manifest.js?v=20260810f"></script>
-<script src="js/app.js?v=20260810f"></script>
+<script src="js/character-manifest.js?v=20260811b"></script>
+<script src="js/changming-world.js?v=20260811b"></script>
+<script src="js/app.js?v=20260811b"></script>
 <script src="js/qa-engine.js?v=20260706a"></script>
 <script src="js/ics-export.js?v=20260703a"></script>
 </body>

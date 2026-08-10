@@ -4,13 +4,18 @@
   'use strict';
 
   const HUMAN_ROOT = 'img/ten-archetypes/human/';
-  const ASSET_BASE = HUMAN_ROOT + 'v7/';
-  const POSE_BASE = ASSET_BASE + 'poses/';
-  const COMIC_BASE = ASSET_BASE + 'comics/';
+  const V8_ROOT = HUMAN_ROOT + 'v8/';
+  const COMIC_BASE = HUMAN_ROOT + 'v7/comics/';
+  const visualSet = slug => Object.freeze({
+    asset: V8_ROOT + 'portraits/' + slug + '.webp',
+    portrait: V8_ROOT + 'portraits/' + slug + '.webp',
+    fullBody: V8_ROOT + 'full-body/' + slug + '.webp',
+    background: V8_ROOT + 'backgrounds/' + slug + '.webp'
+  });
   const poseSet = slug => Object.freeze({
-    identity: POSE_BASE + slug + '-identity.png',
-    story: POSE_BASE + slug + '-story.png',
-    open: POSE_BASE + slug + '-open.png'
+    identity: V8_ROOT + 'portraits/' + slug + '.webp',
+    story: V8_ROOT + 'full-body/' + slug + '.webp',
+    open: V8_ROOT + 'full-body/' + slug + '.webp'
   });
   const STEM_ORDER = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
   const ELEMENT_ORDER = ['木', '火', '土', '金', '水'];
@@ -24,7 +29,7 @@
 
   const CHARACTERS = {
     甲: {
-      element: '木', yang: true, asset: ASSET_BASE + 'jia-wood.png', poses: poseSet('jia-wood'),
+      element: '木', yang: true, ...visualSet('jia-wood'), poses: poseSet('jia-wood'),
       comic: Object.freeze({ titleZh: '按量报', titleEn: 'By Exact Measure', asset: COMIC_BASE + 'jia-guangmo-anliangbao-v1.png' }),
       nameZh: '广莫', nameEn: 'Guangmo', roleZh: '栋梁', roleEn: 'The Pillar',
       tagsZh: ['方向', '担当', '生长'], tagsEn: ['Direction', 'Responsibility', 'Growth'],
@@ -38,7 +43,7 @@
       ongoingEn: 'Learning to let others alter the route—but whether Guangmo can stop again next time remains open.'
     },
     乙: {
-      element: '木', yang: false, asset: ASSET_BASE + 'yi-wood.png', poses: poseSet('yi-wood'),
+      element: '木', yang: false, ...visualSet('yi-wood'), poses: poseSet('yi-wood'),
       nameZh: '南枝', nameEn: 'Nanzhi', roleZh: '藤萝', roleEn: 'The Vine',
       tagsZh: ['连接', '借势', '韧性'], tagsEn: ['Connection', 'Leverage', 'Resilience'],
       descZh: '不靠蛮力向上，而是找到结构、缝隙和另一条路。能适应所有人，也因此容易忘记自己原本想去哪里。',
@@ -51,33 +56,33 @@
       ongoingEn: 'This time Nanzhi named a direction; next time may bring another choice between speaking and adapting.'
     },
     丙: {
-      element: '火', yang: true, asset: ASSET_BASE + 'bing-fire.png', poses: poseSet('bing-fire'),
-      nameZh: '忘归', nameEn: 'Wanggui', roleZh: '白日光', roleEn: 'Daylight',
+      element: '火', yang: true, ...visualSet('bing-fire'), poses: poseSet('bing-fire'),
+      nameZh: '忘归', nameEn: 'Wanggui', roleZh: '展翼之火', roleEn: 'The Unfolded Fire',
       tagsZh: ['动员', '公开', '感染'], tagsEn: ['Mobilizing', 'Open', 'Inspiring'],
-      descZh: '把能量带进人群，让所有人都能看见方向。忘归对陌生人与最亲近的人一样热情，也很少只为一人停留。',
-      descEn: 'Wanggui brings energy into a crowd and makes direction visible, offering the same warmth to strangers and intimates—and rarely pausing for only one person.',
+      descZh: '像白日，也像已经展开的凤凰：把热和方向给所有人。忘归对陌生人与最亲近的人一样热情，也很少只为一人停留。',
+      descEn: 'Like daylight—or a phoenix already unfolded—Wanggui gives warmth and direction to everyone, rarely pausing for only one person.',
       scarZh: '从来没有一个只属于忘归的人，因为忘归从不为任何人多停一秒。',
       scarEn: 'No one has ever belonged only to Wanggui, because Wanggui never stops an extra second for anyone.',
       highlightZh: '五色错位时，忘归让所有工坊同时安静，把全城目光完整交给西窗的一点微光。',
       highlightEn: 'When the five colors slipped apart, Wanggui quieted every workshop and handed the city’s attention to Xichuang’s tiny signal.',
-      ongoingZh: '已经学会让别人被看见，却还不知道如何只为一个人停留。',
-      ongoingEn: 'Learning to make another person visible, while the question of staying for one person remains.'
+      ongoingZh: '忘归已经转身走向下一间工坊；身后，西窗护住的火种又亮了一次。',
+      ongoingEn: 'Wanggui is already turning toward the next workshop; behind him, Xichuang’s protected ember pulses once more.'
     },
     丁: {
-      element: '火', yang: false, asset: ASSET_BASE + 'ding-fire.png', poses: poseSet('ding-fire'),
-      nameZh: '西窗', nameEn: 'Xichuang', roleZh: '掌灯人', roleEn: 'The Lamplighter',
+      element: '火', yang: false, ...visualSet('ding-fire'), poses: poseSet('ding-fire'),
+      nameZh: '西窗', nameEn: 'Xichuang', roleZh: '守种人', roleEn: 'Keeper of the Ember',
       tagsZh: ['专注', '守微', '耐久'], tagsEn: ['Focused', 'Attentive', 'Enduring'],
-      descZh: '价值只在最细微的地方显现。西窗不负责照亮所有人，而是守住不能被噪声淹没的那一点。',
-      descEn: 'Xichuang matters in the smallest places—not by lighting everyone, but by keeping one vital point from being lost in noise.',
+      descZh: '像尚未破壳的凤凰卵：势弱，却守住火仍能回来的可能。西窗不照亮所有人，只让最后一点不被噪声淹没。',
+      descEn: 'Like an unhatched phoenix egg, Xichuang is faint yet preserves the chance that fire can return—keeping one final point from disappearing in noise.',
       scarZh: '期待黑夜，因为只有黑夜需要这点微光；西窗也因此感到羞耻。',
       scarEn: 'Xichuang looks forward to darkness because darkness needs that small light—and feels ashamed of the wish.',
-      highlightZh: '全城失去共同节拍时，只有西窗能连续守住那个微小而准确的明灭。',
-      highlightEn: 'When the city lost a shared rhythm, Xichuang alone held the tiny, exact pulse that everyone else could follow.',
-      ongoingZh: '曾在白天要求所有人按自己的速度行动一次，仍会期待下一场黑夜。',
-      ongoingEn: 'Xichuang once asked the whole city to follow that pace in daylight, yet still waits for the next night.'
+      highlightZh: '全城失去共同节拍时，只有西窗能连续守住那枚微小而准确的火种，让九个人仍有下一步。',
+      highlightEn: 'When the city lost a shared rhythm, Xichuang alone kept the tiny exact ember alive, leaving all nine others a next move.',
+      ongoingZh: '卵形火种在掌心又跳了一次；西窗没有松手，院外的天正一点点亮起来。',
+      ongoingEn: 'The oval ember pulses again in Xichuang’s hands; she does not let go as the courtyard slowly grows lighter.'
     },
     戊: {
-      element: '土', yang: true, asset: ASSET_BASE + 'wu-earth.png', poses: poseSet('wu-earth'),
+      element: '土', yang: true, ...visualSet('wu-earth'), poses: poseSet('wu-earth'),
       nameZh: '不周', nameEn: 'Buzhou', roleZh: '压舱石', roleEn: 'The Ballast',
       tagsZh: ['边界', '承重', '稳定'], tagsEn: ['Boundaries', 'Bearing', 'Stability'],
       descZh: '让所有人知道什么可以通过、什么必须停下。不周保护了城，也可能把保护变成无法离开的墙。',
@@ -90,7 +95,7 @@
       ongoingEn: 'A gate now exists, along with the unresolved fear of what it may admit.'
     },
     己: {
-      element: '土', yang: false, asset: ASSET_BASE + 'ji-earth.png', poses: poseSet('ji-earth'),
+      element: '土', yang: false, ...visualSet('ji-earth'), poses: poseSet('ji-earth'),
       nameZh: '沃野', nameEn: 'Woye', roleZh: '沃土', roleEn: 'Fertile Ground',
       tagsZh: ['承接', '养育', '包容'], tagsEn: ['Receiving', 'Nurturing', 'Holding'],
       descZh: '让零散的人事物拥有继续生长的地方。沃野很少拒绝，也很难分清哪些东西已经不该继续留下。',
@@ -103,7 +108,7 @@
       ongoingEn: 'One pile has been cleared; the next choice between keeping and releasing will not become easy by itself.'
     },
     庚: {
-      element: '金', yang: true, asset: ASSET_BASE + 'geng-metal.png', poses: poseSet('geng-metal'),
+      element: '金', yang: true, ...visualSet('geng-metal'), poses: poseSet('geng-metal'),
       nameZh: '运斤', nameEn: 'Yunjin', roleZh: '决断者', roleEn: 'The Decider',
       tagsZh: ['决断', '执行', '承担'], tagsEn: ['Decisive', 'Executing', 'Accountable'],
       descZh: '面对不能继续拖延的事，运斤会完成那一步。果断不是无情，而是知道总得有人承担不可撤回的结果。',
@@ -116,7 +121,7 @@
       ongoingEn: 'This time Yunjin waited for Xin’s calibration; next time may require acting before anyone agrees.'
     },
     辛: {
-      element: '金', yang: false, asset: ASSET_BASE + 'xin-metal.png', poses: poseSet('xin-metal'),
+      element: '金', yang: false, ...visualSet('xin-metal'), poses: poseSet('xin-metal'),
       nameZh: '瑾瑜', nameEn: 'Jinyu', roleZh: '校准者', roleEn: 'The Calibrator',
       tagsZh: ['标准', '精度', '克制'], tagsEn: ['Standards', 'Precision', 'Restraint'],
       descZh: '看见决定成败的细小误差，让粗糙的东西真正成器。瑾瑜也可能用完美，把一切永远挡在「还差一点」。',
@@ -129,7 +134,7 @@
       ongoingEn: 'One imperfection has been allowed; the fear of the next scratch remains.'
     },
     壬: {
-      element: '水', yang: true, asset: ASSET_BASE + 'ren-water.png', poses: poseSet('ren-water'),
+      element: '水', yang: true, ...visualSet('ren-water'), poses: poseSet('ren-water'),
       nameZh: '既望', nameEn: 'Jiwang', roleZh: '奔流', roleEn: 'The Current',
       tagsZh: ['流动', '远见', '见识'], tagsEn: ['Movement', 'Horizon', 'Experience'],
       descZh: '看见远方，也能推动跨越整座城的变化。既望的问题从来不是走不动，而是不知道什么时候应该放慢。',
@@ -142,7 +147,7 @@
       ongoingEn: 'Jiwang slowed once; the horizon continues to call.'
     },
     癸: {
-      element: '水', yang: false, asset: ASSET_BASE + 'gui-water.png', poses: poseSet('gui-water'),
+      element: '水', yang: false, ...visualSet('gui-water'), poses: poseSet('gui-water'),
       comic: Object.freeze({ titleZh: '印子干了以后', titleEn: 'After the Marks Dried', asset: COMIC_BASE + 'gui-xueni-yinzigan-v1.png' }),
       nameZh: '雪泥', nameEn: 'Xueni', roleZh: '细雨', roleEn: 'Fine Rain',
       tagsZh: ['感知', '渗透', '倾听'], tagsEn: ['Sensing', 'Permeating', 'Listening'],
@@ -159,7 +164,7 @@
 
   const PEER_STORIES = {
     木: { titleZh: '同一束光', titleEn: 'The Same Light', storyZh: '甲撑住结构，乙沿着结构找到另一条路。两人天然理解彼此，也会争同一束光：像你的人，最知道你的力量，也最容易碰到你的边界。', storyEn: 'Jia holds the structure while Yi finds another route along it. They understand each other instinctively and still compete for the same light.' },
-    火: { titleZh: '白天的一盏灯', titleEn: 'A Lamp in Daylight', storyZh: '丙让所有人看见，丁让一个细节不被淹没。同样是火，一个扩大可见度，一个保存准确度。', storyEn: 'Bing makes everyone visible; Ding keeps one detail from disappearing. One expands attention, the other preserves precision.' },
+    火: { titleZh: '凤凰与卵', titleEn: 'Phoenix and Egg', storyZh: '丙是已经展开、把白日与大火给所有人的凤凰；丁是势弱却护住最后可能的凤凰卵。同一股火，一边向外给予，一边把未来收拢。', storyEn: 'Bing is fire unfolded like a phoenix, giving daylight to everyone; Ding is the faint egg that protects its last possible return. One fire gives outward while the other encloses the future.' },
     土: { titleZh: '该留下哪一株', titleEn: 'What Should Remain', storyZh: '戊负责拒绝，己负责容纳。边界太近会伤害生命，边界太远又会让一切无法呼吸。', storyEn: 'Wu refuses; Ji receives. A boundary too close harms life, while one too far leaves nothing room to breathe.' },
     金: { titleZh: '今天必须交付', titleEn: 'It Must Ship Today', storyZh: '庚怕来不及，辛怕不够好。真正可用的标准，永远发生在果断与精度之间。', storyEn: 'Geng fears being too late; Xin fears not being good enough. Usable work lives between decision and precision.' },
     水: { titleZh: '河不知道雨', titleEn: 'The River Does Not Know the Rain', storyZh: '壬看见整条河，癸看见一滴提前的水。范围与精度缺少任何一边，都无法找到真正的失衡。', storyEn: 'Ren sees the whole river; Gui sees one early drop. Neither range nor precision can locate imbalance alone.' }
@@ -276,7 +281,7 @@
   }
 
   global.SinanCharacters = Object.freeze({
-    assetBase: ASSET_BASE,
+    assetBase: V8_ROOT,
     stemOrder: STEM_ORDER.slice(),
     elementOrder: ELEMENT_ORDER.slice(),
     get: character,
