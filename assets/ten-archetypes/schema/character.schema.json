@@ -148,6 +148,11 @@
                   "required": [
                     "polarity"
                   ]
+                },
+                {
+                  "required": [
+                    "element"
+                  ]
                 }
               ]
             }
@@ -367,14 +372,26 @@
           "minLength": 1,
           "maxLength": 30
         },
+        "epithetEn": {
+          "type": "string",
+          "minLength": 1
+        },
         "selfStatementZh": {
           "type": "string",
           "minLength": 1,
           "maxLength": 30,
           "description": "含标点按 Unicode code point 计数，不超过 30 字；lint.mjs 重复执行此红线。"
         },
+        "selfStatementEn": {
+          "type": "string",
+          "minLength": 1
+        },
         "summaryZh": {
           "$ref": "#/$defs/nonEmptyZh"
+        },
+        "summaryEn": {
+          "type": "string",
+          "minLength": 1
         },
         "tagsZh": {
           "$ref": "#/$defs/stringList"
@@ -382,14 +399,30 @@
         "giftZh": {
           "$ref": "#/$defs/nonEmptyZh"
         },
+        "giftEn": {
+          "type": "string",
+          "minLength": 1
+        },
         "shadowZh": {
           "$ref": "#/$defs/nonEmptyZh"
+        },
+        "shadowEn": {
+          "type": "string",
+          "minLength": 1
         },
         "scarZh": {
           "$ref": "#/$defs/nonEmptyZh"
         },
+        "scarEn": {
+          "type": "string",
+          "minLength": 1
+        },
         "unfinishedZh": {
           "$ref": "#/$defs/nonEmptyZh"
+        },
+        "unfinishedEn": {
+          "type": "string",
+          "minLength": 1
         }
       },
       "additionalProperties": false
@@ -827,7 +860,13 @@
         "titleZh": {
           "type": "string"
         },
+        "titleEn": {
+          "type": "string"
+        },
         "storyHookZh": {
+          "type": "string"
+        },
+        "storyHookEn": {
           "type": "string"
         }
       },
@@ -969,8 +1008,14 @@
         "titleZh": {
           "type": "string"
         },
+        "titleEn": {
+          "type": "string"
+        },
         "summaryZh": {
           "$ref": "#/$defs/nonEmptyZh"
+        },
+        "summaryEn": {
+          "type": "string"
         }
       },
       "additionalProperties": false
@@ -1048,6 +1093,9 @@
           ],
           "properties": {
             "titleZh": {
+              "type": "string"
+            },
+            "titleEn": {
               "type": "string"
             },
             "asset": {

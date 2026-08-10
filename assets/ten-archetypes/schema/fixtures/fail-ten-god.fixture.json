@@ -1,0 +1,21 @@
+{
+  "$fixture": "sinan/redline-fixture@1",
+  "description": "把甲看己的正财写成偏财，必须按木制土且阴阳相异重新推导。",
+  "base": "valid-character.json",
+  "onlyRules": [
+    "CM-RL-003"
+  ],
+  "mutations": [
+    {
+      "path": "/relations/stemTopology/combines/0/tenGodFromSelf",
+      "value": "偏财"
+    }
+  ],
+  "expect": [
+    {
+      "ruleId": "CM-RL-003",
+      "severity": "error",
+      "messageIncludes": "木制土、阴阳相异"
+    }
+  ]
+}

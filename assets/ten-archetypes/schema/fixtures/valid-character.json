@@ -1,0 +1,210 @@
+{
+  "schemaVersion": "sinan/character@2",
+  "id": "jia",
+  "kind": "heavenly-stem",
+  "identity": {
+    "nameZh": "广莫",
+    "nameEn": "Guangmo",
+    "stem": "甲",
+    "stemPinyin": "jia",
+    "element": "木",
+    "polarity": "阳"
+  },
+  "affiliations": [
+    {
+      "factionId": "mingli-zong",
+      "labelSnapshotZh": "命理宗",
+      "role": "primary",
+      "status": "canon"
+    }
+  ],
+  "profile": {
+    "roleZh": "栋梁",
+    "roleEn": "The Pillar",
+    "epithetZh": "扛事的人",
+    "selfStatementZh": "我是那个扛事的人，多大的事，先搬到我这儿再说。",
+    "summaryZh": "先确定方向，再让结构向上成立。",
+    "tagsZh": [
+      "方向",
+      "担当",
+      "生长"
+    ],
+    "giftZh": "方向、骨架、率先承担",
+    "shadowZh": "把自己的损失说得太轻。",
+    "scarZh": "不再给树取名",
+    "unfinishedZh": "没有完成与运斤之间的原谅。"
+  },
+  "visualLock": {
+    "presentation": {
+      "genderPresentation": "feminine",
+      "ageBand": "adult",
+      "ageYears": 30,
+      "isDerivedFromPolarity": false
+    },
+    "silhouetteZh": "高、直、肩背挺拔。",
+    "lockedTraitsZh": [
+      "披肩至胸口的顺直黑发",
+      "长直眉与稳定正视"
+    ],
+    "wardrobeZh": "深绿色结构外套；不是古装或强势总裁模板。",
+    "palette": [
+      {
+        "nameZh": "深林绿",
+        "hex": "#1F4D3A",
+        "usageZh": "结构外套"
+      }
+    ],
+    "props": {
+      "requiredZh": [],
+      "allowedZh": [],
+      "forbiddenZh": [
+        "锯",
+        "斧",
+        "树枝"
+      ]
+    },
+    "prompt": {
+      "positiveEn": [
+        "adult woman",
+        "tall upright silhouette",
+        "straight black hair to chest",
+        "deep green structured coat"
+      ],
+      "negativeEn": [
+        "ancient costume",
+        "glamorous makeup",
+        "axe",
+        "tree branch"
+      ]
+    }
+  },
+  "voice": {
+    "summaryZh": "短句、祈使句；先说做什么，再说为什么；很少提问。",
+    "sentenceLength": "short",
+    "directness": "direct",
+    "questionFrequency": "rare",
+    "preferredPatternsZh": [
+      "先给动作，再给原因"
+    ],
+    "avoidPatternsZh": [
+      "连续反问",
+      "替自己诉苦"
+    ],
+    "sampleLinesZh": [
+      "先停下。旧根还在受力。",
+      "把这段搬到我这里。"
+    ]
+  },
+  "canon": {
+    "status": "locked",
+    "factsZh": [
+      "空带那年，第一片林被砍去救城。",
+      "切根的决策权属广莫，运斤只是执行。"
+    ],
+    "prohibitionsZh": [
+      "不得替广莫与运斤完成未发生的原谅。",
+      "不得把重新给树取名写成治愈。"
+    ],
+    "irreplaceableHighlightZh": "所有人要求继续扩张时，第一个说先停下。",
+    "signatureActionKey": "other",
+    "signatureActionPhraseZh": "主动叫停",
+    "unresolvedZh": "允许失去活根，不等于重新爱上命名。"
+  },
+  "relations": {
+    "stemTopology": {
+      "peer": [
+        "yi"
+      ],
+      "generates": [
+        "bing",
+        "ding"
+      ],
+      "generatedBy": [
+        "ren",
+        "gui"
+      ],
+      "controls": [
+        "wu",
+        "ji"
+      ],
+      "controlledBy": [
+        "geng",
+        "xin"
+      ],
+      "combines": [
+        {
+          "type": "combine",
+          "targetId": "ji",
+          "tenGodFromSelf": "正财",
+          "tenGodFromTarget": "正官",
+          "resultElement": "土",
+          "titleZh": "地基不是一个人的",
+          "storyHookZh": "结构与承接共同形成能继续承重的地基。"
+        }
+      ],
+      "clashes": [
+        {
+          "type": "clash",
+          "targetId": "geng",
+          "tenGodFromSelf": "七杀",
+          "tenGodFromTarget": "偏财",
+          "resultElement": null,
+          "titleZh": "正确的那一刀",
+          "storyHookZh": "决定正确与伤口真实同时成立。"
+        }
+      ]
+    },
+    "worldEdges": [],
+    "interpretations": [
+      {
+        "id": "jia-control-earth",
+        "system": "five-phase",
+        "kind": "controls",
+        "targetIds": [
+          "wu",
+          "ji"
+        ],
+        "titleZh": "根穿过墙",
+        "summaryZh": "木迫使土重新呼吸。"
+      }
+    ]
+  },
+  "classics": [
+    {
+      "citationId": "jia-ditiansui-tiangan",
+      "bookId": "ditiansui",
+      "chapterId": "ch02",
+      "quoteOrig": "甲木參天，脱胎要火，春不容金，秋不容土，火熾乘龍，水蕩騎虎，地潤天和，植立千古。",
+      "deepLink": "https://dao.leonardchow.work/dian/#/read/ditiansui/ch02",
+      "use": "behavior-metaphor",
+      "interpretationZh": "用于角色天赋与阴影的文化定位。"
+    }
+  ],
+  "media": {
+    "portraits": [
+      "01-jia-wood-guangmo/portrait-v8h.png"
+    ]
+  },
+  "review": {
+    "status": "needs-decision",
+    "conflictIds": [
+      "C-01",
+      "C-07",
+      "C-08"
+    ]
+  },
+  "provenance": {
+    "status": "reviewed",
+    "sourceFiles": [
+      {
+        "path": "独立角色母版-v8H/characters/01-jia-wood-guangmo/COPY.json",
+        "role": "legacy-copy"
+      },
+      {
+        "path": "assets/ten-archetypes/worldbook/changming-worldbook.json#person.jia",
+        "role": "canon"
+      }
+    ],
+    "migratedFromSchema": "sinan/ten-stems-copy@1"
+  }
+}

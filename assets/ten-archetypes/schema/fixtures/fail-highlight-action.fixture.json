@@ -1,0 +1,34 @@
+{
+  "$fixture": "sinan/redline-fixture@1",
+  "description": "让甲声明戊专属的开门高光，结构化所有权必须 hard fail，文本另给 REVIEW。",
+  "base": "valid-character.json",
+  "onlyRules": [
+    "CM-RL-007"
+  ],
+  "mutations": [
+    {
+      "path": "/canon/signatureActionKey",
+      "value": "kai"
+    },
+    {
+      "path": "/canon/signatureActionPhraseZh",
+      "value": "亲手开门"
+    },
+    {
+      "path": "/canon/irreplaceableHighlightZh",
+      "value": "洪水到来前，广莫亲手开门并承担后果。"
+    }
+  ],
+  "expect": [
+    {
+      "ruleId": "CM-RL-007",
+      "severity": "error",
+      "messageIncludes": "专属 wu"
+    },
+    {
+      "ruleId": "CM-RL-007",
+      "severity": "review",
+      "messageIncludes": "亲手开门"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "$fixture": "sinan/redline-fixture@1",
+  "description": "把甲的同类从乙篡改为丙，必须由五行拓扑推导抓出。",
+  "base": "valid-character.json",
+  "onlyRules": [
+    "CM-RL-002"
+  ],
+  "mutations": [
+    {
+      "path": "/relations/stemTopology/peer",
+      "value": [
+        "bing"
+      ]
+    }
+  ],
+  "expect": [
+    {
+      "ruleId": "CM-RL-002",
+      "severity": "error",
+      "messageIncludes": "推导应为 [\"yi\"]"
+    }
+  ]
+}
