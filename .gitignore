@@ -64,3 +64,6 @@ assets/ten-archetypes/illustrated-guide/build/
 # Local historical scratch copies are preserved on disk/iCloud, not versioned.
 *.bak
 *.bak[0-9]*
+
+# 抠图/检查中间产物
+tmp/
