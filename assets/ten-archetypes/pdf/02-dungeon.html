@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<title>常明城外 · 不覆之巢</title>
+<link rel="stylesheet" href="_base.css">
+</head><body>
+
+<!-- ══ P1 封面 ══ -->
+<section class="page cover">
+  <img class="hero" src="assets/hero-dungeon.png" alt="">
+  <div class="veil"></div>
+  <div class="veil-b"></div>
+  <div class="capsule">
+    <div class="kicker">常 明 城 世 界 观 · 副 本 卷 一</div>
+    <h1>不覆之巢</h1>
+    <div class="sub">孟春之月，一座抢工期的在建城郭。<br>规则不用编——它们都在书上，读者可以自己查。</div>
+  </div>
+  <div class="meta">
+    <div>司南 · 常明城 IP<br>副本样板 v0 · 2026-08-11</div>
+    <img class="emblem" src="assets/emblem.png" alt="">
+  </div>
+</section>
+
+<!-- ══ P2 ══ -->
+<section class="page">
+  <img class="ornament" src="assets/ornament.png" alt="">
+  <div>
+    <h2><span class="n">壹</span>这个副本证明什么</h2>
+    <p class="lead">规则怪谈最大的软肋是「规则是作者编的，读者只能被动接受」。
+      本副本的<strong>每一条规则都能在 App 里点开原文</strong>——读者可以自己查，甚至可以自己推演出解法。</p>
+
+    <div class="warn"><b>更关键的是：规则书和惩罚书是两本不同的书，却天然咬合。</b><br>
+      《礼记·月令》立法：「毋覆巢」；《太上感应篇》量刑：「填穴覆巢，傷胎破卵」列为夺算之恶。<br>
+      一本立法、一本量刑，谁也不是为谁写的，但对得上。<b>这种咬合作者编不出来，只能是真的。</b></div>
+
+    <h3>副本设定</h3>
+    <table>
+      <tr><th style="width:30mm">项</th><th>内容</th><th style="width:44mm">出处</th></tr>
+      <tr><td>时令</td><td>孟春之月（立春后首月）</td><td>《礼记·月令》ch01 <span class="tag">典</span></td></tr>
+      <tr><td>当值天干</td><td><strong>其日甲乙</strong>（木）</td><td>同上 <span class="tag">典</span></td></tr>
+      <tr><td>方位／色／数／味／音</td><td>青陽左个 · 青 · 八 · 酸 · 角</td><td>同上 <span class="tag">典</span></td></tr>
+      <tr><td>该祀何处</td><td><strong>其祀戶</strong>（祭门）</td><td>同上 <span class="tag">典</span></td></tr>
+      <tr><td>结算日</td><td><strong>庚申日</strong>——三尸神上诣天曹言人罪过</td><td>《太上感应篇》ch01 <span class="tag">典</span></td></tr>
+      <tr><td>次结算</td><td><strong>月晦之日</strong>——灶神亦然</td><td>同上 <span class="tag">典</span></td></tr>
+      <tr><td>场景</td><td>一座抢工期的在建城郭；开工已三日</td><td><span class="tag">设</span></td></tr>
+    </table>
+    <p><strong>倒计时</strong>：进副本时距庚申日九日。<em>App 能算真实庚申日——读者可以查自己的。</em></p>
+    <img class="divider" src="assets/divider.png" alt="">
+  </div>
+  <div class="foot"><span>常明城外 · 不覆之巢</span><span class="pg">02</span></div>
+</section>
+
+<!-- ══ P3 规则表 ══ -->
+<section class="page">
+  <img class="ornament" src="assets/ornament.png" alt="">
+  <div>
+    <h2><span class="n">贰</span>规则表 · 全部原文</h2>
+    <h3>禁令 ｜《礼记·月令·孟春之月》</h3>
+    <div class="quote">禁止伐木。毋覆巢，毋殺孩蟲、胎、夭、飛鳥。毋麛、毋卵。<strong>毋聚大眾，毋置城郭</strong>。掩骼埋胔。<br>
+      是月也，不可以稱兵，稱兵必天殃。
+      <span class="src">liji-yueling ch01 · 典籍阁实收，逐字核对</span></div>
+
+    <h3>违令后果 ｜ 也是原文写死的</h3>
+    <div class="quote">孟春行夏令，則（雨水）〔風雨〕不時，草木蚤落，國時有恐。<br>
+      行秋令，則其民大疫，猋風暴雨總至，藜、莠、蓬、蒿並興。<br>
+      行冬令，則水潦為敗，雪霜大摯，首種不入。
+      <span class="src">liji-yueling ch01 · <strong>圆括号＝底本误字、方括号＝校改字，照录不省</strong></span></div>
+
+    <h3>量刑标准 ｜《太上感应篇》</h3>
+    <div class="quote">天地有司過之神，依人所犯輕重，以奪人算。算減則貧耗，多逢憂患……<strong>算盡則死</strong>。<br>
+      凡人有過，<strong>大則奪紀，小則奪算</strong>。
+      <span class="src">taishang-ganying ch01 · 典籍阁实收，逐字核对</span></div>
+
+    <div class="warn"><b>引用纪律：</b>凭记忆默写古文一律不接受。引用前必须打开
+      <code>www/dian/data/texts/&lt;id&gt;.json</code> 核对逐字；原文保持繁体，不转简体；
+      每条都要能给出 <code>bookId + chapterId + 深链</code>，让读者点开就能核。</div>
+  </div>
+  <div class="foot"><span>常明城外 · 不覆之巢</span><span class="pg">03</span></div>
+</section>
+
+<!-- ══ P4 开局 ══ -->
+<section class="page">
+  <img class="ornament" src="assets/ornament.png" alt="">
+  <div>
+    <h2><span class="n">叁</span>开局：一进来就已经违规了</h2>
+    <p class="lead">工程开工三日，为赶工期已经做了三件事，<strong>每一件都是月令明禁</strong>。</p>
+    <table>
+      <tr><th style="width:12mm" class="num">#</th><th style="width:52mm">已经做了什么</th><th>违的哪一条</th></tr>
+      <tr><td class="num">1</td><td>伐木取材</td><td>禁止伐木</td></tr>
+      <tr><td class="num">2</td><td>召集工人（三日人翻三倍）</td><td>毋聚大眾</td></tr>
+      <tr><td class="num">3</td><td>起了城墙</td><td>毋置城郭</td></tr>
+      <tr><td class="num">4</td><td colspan="2">北墙基挖出无主旧骸，没人肯经手，抬到席下搁着<br>
+        ——月令<strong>要求做</strong>的那一条「<strong>掩骼埋胔</strong>」，偏偏没人做</td></tr>
+    </table>
+
+    <h3>目标不是通关，是在庚申日之前把账抹平</h3>
+    <p>这比「活着出去」更好：它天然带<strong>倒计时</strong>、带<strong>明确的账目</strong>、带<strong>可查的转圜条款</strong>。</p>
+    <div class="quote">夫心起於善，善雖未為，而吉神已隨之……其有曾行惡事，後自改悔，諸惡莫作，眾善奉行，久久必獲吉慶。
+      <span class="src">《太上感应篇》ch05 轉禍為福 · 典籍阁实收，逐字核对</span></div>
+
+    <h3>赶工的原因不是恶人</h3>
+    <p>郡里春末验城，误期则行会除名。<em>工期不是恶人，是另一本账。</em>
+      ——这一条守住了母本 §9 的「无反派」：压力有来源，没有脸。</p>
+  </div>
+  <div class="foot"><span>常明城外 · 不覆之巢</span><span class="pg">04</span></div>
+</section>
+
+<!-- ══ P5 五派解法 ══ -->
+<section class="page">
+  <img class="ornament" src="assets/ornament.png" alt="">
+  <div>
+    <h2><span class="n">肆</span>五派解法：都能过，代价不同</h2>
+    <table>
+      <tr><th style="width:26mm">派</th><th style="width:62mm">解法</th><th>代价落在</th></tr>
+      <tr><td><strong>命理宗</strong></td><td>找日主属甲乙的顶上去（孟春「其日甲乙」，木旺者能扛）</td><td><strong>人</strong>——等于承认有人天生该扛</td></tr>
+      <tr><td><strong>形势派</strong></td><td>改地，把城郭挪到「界水」处</td><td><strong>工期</strong>＋致命伤：走完整条脉以年计，<strong>赶不上庚申日</strong></td></tr>
+      <tr><td><strong>理气派</strong></td><td>翻《协纪辨方》太岁年表，论证方位落在吉山、时辰合于豁免条款</td><td><strong>清白</strong>——技术上成立，却添了新罪</td></tr>
+      <tr><td><strong>医家</strong></td><td>不避灾，备药治疫</td><td><strong>规模</strong>——承认灾会来；药有限，得选救谁</td></tr>
+      <tr><td><strong>道门</strong></td><td>上章自首、补巢、去做那条没人做的「掩骼埋胔」</td><td><strong>具名</strong>——灾照来，减的是「算」不是「事」</td></tr>
+    </table>
+
+    <h3>两处值得单独看</h3>
+    <p><strong>命理宗的病灶：</strong>按命分险，正是<em>甲·广莫</em>的反面（「多大的事先搬到我这儿」＋「算不出自己那份账」）。
+      他会第一个把名字挪到名单最上面——而这恰恰是他的病发作，不是他的高光。</p>
+    <p><strong>理气派的反身性：</strong>年表原文给了豁免条款——</p>
+    <div class="quote">十二吉山<strong>宜寅午戌申子辰年月日時</strong>
+      <span class="src">《钦定协纪辨方书》ch02 太歲甲午 · 同章还列了当年「开山立向修方凶」的方位，可反过来指认对手方案犯了哪条</span></div>
+    <p>按年表原文，这就是「可用」，不犯。<strong>但《太上感应篇》诸恶明列「以直為曲，以曲為直」</strong>——
+      <em>用规则免了旧责，同时添了新罪。</em>道门当场翻脸。<strong>古籍自己就防着钻空子的人。</strong></p>
+
+    <div class="warn"><b>材料警告：</b>藏经阁的《协纪辨方》只收了卷十七年表（甲午至癸卯十年），<b>没有择日正文卷</b>；
+      《八宅明镜》真原文仅 72 字、《沈氏玄空学》为 0。理气派现阶段<b>只能用年表这一种打法</b>，深戏要先补料。</div>
+  </div>
+  <div class="foot"><span>常明城外 · 不覆之巢</span><span class="pg">05</span></div>
+</section>
+
+<!-- ══ P6 复制 ══ -->
+<section class="page">
+  <img class="ornament" src="assets/ornament.png" alt="">
+  <div>
+    <h2><span class="n">伍</span>为什么这个结构能一直复制</h2>
+    <p class="lead" style="font-size:13pt;text-align:center;margin:6mm 0">
+      一本<strong>规则书</strong> × 一本<strong>惩罚书</strong> × 一个<strong>干支时间锁</strong> × <strong>五派解法</strong></p>
+    <img class="divider" src="assets/divider.png" alt="">
+
+    <h3>藏经阁现成的规则书</h3>
+    <table>
+      <tr><th style="width:44mm">书</th><th>可做什么</th></tr>
+      <tr><td><strong>《礼记·月令》</strong></td><td><strong>十二个月＝十二个副本，全部现成</strong>。每月自带：当值天干／方位色数味音／禁令／三套违令后果</td></tr>
+      <tr><td>《八宅明镜》《阳宅三要》</td><td>方位禁忌（<span style="color:#b03a2e">真原文极少，须先补录</span>）</td></tr>
+      <tr><td>《钦定协纪辨方书》</td><td>太岁年表：开山立向修方的吉凶方位＋豁免条款</td></tr>
+      <tr><td>《葬书》《撼龙经》</td><td>葬地形势（撼龙经 29,597 字，材料最足）</td></tr>
+      <tr><td><strong>《山海经》</strong></td><td>2026-08-11 新补录，18 卷 38,221 字。城外的异兽方国——<em>不被任何一派的尺子量到的东西</em></td></tr>
+    </table>
+
+    <h3>惩罚书与时间锁</h3>
+    <p><strong>惩罚书：</strong>《太上感应篇》· 《女青天律》· 《三官经》· 《赤松子章历》<br>
+       <strong>时间锁：</strong>干支日（庚申、月晦、朔望、立春…）——<strong>App 全部能算</strong>。</p>
+
+    <div class="warn" style="border-color:#1b1a17;background:#F6EEDF"><b>产能</b> ＝ 12 月令 × N 惩罚书 × 干支变化。<br>
+      而每一个副本，<b>读者都能在 App 里查自己那天</b>。这是 Fate 与战锤在结构上都做不到的事。</div>
+
+    <h3>待定</h3>
+    <ol>
+      <li>玩家（外来者）是谁——已定为<strong>「记工的」</strong>，见《总大纲》§A。</li>
+      <li>十干在副本里的身份：本样板按<strong>因交接而在场的客人</strong>处理，不是玩家也不是系统。</li>
+      <li><strong>互斥引擎其实是「代价竞争」</strong>：挪粮仓、备药、认账物理上能同时做。互斥靠
+        <em>「每卷一个只够做一件事的稀缺」</em>承重——这不是风味设计，是引擎的承重墙。</li>
+      <li>文风冲突：副本层要爽感与生死节奏，人物层守克制（伤疤不治愈）。需实写一场才知道能否兼容。</li>
+    </ol>
+  </div>
+  <div class="foot"><span>常明城外 · 不覆之巢</span><span class="pg">06</span></div>
+</section>
+
+</body></html>
