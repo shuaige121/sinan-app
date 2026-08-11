@@ -10,7 +10,7 @@
   const ELEMENTS = ['木', '火', '土', '金', '水'];
   const ELEMENT_EN = { 木: 'Wood', 火: 'Fire', 土: 'Earth', 金: 'Metal', 水: 'Water' };
   const ELEMENT_HEX = C.EL_HEX || { 木: '#45a66b', 火: '#d94c33', 土: '#d9a821', 金: '#d8c47a', 水: '#5489cc' };
-  const state = { chart: null, input: null, userStem: null, activeStem: null, relationIndex: 0, returnFocus: null };
+  const state = { chart: null, input: null, dayMasterStem: null, guideStem: null, guideBalanced: false, activeStem: null, relationIndex: 0, returnFocus: null };
   let root = null;
   let content = null;
 
@@ -90,12 +90,16 @@
     return Characters.stemOrder.map(stem => {
       const item = Characters.get(stem);
       if (!item) return '';
-      const isMine = stem === state.userStem;
+      const isGuide = stem === state.guideStem;
+      const isDayMaster = stem === state.dayMasterStem;
       const current = stem === activeStem;
       const name = itemText(item, 'name');
-      return `<button type="button" class="cm-cast-person${current ? ' is-active' : ''}${isMine ? ' is-mine' : ''}" data-cm-stem="${stem}" aria-pressed="${current}">
+      const note = (isGuide && !state.guideBalanced)
+        ? text('你八字里最少的一行', 'Your chart is lowest here')
+        : (isDayMaster ? text('我的日主', 'My Day Master') : itemText(item, 'role'));
+      return `<button type="button" class="cm-cast-person${current ? ' is-active' : ''}${isGuide ? ' is-mine' : ''}" data-cm-stem="${stem}" aria-pressed="${current}">
         <img src="${esc(item.portrait || item.asset)}" alt="${esc(stem + '·' + name)}" loading="lazy" decoding="async">
-        <span><b>${esc(stem + '·' + name)}</b><small>${isMine ? text('我的日主', 'My Day Master') : esc(itemText(item, 'role'))}</small></span>
+        <span><b>${esc(stem + '·' + name)}</b><small>${esc(note)}</small></span>
       </button>`;
     }).join('');
   }
@@ -111,10 +115,15 @@
       </figure>`;
     }).join('');
     const active = Characters.get(stem);
-    return `<div class="cm-relation-scene" style="--scene:url('../${esc(active.background)}')">
-      <div class="cm-relation-people">${figures}</div>
-    </div>
+    const visual = card.scene
+      ? `<figure class="cm-relation-story"><img src="${esc(card.scene)}" alt="${esc(card.title + ' · ' + sceneStems.join('、'))}" loading="lazy" decoding="async"></figure>`
+      : `<div class="cm-relation-scene" style="--scene:url('../${esc(active.background)}')"><div class="cm-relation-people">${figures}</div></div>`;
+    const narrative = card.title && card.story
+      ? `<div class="cm-relation-narrative"><b>${esc(card.title)}</b><p>${esc(card.story)}</p></div>`
+      : '';
+    return `${visual}
     <div class="cm-relation-copy">
+      ${narrative}
       <div><span>${esc(card.term)}</span><b>${esc(card.related)}</b></div>
       <p>${esc(card.plain)}</p>
       <small>${text('关系由日主与五行生、克、合、冲推出；只说明作用方向，不作吉凶判断。', 'The relation is derived from the Day Master and five-phase generation, control, combination, and clash. It describes direction, not fortune.')}</small>
@@ -136,16 +145,16 @@
   }
 
   function render(stem) {
-    const item = Characters.get(stem) || Characters.get(state.userStem) || Characters.get('甲');
+    const item = Characters.get(stem) || Characters.get(state.guideStem) || Characters.get('甲');
     if (!item || !content) return;
-    state.activeStem = Characters.get(stem) ? stem : (state.userStem || '甲');
+    state.activeStem = Characters.get(stem) ? stem : (state.guideStem || '甲');
     state.relationIndex = 0;
     const profile = scoreProfile(state.chart);
     const primary = profile.ranked[0].el;
     const secondary = profile.ranked[1].el;
     const primaryHex = ELEMENT_HEX[primary];
     const secondaryHex = ELEMENT_HEX[secondary];
-    const isMine = !!state.userStem && state.activeStem === state.userStem;
+    const isGuide = !!state.guideStem && state.activeStem === state.guideStem;
     const polarity = item.yang ? text('阳', 'Yang') : text('阴', 'Yin');
     const name = itemText(item, 'name');
     const role = itemText(item, 'role');
@@ -157,7 +166,11 @@
     const sourceLine = state.chart
       ? text('按本机命盘五行分值映射，只呈结构，不作吉凶。', 'Mapped from the five-phase scores stored on this device. It shows structure, not fortune.')
       : text('未读取命盘，暂以五色等量展示。', 'No chart is loaded; the five colors are shown equally for preview.');
-    const enterLabel = isMine ? text('由你的日主进入', 'Entered through your Day Master') : text('城中人物志', 'A life in Changming');
+    const enterLabel = !isGuide
+      ? text('城中人物志', 'A life in Changming')
+      : (state.guideBalanced
+        ? text('五行分得很匀，先由日主来见你', 'Your phases are even — your Day Master steps in')
+        : text('你八字里最少的就是这一行', 'Your chart is lowest in this phase'));
     const fireCycle = item.element === '火' ? `<figure class="cm-fire-cycle">
       <img src="img/ten-archetypes/human/v8/scenes/fire-cycle-v1.webp" alt="${esc(text('忘归向外展开晨光，西窗在明暗交界护住火种', 'Wanggui opens into daylight while Xichuang protects the ember at its edge'))}" loading="lazy" decoding="async">
       <figcaption><b>${text('凤凰与卵', 'Phoenix and Egg')}</b><span>${text('同一股火，一边向外给予，一边把未来收拢；院外晨光正在展开，掌心微光仍未熄灭。', 'One fire gives outward while the other encloses the future; dawn opens outside while the ember remains lit within her hands.')}</span></figcaption>
@@ -213,8 +226,8 @@
 
     const mineButton = root.querySelector('#cm-mine');
     if (mineButton) {
-      mineButton.hidden = !state.userStem || isMine;
-      mineButton.textContent = text('我的角色', 'My character');
+      mineButton.hidden = !state.guideStem || isGuide;
+      mineButton.textContent = text('回到我那一位', 'Back to mine');
     }
     const brand = root.querySelector('.cm-brand');
     if (brand) brand.innerHTML = `<b>常明城</b><small>${text('十干人物志', 'TEN-STEM CHRONICLES')}</small>`;
@@ -229,9 +242,12 @@
     const loaded = readChart();
     state.input = loaded.input;
     state.chart = loaded.chart;
-    state.userStem = loaded.chart ? loaded.chart.dm : null;
+    state.dayMasterStem = loaded.chart ? loaded.chart.dm : null;
+    const guide = Characters.guideFor(loaded.chart);
+    state.guideStem = guide.stem;
+    state.guideBalanced = !!guide.balanced; // 五行等量时没有「最少」，文案不能照说
     state.returnFocus = document.activeElement;
-    render(stem || state.userStem || '甲');
+    render(stem || state.guideStem || '甲');
     root.hidden = false;
     root.setAttribute('aria-hidden', 'false');
     document.body.classList.add('changming-open');
@@ -279,7 +295,7 @@
       }
     });
     root.querySelector('#cm-close')?.addEventListener('click', close);
-    root.querySelector('#cm-mine')?.addEventListener('click', () => { if (state.userStem) render(state.userStem); });
+    root.querySelector('#cm-mine')?.addEventListener('click', () => { if (state.guideStem) render(state.guideStem); });
     document.addEventListener('keydown', event => { if (event.key === 'Escape' && !root.hidden) close(); });
   }
 

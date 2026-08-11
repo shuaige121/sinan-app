@@ -7,15 +7,15 @@
   const V8_ROOT = HUMAN_ROOT + 'v8/';
   const COMIC_BASE = HUMAN_ROOT + 'v7/comics/';
   const visualSet = slug => Object.freeze({
-    asset: V8_ROOT + 'portraits/' + slug + '.webp',
-    portrait: V8_ROOT + 'portraits/' + slug + '.webp',
-    fullBody: V8_ROOT + 'full-body/' + slug + '.webp',
+    asset: V8_ROOT + 'portraits/' + slug + '.png',
+    portrait: V8_ROOT + 'portraits/' + slug + '.png',
+    fullBody: V8_ROOT + 'full-body/' + slug + '.png',
     background: V8_ROOT + 'backgrounds/' + slug + '.webp'
   });
   const poseSet = slug => Object.freeze({
-    identity: V8_ROOT + 'portraits/' + slug + '.webp',
-    story: V8_ROOT + 'full-body/' + slug + '.webp',
-    open: V8_ROOT + 'full-body/' + slug + '.webp'
+    identity: V8_ROOT + 'portraits/' + slug + '.png',
+    story: V8_ROOT + 'full-body/' + slug + '.png',
+    open: V8_ROOT + 'full-body/' + slug + '.png'
   });
   const STEM_ORDER = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
   const ELEMENT_ORDER = ['木', '火', '土', '金', '水'];
@@ -163,7 +163,7 @@
   };
 
   const PEER_STORIES = {
-    木: { titleZh: '同一束光', titleEn: 'The Same Light', storyZh: '甲撑住结构，乙沿着结构找到另一条路。两人天然理解彼此，也会争同一束光：像你的人，最知道你的力量，也最容易碰到你的边界。', storyEn: 'Jia holds the structure while Yi finds another route along it. They understand each other instinctively and still compete for the same light.' },
+    木: { titleZh: '同一束光', titleEn: 'The Same Light', storyZh: '风雨刚停，甲撑住温室里倾斜的旧梁，乙沿梁侧无人留意的缝隙引藤向上。两条路最后都抵达破顶落下的同一束晨光；相似的力量彼此理解，也会碰到彼此的边界。', storyEn: 'After the storm, Jia braces the leaning frame while Yi guides a vine through an overlooked gap. Both routes reach the same beam of morning light—kindred strength meeting its own boundary.', scene: V8_ROOT + 'scenes/jia-yi-same-light-v1.webp' },
     火: { titleZh: '凤凰与卵', titleEn: 'Phoenix and Egg', storyZh: '丙是已经展开、把白日与大火给所有人的凤凰；丁是势弱却护住最后可能的凤凰卵。同一股火，一边向外给予，一边把未来收拢。', storyEn: 'Bing is fire unfolded like a phoenix, giving daylight to everyone; Ding is the faint egg that protects its last possible return. One fire gives outward while the other encloses the future.' },
     土: { titleZh: '该留下哪一株', titleEn: 'What Should Remain', storyZh: '戊负责拒绝，己负责容纳。边界太近会伤害生命，边界太远又会让一切无法呼吸。', storyEn: 'Wu refuses; Ji receives. A boundary too close harms life, while one too far leaves nothing room to breathe.' },
     金: { titleZh: '今天必须交付', titleEn: 'It Must Ship Today', storyZh: '庚怕来不及，辛怕不够好。真正可用的标准，永远发生在果断与精度之间。', storyEn: 'Geng fears being too late; Xin fears not being good enough. Usable work lives between decision and precision.' },
@@ -212,6 +212,44 @@
     return CHARACTERS[stem] || null;
   }
 
+  // 人物入口看五行分值的相对最少项；日主仍只负责学术生克关系。
+  // 同一五行的两位人物沿用日主阴阳，避免另一层随机选择。
+  function guideFor(chart) {
+    const dayMaster = character(chart && chart.dm) ? chart.dm : '甲';
+    const dayItem = character(dayMaster);
+    const raw = chart && chart.scores;
+    if (!raw || typeof raw !== 'object') {
+      return Object.freeze({
+        stem: dayMaster, element: dayItem.element, dayMaster, balanced: true,
+        pair: (ELEMENT_STEMS[dayItem.element] || [dayMaster]).slice(),
+        tiedElements: ELEMENT_ORDER.slice()
+      });
+    }
+    const rows = ELEMENT_ORDER.map((element, index) => {
+      const value = Number(raw[element]);
+      return { element, index, score: Number.isFinite(value) ? Math.max(0, value) : 0 };
+    });
+    const scores = rows.map(row => row.score);
+    const min = Math.min(...scores);
+    const max = Math.max(...scores);
+    const tolerance = 1e-9;
+    const tied = rows.filter(row => Math.abs(row.score - min) <= tolerance);
+    const balanced = max - min <= tolerance;
+    const weakest = balanced ? null : tied[0];
+    const element = weakest ? weakest.element : dayItem.element;
+    const candidates = ELEMENT_STEMS[element] || [dayMaster];
+    const stem = candidates.find(candidate => character(candidate).yang === dayItem.yang) || candidates[0] || dayMaster;
+    return Object.freeze({
+      stem,
+      element,
+      score: weakest ? weakest.score : Number(raw[element]) || 0,
+      dayMaster,
+      balanced,
+      pair: candidates.slice(), // 文案要说「属水的是壬和癸」，所以把同行的两个天干一起带出去
+      tiedElements: tied.map(row => row.element)
+    });
+  }
+
   function namesFor(stems, lang) {
     return stems.map(stem => {
       const item = character(stem);
@@ -242,26 +280,31 @@
       {
         key: 'peer', kind: 'peer', label: en ? 'Kin' : '同类', term: en ? '比劫 · peers' : '比劫',
         plain: en ? 'Like you, and reaching for the same light' : '像你，也会和你争同一束光',
+        title: textOf(peer, 'title', lang), story: textOf(peer, 'story', lang), scene: peer.scene || '',
         relatedStems: peerStems, related: namesFor(peerStems, lang)
       },
       {
         key: 'output', kind: 'generate', label: en ? 'I generate' : '我生', term: en ? '食伤 · output' : '食伤',
         plain: en ? 'What you give also costs you' : '你交出去，也会被消耗',
+        title: textOf(output, 'title', lang), story: textOf(output, 'story', lang), scene: '',
         relatedStems: outputStems, related: namesFor(outputStems, lang)
       },
       {
         key: 'source', kind: 'source', label: en ? 'Generates me' : '生我', term: en ? '印 · support' : '印',
         plain: en ? 'Supports you, and may become dependence' : '托住你，也可能让你依赖',
+        title: textOf(source, 'title', lang), story: textOf(source, 'story', lang), scene: '',
         relatedStems: sourceStems, related: namesFor(sourceStems, lang)
       },
       {
         key: 'control', kind: 'control', label: en ? 'I regulate' : '我制', term: en ? '财 · stewardship' : '财',
         plain: en ? 'You can handle it, and must bear the outcome' : '你能处理，也要承担后果',
+        title: textOf(controlled, 'title', lang), story: textOf(controlled, 'story', lang), scene: '',
         relatedStems: controlledStems, related: namesFor(controlledStems, lang)
       },
       {
         key: 'pressure', kind: 'pressure', label: en ? 'Regulates me' : '制我', term: en ? '官杀 · pressure' : '官杀',
         plain: en ? 'Presses you, and forces you into shape' : '让你受压，也迫使你成形',
+        title: textOf(pressure, 'title', lang), story: textOf(pressure, 'story', lang), scene: '',
         relatedStems: pressureStems, related: namesFor(pressureStems, lang)
       }
     ];
@@ -274,6 +317,7 @@
         plain: sp.type === '合'
           ? (en ? 'Opposing motions interlock; the next state stays open' : '相制动作互锁，长出谁都不是的下一种状态')
           : (en ? 'Equal force on one axis; no villain and no fixed ending' : '同轴等量受力，没有反派，也没有固定结局'),
+        title: textOf(sp, 'title', lang), story: textOf(sp, 'story', lang), scene: '',
         relatedStems: [other], related: namesFor([other], lang)
       });
     });
@@ -285,6 +329,7 @@
     stemOrder: STEM_ORDER.slice(),
     elementOrder: ELEMENT_ORDER.slice(),
     get: character,
+    guideFor,
     text: textOf,
     relationCards,
     namesFor

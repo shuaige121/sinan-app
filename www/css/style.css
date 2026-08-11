@@ -869,6 +869,11 @@ input[type=radio], input[type=checkbox] { accent-color: var(--gold); }
   background: rgba(var(--arch-rgb), .1); color: var(--arch-color);
   padding: 4px 10px; font-size: 11px; letter-spacing: .05em;
 }
+/* 说人话那一句：比人物描述更靠前、更亮，术语和免责统一沉到 .bazi-arch-basis。 */
+.bazi-arch-plain {
+  margin: 13px 0 0; padding-left: 11px; border-left: 2px solid rgba(var(--arch-rgb), .55);
+  color: var(--paper); font-size: 14px; line-height: 1.7;
+}
 .bazi-arch-desc { margin: 11px 0 0; color: rgba(239,232,213,.88); font-size: 13px; line-height: 1.72; }
 .bazi-arch-basis { margin: 7px 0 0; color: var(--paper-dim); font-size: 10px; line-height: 1.55; }
 .bazi-archetype.awaken .bazi-arch-orbit.o1 { animation: archOrbitOne 1.2s cubic-bezier(.2,.8,.2,1) .05s both, archDriftOne 18s linear 1.25s infinite; }
@@ -888,7 +893,7 @@ input[type=radio], input[type=checkbox] { accent-color: var(--gold); }
 @keyframes archSweep { 0% { opacity: 0; transform: translateX(-125%) skewX(-13deg); } 35% { opacity: .65; } 100% { opacity: 0; transform: translateX(125%) skewX(-13deg); } }
 @keyframes archCopyIn { to { opacity: 1; transform: none; } }
 @media (max-width: 360px) {
-  .bazi-archetype { min-height: 580px; }
+  .bazi-archetype { min-height: 648px; }
   .bazi-arch-copy { padding-left: 17px; padding-right: 17px; }
   .bazi-arch-title { font-size: 25px; }
 }
@@ -984,6 +989,15 @@ input[type=radio], input[type=checkbox] { accent-color: var(--gold); }
 .relation-panel-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .relation-panel-meta span { color: var(--gold); font-size: 11px; letter-spacing: .1em; }
 .relation-panel-meta b { color: var(--paper-dim); font-size: 11px; font-weight: 400; text-align: right; }
+/* 该关系有专属场景图时，整幅铺开取代三人并排剪影；没有则回落 .relation-character-scene。 */
+.relation-story-scene {
+  margin: -17px -17px 14px; overflow: hidden;
+  border-bottom: .7px solid rgba(201,162,39,.16); background: #080b0d;
+}
+.relation-story-scene img { display: block; width: 100%; aspect-ratio: 16/10; object-fit: cover; filter: saturate(.86) brightness(.88); }
+.relation-story-copy { margin: 0 0 15px; }
+.relation-story-copy b { display: block; color: var(--gold); font: 500 17px/1.3 serif; letter-spacing: .04em; }
+.relation-story-copy p { margin: 8px 0 0; color: rgba(239,232,213,.86); font-size: 13px; line-height: 1.75; }
 .relation-plain { margin: 15px 0 2px; color: var(--gold-soft); font-size: 14px; }
 .character-relation-panel small { display: block; margin-top: 13px; color: var(--paper-dim); font-size: 10px; line-height: 1.6; }
 
@@ -2955,11 +2969,12 @@ html[lang="en"] .ch-sc-ke {
     linear-gradient(180deg, rgba(var(--arch-rgb),.11), rgba(2,4,5,.58));
 }
 .bazi-arch-stage::after { display: none; }
+/* 立绘是透明 PNG：不加边框/底色/box-shadow，否则等于把人物贴成一张相片卡。
+   影子必须用 filter: drop-shadow —— box-shadow 画的是矩形盒子，会在抠图周围露出方框。 */
 .bazi-arch-image {
-  inset: auto 7% 18px auto; width: 72%; height: 84%; object-fit: cover; object-position: 50% 9%;
-  border: .7px solid rgba(244,233,208,.34); border-radius: 12px; background: #efe4ce;
-  box-shadow: 0 16px 32px rgba(0,0,0,.45); transform: translateY(22px) scale(.94);
-  filter: saturate(.85) contrast(.98) brightness(.92);
+  inset: auto 4% 0 auto; width: 74%; height: 97%; object-fit: contain; object-position: 50% 100%;
+  transform: translateY(22px) scale(.94);
+  filter: saturate(.9) contrast(1.02) brightness(.94) drop-shadow(0 16px 26px rgba(0,0,0,.52));
 }
 .bazi-arch-orbit.o1 { width: 244px; height: 244px; margin: -122px 0 0 -122px; }
 .bazi-arch-orbit.o2 { width: 190px; height: 190px; margin: -95px 0 0 -95px; }
@@ -2991,9 +3006,9 @@ html[lang="en"] .ch-sc-ke {
   background: linear-gradient(90deg, rgba(7,10,13,.06), rgba(7,10,13,.38)), linear-gradient(180deg, transparent 52%, rgba(7,10,13,.72));
 }
 .character-story-visual .character-story-person {
-  position: absolute; z-index: 2; right: 5%; bottom: 10px; width: min(46%, 190px); height: 88%; object-fit: cover; object-position: 50% 8%;
-  border: .7px solid rgba(244,233,208,.3); border-radius: 9px; box-shadow: 0 12px 24px rgba(0,0,0,.42);
-  filter: saturate(.84) contrast(.98);
+  position: absolute; z-index: 2; right: 4%; bottom: 0; width: min(44%, 184px); height: 97%;
+  object-fit: contain; object-position: 50% 100%;
+  filter: saturate(.88) contrast(1.01) drop-shadow(0 14px 22px rgba(0,0,0,.5));
 }
 .character-story-visual::after { z-index: 3; }
 .character-world-link {
@@ -3005,8 +3020,8 @@ html[lang="en"] .ch-sc-ke {
   background-position: center; background-size: cover;
 }
 .relation-character {
-  max-width: 34%; margin: 7px 2px 0; border: .7px solid rgba(244,233,208,.16); border-radius: 8px 8px 0 0;
-  background: rgba(237,226,204,.82); overflow: hidden;
+  max-width: 34%; margin: 7px 2px 0; border: 0; border-radius: 0;
+  background: transparent; overflow: visible;
 }
 
 body.changming-open { overflow: hidden; }
@@ -3055,13 +3070,15 @@ body.changming-open { overflow: hidden; }
   animation: cmMote var(--duration) ease-in-out var(--delay) infinite alternate;
 }
 @keyframes cmMote { to { transform: translate3d(var(--drift), -48px, 0); opacity: .14; } }
+/* 主角立绘直接站在夜景里：不要纸卡（底色/描边/旋转），否则人物像被贴上去的一张照片。 */
 .cm-character-folio {
-  position: absolute; z-index: 3; right: clamp(4%, 8vw, 11%); bottom: 7%; width: min(36vw, 390px); height: min(76vh, 720px);
-  margin: 0; overflow: hidden; border: .7px solid rgba(244,233,208,.35); border-radius: 16px;
-  background: #eee3cc; box-shadow: 0 26px 60px rgba(0,0,0,.52); transform: rotate(.5deg);
+  position: absolute; z-index: 3; right: clamp(2%, 6vw, 9%); bottom: 0; width: min(40vw, 430px); height: min(84vh, 800px);
+  margin: 0; pointer-events: none;
 }
-.cm-character-folio::after { content: ''; position: absolute; inset: 0; box-shadow: inset 0 0 44px rgba(98,71,34,.1); pointer-events: none; }
-.cm-character-folio img { width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: saturate(.86) contrast(.98); }
+.cm-character-folio img {
+  width: 100%; height: 100%; object-fit: contain; object-position: 50% 100%;
+  filter: saturate(.9) contrast(1.01) drop-shadow(0 24px 42px rgba(0,0,0,.55));
+}
 .cm-hero-copy { position: absolute; z-index: 5; left: max(28px, calc((100vw - 980px)/2)); bottom: 12%; width: min(47vw, 520px); }
 .cm-eyebrow { display: block; color: #d9bd63; font-size: 10px; letter-spacing: .2em; }
 .cm-hero-copy h1 { margin: 13px 0 0; font: 500 clamp(45px, 7vw, 84px)/.96 serif; letter-spacing: .05em; }
@@ -3111,19 +3128,28 @@ body.changming-open { overflow: hidden; }
 .cm-relation-tabs button.is-active { border-color: var(--cm-primary); background: color-mix(in srgb, var(--cm-primary) 13%, transparent); color: #f0e5ce; }
 .cm-relation-panel { margin: 4px 0 0 39px; overflow: hidden; border: .7px solid rgba(235,222,194,.14); border-radius: 16px; background: #0d1113; }
 .cm-relation-scene { height: 340px; background-image: linear-gradient(180deg, rgba(5,7,8,.12), #0d1113 100%), var(--scene); background-position: center; background-size: cover; }
+/* 该关系画过专属场景图时用整幅，否则回落到上面的三人并排剪影。 */
+.cm-relation-story { margin: 0; overflow: hidden; background: #080b0d; }
+.cm-relation-story img { display: block; width: 100%; height: 340px; object-fit: cover; filter: saturate(.84) brightness(.86); }
+.cm-relation-narrative { margin: 0 0 17px; }
+.cm-relation-narrative b { display: block; color: #d9bd63; font: 500 19px/1.3 serif; letter-spacing: .04em; }
+.cm-relation-narrative p { margin: 9px 0 0; color: rgba(239,232,213,.84); font-size: 14px; line-height: 1.8; }
 .cm-relation-people { display: flex; align-items: flex-end; justify-content: center; gap: 16px; height: 100%; padding: 22px 26px 0; }
 .cm-relation-person {
-  position: relative; height: 93%; min-width: 0; margin: 0; overflow: hidden; flex: 0 1 31%; border: .7px solid rgba(244,233,208,.2); border-radius: 10px 10px 0 0;
-  background: #ede2cb; box-shadow: 0 14px 30px rgba(0,0,0,.38); filter: saturate(.78) brightness(.82);
+  position: relative; height: 93%; min-width: 0; margin: 0; flex: 0 1 31%;
+  filter: saturate(.78) brightness(.82) drop-shadow(0 14px 24px rgba(0,0,0,.42));
 }
-.cm-relation-person.is-focus { height: 100%; filter: saturate(.92) brightness(.98); }
-.cm-relation-person img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.cm-relation-person.is-focus { height: 100%; filter: saturate(.94) brightness(1) drop-shadow(0 16px 26px rgba(0,0,0,.46)); }
+.cm-relation-person img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: 50% 100%; }
 .cm-relation-person figcaption { position: absolute; left: 8px; right: 8px; bottom: 8px; padding: 5px 8px; border-radius: 99px; background: rgba(5,8,10,.78); color: #f0e6d3; font-size: 9px; text-align: center; }
 .cm-relation-copy { padding: 20px; }
 .cm-relation-copy > div { display: flex; justify-content: space-between; gap: 16px; }
 .cm-relation-copy span { color: #d9bd63; font-size: 11px; letter-spacing: .1em; }
 .cm-relation-copy b { color: rgba(239,232,213,.54); font-size: 11px; font-weight: 400; text-align: right; }
 .cm-relation-copy p { margin: 15px 0 0; color: #efe4cf; font-size: 15px; }
+.cm-relation-copy > .cm-relation-narrative { display: block; margin: 0 0 17px; padding: 0 0 16px; border-bottom: .7px solid rgba(235,222,194,.12); }
+.cm-relation-copy > .cm-relation-narrative b { color: #d9bd63; font: 500 19px/1.3 serif; text-align: left; letter-spacing: .04em; }
+.cm-relation-copy > .cm-relation-narrative p { margin: 9px 0 0; color: rgba(239,232,213,.84); font-size: 14px; line-height: 1.8; }
 .cm-relation-copy small { display: block; margin-top: 11px; color: rgba(239,232,213,.38); font-size: 10px; line-height: 1.6; }
 .cm-cast { border-bottom: 0; padding-bottom: calc(104px + env(safe-area-inset-bottom)); }
 .cm-cast-rail { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 28px 0 0 39px; }
@@ -3137,9 +3163,11 @@ body.changming-open { overflow: hidden; }
 .cm-cast-person.is-mine small { color: #d9bd63; }
 
 @media (max-width: 620px) {
-  .bazi-archetype { min-height: 424px; }
+  /* 文案块底部锚定且 30% 处就接近全黑：卡片必须留出足够高度，
+     否则全身立绘的头肩会落进不透明区，人物等于没画（改用全身立绘后踩过一次）。 */
+  .bazi-archetype { min-height: 512px; }
   .bazi-arch-stage { inset: 0 0 176px 34%; }
-  .bazi-arch-image { right: 7%; bottom: 14px; width: 62%; height: 86%; }
+  .bazi-arch-image { right: 4%; bottom: 0; width: 64%; height: 97%; }
   .bazi-arch-copy { right: 0; min-height: auto; top: auto; bottom: 0; padding: 94px 18px 17px; background: linear-gradient(180deg, transparent 0, rgba(7,10,12,.96) 30%, #070a0c 62%); }
   .bazi-arch-kicker { margin-bottom: 9px; }
   .bazi-arch-title { font-size: 24px; }
@@ -3154,7 +3182,7 @@ body.changming-open { overflow: hidden; }
   .cm-hero { min-height: calc(100dvh - 62px - env(safe-area-inset-top)); }
   .cm-hero-background { background-position: 58% center; }
   .cm-hero-background::after { background: linear-gradient(180deg, rgba(5,7,8,.08) 0%, rgba(5,7,8,.16) 34%, #080b0d 82%); }
-  .cm-character-folio { right: -3%; bottom: 31%; width: 61vw; height: 52vh; max-height: 470px; border-radius: 12px; transform: rotate(.6deg); }
+  .cm-character-folio { right: -1%; bottom: 29%; width: 64vw; height: 54vh; max-height: 500px; }
   .cm-hero-copy { left: 22px; right: 22px; bottom: 8%; width: auto; }
   .cm-hero-copy h1 { font-size: 46px; }
   .cm-intro { max-width: 94%; margin-top: 12px; font-size: 13px; line-height: 1.7; }
