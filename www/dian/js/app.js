@@ -408,19 +408,32 @@ function bookStats(b) {
 }
 
 // ─── 全文搜索索引 ───
+// 索引按分类分片存放：data/search-index/<category>.json，清单在 data/search-index.json。
+// 为什么分片：藏书扩到七位数字数后，单个 search-index.json 会超过 Cloudflare Pages
+// 的 25MB 单文件上限，根本传不上去。分片后各片并行取，搜索行为与合并成一份完全一致。
+// 兼容：若 search-index.json 仍是旧的扁平数组（未跑 ingest.py index），照旧直接使用。
 async function loadSearchIndex() {
   if (State.searchIdx) return State.searchIdx;
   if (!State.searchIdxP) {
     State.searchIdxP = fetch('./data/search-index.json')
       .then(r => r.ok ? r.json() : null)
-      .then(d => {
-        // search-index.json 为扁平数组 [{id,bookId,bookTitle,chapterId,chapterLabel,text,type}]
-        // 加载后预计算每条目的繁→简归一化文本，避免搜索时重复计算
+      .then(async d => {
+        let entries = null;
         if (Array.isArray(d)) {
-          for (const e of d) e._n = normalizeHan(e.text || '');
+          entries = d;                                     // 旧格式：整份扁平数组
+        } else if (d && Array.isArray(d.shards)) {
+          const parts = await Promise.all(d.shards.map(s =>
+            fetch(`./data/search-index/${s}.json`)
+              .then(r => (r.ok ? r.json() : []))
+              .catch(() => [])));
+          entries = parts.flat();
         }
-        State.searchIdx = d;
-        return d;
+        if (Array.isArray(entries)) {
+          // 预计算每条目的繁→简归一化文本，避免搜索时重复计算
+          for (const e of entries) e._n = normalizeHan(e.text || '');
+        }
+        State.searchIdx = entries;
+        return entries;
       })
       .catch(() => null);
   }

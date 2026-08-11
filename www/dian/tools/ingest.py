@@ -119,50 +119,68 @@ class _Extract(HTMLParser):
     # 否则每章第一段变成「周易略例/明象」这样的页面标题，污染正文与搜索索引。
     SKIP_TAGS = {'style', 'script', 'sup', 'sub', 'title', 'head'}
     SKIP_CLASS = re.compile(r'\b(ws-noexport|noprint|navigation|header_notes|mw-editsection|'
-                            r'catlinks|ambox|licence|reflist|references)\b')
+                            r'catlinks|ambox|licence|licenseContainer|reflist|references)\b')
+    VOID = {'br', 'img', 'hr', 'meta', 'link', 'input', 'source', 'base', 'col', 'area'}
 
     def __init__(self):
         super().__init__(convert_charrefs=True)
         self.parts, self.buf = [], []
-        self.depth_skip = 0
-        self.in_block = 0
+        self.stack = []          # [(tag, is_skip_root)]，用真正的标签栈配对
+        self.skip_depth = 0      # >0 表示当前在被跳过的子树里
         self.heads = []          # (段落索引, 标题文字)
+        self._pending_head = False
 
+    # 为什么用栈：旧版拿一个计数器跳过 class 匹配的容器，而 HTMLParser 不配对标签，
+    # 于是四库全书本页首那个 class="licence" 的公有领域提示框一打开就再也关不上，
+    # 整页正文被吞光——《钦定协纪辨方书》36 卷只抽出 36 个字却报「成功」。
+    # 现在按 (tag, 是否 skip 根) 入栈，遇到对应结束标签才出栈并解除跳过。
     def handle_starttag(self, tag, attrs):
-        a = dict(attrs)
-        if tag in self.SKIP_TAGS or (a.get('class') and self.SKIP_CLASS.search(a['class'])):
-            self.depth_skip += 1
+        if tag in self.VOID:
+            if tag == 'br' and not self.skip_depth:
+                self.buf.append('\n')
             return
-        if self.depth_skip:
+        a = dict(attrs)
+        is_skip = tag in self.SKIP_TAGS or (a.get('class')
+                                            and self.SKIP_CLASS.search(a['class']))
+        self.stack.append((tag, bool(is_skip)))
+        if is_skip:
+            self.skip_depth += 1
+            return
+        if self.skip_depth:
             return
         if tag in ('p', 'li', 'dd', 'dt', 'td', 'th', 'h2', 'h3', 'h4'):
             self._flush()
-            self.in_block = 1
             if tag in ('h2', 'h3', 'h4'):
                 self._pending_head = True
-        elif tag == 'br':
+
+    def handle_startendtag(self, tag, attrs):
+        if tag == 'br' and not self.skip_depth:
             self.buf.append('\n')
 
     def handle_endtag(self, tag):
-        a_skip = tag in self.SKIP_TAGS
-        if self.depth_skip and (a_skip or True):
-            # 只在确实进入过 skip 时递减；HTMLParser 无法精确配对 class-skip，
-            # 故用保守策略：遇到任意结束标签且处于 skip 中就尝试递减一次。
-            if a_skip:
-                self.depth_skip = max(0, self.depth_skip - 1)
-                return
+        if tag in self.VOID:
+            return
+        # 从栈顶往下找最近的同名标签，容忍源码里未闭合的标签
+        for i in range(len(self.stack) - 1, -1, -1):
+            if self.stack[i][0] == tag:
+                for _, was_skip in self.stack[i:]:
+                    if was_skip:
+                        self.skip_depth = max(0, self.skip_depth - 1)
+                del self.stack[i:]
+                break
+        else:
+            return
+        if self.skip_depth:
+            return
         if tag in ('p', 'li', 'dd', 'dt', 'td', 'th', 'h2', 'h3', 'h4'):
-            head = getattr(self, '_pending_head', False)
+            head = self._pending_head
             txt = self._flush()
             if head and txt:
                 self.heads.append((len(self.parts) - 1, txt))
             self._pending_head = False
-            self.in_block = 0
-        elif tag in ('div', 'section', 'table') and self.depth_skip:
-            self.depth_skip = max(0, self.depth_skip - 1)
 
     def handle_data(self, d):
-        if self.depth_skip:
+        if self.skip_depth:
             return
         self.buf.append(d)
 
@@ -187,14 +205,271 @@ def html_to_paras(page_html):
 def cjk_count(s):
     return len(CJK.findall(s))
 
+
+# ---------------------------------------------------------------- 中华典藏 / 殆知阁
+
+DC_UA = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) '
+                       'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36'}
+
+
+def dc_get(url, timeout=40, retries=4):
+    """中华典藏（diancang.xyz / zhonghuadiancang.com）取页。要浏览器 UA + gzip 解码。"""
+    import gzip
+    last = None
+    for a in range(retries):
+        try:
+            req = urllib.request.Request(url, headers=DC_UA)
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                raw = r.read()
+                if r.headers.get('Content-Encoding') == 'gzip':
+                    raw = gzip.decompress(raw)
+                return r.status, raw.decode('utf-8', 'replace')
+        except urllib.error.HTTPError as e:
+            if e.code in (429, 503, 502, 504) and a < retries - 1:
+                time.sleep(min(45, 4 * (2 ** a)))
+                last = e
+                continue
+            return e.code, ''
+        except Exception as e:
+            last = e
+            time.sleep(1.5 * (a + 1))
+    raise RuntimeError(f'diancang fetch failed: {url}: {last}')
+
+
+def dc_chapters(index_url):
+    """目录页 → [(章名, url)]，保持站上顺序。"""
+    st, h = dc_get(index_url)
+    if st != 200:
+        raise RuntimeError(f'{index_url}: HTTP {st}')
+    base = index_url.rstrip('/')
+    out, seen = [], set()
+    for href, label in re.findall(r'href="([^"]+\.html)"[^>]*>([^<]{1,60})</a>', h):
+        full = href if href.startswith('http') else urllib.parse.urljoin(index_url, href)
+        if not full.startswith(base):          # 只要本书目录下的页
+            continue
+        if full in seen:
+            continue
+        seen.add(full)
+        out.append((htmllib.unescape(label).strip(), full))
+    return out
+
+
+def dc_body(page_html):
+    """正文在 <div id="content" class="panel-body"> 里。"""
+    m = re.search(r'<div[^>]+id="content"[^>]*>(.*?)</div>\s*(?:<div|</div>|<script)',
+                  page_html, re.S)
+    seg = m.group(1) if m else page_html
+    paras, _ = html_to_paras(seg)
+    return [p for p in paras if cjk_count(p) >= 2]
+
+
+def txt_body(raw_text):
+    """殆知阁一类纯文本源：按空行/换行切段。"""
+    parts = [ln.strip() for ln in re.split(r'\n\s*\n|\r?\n', raw_text)]
+    return [p for p in parts if cjk_count(p) >= 2]
+
 # ---------------------------------------------------------------- 抓取一本书
 
 
+def _preserve(spec, chapters):
+    """把既有 texts/<id>.json 里人工整理的章节挪到新抓正文之前。
+
+    为什么必须有这个：《八宅明镜》条目里那 72 字的〈大游年歌〉是 core.js 八宅引擎的
+    唯一一手判据（已知的「离命生气/天医标反」bug 就出在这一段），而它在中华典藏的
+    点校本里未必逐字对得上。直接覆盖 = 把判据冲掉。spec 写 preserveChapters:[章id]
+    即保留，其余「【待补】」占位章丢弃。
+    """
+    ids = spec.get('preserveChapters')
+    if not ids:
+        return chapters
+    p = os.path.join(TEXTS, spec['id'] + '.json')
+    if not os.path.exists(p):
+        return chapters
+    old = {c['id']: c for c in json.load(open(p)).get('chapters', [])}
+    head = []
+    for cid in ids:
+        c = old.get(cid)
+        if not c:
+            print(f"  ⚠️  preserveChapters: 旧库里没有章节 {cid}")
+            continue
+        c.setdefault('preserved', True)
+        head.append(c)
+        print(f"  ⊙ 保留旧章 {cid}（{c.get('label')}）")
+    # 新抓章节 id 顺延，避免与保留章撞号
+    for n, c in enumerate(chapters, len(head) + 1):
+        c['id'] = f'ch{n:02d}'
+    return head + chapters
+
+
+def _norm_label(s):
+    return re.sub(r'[·・\s]|第|卷|章|篇|卦|傳|传|[0-9一二三四五六七八九十百]+$', '', s or '').strip()
+
+
+def _carry_annotations(spec, chapters):
+    """重抓覆盖时，把旧库里人工写的章级导读按章名迁移到新章节上。
+
+    实测教训：补全《周易》时，旧库 9 卦各带一段手写导读（且多处把卦象接到司南的
+    玄空/命理功能上，如「恒卦→藏风聚气」「中孚→中宫」），一次覆盖全没了，
+    而所有闸门都是绿的——annotation 不在任何一致性判据里。
+    章名规范化后匹配（「乾卦」↔「乾」），匹配不上的会打印出来，不静默丢弃。
+    ⚠️ 不做繁简折叠：旧库「恆卦」与维基文库「恒」就因此漏配过一次，靠下面那条
+    「未迁移」警告才发现。宁可漏配后报警，也不要用不可靠的繁简表静默配错章。
+    """
+    p = os.path.join(TEXTS, spec['id'] + '.json')
+    old_src = None
+    if os.path.exists(p):
+        try:
+            old_src = json.load(open(p)).get('chapters', [])
+        except Exception:
+            old_src = None
+    if not old_src:                      # 工作区已被覆盖时回落到 git HEAD
+        try:
+            import subprocess
+            r = subprocess.run(['git', 'show', f'HEAD:www/dian/data/texts/{spec["id"]}.json'],
+                               cwd=os.path.dirname(DIAN), capture_output=True, text=True)
+            if r.returncode == 0:
+                old_src = json.loads(r.stdout).get('chapters', [])
+        except Exception:
+            old_src = None
+    if not old_src:
+        return chapters
+
+    pool = {}
+    for c in old_src:
+        an = (c.get('annotation') or '').strip()
+        if an:
+            pool[_norm_label(c.get('label', ''))] = (c.get('label'), an)
+    if not pool:
+        return chapters
+    moved, used = 0, set()
+    for c in chapters:
+        k = _norm_label(c.get('label', ''))
+        if k in pool and k not in used and not (c.get('annotation') or '').strip():
+            c['annotation'] = pool[k][1]
+            used.add(k)
+            moved += 1
+    if moved:
+        print(f'  ⊙ 迁移旧导读 {moved} 条')
+    orphan = [pool[k][0] for k in pool if k not in used]
+    if orphan:
+        print(f'  ⚠️  {len(orphan)} 条旧导读在新章节里找不到对应章名，未迁移：'
+              f'{"、".join(orphan[:6])}')
+    return chapters
+
+
+def _assemble(spec, chapters, skipped, source_url, source_name, source_cc, fetch_note):
+    chapters = _carry_annotations(spec, chapters)
+    chapters = _preserve(spec, chapters)
+    total = sum(cjk_count(f['text']) for c in chapters for f in c['fragments'])
+    if total < 100:
+        raise RuntimeError(f"{spec['id']}: 只抓到 {total} 字，判为失败（不入库）")
+    out = {
+        'id': spec['id'], 'title': spec['title'],
+        'subtitle': spec.get('subtitle', spec['title']),
+        'author': spec.get('author', ''), 'authorNote': spec.get('authorNote', ''),
+        'dynasty': spec.get('dynasty', ''), 'category': spec['category'],
+        'licenseNote': spec.get('licenseNote', '公有领域'),
+        'source': source_url, 'sourceName': source_name, 'sourceCC': source_cc,
+        'fetchNote': spec.get('fetchNote', fetch_note),
+        'status': spec.get('status', '较全'),
+        'chapters': chapters,
+    }
+    if skipped:
+        out['incomplete'] = skipped
+        out['status'] = '部分'
+        out['statusNote'] = ((spec.get('statusNote', '') + ' ') if spec.get('statusNote') else '') \
+            + f'⚠️ 抓取时有 {len(skipped)} 个页面未取到（' \
+            + '、'.join(str(s['page']).split('/')[-1] for s in skipped[:6]) \
+            + ('…' if len(skipped) > 6 else '') + '），待补。'
+    elif spec.get('statusNote'):
+        out['statusNote'] = spec['statusNote']
+    return out, total, skipped
+
+
+def _fetch_nonws(spec, src, sleep, verbose):
+    chapters, skipped = [], []
+    if src == 'diancang':
+        pairs = ([(l, u) for l, u in zip(spec.get('chapterLabels', []), spec['chapterUrls'])]
+                 if spec.get('chapterUrls') and spec.get('chapterLabels')
+                 else ([(None, u) for u in spec['chapterUrls']] if spec.get('chapterUrls')
+                       else dc_chapters(spec['indexUrl'])))
+        if verbose:
+            print(f'  ↳ 中华典藏：{len(pairs)} 章')
+        for i, (label, url) in enumerate(pairs, 1):
+            st, h = dc_get(url)
+            if st != 200:
+                print(f'  ⚠️  {url}: HTTP {st}，跳过')
+                skipped.append({'page': url, 'reason': f'HTTP {st}'})
+                continue
+            body = dc_body(h)
+            if not body:
+                print(f'  ⚠️  {url}: 无正文，跳过')
+                skipped.append({'page': url, 'reason': '页面无正文'})
+                continue
+            chapters.append({'id': f'ch{i:02d}', 'label': label or f'第{i}节',
+                             'fragments': [{'text': t} for t in body],
+                             'annotation': '', 'sourceUrl': url})
+            if verbose:
+                print(f'  · {label or i}: {sum(cjk_count(t) for t in body)} 字')
+            time.sleep(sleep)
+        return _assemble(spec, chapters, skipped,
+                         spec.get('indexUrl') or spec['chapterUrls'][0],
+                         spec.get('sourceName', '中华典藏'),
+                         spec.get('sourceCC', '古籍公有领域；点校本版式归原站'),
+                         '原文录自中华典藏（简体点校本），古籍本身属公有领域。'
+                         f'抓取于 {time.strftime("%Y-%m-%d")}，由 tools/ingest.py 自动入库。')
+
+    # plaintext（殆知阁等单文件）
+    url = spec['textUrl']
+    st, raw = dc_get(url)
+    if st != 200:
+        raise RuntimeError(f'{url}: HTTP {st}')
+    pat = spec.get('splitPattern')
+    if pat:
+        parts = re.split(f'({pat})', raw)
+        buf, label = [], spec.get('firstLabel', '卷首')
+        for seg in parts:
+            if re.fullmatch(pat, seg or ''):
+                if buf:
+                    body = txt_body('\n'.join(buf))
+                    if body:
+                        chapters.append({'id': f'ch{len(chapters)+1:02d}', 'label': label,
+                                         'fragments': [{'text': t} for t in body],
+                                         'annotation': '', 'sourceUrl': url})
+                buf, label = [], seg.strip()
+            else:
+                buf.append(seg or '')
+        if buf:
+            body = txt_body('\n'.join(buf))
+            if body:
+                chapters.append({'id': f'ch{len(chapters)+1:02d}', 'label': label,
+                                 'fragments': [{'text': t} for t in body],
+                                 'annotation': '', 'sourceUrl': url})
+    if not chapters:
+        body = txt_body(raw)
+        chapters = [{'id': 'ch01', 'label': spec['title'],
+                     'fragments': [{'text': t} for t in body],
+                     'annotation': '', 'sourceUrl': url}]
+    if verbose:
+        print(f'  ↳ 纯文本源：{len(chapters)} 章')
+    return _assemble(spec, chapters, skipped, url,
+                     spec.get('sourceName', '殆知阁'),
+                     spec.get('sourceCC', '公有领域'),
+                     '原文录自殆知阁古籍库纯文本，古籍本身属公有领域。'
+                     f'抓取于 {time.strftime("%Y-%m-%d")}，由 tools/ingest.py 自动入库。')
+
+
 def fetch_book(spec, sleep=0.4, verbose=True):
-    """按 spec 抓一本书，返回 texts/<id>.json 的 dict。"""
+    """按 spec 抓一本书，返回 (texts/<id>.json 的 dict, 汉字数, 漏页列表)。
+
+    source 支持三种：
+      wikisource —— wsTitle（目录页自动展开子页）
+      diancang   —— indexUrl（中华典藏目录页）或 chapterUrls
+      plaintext  —— textUrl（殆知阁一类单文件纯文本），splitPattern 可选分章正则
+    """
     src = spec.get('source', 'wikisource')
-    if src != 'wikisource':
-        raise NotImplementedError(f"{spec['id']}: source={src} 尚未实现（当前只支持 wikisource）")
+    if src in ('diancang', 'plaintext'):
+        return _fetch_nonws(spec, src, sleep, verbose)
 
     ws = spec['wsTitle']
     chapters_spec = spec.get('wsChapters')
@@ -216,6 +491,12 @@ def fetch_book(spec, sleep=0.4, verbose=True):
             if verbose:
                 print(f'  ↳ {ws}: 单页正文 {root_cjk} 字'
                       + (f'，{len(heads)} 个小标题' if heads else ''))
+
+    # 目录页自身常混在 chapterUrls 里（普查 agent 直接把根页也列了进来），
+    # 不滤掉会把整份目录当成一章正文入库。
+    if chapters_spec:
+        chapters_spec = [c for c in chapters_spec
+                         if c.replace('_', ' ').strip() != ws.replace('_', ' ').strip()]
 
     chapters = []
     skipped = []
@@ -262,38 +543,14 @@ def fetch_book(spec, sleep=0.4, verbose=True):
                              'fragments': [{'text': t} for t in body],
                              'annotation': '', 'sourceUrl': url})
 
-    total = sum(cjk_count(f['text']) for c in chapters for f in c['fragments'])
-    if total < 100:
-        raise RuntimeError(f"{spec['id']}: 只抓到 {total} 字，判为失败（不入库）")
-
-    out = {
-        'id': spec['id'],
-        'title': spec['title'],
-        'subtitle': spec.get('subtitle', spec['title']),
-        'author': spec.get('author', ''),
-        'authorNote': spec.get('authorNote', ''),
-        'dynasty': spec.get('dynasty', ''),
-        'category': spec['category'],
-        'licenseNote': spec.get('licenseNote', '公有领域'),
-        'source': spec.get('sourceUrl') or ('https://zh.wikisource.org/wiki/'
-                                            + urllib.parse.quote(ws.replace(' ', '_'), safe='/')),
-        'sourceName': spec.get('sourceName', f'维基文库·{ws}'),
-        'sourceCC': spec.get('sourceCC', 'CC-BY-SA'),
-        'fetchNote': spec.get('fetchNote',
-                              '原文录自维基文库，保留繁体原字；古籍本身属公有领域。'
-                              f'抓取于 {time.strftime("%Y-%m-%d")}，由 tools/ingest.py 自动入库。'),
-        'status': spec.get('status', '较全'),
-        'chapters': chapters,
-    }
-    if skipped:
-        # 抓漏必须留痕：书能读，但「这本是全的」这句话不能说。
-        out['incomplete'] = skipped
-        out['status'] = '部分'
-        out['statusNote'] = ((spec.get('statusNote', '') + ' ') if spec.get('statusNote') else '') \
-            + f'⚠️ 抓取时有 {len(skipped)} 个页面未取到（' \
-            + '、'.join(s['page'].split('/')[-1] for s in skipped[:6]) \
-            + ('…' if len(skipped) > 6 else '') + '），待补。'
-    return out, total, skipped
+    return _assemble(
+        spec, chapters, skipped,
+        spec.get('sourceUrl') or ('https://zh.wikisource.org/wiki/'
+                                  + urllib.parse.quote(ws.replace(' ', '_'), safe='/')),
+        spec.get('sourceName', f'维基文库·{ws}'),
+        spec.get('sourceCC', 'CC-BY-SA'),
+        '原文录自维基文库，保留繁体原字；古籍本身属公有领域。'
+        f'抓取于 {time.strftime("%Y-%m-%d")}，由 tools/ingest.py 自动入库。')
 
 # ---------------------------------------------------------------- registry 合并
 
@@ -446,13 +703,39 @@ def check():
         if b.get('status') in ('全', '较全') and real < 1000:
             errs.append(f"{b['id']}: status={b['status']} 但实际只有 {real} 个汉字（空壳）")
 
+        # 回退守卫：registry 记着 charCount（含标点，约为汉字数的 1.2 倍），
+        # 若正文汉字数掉到它的六成以下，多半是重抓时抽取出错把好数据覆盖没了。
+        # 实测教训：2026-08-12 一次重抓把《钦定协纪辨方书》3607 字覆盖成 1296 字，
+        # 当时的空壳判据（<1000）刚好放行。
+        claimed = b.get('charCount')
+        if claimed and real < claimed * 0.6:
+            errs.append(f"{b['id']}: 正文汉字数 {real} 远低于 registry 记录的 charCount "
+                        f"{claimed}（<60%）——疑似重抓时抽取失败覆盖了好数据，"
+                        f"请 `git diff data/texts/{b['id']}.json` 核对")
+
         no_src = [c['id'] for c in chs if c.get('fragments') and not c.get('sourceUrl')]
         if no_src:
             warns.append(f"{b['id']}: {len(no_src)} 章无 sourceUrl，无法回源核对（旧数据）")
 
-    # ② 索引同步
+    # ② 索引同步（支持分片格式与旧的单份扁平数组）
     live = build_index()
-    disk = json.load(open(os.path.join(DATA, 'search-index.json')))
+    disk_raw = json.load(open(os.path.join(DATA, 'search-index.json')))
+    if isinstance(disk_raw, dict) and disk_raw.get('shards') is not None:
+        disk = []
+        for s in disk_raw['shards']:
+            p = os.path.join(DATA, 'search-index', s + '.json')
+            if not os.path.exists(p):
+                errs.append(f'search-index.json 清单列了分片 {s}，但 '
+                            f'data/search-index/{s}.json 不存在')
+                continue
+            disk += json.load(open(p))
+        stray = [f[:-5] for f in os.listdir(os.path.join(DATA, 'search-index'))
+                 if f.endswith('.json') and f[:-5] not in disk_raw['shards']] \
+            if os.path.isdir(os.path.join(DATA, 'search-index')) else []
+        if stray:
+            errs.append(f'data/search-index/ 有清单外的残留分片：{stray}（会被前端忽略，应删）')
+    else:
+        disk = disk_raw
     lk = {e['id']: e['text'] for e in live}
     dk = {e['id']: e['text'] for e in disk}
     missing = set(lk) - set(dk)
@@ -516,11 +799,26 @@ def main():
 
     if cmd == 'fetch':
         specs = json.load(open(sys.argv[2]))
-        only = set(sys.argv[3:])
-        ok, fail, partial = [], [], []
+        args_rest = [a for a in sys.argv[3:] if not a.startswith('--')]
+        resume = '--resume' in sys.argv          # 跳过已抓好的，断点续跑
+        only = set(args_rest)
+        ok, fail, partial, skipped_done = [], [], [], 0
         for s in specs:
             if only and s['id'] not in only:
                 continue
+            if resume:
+                p = os.path.join(TEXTS, s['id'] + '.json')
+                if os.path.exists(p):
+                    try:
+                        t = json.load(open(p))
+                        have = sum(cjk_count(f.get('text', ''))
+                                   for c in t.get('chapters', []) for f in c.get('fragments', []))
+                        want = s.get('_claimCjk') or 0
+                        if have >= 500 and (not want or have >= want * 0.5) and not t.get('incomplete'):
+                            skipped_done += 1
+                            continue
+                    except Exception:
+                        pass
             print(f"▶ {s['title']}（{s['id']}）")
             try:
                 doc, total, skipped = fetch_book(s)
@@ -537,7 +835,8 @@ def main():
             except Exception as e:
                 print(f'  ✗ {e}')
                 fail.append({'id': s['id'], 'title': s['title'], 'error': str(e)})
-        print(f'\n完整 {len(ok)} / 残缺 {len(partial)} / 失败 {len(fail)}')
+        print(f'\n完整 {len(ok)} / 残缺 {len(partial)} / 失败 {len(fail)}'
+              + (f' / 已抓跳过 {skipped_done}' if skipped_done else ''))
         for p in partial:
             print(f"  ◐ {p['title']}：漏 {p['skipped']} 页，重跑 "
                   f"`fetch {sys.argv[2]} {p['id']}` 可只补这本")
@@ -557,11 +856,43 @@ def main():
 
     if cmd == 'index':
         idx = build_index()
+        # 按分类分片写盘：单份索引会超过 Cloudflare Pages 25MB 单文件上限。
+        shard_dir = os.path.join(DATA, 'search-index')
+        os.makedirs(shard_dir, exist_ok=True)
+        groups = {}
+        for e in idx:
+            groups.setdefault(e['category'], []).append(e)
+        for old in os.listdir(shard_dir):
+            if old.endswith('.json') and old[:-5] not in groups:
+                os.remove(os.path.join(shard_dir, old))
+        sizes = {}
+        for cat, items in groups.items():
+            p = os.path.join(shard_dir, cat + '.json')
+            with open(p, 'w') as f:
+                json.dump(items, f, ensure_ascii=False)
+            sizes[cat] = os.path.getsize(p)
+        manifest = {
+            'format': 'sharded-v1',
+            'note': '索引按分类分片存于 data/search-index/<category>.json；'
+                    '本文件只是清单。分片是因为单份索引会超过 Cloudflare Pages '
+                    '25MB 单文件上限。前端 loadSearchIndex() 并行取全部分片后合并，'
+                    '搜索覆盖面与合并成一份完全一致，未做任何截断。',
+            'shards': sorted(groups),
+            'entries': len(idx),
+            'builtBy': 'tools/ingest.py index',
+        }
         with open(os.path.join(DATA, 'search-index.json'), 'w') as f:
-            json.dump(idx, f, ensure_ascii=False)
-        print(f'✓ search-index.json 重建：{len(idx)} 条 '
+            json.dump(manifest, f, ensure_ascii=False, indent=1)
+        big = [c for c, s in sizes.items() if s > 24 * 1024 * 1024]
+        print(f'✓ 索引重建：{len(idx)} 条 '
               f"（正文 {sum(1 for e in idx if e['type']=='content')} / "
-              f"注 {sum(1 for e in idx if e['type']=='annotation')}）")
+              f"注 {sum(1 for e in idx if e['type']=='annotation')}），"
+              f'{len(groups)} 个分片，合计 {sum(sizes.values())/1048576:.1f} MB')
+        for c in sorted(sizes, key=lambda k: -sizes[k]):
+            print(f'    {c:<10}{sizes[c]/1048576:>7.2f} MB')
+        if big:
+            print(f'  ✗ 分片仍超 24MB，需再按书分片：{big}')
+            return 1
         return 0
 
     if cmd == 'check':
