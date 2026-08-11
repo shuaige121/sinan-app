@@ -7109,63 +7109,102 @@
   function renderBaziArchetype(c) {
     const host = $('bazi-archetype');
     const guide = c && CharacterSystem && CharacterSystem.guideFor(c);
-    const guideStem = guide ? guide.stem : '';
-    const a = guideStem && CharacterSystem.get(guideStem);
-    if (!host || !a) { if (host) host.hidden = true; return; }
+    const selfStem = c && c.dm;
+    const a = selfStem && CharacterSystem && CharacterSystem.get(selfStem);
+    if (!host || !a || !guide) { if (host) host.hidden = true; return; }
     const en = isEN();
     const element = en ? elEN(a.element) : a.element;
     const polarity = en ? (a.yang ? 'Yang' : 'Yin') : (a.yang ? '阳' : '阴');
-    const stem = en ? `${cap1(STEM_PY[guideStem] || guideStem)} ${element}` : `${guideStem}${a.element}`;
+    const stem = en ? `${cap1(STEM_PY[selfStem] || selfStem)} ${element}` : `${selfStem}${a.element}`;
     const name = characterText(a, 'name', en);
     const role = characterText(a, 'role', en);
     const tags = en ? a.tagsEn : a.tagsZh;
     const desc = characterText(a, 'desc', en);
-    // 三层文案：kicker 说结论、plain 说人话（这一位是你缺的那行的十干之一）、basis 才放术语与免责。
-    const pairZh = (guide.pair && guide.pair.length ? guide.pair : [guideStem]);
+    const pairZh = (guide.pair && guide.pair.length ? guide.pair : [selfStem]);
     const pairEn = pairZh.map(s => cap1(STEM_PY[s] || s));
-    const guideEn = cap1(STEM_PY[guideStem] || guideStem);
-    const kicker = guide.balanced
-      ? (en ? 'YOUR FIVE PHASES COME OUT EVEN' : '你八字里，五行分得很匀')
-      : (en ? `YOUR CHART IS LOWEST IN ${elEN(guide.element).toUpperCase()}` : `你八字里最少的是${guide.element}`);
-    const plain = guide.balanced
-      ? (en
-        ? `No phase is especially short, so your Day Master ${cap1(STEM_PY[c.dm] || c.dm)} comes to meet you.`
-        : `没有哪一行特别少，就先由你的日主${c.dm}来见你。`)
-      : (en
-        ? `Of the ten heavenly stems, ${pairEn.join(' and ')} are the ${elEN(guide.element)} ones — and this is ${guideEn}.`
-        : `十个天干里，属${guide.element}的是${pairZh.join('和')}；这一位就是其中的${guideStem}。`);
+    const relationCards = CharacterSystem.relationCards(selfStem, en ? 'en' : 'zh');
+    const output = relationCards.find(card => card.key === 'output');
+    const combine = relationCards.find(card => card.kind === 'combine');
+    const clash = relationCards.find(card => card.kind === 'clash');
+    const kicker = en ? 'WHO YOU ARE · WHO ENTERS YOUR STORY' : '你是谁 · 谁走进你的故事';
+    const plain = en
+      ? `Your Day Master is ${cap1(STEM_PY[selfStem] || selfStem)}. The lowest phase is shown separately as a two-person group; it does not replace you.`
+      : `你的日主是${selfStem}，这是人物叙事里的“你”。五行较少项另列为双人组，不再拿其中一个人替代你。`;
     const basis = guide.balanced
       ? (en
-        ? 'The five phase scores tie. This is a cultural reading, not a scientific diagnosis.'
-        : '五行分值算下来一样多。这是传统文化的讲法，不是科学诊断。')
+        ? 'The five phase scores are tied, so there is no separate missing-phase cast. Relationships remain derived from the Day Master.'
+        : '五行分值相同，没有单独的“较少项”；生克、食伤、合冲仍按日主计算。')
       : (en
-        ? `${elEN(guide.element)} scores lowest in your chart (${guide.score.toFixed(1)}). Relationships are still calculated from Day Master ${c.dm}. A cultural reading, not a scientific diagnosis.`
-        : `${guide.element}在你盘里分数最低（${guide.score.toFixed(1)}）。生克关系仍按日主${c.dm}${c.dmEl}算。这是传统文化的讲法，不是科学诊断。`);
-    const alt = en ? `${stem}, ${name}, ${role}` : `${stem}·${name}·${role}人物立绘`;
+        ? `${elEN(guide.element)} scores lowest (${guide.score.toFixed(1)}). That identifies the phase, not one polarity, so ${pairEn.join(' and ')} appear together. Relationships are still calculated from Day Master ${selfStem}.`
+        : `${guide.element}分值最低（${guide.score.toFixed(1)}），这里只能推出“${guide.element}较少”，不能再断成某一个阴干或阳干，所以${pairZh.join('、')}一起出现；关系仍按日主${selfStem}${c.dmEl}算。`);
+    const alt = en ? `${stem}, ${name}, ${role}, in Changming City` : `${stem}·${name}·${role}在常明城中的完整场景`;
     const archHex = C.EL_HEX[a.element] || '#c9a227';
     const archNum = parseInt(archHex.slice(1), 16);
+    const sceneCard = ({ kind, label, title, note, asset, openStem, focus }) => asset ? `<button type="button" class="bazi-cast-card is-${kind}" data-changming-open data-stem="${escapeHtml(openStem || selfStem)}">
+      <img src="${escapeHtml(asset)}" alt="${escapeHtml(title)}" loading="lazy" decoding="async" style="--scene-focus:${escapeHtml(focus || '50% 50%')}">
+      <span class="bazi-cast-shade" aria-hidden="true"></span>
+      <span class="bazi-cast-copy"><small>${escapeHtml(label)}</small><b>${escapeHtml(title)}</b><em>${escapeHtml(note)}</em></span>
+    </button>` : '';
+    const weakNames = CharacterSystem.namesFor(pairZh, en ? 'en' : 'zh');
+    const weakScene = CharacterSystem.sceneForElement(guide.element);
+    const outputNames = output && output.relatedDetails
+      ? output.relatedDetails.map(detail => {
+        const item = CharacterSystem.get(detail.stem);
+        return `${detail.stem}·${characterText(item, 'name', en)}·${detail.role}`;
+      }).join(en ? ' / ' : ' · ')
+      : (output ? output.related : '');
+    const outputFirst = output && CharacterSystem.get(output.relatedStems[0]);
+    const outputScene = output && (output.scene || (outputFirst && CharacterSystem.sceneForElement(outputFirst.element)));
+    const combinePerson = combine && CharacterSystem.get(combine.relatedStems[0]);
+    const clashPerson = clash && CharacterSystem.get(clash.relatedStems[0]);
+    const castCards = [
+      sceneCard({
+        kind: 'weak',
+        label: guide.balanced ? (en ? 'PHASES EVEN' : '五行接近') : (en ? `LOWEST · ${elEN(guide.element)}` : `较少 · ${guide.element}`),
+        title: guide.balanced ? (en ? 'No single missing-phase cast' : '没有单独缺口') : weakNames,
+        note: guide.balanced ? (en ? 'Begin with your Day Master' : '先从日主认识自己') : (en ? 'Both polarities appear together' : '两位同行人物一起出现'),
+        asset: guide.balanced ? a.heroScene : weakScene,
+        openStem: guide.balanced ? selfStem : pairZh[0],
+        focus: guide.balanced ? a.heroFocus : '50% 50%'
+      }),
+      output && sceneCard({
+        kind: 'output', label: en ? 'I GENERATE · OUTPUT' : '我生 · 食神 / 伤官', title: outputNames,
+        note: en ? 'Two forms of what you give outward' : '同一份输出的两种表达',
+        asset: outputScene, openStem: selfStem
+      }),
+      combine && combinePerson && sceneCard({
+        kind: 'combine', label: combine.label, title: `${combine.related} · ${combine.title}`,
+        note: en ? 'Opposing motions interlock' : '相反动作互锁，形成第三种状态',
+        asset: combine.scene || combinePerson.heroScene, openStem: selfStem, focus: combine.scene ? '50% 50%' : combinePerson.heroFocus
+      }),
+      clash && clashPerson && sceneCard({
+        kind: 'clash', label: clash.label, title: `${clash.related} · ${clash.title}`,
+        note: en ? 'A face-off without a villain' : '正面对冲，但没有固定反派',
+        asset: clash.scene || clashPerson.heroScene, openStem: selfStem, focus: clash.scene ? '50% 50%' : clashPerson.heroFocus
+      })
+    ].filter(Boolean).join('');
     host.style.setProperty('--arch-color', archHex);
     host.style.setProperty('--arch-rgb', `${(archNum >> 16) & 255}, ${(archNum >> 8) & 255}, ${archNum & 255}`);
-    host.dataset.stem = guideStem;
+    host.dataset.stem = selfStem;
     host.classList.remove('awaken', 'image-missing', 'asset-ready');
     host.innerHTML = `
-      <div class="bazi-arch-stage" style="--arch-bg:url('../${escapeHtml(a.background)}')">
-        <span class="bazi-arch-backdrop" aria-hidden="true"></span>
-        <span class="bazi-arch-orbit o1" aria-hidden="true"></span>
-        <span class="bazi-arch-orbit o2" aria-hidden="true"></span>
-        <img class="bazi-arch-image" src="${escapeHtml(a.fullBody || a.asset)}" alt="${escapeHtml(alt)}" decoding="async">
-      </div>
-      <div class="bazi-arch-copy">
+      <article class="bazi-persona-hero">
+        <img class="bazi-persona-art" src="${escapeHtml(a.heroScene || a.background)}" alt="${escapeHtml(alt)}" decoding="async" style="--scene-focus:${escapeHtml(a.heroFocus || '50% 50%')}">
+        <span class="bazi-persona-shade" aria-hidden="true"></span>
+        <div class="bazi-arch-copy">
         <span class="bazi-arch-kicker">${escapeHtml(kicker)}</span>
         <h2 class="bazi-arch-title"><b>${escapeHtml(stem)}</b><small>${escapeHtml(polarity + ' ' + element + ' · ' + name + ' · ' + role)}</small></h2>
         <div class="bazi-arch-tags">${tags.map(tag => `<span>${escapeHtml(tag)}</span>`).join('')}</div>
         <p class="bazi-arch-plain">${escapeHtml(plain)}</p>
         <p class="bazi-arch-desc">${escapeHtml(desc)}</p>
-        <p class="bazi-arch-basis">${escapeHtml(basis)}</p>
-        <button type="button" class="bazi-arch-enter" data-changming-open data-stem="${escapeHtml(guideStem)}"><span>${en ? `Meet ${guideEn}` : `进人物志，看看${guideStem}是谁`}</span><b aria-hidden="true">↗</b></button>
-      </div>`;
+        <button type="button" class="bazi-arch-enter" data-changming-open data-stem="${escapeHtml(selfStem)}"><span>${en ? `Enter Changming with ${cap1(STEM_PY[selfStem] || selfStem)}` : `从${selfStem}开始，进入你的人物志`}</span><b aria-hidden="true">↗</b></button>
+        </div>
+      </article>
+      <div class="bazi-cast-heading"><span>${en ? 'YOUR CHANGMING CAST' : '你的常明城人物谱'}</span><p>${en ? 'Self, lowest phase, output, combination and clash.' : '日主、较少五行、食伤、合与冲，都放回同一张人物谱。'}</p></div>
+      <div class="bazi-cast-grid">${castCards}</div>
+      <p class="bazi-arch-basis">${escapeHtml(basis)} ${en ? 'A cultural narrative, not a scientific diagnosis.' : '这是传统文化叙事，不是科学诊断。'}</p>`;
     host.hidden = false;
-    setCharacterImageState(host.querySelector('.bazi-arch-image'), host);
+    setCharacterImageState(host.querySelector('.bazi-persona-art'), host);
     requestAnimationFrame(() => {
       void host.offsetWidth;
       host.classList.add('awaken');
@@ -7174,19 +7213,15 @@
 
   function renderTodayCharacterStory(c) {
     const host = $('today-character-story');
-    const guide = c && CharacterSystem && CharacterSystem.guideFor(c);
-    const guideStem = guide ? guide.stem : '';
-    const a = guideStem && CharacterSystem.get(guideStem);
+    const guideStem = c && c.dm;
+    const a = guideStem && CharacterSystem && CharacterSystem.get(guideStem);
     if (!host || !a) { if (host) host.hidden = true; return; }
     const en = isEN();
-    // 口径统一用「最少」不用「缺」：算法取的是五行分值相对最低项，不是命理意义上的完全缺失。
-    const label = guide.balanced
-      ? (en ? 'YOUR DAY MASTER · A LIFE IN PROGRESS' : '你的日主 · 人物小传')
-      : (en ? `LOWEST IN ${elEN(guide.element).toUpperCase()} · A LIFE IN PROGRESS` : `你八字里最少的${guide.element} · 人物小传`);
+    const label = en ? 'YOUR DAY MASTER · A LIFE IN PROGRESS' : '你的日主 · 人物小传';
     const headings = en
       ? ['The unspoken wound', 'An irreplaceable moment', 'Still unfolding']
       : ['没有说出口的事', '不可替代的高光', '仍在发生'];
-    const storyAsset = a.fullBody || (a.poses && a.poses.story) || a.asset;
+    const storyAsset = a.heroScene || a.background;
     const storyAlt = en
       ? `${characterText(a, 'name', true)} character-story pose`
       : `${characterText(a, 'name', false)}人物志动作`;
@@ -7201,9 +7236,8 @@
         <span class="seal">${escapeHtml(label)}</span>
         <h3><b>${escapeHtml(guideStem + '·' + characterText(a, 'name', en))}</b><small>${escapeHtml(characterText(a, 'role', en))}</small></h3>
       </div>
-      <div class="character-story-visual" style="--story-bg:url('../${escapeHtml(a.background)}')">
-        <span class="character-story-background" aria-hidden="true"></span>
-        <img class="character-story-person" src="${escapeHtml(storyAsset)}" alt="${escapeHtml(storyAlt)}" loading="lazy" decoding="async">
+      <div class="character-story-visual is-full-scene">
+        <img class="character-story-person" src="${escapeHtml(storyAsset)}" alt="${escapeHtml(storyAlt)}" loading="lazy" decoding="async" style="--scene-focus:${escapeHtml(a.heroFocus || '50% 50%')}">
       </div>
       <div class="character-story-grid">
         <article class="character-story-beat is-scar"><span>${escapeHtml(headings[0])}</span><p>${escapeHtml(characterText(a, 'scar', en))}</p></article>
@@ -7232,7 +7266,6 @@
     const sub = en
       ? 'Choose kin, generation, control, combination, or clash to see the exact heavenly stems involved. This describes direction, not fortune.'
       : '选择同类、生、制、合、冲，查看与你发生作用的具体天干；只说明关系方向，不作吉凶判断。';
-    const self = CharacterSystem.get(c.dm);
     host.innerHTML = `<div class="card character-relations-card">
       <span class="seal">${en ? 'FIVE-PHASE RELATION MAP' : '五行关系图谱'}</span>
       <h3>${escapeHtml(title)}</h3><p class="dim">${escapeHtml(sub)}</p>
@@ -7246,21 +7279,24 @@
       const people = sceneStems.map((stem, index) => {
         const person = CharacterSystem.get(stem);
         if (!person) return '';
-        const asset = person.fullBody || (index === 0 ? person.asset : ((person.poses && person.poses.open) || person.asset));
+        const asset = person.heroScene || person.background;
         const name = `${stem}·${characterText(person, 'name', en)}`;
         return `<figure class="relation-character${index === 0 ? ' is-self' : ''}" data-stem="${escapeHtml(stem)}">
-          <img src="${escapeHtml(asset)}" alt="${escapeHtml(name)}" loading="lazy" decoding="async">
+          <img src="${escapeHtml(asset)}" alt="${escapeHtml(name)}" loading="lazy" decoding="async" style="--scene-focus:${escapeHtml(person.heroFocus || '50% 50%')}">
           <figcaption>${index === 0 ? (en ? 'YOU · ' : '我 · ') : ''}${escapeHtml(name)}</figcaption>
         </figure>`;
       }).join('');
       const visual = card.scene
         ? `<figure class="relation-story-scene"><img src="${escapeHtml(card.scene)}" alt="${escapeHtml(card.title + ' · ' + sceneStems.join('、'))}" loading="lazy" decoding="async"></figure>`
-        : `<div class="relation-character-scene" style="--relation-bg:url('../${escapeHtml((self && self.background) || '')}')" aria-label="${escapeHtml(sceneStems.join('、'))}">${people}</div>`;
+        : `<div class="relation-character-scene is-cinematic" aria-label="${escapeHtml(sceneStems.join('、'))}">${people}</div>`;
       const narrative = card.title && card.story
         ? `<div class="relation-story-copy"><b>${escapeHtml(card.title)}</b><p>${escapeHtml(card.story)}</p></div>`
         : '';
+      const relatedLine = card.relatedDetails
+        ? card.relatedDetails.map(detail => `${detail.stem}·${detail.role}`).join(' · ')
+        : card.related;
       panel.innerHTML = `${visual}${narrative}
-        <div class="relation-panel-meta"><span>${escapeHtml(card.term)}</span><b>${escapeHtml(card.related)}</b></div>
+        <div class="relation-panel-meta"><span>${escapeHtml(card.term)}</span><b>${escapeHtml(relatedLine)}</b></div>
         <p class="relation-plain">${escapeHtml(card.plain)}</p>
         <small>${en ? 'Derived from the Day Master and five-phase generation, control, combination, and clash; not a fixed compatibility or fortune result.' : '依据日主与五行生克合冲关系显示；不等于现实人格配对，也不是吉凶结论。'}</small>
         <button type="button" class="character-world-link is-compact" data-changming-open data-stem="${escapeHtml(c.dm)}"><span>${en ? 'Read this relation in Changming' : '进入常明城看这段关系'}</span><b aria-hidden="true">↗</b></button>`;
@@ -7305,7 +7341,7 @@
       $('bazi-head').textContent = `${input.gender} · ${solarEcho}${c.lunarText} · 属${c.shengXiao}`;
     }
     renderSolarLine(input); // 真太阳时开启则双行呈现钟表时/真太阳时时辰（异说 chip 复用 diverge 浮层）
-    renderBaziArchetype(c); // 人物入口取五行相对最少项；日主继续负责学术关系计算
+    renderBaziArchetype(c); // 日主作为「你」；五行相对较少项以阴阳两位共同出现
     // 四柱
     const pr = $('bazi-pillars');
     pr.innerHTML = '';

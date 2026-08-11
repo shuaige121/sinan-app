@@ -1,7 +1,7 @@
-/* 司南·典籍阁 Service Worker — 离线缓存 v20260810b */
+/* 司南·典籍阁 Service Worker — 离线缓存 v20260812b */
 'use strict';
-const CACHE = 'djg-v20260810-b';
-const SHELL = ['./', './css/style.css', './js/app.js', './data/registry.json', './manifest.json', './icon.svg'];
+const CACHE = 'djg-v20260812-b';
+const SHELL = ['./', './css/style.css', './js/app.js', './data/registry.json', './manifest.json', './icon.svg', './img/changming-archive-hall-v1.webp'];
 
 self.addEventListener('install', e => {
   e.waitUntil(
@@ -31,7 +31,7 @@ self.addEventListener('fetch', e => {
   if (path.endsWith('/') || path.endsWith('index.html') ||
       path.endsWith('style.css') || path.endsWith('app.js') ||
       path.endsWith('registry.json') || path.endsWith('manifest.json') ||
-      path.endsWith('icon.svg')) {
+      path.endsWith('icon.svg') || path.endsWith('changming-archive-hall-v1.webp')) {
     e.respondWith(
       caches.open(CACHE).then(cache =>
         cache.match(req).then(cached => {

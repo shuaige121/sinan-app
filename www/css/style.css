@@ -3202,3 +3202,106 @@ body.changming-open { overflow: hidden; }
   .changming-world, .cm-motes i, .bazi-arch-enter, .character-world-link { transition: none; animation: none; }
   .cm-content { scroll-behavior: auto; }
 }
+
+/* ===== 常明城 v9：完整叙事场景，不再使用抠图叠底 ===== */
+.bazi-archetype {
+  min-height: 0; overflow: visible; border: 0; border-radius: 0;
+  background: none; box-shadow: none;
+}
+.bazi-persona-hero {
+  position: relative; isolation: isolate; min-height: 430px; overflow: hidden;
+  border: .7px solid rgba(var(--arch-rgb),.48); border-radius: 18px;
+  background: #080b0d; box-shadow: 0 13px 34px rgba(0,0,0,.28);
+}
+.bazi-persona-art {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: var(--scene-focus, 50% 50%);
+  filter: saturate(.88) contrast(1.03) brightness(.82); transform: scale(1.005);
+}
+.bazi-persona-shade {
+  position: absolute; z-index: 2; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(5,8,10,.98) 0%, rgba(5,8,10,.86) 38%, rgba(5,8,10,.12) 72%),
+    linear-gradient(180deg, rgba(5,8,10,.06) 35%, rgba(5,8,10,.72) 100%);
+}
+.bazi-persona-hero .bazi-arch-copy {
+  position: relative; z-index: 3; inset: auto; width: min(58%, 430px); min-height: 430px;
+  padding: 26px 18px 24px 23px; background: none; opacity: 1; transform: none;
+}
+.bazi-persona-hero .bazi-arch-kicker { position: static; display: block; width: auto; max-width: none; margin: 0 0 15px; transform: none; }
+.bazi-persona-hero .bazi-arch-desc { max-width: 380px; }
+.bazi-cast-heading { display: flex; justify-content: space-between; gap: 18px; margin: 20px 2px 10px; align-items: flex-end; }
+.bazi-cast-heading span { color: var(--gold); font-size: 11px; letter-spacing: .18em; }
+.bazi-cast-heading p { max-width: 330px; margin: 0; color: var(--paper-dim); font-size: 10px; line-height: 1.5; text-align: right; }
+.bazi-cast-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+.bazi-cast-card {
+  position: relative; isolation: isolate; min-height: 218px; overflow: hidden; padding: 0;
+  border: .7px solid rgba(239,226,195,.17); border-radius: 13px; background: #080b0d;
+  color: var(--paper); text-align: left; cursor: pointer; box-shadow: 0 8px 22px rgba(0,0,0,.2);
+}
+.bazi-cast-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--scene-focus,50% 50%); filter: saturate(.84) brightness(.76); transition: transform .35s ease, filter .35s ease; }
+.bazi-cast-card:hover img { transform: scale(1.025); filter: saturate(.96) brightness(.86); }
+.bazi-cast-shade { position: absolute; z-index: 1; inset: 0; background: linear-gradient(180deg, transparent 24%, rgba(5,8,10,.3) 52%, rgba(5,8,10,.97) 100%); }
+.bazi-cast-copy { position: absolute; z-index: 2; left: 14px; right: 14px; bottom: 13px; }
+.bazi-cast-copy small { display: block; color: var(--gold); font-size: 9px; letter-spacing: .14em; }
+.bazi-cast-copy b { display: block; margin-top: 6px; color: #f0e7d4; font: 500 14px/1.35 serif; }
+.bazi-cast-copy em { display: block; margin-top: 5px; color: rgba(239,232,213,.58); font-size: 9px; font-style: normal; line-height: 1.45; }
+.bazi-cast-card.is-clash { border-color: rgba(179,75,55,.46); }
+.bazi-cast-card.is-combine { border-color: rgba(201,162,39,.42); }
+.bazi-archetype > .bazi-arch-basis { max-width: none; margin: 11px 3px 0; }
+
+.character-story-visual.is-full-scene { height: 310px; background: #080b0d; }
+.character-story-visual.is-full-scene .character-story-person {
+  position: absolute; z-index: 2; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: var(--scene-focus,50% 50%);
+  filter: saturate(.86) contrast(1.02) brightness(.84); transform: none;
+}
+.character-story-visual.is-full-scene::after { background: linear-gradient(180deg, transparent 52%, rgba(5,8,10,.72)); }
+
+.relation-character-scene.is-cinematic { display: flex; gap: 2px; height: 280px; padding: 0; background: #080b0d; }
+.relation-character-scene.is-cinematic::after { background: linear-gradient(180deg, transparent 48%, rgba(5,8,10,.74)); }
+.relation-character-scene.is-cinematic .relation-character {
+  position: relative; flex: 1 1 0; max-width: none; height: 100%; margin: 0; overflow: hidden;
+  border: 0; border-radius: 0; transform: none; filter: none;
+}
+.relation-character-scene.is-cinematic .relation-character img {
+  width: 100%; height: 100%; object-fit: cover; object-position: var(--scene-focus,50% 50%);
+  filter: saturate(.78) brightness(.75); transform: scale(1.02);
+}
+.relation-character-scene.is-cinematic .relation-character.is-self img { filter: saturate(.92) brightness(.86); }
+.relation-story-scene img { aspect-ratio: 16/9; object-position: center; filter: saturate(.9) brightness(.88); }
+
+.cm-hero-background {
+  background-position: var(--scene-focus,50% 50%); filter: saturate(.83) contrast(1.02) brightness(.72); transform: none;
+}
+.cm-hero-background::after {
+  background:
+    linear-gradient(90deg, rgba(5,7,8,.91) 0%, rgba(5,7,8,.46) 42%, rgba(5,7,8,.06) 78%),
+    linear-gradient(180deg, rgba(5,7,8,.04) 30%, rgba(5,7,8,.28) 62%, #080b0d 100%);
+}
+.cm-character-folio { display: none; }
+.cm-relation-people { gap: 2px; padding: 0; align-items: stretch; }
+.cm-relation-person, .cm-relation-person.is-focus { height: 100%; flex: 1 1 0; margin: 0; overflow: hidden; filter: none; }
+.cm-relation-person img { width: 100%; height: 100%; object-fit: cover; object-position: var(--scene-focus,50% 50%); filter: saturate(.78) brightness(.74); }
+.cm-relation-person.is-focus img { filter: saturate(.92) brightness(.86); }
+.cm-cast-person img { object-position: var(--scene-focus,50% 50%); }
+.cm-cast-person.is-low { border-color: color-mix(in srgb, var(--cm-character) 46%, rgba(235,222,194,.12)); }
+
+@media (max-width: 620px) {
+  .bazi-archetype { min-height: 0; }
+  .bazi-persona-hero { min-height: 570px; }
+  .bazi-persona-art { height: 64%; object-position: var(--scene-focus,50% 50%); }
+  .bazi-persona-shade { background: linear-gradient(180deg, rgba(5,8,10,.03) 0%, rgba(5,8,10,.16) 35%, #070a0c 62%, #070a0c 100%); }
+  .bazi-persona-hero .bazi-arch-copy { position: absolute; left: 0; right: 0; bottom: 0; width: auto; min-height: auto; padding: 126px 18px 19px; background: none; }
+  .bazi-persona-hero .bazi-arch-desc { margin-top: 8px; }
+  .bazi-cast-heading { display: block; margin-top: 18px; }
+  .bazi-cast-heading p { margin-top: 5px; text-align: left; }
+  .bazi-cast-grid { grid-template-columns: 1fr; }
+  .bazi-cast-card { min-height: 225px; }
+  .bazi-archetype > .bazi-arch-basis { display: block; }
+  .character-story-visual.is-full-scene { height: 250px; }
+  .relation-character-scene.is-cinematic { height: 245px; }
+  .cm-hero-background { background-position: var(--scene-focus,50% 50%); }
+  .cm-hero-background::after { background: linear-gradient(180deg, rgba(5,7,8,.04) 0%, rgba(5,7,8,.12) 38%, #080b0d 82%); }
+  .cm-relation-story img { height: 260px; }
+}

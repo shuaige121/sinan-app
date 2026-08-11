@@ -912,3 +912,185 @@ html.embedded .drawer-mask { -webkit-backdrop-filter: blur(2px); backdrop-filter
   html.embedded body::before, html.embedded #app.view-forward, html.embedded #app.view-back,
   html.embedded .passage-block, html.embedded .asent, html.embedded .reader-lazy-sentinel i { animation: none; }
 }
+
+/* ═══════════════ 常明城藏经阁 v2：地下档案馆，而非仿古书皮陈列 ═══════════════ */
+.shelf-hero.has-archive {
+  isolation: isolate;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 590px;
+  width: calc(100% - 2rem);
+  max-width: 960px;
+  margin: 1rem auto .25rem;
+  padding: clamp(1.25rem, 4vw, 2.2rem);
+  overflow: hidden;
+  border: 1px solid rgba(221, 226, 222, .2);
+  border-radius: 18px;
+  color: #f1f1eb;
+  background: #111613;
+  box-shadow: 0 26px 62px rgba(12, 15, 13, .3);
+}
+.archive-hero-media,
+.archive-hero-shade { position: absolute; inset: 0; }
+.archive-hero-media { z-index: -3; margin: 0; }
+.archive-hero-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 48%;
+  filter: saturate(.72) contrast(1.05) brightness(.83);
+  transform: scale(1.002);
+}
+.archive-hero-shade {
+  z-index: -2;
+  background:
+    linear-gradient(180deg, rgba(5, 9, 7, .22) 0%, rgba(5, 9, 7, .08) 36%, rgba(5, 9, 7, .89) 80%, rgba(5, 9, 7, .97) 100%),
+    linear-gradient(90deg, rgba(5, 9, 7, .76), transparent 66%);
+}
+.archive-hero-copy { max-width: 34rem; text-shadow: 0 2px 18px rgba(0, 0, 0, .68); }
+.shelf-hero.has-archive .hero-tag {
+  display: inline-flex;
+  width: fit-content;
+  padding: .22rem .62rem;
+  border: 1px solid rgba(220, 226, 216, .38);
+  border-radius: 999px;
+  color: rgba(239, 235, 214, .9);
+  background: rgba(9, 13, 11, .38);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  letter-spacing: .22em;
+}
+.shelf-hero.has-archive .hero-headline {
+  max-width: 11em;
+  margin: .75rem 0 .5rem;
+  color: #f6f4ea;
+  font-size: clamp(1.55rem, 4.3vw, 2.35rem);
+  font-weight: 700;
+  line-height: 1.22;
+  letter-spacing: .035em;
+}
+.shelf-hero.has-archive .hero-sub {
+  max-width: 37rem;
+  color: rgba(237, 238, 230, .76);
+  font-size: .8rem;
+  line-height: 1.75;
+}
+.archive-hero-picks { margin-top: auto; padding-top: 5.3rem; }
+.shelf-hero.has-archive .hero-pick-label {
+  margin: 0 0 .58rem;
+  color: rgba(238, 228, 196, .74);
+  font-size: .65rem;
+  letter-spacing: .24em;
+}
+.shelf-hero.has-archive .hero-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .55rem; }
+.shelf-hero.has-archive .hero-card {
+  min-height: 102px;
+  padding: .7rem .72rem .62rem;
+  border: 1px solid rgba(226, 231, 224, .18);
+  border-radius: 9px;
+  background: rgba(8, 12, 10, .68);
+  box-shadow: none;
+  -webkit-backdrop-filter: blur(12px) saturate(.8);
+  backdrop-filter: blur(12px) saturate(.8);
+}
+.shelf-hero.has-archive .hero-card:hover {
+  border-color: rgba(235, 222, 182, .5);
+  background: rgba(13, 18, 15, .82);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, .25);
+}
+.shelf-hero.has-archive .hero-card::before,
+.shelf-hero.has-archive .hero-card::after { content: none; }
+.shelf-hero.has-archive .hero-card-badge {
+  padding: 0;
+  color: rgba(228, 217, 184, .7);
+  background: none;
+  font-size: .55rem;
+  letter-spacing: .14em;
+}
+.shelf-hero.has-archive .hero-card-title { color: #f3f1e8; font-size: .92rem; letter-spacing: .05em; }
+.shelf-hero.has-archive .hero-card-meta { color: rgba(225, 227, 219, .5); }
+
+/* 首页检索与书目卡只借用档案馆的材质；进入正文后恢复原有纸面阅读。 */
+html:not([data-view="read"]) body {
+  background: #101512;
+  color: #d9ddd7;
+}
+html:not([data-view="read"]) body::before {
+  opacity: .13;
+  background-image: radial-gradient(circle at 25% 20%, rgba(221, 226, 217, .28) 0 .7px, transparent 1.2px);
+  background-size: 94px 94px;
+}
+html:not([data-view="read"]) .site-header,
+html:not([data-view="read"]) .shelf-chrome {
+  color: #e7e9e2;
+  background: rgba(12, 17, 14, .88);
+  border-color: rgba(224, 229, 222, .12);
+}
+html:not([data-view="read"]) .shelf-chrome { box-shadow: 0 10px 28px rgba(0, 0, 0, .2); }
+html:not([data-view="read"]) .search-bar input {
+  color: #e8ebe5;
+  background: rgba(237, 241, 235, .055);
+  border-color: rgba(225, 231, 223, .15);
+}
+html:not([data-view="read"]) .cat-tab,
+html:not([data-view="read"]) .filter-chip {
+  color: rgba(223, 227, 220, .68);
+  background: rgba(234, 239, 232, .05);
+  border-color: rgba(225, 231, 223, .12);
+}
+html:not([data-view="read"]) .cat-tab.active,
+html:not([data-view="read"]) .filter-chip.active {
+  color: #101512;
+  background: #c9c6b1;
+  border-color: #c9c6b1;
+}
+html.embedded .shelf-hero.has-archive {
+  padding: clamp(1.25rem, 4vw, 2.2rem);
+  border-radius: 16px;
+}
+html.embedded .shelf-hero.has-archive::before { content: none; }
+html:not([data-view="read"]) .bookshelf { padding-top: .55rem; }
+html:not([data-view="read"]) .section-heading { color: rgba(218, 223, 216, .52); }
+html:not([data-view="read"]) .section-heading::after { background: linear-gradient(90deg, rgba(221, 226, 219, .18), transparent); }
+html:not([data-view="read"]) .book-card {
+  min-height: 134px;
+  padding: .85rem;
+  border: 1px solid rgba(222, 228, 220, .13);
+  border-radius: 9px;
+  color: #dce0da;
+  background:
+    linear-gradient(135deg, rgba(235, 240, 233, .065), rgba(235, 240, 233, .025)),
+    #151b17;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .18);
+}
+html:not([data-view="read"]) .book-card::before {
+  inset: 9px auto 9px 0;
+  width: 2px;
+  background: rgba(207, 199, 168, .42);
+  box-shadow: none;
+}
+html:not([data-view="read"]) .book-card::after { content: none; }
+html:not([data-view="read"]) .book-title { color: #eceee8; }
+html:not([data-view="read"]) .book-author,
+html:not([data-view="read"]) .book-dynasty,
+html:not([data-view="read"]) .book-stats { color: rgba(219, 223, 216, .52); }
+html:not([data-view="read"]) .license-footer { color: rgba(218, 223, 216, .48); border-color: rgba(222, 228, 220, .12); }
+
+@media (max-width: 640px) {
+  .shelf-hero.has-archive {
+    min-height: 610px;
+    width: calc(100% - 1rem);
+    margin-top: .5rem;
+    padding: 1.05rem;
+    border-radius: 12px;
+  }
+  .archive-hero-media img { object-position: 52% 44%; }
+  .shelf-hero.has-archive .hero-headline { max-width: 9.8em; font-size: 1.55rem; }
+  .shelf-hero.has-archive .hero-sub { max-width: 24em; font-size: .72rem; }
+  .archive-hero-picks { padding-top: 8.2rem; }
+  .shelf-hero.has-archive .hero-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .shelf-hero.has-archive .hero-card { min-height: 86px; }
+  .shelf-hero.has-archive .hero-card-title { font-size: .82rem; }
+}

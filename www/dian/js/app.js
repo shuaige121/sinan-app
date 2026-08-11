@@ -671,12 +671,18 @@ function renderHero(allBooks) {
       <span class="hero-card-title">${esc(b.title)}</span>
       <span class="hero-card-meta">${esc(b.dynasty || '')}${bookStats(b) ? ' · ' + esc(bookStats(b)) : ''}</span>
     </button>`).join('');
-  return `<div class="shelf-hero" id="shelf-hero">
-    <div class="hero-tag">司南配套古籍库</div>
-    <div class="hero-headline">每一句判断，都能溯源到这里的原文</div>
-    <div class="hero-sub">22 部堪舆·命理典籍逐句白话译注，点原文句里的「释」看逐字·义理·量化·出处</div>
-    ${cards ? `<div class="hero-pick-label">✦ 从这本开始</div>
-    <div class="hero-cards">${cards}</div>` : ''}
+  return `<div class="shelf-hero has-archive" id="shelf-hero">
+    <figure class="archive-hero-media" aria-hidden="true">
+      <img src="./img/changming-archive-hall-v1.webp" alt="" width="1600" height="900" loading="eager" decoding="async">
+    </figure>
+    <div class="archive-hero-shade" aria-hidden="true"></div>
+    <div class="archive-hero-copy">
+      <div class="hero-tag">常明城 · 藏经阁</div>
+      <div class="hero-headline">每一句判断，都能回到它来时的原文</div>
+      <div class="hero-sub">22 部堪舆·命理典籍逐句白话译注。这里不是书皮陈列，而是一座能查证、能追溯的地下档案馆。</div>
+    </div>
+    ${cards ? `<div class="archive-hero-picks"><div class="hero-pick-label">从这卷开始</div>
+    <div class="hero-cards">${cards}</div></div>` : ''}
   </div>`;
 }
 

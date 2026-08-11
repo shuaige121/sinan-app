@@ -10,7 +10,7 @@
   const ELEMENTS = ['木', '火', '土', '金', '水'];
   const ELEMENT_EN = { 木: 'Wood', 火: 'Fire', 土: 'Earth', 金: 'Metal', 水: 'Water' };
   const ELEMENT_HEX = C.EL_HEX || { 木: '#45a66b', 火: '#d94c33', 土: '#d9a821', 金: '#d8c47a', 水: '#5489cc' };
-  const state = { chart: null, input: null, dayMasterStem: null, guideStem: null, guideBalanced: false, activeStem: null, relationIndex: 0, returnFocus: null };
+  const state = { chart: null, input: null, dayMasterStem: null, guideStems: [], guideElement: null, guideBalanced: false, activeStem: null, relationIndex: 0, returnFocus: null };
   let root = null;
   let content = null;
 
@@ -90,15 +90,17 @@
     return Characters.stemOrder.map(stem => {
       const item = Characters.get(stem);
       if (!item) return '';
-      const isGuide = stem === state.guideStem;
+      const isGuide = state.guideStems.includes(stem);
       const isDayMaster = stem === state.dayMasterStem;
       const current = stem === activeStem;
       const name = itemText(item, 'name');
-      const note = (isGuide && !state.guideBalanced)
-        ? text('你八字里最少的一行', 'Your chart is lowest here')
-        : (isDayMaster ? text('我的日主', 'My Day Master') : itemText(item, 'role'));
-      return `<button type="button" class="cm-cast-person${current ? ' is-active' : ''}${isGuide ? ' is-mine' : ''}" data-cm-stem="${stem}" aria-pressed="${current}">
-        <img src="${esc(item.portrait || item.asset)}" alt="${esc(stem + '·' + name)}" loading="lazy" decoding="async">
+      const note = isDayMaster
+        ? text('我的日主', 'My Day Master')
+        : ((isGuide && !state.guideBalanced)
+          ? text(`较少的${item.element} · 两位一起看`, `Lower ${ELEMENT_EN[item.element]} · shown as a pair`)
+          : itemText(item, 'role'));
+      return `<button type="button" class="cm-cast-person${current ? ' is-active' : ''}${isDayMaster ? ' is-mine' : ''}${isGuide ? ' is-low' : ''}" data-cm-stem="${stem}" aria-pressed="${current}">
+        <img src="${esc(item.heroScene || item.background)}" alt="${esc(stem + '·' + name)}" loading="lazy" decoding="async" style="--scene-focus:${esc(item.heroFocus || '50% 50%')}">
         <span><b>${esc(stem + '·' + name)}</b><small>${esc(note)}</small></span>
       </button>`;
     }).join('');
@@ -110,7 +112,7 @@
       const person = Characters.get(sceneStem);
       if (!person) return '';
       return `<figure class="cm-relation-person${index === 0 ? ' is-focus' : ''}">
-        <img src="${esc(person.fullBody || person.asset)}" alt="${esc(sceneStem + '·' + itemText(person, 'name'))}" loading="lazy" decoding="async">
+        <img src="${esc(person.heroScene || person.background)}" alt="${esc(sceneStem + '·' + itemText(person, 'name'))}" loading="lazy" decoding="async" style="--scene-focus:${esc(person.heroFocus || '50% 50%')}">
         <figcaption>${index === 0 ? text('此刻所读 · ', 'Now reading · ') : ''}${esc(sceneStem + '·' + itemText(person, 'name'))}</figcaption>
       </figure>`;
     }).join('');
@@ -145,16 +147,17 @@
   }
 
   function render(stem) {
-    const item = Characters.get(stem) || Characters.get(state.guideStem) || Characters.get('甲');
+    const item = Characters.get(stem) || Characters.get(state.dayMasterStem) || Characters.get('甲');
     if (!item || !content) return;
-    state.activeStem = Characters.get(stem) ? stem : (state.guideStem || '甲');
+    state.activeStem = Characters.get(stem) ? stem : (state.dayMasterStem || '甲');
     state.relationIndex = 0;
     const profile = scoreProfile(state.chart);
     const primary = profile.ranked[0].el;
     const secondary = profile.ranked[1].el;
     const primaryHex = ELEMENT_HEX[primary];
     const secondaryHex = ELEMENT_HEX[secondary];
-    const isGuide = !!state.guideStem && state.activeStem === state.guideStem;
+    const isDayMaster = !!state.dayMasterStem && state.activeStem === state.dayMasterStem;
+    const isGuide = state.guideStems.includes(state.activeStem);
     const polarity = item.yang ? text('阳', 'Yang') : text('阴', 'Yin');
     const name = itemText(item, 'name');
     const role = itemText(item, 'role');
@@ -166,11 +169,11 @@
     const sourceLine = state.chart
       ? text('按本机命盘五行分值映射，只呈结构，不作吉凶。', 'Mapped from the five-phase scores stored on this device. It shows structure, not fortune.')
       : text('未读取命盘，暂以五色等量展示。', 'No chart is loaded; the five colors are shown equally for preview.');
-    const enterLabel = !isGuide
-      ? text('城中人物志', 'A life in Changming')
-      : (state.guideBalanced
-        ? text('五行分得很匀，先由日主来见你', 'Your phases are even — your Day Master steps in')
-        : text('你八字里最少的就是这一行', 'Your chart is lowest in this phase'));
+    const enterLabel = isDayMaster
+      ? text('这是你的日主 · 人物叙事从这里开始', 'Your Day Master · your story begins here')
+      : (isGuide && !state.guideBalanced
+        ? text(`你盘里较少的${item.element} · ${state.guideStems.join('、')}一起出现`, `Lower ${ELEMENT_EN[item.element]} · both stems appear together`)
+        : text('城中人物志', 'A life in Changming'));
     const fireCycle = item.element === '火' ? `<figure class="cm-fire-cycle">
       <img src="img/ten-archetypes/human/v8/scenes/fire-cycle-v1.webp" alt="${esc(text('忘归向外展开晨光，西窗在明暗交界护住火种', 'Wanggui opens into daylight while Xichuang protects the ember at its edge'))}" loading="lazy" decoding="async">
       <figcaption><b>${text('凤凰与卵', 'Phoenix and Egg')}</b><span>${text('同一股火，一边向外给予，一边把未来收拢；院外晨光正在展开，掌心微光仍未熄灭。', 'One fire gives outward while the other encloses the future; dawn opens outside while the ember remains lit within her hands.')}</span></figcaption>
@@ -181,13 +184,10 @@
     root.style.setProperty('--cm-character', ELEMENT_HEX[item.element] || primaryHex);
     root.dataset.balanced = String(profile.balanced);
     content.innerHTML = `
-      <section class="cm-hero" style="--cm-bg:url('../${esc(item.background)}')">
+      <section class="cm-hero" style="--cm-bg:url('../${esc(item.heroScene || item.background)}');--scene-focus:${esc(item.heroFocus || '50% 50%')}">
         <div class="cm-hero-background" role="img" aria-label="${esc(name + text('的人物场景', ' character setting'))}"></div>
         <div class="cm-color-field" aria-hidden="true"></div>
         <div class="cm-motes" aria-hidden="true">${moteMarkup(state.activeStem, profile)}</div>
-        <figure class="cm-character-folio">
-          <img src="${esc(item.fullBody || item.asset)}" alt="${esc(state.activeStem + '·' + name + '·' + role)}" decoding="async">
-        </figure>
         <div class="cm-hero-copy">
           <span class="cm-eyebrow">${esc(enterLabel)}</span>
           <h1><b>${esc(state.activeStem)}</b>${esc(name)}</h1>
@@ -226,8 +226,8 @@
 
     const mineButton = root.querySelector('#cm-mine');
     if (mineButton) {
-      mineButton.hidden = !state.guideStem || isGuide;
-      mineButton.textContent = text('回到我那一位', 'Back to mine');
+      mineButton.hidden = !state.dayMasterStem || isDayMaster;
+      mineButton.textContent = text('回到我的日主', 'Back to my Day Master');
     }
     const brand = root.querySelector('.cm-brand');
     if (brand) brand.innerHTML = `<b>常明城</b><small>${text('十干人物志', 'TEN-STEM CHRONICLES')}</small>`;
@@ -244,10 +244,11 @@
     state.chart = loaded.chart;
     state.dayMasterStem = loaded.chart ? loaded.chart.dm : null;
     const guide = Characters.guideFor(loaded.chart);
-    state.guideStem = guide.stem;
+    state.guideStems = guide.pair ? guide.pair.slice() : [];
+    state.guideElement = guide.element;
     state.guideBalanced = !!guide.balanced; // 五行等量时没有「最少」，文案不能照说
     state.returnFocus = document.activeElement;
-    render(stem || state.guideStem || '甲');
+    render(stem || state.dayMasterStem || state.guideStems[0] || '甲');
     root.hidden = false;
     root.setAttribute('aria-hidden', 'false');
     document.body.classList.add('changming-open');
@@ -295,7 +296,7 @@
       }
     });
     root.querySelector('#cm-close')?.addEventListener('click', close);
-    root.querySelector('#cm-mine')?.addEventListener('click', () => { if (state.guideStem) render(state.guideStem); });
+    root.querySelector('#cm-mine')?.addEventListener('click', () => { if (state.dayMasterStem) render(state.dayMasterStem); });
     document.addEventListener('keydown', event => { if (event.key === 'Escape' && !root.hidden) close(); });
   }
 

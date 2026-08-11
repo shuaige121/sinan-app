@@ -1,16 +1,24 @@
 /* SPDX-License-Identifier: LicenseRef-Sinan-Characters-Stories-ARR */
-/* 常明城十干人物系统：数据、关系与 PNG 资产协议。 */
+/* 常明城十干人物系统：数据、关系与完整叙事场景资产协议。 */
 (function (global) {
   'use strict';
 
   const HUMAN_ROOT = 'img/ten-archetypes/human/';
   const V8_ROOT = HUMAN_ROOT + 'v8/';
+  const V9_ROOT = HUMAN_ROOT + 'v9/';
   const COMIC_BASE = HUMAN_ROOT + 'v7/comics/';
+  const HERO_FOCUS = Object.freeze({
+    'jia-wood': '40% 50%', 'yi-wood': '50% 50%', 'bing-fire': '40% 50%', 'ding-fire': '50% 50%',
+    'wu-earth': '39% 50%', 'ji-earth': '43% 50%', 'geng-metal': '43% 50%', 'xin-metal': '43% 50%',
+    'ren-water': '38% 50%', 'gui-water': '40% 50%'
+  });
   const visualSet = slug => Object.freeze({
     asset: V8_ROOT + 'portraits/' + slug + '.png',
     portrait: V8_ROOT + 'portraits/' + slug + '.png',
     fullBody: V8_ROOT + 'full-body/' + slug + '.png',
-    background: V8_ROOT + 'backgrounds/' + slug + '.webp'
+    background: V8_ROOT + 'backgrounds/' + slug + '.webp',
+    heroScene: V9_ROOT + 'heroes/' + slug + '-city-v1.webp',
+    heroFocus: HERO_FOCUS[slug] || '50% 50%'
   });
   const poseSet = slug => Object.freeze({
     identity: V8_ROOT + 'portraits/' + slug + '.png',
@@ -26,6 +34,13 @@
   const CONTROLS = { 木: '土', 土: '水', 水: '火', 火: '金', 金: '木' };
   const GENERATED_BY = Object.fromEntries(Object.entries(GENERATES).map(([a, b]) => [b, a]));
   const CONTROLLED_BY = Object.fromEntries(Object.entries(CONTROLS).map(([a, b]) => [b, a]));
+  const ELEMENT_SCENES = Object.freeze({
+    木: V9_ROOT + 'relations/peer-wood-v1.webp',
+    火: V9_ROOT + 'relations/peer-fire-v1.webp',
+    土: V9_ROOT + 'relations/peer-earth-v1.webp',
+    金: V9_ROOT + 'relations/peer-metal-v1.webp',
+    水: V9_ROOT + 'relations/peer-water-v1.webp'
+  });
 
   const CHARACTERS = {
     甲: {
@@ -163,11 +178,11 @@
   };
 
   const PEER_STORIES = {
-    木: { titleZh: '同一束光', titleEn: 'The Same Light', storyZh: '风雨刚停，甲撑住温室里倾斜的旧梁，乙沿梁侧无人留意的缝隙引藤向上。两条路最后都抵达破顶落下的同一束晨光；相似的力量彼此理解，也会碰到彼此的边界。', storyEn: 'After the storm, Jia braces the leaning frame while Yi guides a vine through an overlooked gap. Both routes reach the same beam of morning light—kindred strength meeting its own boundary.', scene: V8_ROOT + 'scenes/jia-yi-same-light-v1.webp' },
-    火: { titleZh: '凤凰与卵', titleEn: 'Phoenix and Egg', storyZh: '丙是已经展开、把白日与大火给所有人的凤凰；丁是势弱却护住最后可能的凤凰卵。同一股火，一边向外给予，一边把未来收拢。', storyEn: 'Bing is fire unfolded like a phoenix, giving daylight to everyone; Ding is the faint egg that protects its last possible return. One fire gives outward while the other encloses the future.' },
-    土: { titleZh: '该留下哪一株', titleEn: 'What Should Remain', storyZh: '戊负责拒绝，己负责容纳。边界太近会伤害生命，边界太远又会让一切无法呼吸。', storyEn: 'Wu refuses; Ji receives. A boundary too close harms life, while one too far leaves nothing room to breathe.' },
-    金: { titleZh: '今天必须交付', titleEn: 'It Must Ship Today', storyZh: '庚怕来不及，辛怕不够好。真正可用的标准，永远发生在果断与精度之间。', storyEn: 'Geng fears being too late; Xin fears not being good enough. Usable work lives between decision and precision.' },
-    水: { titleZh: '河不知道雨', titleEn: 'The River Does Not Know the Rain', storyZh: '壬看见整条河，癸看见一滴提前的水。范围与精度缺少任何一边，都无法找到真正的失衡。', storyEn: 'Ren sees the whole river; Gui sees one early drop. Neither range nor precision can locate imbalance alone.' }
+    木: { titleZh: '同一束光', titleEn: 'The Same Light', storyZh: '风雨刚停，甲撑住温室里倾斜的旧梁，乙沿梁侧无人留意的缝隙引藤向上。两条路最后都抵达破顶落下的同一束晨光；相似的力量彼此理解，也会碰到彼此的边界。', storyEn: 'After the storm, Jia braces the leaning frame while Yi guides a vine through an overlooked gap. Both routes reach the same beam of morning light—kindred strength meeting its own boundary.', scene: ELEMENT_SCENES.木 },
+    火: { titleZh: '凤凰与卵', titleEn: 'Phoenix and Egg', storyZh: '丙是已经展开、把白日与大火给所有人的凤凰；丁是势弱却护住最后可能的凤凰卵。同一股火，一边向外给予，一边把未来收拢。', storyEn: 'Bing is fire unfolded like a phoenix, giving daylight to everyone; Ding is the faint egg that protects its last possible return. One fire gives outward while the other encloses the future.', scene: ELEMENT_SCENES.火 },
+    土: { titleZh: '该留下哪一株', titleEn: 'What Should Remain', storyZh: '戊负责拒绝，己负责容纳。边界太近会伤害生命，边界太远又会让一切无法呼吸。', storyEn: 'Wu refuses; Ji receives. A boundary too close harms life, while one too far leaves nothing room to breathe.', scene: ELEMENT_SCENES.土 },
+    金: { titleZh: '今天必须交付', titleEn: 'It Must Ship Today', storyZh: '庚怕来不及，辛怕不够好。真正可用的标准，永远发生在果断与精度之间。', storyEn: 'Geng fears being too late; Xin fears not being good enough. Usable work lives between decision and precision.', scene: ELEMENT_SCENES.金 },
+    水: { titleZh: '河不知道雨', titleEn: 'The River Does Not Know the Rain', storyZh: '壬看见整条河，癸看见一滴提前的水。范围与精度缺少任何一边，都无法找到真正的失衡。', storyEn: 'Ren sees the whole river; Gui sees one early drop. Neither range nor precision can locate imbalance alone.', scene: ELEMENT_SCENES.水 }
   };
 
   const GENERATION_STORIES = {
@@ -212,8 +227,8 @@
     return CHARACTERS[stem] || null;
   }
 
-  // 人物入口看五行分值的相对最少项；日主仍只负责学术生克关系。
-  // 同一五行的两位人物沿用日主阴阳，避免另一层随机选择。
+  // 五行分值只能推出相对最少的「元素」，不能据此断成某一个阴干或阳干。
+  // 非均衡时 pair 才是权威结果；stem 留空，避免 UI 把「火少」误说成「只缺丙/丁」。
   function guideFor(chart) {
     const dayMaster = character(chart && chart.dm) ? chart.dm : '甲';
     const dayItem = character(dayMaster);
@@ -238,9 +253,8 @@
     const weakest = balanced ? null : tied[0];
     const element = weakest ? weakest.element : dayItem.element;
     const candidates = ELEMENT_STEMS[element] || [dayMaster];
-    const stem = candidates.find(candidate => character(candidate).yang === dayItem.yang) || candidates[0] || dayMaster;
     return Object.freeze({
-      stem,
+      stem: balanced ? dayMaster : null,
       element,
       score: weakest ? weakest.score : Number(raw[element]) || 0,
       dayMaster,
@@ -286,8 +300,13 @@
       {
         key: 'output', kind: 'generate', label: en ? 'I generate' : '我生', term: en ? '食伤 · output' : '食伤',
         plain: en ? 'What you give also costs you' : '你交出去，也会被消耗',
-        title: textOf(output, 'title', lang), story: textOf(output, 'story', lang), scene: '',
-        relatedStems: outputStems, related: namesFor(outputStems, lang)
+        title: textOf(output, 'title', lang), story: textOf(output, 'story', lang),
+        scene: stem === '乙' ? V9_ROOT + 'relations/yi-output-fire-trio-v1.webp' : '',
+        relatedStems: outputStems, related: namesFor(outputStems, lang),
+        relatedDetails: outputStems.map(target => ({
+          stem: target,
+          role: character(target).yang === item.yang ? (en ? 'Eating God' : '食神') : (en ? 'Hurting Officer' : '伤官')
+        }))
       },
       {
         key: 'source', kind: 'source', label: en ? 'Generates me' : '生我', term: en ? '印 · support' : '印',
@@ -317,7 +336,11 @@
         plain: sp.type === '合'
           ? (en ? 'Opposing motions interlock; the next state stays open' : '相制动作互锁，长出谁都不是的下一种状态')
           : (en ? 'Equal force on one axis; no villain and no fixed ending' : '同轴等量受力，没有反派，也没有固定结局'),
-        title: textOf(sp, 'title', lang), story: textOf(sp, 'story', lang), scene: '',
+        title: textOf(sp, 'title', lang), story: textOf(sp, 'story', lang),
+        scene: sp.type === '合' && ((sp.a === '乙' && sp.b === '庚') || (sp.a === '庚' && sp.b === '乙'))
+          ? V9_ROOT + 'relations/yi-geng-combine-v1.webp'
+          : (sp.type === '冲' && ((sp.a === '乙' && sp.b === '辛') || (sp.a === '辛' && sp.b === '乙'))
+            ? V9_ROOT + 'relations/yi-xin-clash-v1.webp' : ''),
         relatedStems: [other], related: namesFor([other], lang)
       });
     });
@@ -326,12 +349,14 @@
 
   global.SinanCharacters = Object.freeze({
     assetBase: V8_ROOT,
+    sceneBase: V9_ROOT,
     stemOrder: STEM_ORDER.slice(),
     elementOrder: ELEMENT_ORDER.slice(),
     get: character,
     guideFor,
     text: textOf,
     relationCards,
-    namesFor
+    namesFor,
+    sceneForElement: element => ELEMENT_SCENES[element] || ''
   });
 })(window);
