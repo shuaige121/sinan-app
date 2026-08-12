@@ -102,9 +102,60 @@ function highlight(text, query) {
   return parts.join('');
 }
 
+// ─── 典籍封面与卷册主题 ───
+// 每部书都获得所属门类的实景插画；色板同时作用于详情与正文，避免封面、按钮、纸张各说各话。
+const BOOK_PALETTES = Object.freeze({
+  jingyi:   ['#8f3b24', '#cb8b55', '#2e1711', '#f5e4c2', '#efe0c5'],
+  zhexue:   ['#42645d', '#85a08b', '#142a29', '#edf0df', '#e7ebdc'],
+  mingli:   ['#a24c2c', '#d69b50', '#32150f', '#f8e3bd', '#f1dfc0'],
+  kanyu:    ['#365f59', '#b09152', '#102b29', '#edf0dc', '#e3eadb'],
+  liqi:     ['#9b5a28', '#d6a95f', '#2f1b10', '#f4e4c5', '#ece0c8'],
+  sanshi:   ['#3f5a68', '#c49a50', '#111e29', '#e8e7dc', '#dfe4df'],
+  bushi:    ['#75512c', '#c79a58', '#291b0d', '#f4e7cb', '#ece0c8'],
+  xiangshu: ['#5e4955', '#b48a77', '#231720', '#f0e3dc', '#e8ddda'],
+  zeri:     ['#963d31', '#d4aa62', '#30130f', '#f5e4ca', '#eee0ca'],
+  tianwen:  ['#315269', '#b19a60', '#101d2a', '#e8e9df', '#dde3e1'],
+  bencao:   ['#49633d', '#a99456', '#182516', '#edf0dc', '#e3e8d8'],
+  daozang:  ['#31545b', '#bb985a', '#102326', '#e9e9d9', '#dfe5dc'],
+});
+const BOOK_COVERS = new Set([
+  'xinji-bianfang', 'shenshi-xuankong', 'dili-wujue', 'bazhai-mingjing',
+  'shanhaijing', 'yuanhai-ziping', 'zangshu', 'daodejing'
+]);
+function bookPalette(book) { return BOOK_PALETTES[book && book.category] || BOOK_PALETTES.jingyi; }
+function bookCover(book) {
+  if (book && BOOK_COVERS.has(book.id)) return `./img/covers/books/${encodeURIComponent(book.id)}.webp`;
+  return `./img/covers/categories/${encodeURIComponent((book && book.category) || 'jingyi')}.webp`;
+}
+function bookThemeStyle(book) {
+  const [accent, accentLight, dark, paper, card] = bookPalette(book);
+  return `--book-accent:${accent};--book-accent-light:${accentLight};--book-dark:${dark};--book-paper:${paper};--book-card:${card};--book-cover:url('${bookCover(book)}')`;
+}
+function applyBookTheme(book) {
+  const root = document.documentElement;
+  const props = ['--accent', '--accent-light', '--bg-header', '--reader-bg'];
+  if (!book) { props.forEach(prop => root.style.removeProperty(prop)); delete root.dataset.bookCategory; return; }
+  const [accent, accentLight, dark, paper] = bookPalette(book);
+  root.style.setProperty('--accent', accent);
+  root.style.setProperty('--accent-light', accentLight);
+  root.style.setProperty('--bg-header', dark);
+  if (State.theme !== 'night') root.style.setProperty('--reader-bg', paper);
+  else root.style.removeProperty('--reader-bg');
+  root.dataset.bookCategory = book.category || '';
+}
+function bookCoverHtml(book, cls = '') {
+  return `<figure class="book-cover ${cls}" style="${bookThemeStyle(book)}">
+    <img src="${bookCover(book)}" alt="${esc(book.title)}封面插画" width="800" height="1200" loading="lazy" decoding="async">
+    <span class="book-cover-shade" aria-hidden="true"></span>
+    <figcaption><span class="book-cover-cat">${esc((State.registry.categories || []).find(c => c.id === book.category)?.label || '')}</span><b>${esc(book.title)}</b><small>${esc([book.dynasty, book.author].filter(Boolean).join(' · '))}</small></figcaption>
+  </figure>`;
+}
+
 // ─── 主题 / 字号 ───
 function applyTheme() {
   document.documentElement.setAttribute('data-theme', State.theme === 'night' ? 'night' : '');
+  const route = getRoute();
+  applyBookTheme(State.registry && (route.page === 'book' || route.page === 'read') ? findBook(route.id) : null);
   localStorage.setItem(LS.theme, State.theme);
 }
 function applyFontSize() {
@@ -603,6 +654,7 @@ function render() {
   State._lazyReader = null;
   const renderToken = ++State._renderToken;
   const route = getRoute();
+  applyBookTheme(route.page === 'book' || route.page === 'read' ? findBook(route.id) : null);
   const app = el('app');
   const depth = route.page === 'read' ? 2 : route.page === 'book' || route.page === 'citations' || route.page === 'marks' ? 1 : 0;
   const direction = State._navDirection || (depth < State._routeDepth ? 'back' : 'forward');
@@ -732,7 +784,9 @@ function renderHero(allBooks) {
     .sort((a, b) => (b.charCount || 0) - (a.charCount || 0))
     .slice(0, 4);
   const cards = featured.map(b => `
-    <button class="hero-card" data-book-id="${esc(b.id)}" onclick="navigate('#/book/${b.id}')">
+    <button class="hero-card" style="${bookThemeStyle(b)}" data-book-id="${esc(b.id)}" onclick="navigate('#/book/${b.id}')">
+      <img class="hero-card-cover" src="${bookCover(b)}" alt="" width="800" height="1200" loading="lazy" decoding="async">
+      <span class="hero-card-shade" aria-hidden="true"></span>
       <span class="hero-card-badge">逐句译注</span>
       <span class="hero-card-title">${esc(b.title)}</span>
       <span class="hero-card-meta">${esc(b.dynasty || '')}${bookStats(b) ? ' · ' + esc(bookStats(b)) : ''}</span>
@@ -977,12 +1031,13 @@ function renderBookCard(b, q) {
   // 副标题繁简归一后与标题相同则不渲染（复用搜索的归一化）
   const showSub = b.subtitle && normalizeHan(b.subtitle) !== normalizeHan(b.title);
   return `
-    <div class="book-card ${isPending ? 'is-pending' : ''} ${b.hasAnnotated ? 'has-annotated' : ''} ${State.lastRead && State.lastRead.bookId === b.id ? 'is-last-read' : ''}"
+    <div class="book-card ${isPending ? 'is-pending' : ''} ${b.hasAnnotated ? 'has-annotated' : ''} ${State.lastRead && State.lastRead.bookId === b.id ? 'is-last-read' : ''}" style="${bookThemeStyle(b)}"
       data-book-id="${esc(b.id)}" onclick="navigate('#/book/${b.id}')">
       ${hasAlias ? '<span class="book-alias-note">托名</span>' : ''}
       ${b.hasAnnotated ? '<span class="book-annot-badge" title="逐句白话译注">逐句译注</span>' : ''}
       ${State.lastRead && State.lastRead.bookId === b.id ? `<span class="book-last-ribbon">${isEN() ? 'Last read' : '上次读到'}</span>` : ''}
-      <div class="book-title">${highlight(b.title, q)}</div>
+      ${bookCoverHtml(b, 'book-card-cover')}
+      <div class="book-card-copy"><div class="book-title">${highlight(b.title, q)}</div>
       ${showSub ? `<div class="book-dynasty">${highlight(b.subtitle, q)}</div>` : ''}
       <div class="book-author">${highlight(b.author || '', q)}</div>
       <div class="book-foot">
@@ -990,7 +1045,7 @@ function renderBookCard(b, q) {
         ${statsStr ? `<span class="book-stats">${esc(statsStr)}</span>` : ''}
         ${readStr ? `<span class="book-read-tag">${esc(readStr)}</span>` : ''}
         <span class="book-status ${statusCls}">${esc(statusTxt)}</span>
-      </div>
+      </div></div>
     </div>`;
 }
 
@@ -1068,8 +1123,9 @@ async function renderBook(id, renderToken) {
           value="${esc(State.searchQuery)}" onkeydown="handleQuickSearch(event)">
       </div>
 
-      <div class="book-detail-header">
-        <div class="book-detail-title">${esc(book.title)}</div>
+      <div class="book-detail-header" style="${bookThemeStyle(book)}">
+        ${bookCoverHtml(book, 'book-detail-cover')}
+        <div class="book-detail-copy"><div class="book-detail-title">${esc(book.title)}</div>
         ${book.subtitle && normalizeHan(book.subtitle) !== normalizeHan(book.title) ? `<div class="book-detail-subtitle">${esc(book.subtitle)}</div>` : ''}
         <div class="book-detail-meta">
           <span class="meta-chip">📅 ${esc(book.dynasty || '')}</span>
@@ -1081,6 +1137,7 @@ async function renderBook(id, renderToken) {
         ${ringHtml}
         ${firstReadable ? `<button class="primary-read-btn"
           onclick="navigate('#/read/${id}/${encodeURIComponent(firstReadable.id)}')">▶ 开始阅读</button>` : ''}
+        </div>
       </div>
 
       ${chapters.length ? `
@@ -1233,8 +1290,9 @@ function readerChrome(book, breadcrumb, bodyHtml, navHtml, markBtn, chapPos) {
   const isVertical = State.orientation === 'vertical';
   return `
     <div class="reading-progress" id="reading-progress"><span id="progress-fill"></span></div>
-    <div class="reader-container">
+    <div class="reader-container book-themed" style="${bookThemeStyle(book)}">
       <div class="reader-toolbar">
+        <img class="reader-cover-mark" src="${bookCover(book)}" alt="" width="32" height="48">
         <button class="back-btn" onclick="navigate('#/book/${book.id}', 'back')">← ${esc(book.title)}</button>
         <div class="breadcrumb">${esc(breadcrumb)}${chapPos ? `<span class="chap-pos">${esc(chapPos)}</span>` : ''}</div>
         ${markBtn || ''}

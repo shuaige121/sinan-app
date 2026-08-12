@@ -1406,8 +1406,9 @@ input[type=radio], input[type=checkbox] { accent-color: var(--gold); }
 .bz-adv-body { padding: 4px 2px 2px; }
 .bz-adv-toggle { display: flex; align-items: center; gap: 7px; font-size: 14px; margin-bottom: 10px; }
 .bz-adv-toggle .dim { font-size: 12px; }
-.bz-place-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+.bz-place-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 8px; }
 .bz-place-row select { width: 100%; min-width: 0; }
+@media (max-width: 520px) { .bz-place-row { grid-template-columns: 1fr; } }
 .bz-lng-row { display: flex; gap: 8px; align-items: stretch; flex-wrap: wrap; }
 .bz-lng-row #bazi-lng { flex: 1 1 150px; min-width: 0; }
 .bz-lng-locate {

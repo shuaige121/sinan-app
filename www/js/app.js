@@ -6340,35 +6340,126 @@
       birthSegments[Math.min(4, Math.floor(Math.min(digits.length, 12) / 2))].el.focus();
     });
 
-    const countrySel = $('bazi-country'), citySel = $('bazi-city');
-    const birthPlaces = Array.isArray(window.SinanBirthPlaces) ? window.SinanBirthPlaces : [];
-    const placeLabel = item => isEN() ? item.en : item.zh;
-    function fillBirthCountries(selected) {
-      countrySel.innerHTML = `<option value="">${isEN() ? 'Select country / region' : '选择国家/地区'}</option>`;
-      birthPlaces.forEach(country => countrySel.add(new Option(placeLabel(country), country.code)));
-      if (selected && birthPlaces.some(country => country.code === selected)) countrySel.value = selected;
+    const countrySel = $('bazi-country'), regionSel = $('bazi-region'), citySel = $('bazi-city');
+    const birthPlaceApi = window.SinanBirthPlaces;
+    let birthCountries = [], activeBirthCountry = null, birthPlaceToken = 0;
+    const legacyCnCities = {
+      beijing: '北京市', shanghai: '上海市', guangzhou: '广州市', shenzhen: '深圳市', chengdu: '成都市',
+      chongqing: '重庆市', hangzhou: '杭州市', nanjing: '南京市', wuhan: '武汉市', xian: '西安市',
+      tianjin: '天津市', shenyang: '沈阳市', harbin: '哈尔滨市', qingdao: '青岛市', xiamen: '厦门市',
+      fuzhou: '福州市', kunming: '昆明市', changsha: '长沙市', zhengzhou: '郑州市', urumqi: '乌鲁木齐市', lhasa: '拉萨市'
+    };
+    const normalizePlaceKey = value => String(value || '').toLowerCase().normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9\u3400-\u9fff]+/g, '');
+    const setPlacePlaceholder = (select, text, disabled = true) => {
+      select.innerHTML = '';
+      select.add(new Option(text, ''));
+      select.disabled = disabled;
+    };
+    const countryLabel = country => isEN() ? country[1] : (country[2] || country[1]);
+    const regionLabel = region => {
+      const name = isEN() ? region[1] : (region[2] || region[1]);
+      return `${name} · ${region[3].length}${isEN() ? ' cities' : ' 城市'}`;
+    };
+    const cityLabel = city => {
+      if (isEN() || countrySel.value === 'CN' || city[1] === city[2]) return isEN() ? city[1] : city[2];
+      return `${city[2]} · ${city[1]}`;
+    };
+    function clearBirthRegions() {
+      activeBirthCountry = null;
+      setPlacePlaceholder(regionSel, isEN() ? 'Select state / province' : '选择州/省');
+      setPlacePlaceholder(citySel, isEN() ? 'Select city' : '选择城市');
     }
-    function fillBirthCities(countryCode, selected) {
-      const country = birthPlaces.find(item => item.code === countryCode);
-      citySel.innerHTML = `<option value="">${isEN() ? 'Select city' : '选择城市'}</option>`;
-      citySel.disabled = !country;
-      if (!country) return;
-      country.cities.forEach(city => citySel.add(new Option(isEN() ? city[2] : city[1], city[0])));
-      if (selected && country.cities.some(city => city[0] === selected)) citySel.value = selected;
+    async function fillBirthCountries(selected) {
+      setPlacePlaceholder(countrySel, isEN() ? 'Loading countries…' : '正在加载国家…');
+      try {
+        birthCountries = birthPlaceApi && birthPlaceApi.loadCountries ? await birthPlaceApi.loadCountries() : [];
+        countrySel.innerHTML = `<option value="">${isEN() ? 'Select country / region' : '选择国家/地区'}</option>`;
+        const priority = new Map(['CN', 'HK', 'MO', 'TW', 'SG', 'MY', 'US', 'CA', 'GB', 'AU'].map((code, index) => [code, index]));
+        const sorted = birthCountries.slice().sort((a, b) => {
+          const pa = priority.has(a[0]) ? priority.get(a[0]) : 999;
+          const pb = priority.has(b[0]) ? priority.get(b[0]) : 999;
+          return pa - pb || countryLabel(a).localeCompare(countryLabel(b), isEN() ? 'en' : 'zh-CN');
+        });
+        sorted.forEach(country => countrySel.add(new Option(countryLabel(country), country[0])));
+        countrySel.disabled = false;
+        if (selected && birthCountries.some(country => country[0] === selected)) countrySel.value = selected;
+      } catch (error) {
+        setPlacePlaceholder(countrySel, isEN() ? 'Failed to load · tap to retry' : '加载失败 · 点此重试', false);
+        console.warn('Birth place countries failed to load', error);
+      }
+    }
+    function findSavedBirthPlace(country, regionCode, cityCode) {
+      if (!country) return null;
+      const migratedCity = country.c === 'CN' && legacyCnCities[cityCode] ? legacyCnCities[cityCode] : cityCode;
+      const targetCity = normalizePlaceKey(migratedCity);
+      const targetRegion = normalizePlaceKey(regionCode);
+      for (const region of country.s || []) {
+        if (targetRegion && ![region[0], region[1], region[2]].some(value => normalizePlaceKey(value) === targetRegion)) continue;
+        const city = (region[3] || []).find(item => [item[0], item[1], item[2]].some(value => normalizePlaceKey(value) === targetCity));
+        if (city) return { region, city };
+        if (targetRegion && !targetCity) return { region, city: null };
+      }
+      if (targetCity) {
+        for (const region of country.s || []) {
+          const city = (region[3] || []).find(item => [item[0], item[1], item[2]].some(value => normalizePlaceKey(value) === targetCity));
+          if (city) return { region, city };
+        }
+      }
+      return null;
+    }
+    function fillBirthCities(regionCode, selected) {
+      const region = activeBirthCountry && (activeBirthCountry.s || []).find(item => item[0] === regionCode);
+      setPlacePlaceholder(citySel, isEN() ? 'Select city' : '选择城市', !region);
+      if (!region) return;
+      (region[3] || []).forEach(city => citySel.add(new Option(cityLabel(city), city[0])));
+      citySel.disabled = false;
+      const match = selected && (region[3] || []).find(city => [city[0], city[1], city[2]].some(value => normalizePlaceKey(value) === normalizePlaceKey(selected)));
+      if (match) citySel.value = match[0];
+    }
+    async function fillBirthRegions(countryCode, selectedRegion, selectedCity) {
+      const token = ++birthPlaceToken;
+      clearBirthRegions();
+      if (!countryCode || !birthPlaceApi || !birthPlaceApi.loadCountry) return;
+      setPlacePlaceholder(regionSel, isEN() ? 'Loading states / provinces…' : '正在加载州/省…');
+      try {
+        const country = await birthPlaceApi.loadCountry(countryCode);
+        if (token !== birthPlaceToken || countrySel.value !== countryCode) return;
+        activeBirthCountry = country;
+        const saved = findSavedBirthPlace(country, selectedRegion, selectedCity);
+        regionSel.innerHTML = `<option value="">${isEN() ? 'Select state / province' : '选择州/省'}</option>`;
+        (country.s || []).forEach(region => regionSel.add(new Option(regionLabel(region), region[0])));
+        regionSel.disabled = false;
+        if (saved) {
+          regionSel.value = saved.region[0];
+          fillBirthCities(saved.region[0], saved.city && saved.city[0]);
+        } else if ((country.s || []).length === 1) {
+          regionSel.value = country.s[0][0];
+          fillBirthCities(country.s[0][0], selectedCity);
+        }
+      } catch (error) {
+        if (token !== birthPlaceToken) return;
+        setPlacePlaceholder(regionSel, isEN() ? 'Failed to load · select country again' : '加载失败 · 请重选国家', false);
+        console.warn('Birth place country failed to load', error);
+      }
     }
     function selectedBirthCity() {
-      const country = birthPlaces.find(item => item.code === countrySel.value);
-      return country && country.cities.find(city => city[0] === citySel.value);
+      const region = activeBirthCountry && (activeBirthCountry.s || []).find(item => item[0] === regionSel.value);
+      return region && (region[3] || []).find(city => city[0] === citySel.value);
     }
+    clearBirthRegions();
     fillBirthCountries('');
-    fillBirthCities('', '');
-    countrySel.addEventListener('change', () => {
-      fillBirthCities(countrySel.value, '');
+    countrySel.addEventListener('change', async () => {
+      await fillBirthRegions(countrySel.value, '', '');
+      $('bazi-lng').value = '';
+    });
+    regionSel.addEventListener('change', () => {
+      fillBirthCities(regionSel.value, '');
       $('bazi-lng').value = '';
     });
     citySel.addEventListener('change', () => {
       const city = selectedBirthCity();
-      $('bazi-lng').value = city ? city[3].toFixed(1) : '';
+      $('bazi-lng').value = city ? Number(city[3]).toFixed(2) : '';
     });
     // 排盘可用性：阳历模式须填生辰才放行（默认置空→灰态）；农历模式选择器恒有值，放行。
     function updatePaipanState() {
@@ -6436,8 +6527,7 @@
         setBirthSegments(input);
         const hasLng = typeof input.longitude === 'number' && isFinite(input.longitude);
         if ($('bazi-lng')) $('bazi-lng').value = hasLng ? input.longitude : '';
-        fillBirthCountries(input.country || '');
-        fillBirthCities(input.country || '', input.city || '');
+        fillBirthCountries(input.country || '').then(() => fillBirthRegions(input.country || '', input.region || '', input.city || ''));
         if ($('bazi-solar-toggle')) $('bazi-solar-toggle').checked = !!(input.solarTime && hasLng);
         const adv = $('bazi-solar-adv'); if (adv) adv.open = !!(input.solarTime || hasLng);
       }
@@ -6457,7 +6547,7 @@
         pos => {
           if ($('bazi-lng')) $('bazi-lng').value = Math.round(pos.coords.longitude * 100) / 100;
           countrySel.value = '';
-          fillBirthCities('', '');
+          clearBirthRegions();
           lngLocateBtn.disabled = false; lngLocateBtn.textContent = orig;
           const adv = $('bazi-solar-adv'); if (adv) adv.open = true;
         },
@@ -6503,6 +6593,7 @@
         input.longitude = isFinite(lng) ? lng : null;
         input.solarTime = !!(solarOn && input.longitude != null);
         input.country = countrySel.value || null;
+        input.region = regionSel.value || null;
         input.city = citySel.value || null;
       }
       localStorage.setItem('bazi-input', JSON.stringify(input));
