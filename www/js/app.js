@@ -7581,12 +7581,8 @@
       const head = document.createElement('div');
       head.className = 'bazi-bars-head';
       head.innerHTML = isEN()
-        ? `<b>Five phases in your chart</b>
-           <p>How much of each phase your eight characters add up to (total ${total.toFixed(1)}). Longer bar = more of it. Neither more nor less is “good”; balance is what the reading looks at.</p>
-           <p class="bazi-bars-lede">Most: <b style="color:${C.EL_HEX[top]}">${escapeHtml(elEN(top))} ${c.scores[top].toFixed(1)}</b> · Least: <b style="color:${C.EL_HEX[bottom]}">${escapeHtml(elEN(bottom))} ${c.scores[bottom].toFixed(1)}</b></p>`
-        : `<b>你八字里的五行</b>
-           <p>八个字折算下来，每一行各占多少（合计 ${total.toFixed(1)} 分）。条越长这一行越多。多不等于好、少也不等于差，看的是均不均。</p>
-           <p class="bazi-bars-lede">最多的是 <b style="color:${C.EL_HEX[top]}">${escapeHtml(top)} ${c.scores[top].toFixed(1)}</b>，最少的是 <b style="color:${C.EL_HEX[bottom]}">${escapeHtml(bottom)} ${c.scores[bottom].toFixed(1)}</b>。</p>`;
+        ? `<b>Five phases in your chart</b><p>How much of each phase your eight characters add up to (total ${total.toFixed(1)}). Longer bar = more of it. Neither more nor less is “good”; balance is what the reading looks at.</p><p class="bazi-bars-lede">Most: <b style="color:${C.EL_HEX[top]}">${escapeHtml(elEN(top))} ${c.scores[top].toFixed(1)}</b> · Least: <b style="color:${C.EL_HEX[bottom]}">${escapeHtml(elEN(bottom))} ${c.scores[bottom].toFixed(1)}</b></p>`
+        : `<b>你八字里的五行</b><p>八个字折算下来，每一行各占多少（合计 ${total.toFixed(1)} 分）。条越长这一行越多。多不等于好、少也不等于差，看的是均不均。</p><p class="bazi-bars-lede">最多的是<b style="color:${C.EL_HEX[top]}">${escapeHtml(top)} ${c.scores[top].toFixed(1)}</b>，最少的是<b style="color:${C.EL_HEX[bottom]}">${escapeHtml(bottom)} ${c.scores[bottom].toFixed(1)}</b>。</p>`;
       bars.appendChild(head);
     }
     C.ELEMENTS.forEach(e => {

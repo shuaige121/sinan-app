@@ -3372,6 +3372,9 @@ body.changming-open { overflow: hidden; }
 
 /* 五行卡抬头：说清这张卡是什么、数字什么量纲、以及一句直接结论。 */
 .bazi-bars-head { margin: 0 0 14px; }
-.bazi-bars-head b { display: block; color: var(--paper); font-size: 15px; letter-spacing: .04em; }
+/* 只有直接子级的 b 是标题；后代选择器会把 lede 里的行内 <b> 也变成块级，
+   于是「最多的是 火 3.0，最少的是 木 1.8。」被拆成五行。 */
+.bazi-bars-head > b { display: block; color: var(--paper); font-size: 15px; letter-spacing: .04em; }
 .bazi-bars-head p { margin: 7px 0 0; color: var(--paper-dim); font-size: 12px; line-height: 1.7; }
 .bazi-bars-head .bazi-bars-lede { margin-top: 9px; color: rgba(239,232,213,.9); font-size: 13.5px; }
+.bazi-bars-head .bazi-bars-lede b { display: inline; font-size: inherit; }
