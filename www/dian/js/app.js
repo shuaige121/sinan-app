@@ -103,8 +103,8 @@ function highlight(text, query) {
 }
 
 // ─── 典籍封面与卷册主题 ───
-// 重点典籍使用逐本叙事封面；其余书沿用门类插画。色板同时作用于详情与正文，
-// 让封面、按钮与阅读纸张属于同一本书，而不是套用同一套金棕模板。
+// 重点典籍使用逐本叙事封面；其余书使用由书名语义与稳定 hash 生成的独立装帧。
+// 每个 book id 都对应一个实际文件，不再让同门类几十本书共享同一张图片。
 const BOOK_PALETTES = Object.freeze({
   jingyi:   ['#8f3b24', '#cb8b55', '#2e1711', '#f5e4c2', '#efe0c5'],
   zhexue:   ['#42645d', '#85a08b', '#142a29', '#edf0df', '#e7ebdc'],
@@ -159,6 +159,27 @@ function bookPalette(book) {
 // 命中理由要看得见命中词本身：从头切 40 字往往整段都不含搜索词，
 // 用户的疑问会从「这本书为什么出现」变成「这段没头没尾的话是什么」。
 // 清空搜索时必须一并清掉全文命中区：否则会出现「未找到」和上一次的「命中 1 处」同屏并存。
+// 键盘可达兜底：仓库里仍有多处 div[onclick]（书卡、全文命中、章节目录、相关书）。
+// 逐个改成 button 风险大，这里统一补 role/tabindex 并把 Enter/Space 映射成点击。
+(function wireKeyboardActivation() {
+  const SEL = '[onclick]:not(button):not(a)';
+  const sweep = () => document.querySelectorAll(SEL).forEach(el => {
+    if (el.dataset.kbWired) return;
+    el.dataset.kbWired = '1';
+    if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '0');
+    if (!el.hasAttribute('role')) el.setAttribute('role', 'button');
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const el = e.target.closest && e.target.closest(SEL);
+    if (!el) return;
+    e.preventDefault();
+    el.click();
+  });
+  document.addEventListener('DOMContentLoaded', sweep);
+  setInterval(sweep, 900);
+})();
+
 function clearFullTextResults() {
   const box = el('fulltext-results');
   if (box) box.innerHTML = '';
@@ -177,7 +198,8 @@ function snippetAround(text, qNorm, radius) {
 
 function bookCover(book) {
   if (book && BOOK_COVERS_V2.has(book.id)) return `./img/covers/books-v2/${encodeURIComponent(book.id)}.webp`;
-  return `./img/covers/categories/${encodeURIComponent((book && book.category) || 'jingyi')}.webp`;
+  if (book && book.id) return `./img/covers/books-generated/${encodeURIComponent(book.id)}.webp`;
+  return './img/covers/books-generated/zhouyi.webp';
 }
 function bookThemeStyle(book) {
   const [accent, accentLight, dark, paper, card] = bookPalette(book);
@@ -195,11 +217,12 @@ function applyBookTheme(book) {
   else root.style.removeProperty('--reader-bg');
   root.dataset.bookCategory = book.category || '';
 }
-function bookCoverHtml(book, cls = '') {
+function bookCoverHtml(book, cls = '', options = {}) {
+  const showCaption = options.caption !== false;
   return `<figure class="book-cover ${cls}" style="${bookThemeStyle(book)}">
     <img src="${bookCover(book)}" alt="${esc(book.title)}封面插画" width="800" height="1200" loading="lazy" decoding="async">
-    <span class="book-cover-shade" aria-hidden="true"></span>
-    <figcaption><span class="book-cover-cat">${esc((State.registry.categories || []).find(c => c.id === book.category)?.label || '')}</span><b>${esc(book.title)}</b><small>${esc([book.dynasty, book.author].filter(Boolean).join(' · '))}</small></figcaption>
+    ${showCaption ? `<span class="book-cover-shade" aria-hidden="true"></span>
+    <figcaption><span class="book-cover-cat">${esc((State.registry.categories || []).find(c => c.id === book.category)?.label || '')}</span><b>${esc(book.title)}</b><small>${esc([book.dynasty, book.author].filter(Boolean).join(' · '))}</small></figcaption>` : ''}
   </figure>`;
 }
 
@@ -562,18 +585,23 @@ async function loadFullIndex(onProgress) {
       if (Array.isArray(m)) return m;
       const shards = (m && m.shards) || [];
       const out = [];
-      let done = 0;
+      let done = 0, failed = 0;
       for (const s of shards) {
         try {
           const r = await fetch(`./data/search-index/${s}.json`);
           if (r.ok) out.push(...(await r.json()));
-        } catch (_) { /* 单片失败不影响其余，覆盖面在下方如实回报 */ }
+          else failed++;
+        } catch (_) { failed++; }
         done++;
         if (onProgress) onProgress(done, shards.length);
       }
       for (const e of out) e._n = normalizeHan(e.text || '');
       State.searchIdx = out;
-      State.ftLoaded = true;
+      // 有分片没拉下来就不能声称「全文已载齐」：否则弱网/离线下会静默漏书，
+      // 界面却照常显示「全文命中」。失败时不缓存 Promise，下次搜索可以重试。
+      State.ftShardsFailed = failed;
+      State.ftLoaded = failed === 0;
+      if (failed > 0) State.ftP = null;
       return out;
     })();
   }
@@ -1068,7 +1096,8 @@ async function updateFullTextResults() {
     : '';
 
   const html = `
-    <div class="ft-header">${scope === 'full' ? '全文' : '书名章名'}命中 ${hits.length} 处（${Object.keys(byBook).length} 部）</div>
+    <div class="ft-header">${scope === 'full' ? '全文' : '书名章名'}命中 ${hits.length} 处（${Object.keys(byBook).length} 部）${
+      State.ftShardsFailed > 0 ? `<span class="ft-partial">· 有 ${State.ftShardsFailed} 个索引分片没加载成功，结果可能不全，重搜一次可重试</span>` : ''}</div>
     ${deepBar}
     ${Object.entries(byBook).map(([bid, g]) => `
       <div class="ft-book-group">
@@ -1106,21 +1135,17 @@ function renderBookCard(b, q) {
   const statsStr = bookStats(b);
   const readN = getReadCount(b.id);
   const readStr = readN > 0 ? `已读${readN}${b.chapterCount ? '/' + b.chapterCount : ''}章` : '';
-  // 副标题繁简归一后与标题相同则不渲染（复用搜索的归一化）
-  const showSub = b.subtitle && normalizeHan(b.subtitle) !== normalizeHan(b.title);
+  const shelfMeta = [b.dynasty, b.author].filter(Boolean).join(' · ');
   return `
-    <div class="book-card ${isPending ? 'is-pending' : ''} ${b.hasAnnotated ? 'has-annotated' : ''} ${State.lastRead && State.lastRead.bookId === b.id ? 'is-last-read' : ''}" style="${bookThemeStyle(b)}"
+    <div role="button" tabindex="0" class="book-card ${q ? 'is-search-result' : ''} ${isPending ? 'is-pending' : ''} ${b.hasAnnotated ? 'has-annotated' : ''} ${State.lastRead && State.lastRead.bookId === b.id ? 'is-last-read' : ''}" style="${bookThemeStyle(b)}"
       data-book-id="${esc(b.id)}" onclick="navigate('#/book/${b.id}')">
       ${hasAlias ? '<span class="book-alias-note">托名</span>' : ''}
       ${b.hasAnnotated ? '<span class="book-annot-badge" title="逐句白话译注">逐句译注</span>' : ''}
       ${State.lastRead && State.lastRead.bookId === b.id ? `<span class="book-last-ribbon">${isEN() ? 'Last read' : '上次读到'}</span>` : ''}
-      ${bookCoverHtml(b, 'book-card-cover')}
+      ${bookCoverHtml(b, 'book-card-cover', { caption: false })}
       <div class="book-card-copy">
-      ${/* 封面图上已印了书名与「朝代 · 作者」，这里不再复读；
-           只有搜索需要高亮命中时才重出书名/作者。 */''}
-      ${q ? `<div class="book-title">${highlight(b.title, q)}</div>` : ''}
-      ${showSub ? `<div class="book-dynasty">${highlight(b.subtitle, q)}</div>` : ''}
-      ${q && b.author && normalizeHan(b.author).includes(normalizeHan(q)) ? `<div class="book-author">${highlight(b.author, q)}</div>` : ''}
+      <div class="book-title">${highlight(b.title, q)}</div>
+      ${shelfMeta ? `<div class="book-author">${highlight(shelfMeta, q)}</div>` : ''}
       ${q && b._why ? `<div class="book-why">命中 · ${esc(b._why)}</div>` : ''}
       <div class="book-foot">
         ${statsStr ? `<span class="book-stats">${esc(statsStr)}</span>` : ''}
@@ -1205,7 +1230,7 @@ async function renderBook(id, renderToken) {
       </div>
 
       <div class="book-detail-header" style="${bookThemeStyle(book)}">
-        ${bookCoverHtml(book, 'book-detail-cover')}
+        ${bookCoverHtml(book, 'book-detail-cover', { caption: false })}
         <div class="book-detail-copy"><div class="book-detail-title">${esc(book.title)}</div>
         ${book.subtitle && normalizeHan(book.subtitle) !== normalizeHan(book.title) ? `<div class="book-detail-subtitle">${esc(book.subtitle)}</div>` : ''}
         <div class="book-detail-meta">
@@ -1312,7 +1337,13 @@ function renderRelatedBooks(book) {
     </div>`;
 }
 
-function goBack() { if (history.length > 1) history.back(); else navigate('#/'); }
+function goBack() {
+  // 从外部链接直接进 #/book/... 时，history.length>1 会把人退回外部站点，
+  // 而按钮写的是「书架」。只有确认上一条历史仍在本站内才 back。
+  const sameSite = document.referrer && document.referrer.indexOf(location.origin + location.pathname.replace(/[^/]*$/, '')) === 0;
+  if (history.length > 1 && sameSite) history.back();
+  else navigate('#/');
+}
 window.goBack = goBack;
 
 function handleQuickSearch(e) {
@@ -1485,7 +1516,7 @@ function scrollToTop() {
   const rt = el('reader-text');
   if (rt && rt.classList.contains('vertical')) {
     const first = rt.querySelector('.passage, .frag, p, div');
-    if (first && first.scrollIntoView) first.scrollIntoView({ inline: 'start', block: 'nearest', behavior: 'smooth' });
+    if (first && first.scrollIntoView) first.scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'smooth' });
     else rt.scrollTo({ left: 0, behavior: 'smooth' });
   } else {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1685,7 +1716,7 @@ function bindReaderControls(book, chapters, idx) {
     if (isVertical() && text) {
       const sl = text.scrollWidth - text.clientWidth;        // 竖排：横向滚动轴
       r = sl > 0 ? Math.min(1, Math.abs(text.scrollLeft) / sl) : 0;
-      if (btt) btt.classList.toggle('show', text.scrollLeft > 200);
+      if (btt) btt.classList.toggle('show', Math.abs(text.scrollLeft) > 200);
     } else {
       const h = document.documentElement.scrollHeight - window.innerHeight;
       r = h > 0 ? window.scrollY / h : 0;
@@ -1759,8 +1790,10 @@ function setOrientation(o) {
   // 不依赖各浏览器对 vertical-rl 下 scrollLeft 正负号的不同约定。
   if (rt && o === 'vertical') {
     requestAnimationFrame(() => {
+      // vertical-rl 下 block 轴才是横向（从右往左）的阅读方向，inline 轴是竖直的。
+      // 之前写成 inline:'start' 根本不横向定位，白屏照旧。
       const first = rt.querySelector('.passage, .frag, p, div');
-      if (first && first.scrollIntoView) first.scrollIntoView({ inline: 'start', block: 'nearest' });
+      if (first && first.scrollIntoView) first.scrollIntoView({ block: 'start', inline: 'nearest' });
       else rt.scrollLeft = rt.scrollWidth;
     });
   }
