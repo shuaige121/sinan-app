@@ -37,8 +37,13 @@ const State = {
   translations: {},     // id -> {idx:{`ch/i`:{origHash,en,enNote,conf}}, meta} 英译 sidecar（Layer B），无则 null
   enCaptions: {},       // 当前书预备好的 EN caption：`ch/i` -> {en,enNote,conf}（origHash 现场比对后）
   showBai: localStorage.getItem(LS.showBai) !== '0', // 阅读器是否显示白话译文，默认开
-  searchIdx: null,      // 全文搜索索引（懒加载）
-  searchIdxP: null,     // 加载中 Promise（避免重复 fetch）
+  searchIdx: null,      // 全文索引（第二段，按需拉分片后填充）
+  searchIdxP: null,     // 兼容旧字段
+  searchManifestP: null,// data/search-index.json 清单
+  titleIdx: null,       // 标题索引（第一段：书名+章名，进站即载）
+  titleIdxP: null,
+  ftP: null,            // 全文分片加载中的 Promise
+  ftLoaded: false,      // 全文分片是否已载齐（决定搜索覆盖面的口径）
   _composing: false,    // 输入法组字中
   _cleanups: [],        // 当前页面需要解绑的监听
   _lastView: '',        // 上一个视图标识，用于决定是否播放切换动画
@@ -407,37 +412,84 @@ function bookStats(b) {
   return `${ch}章·${cc}字`;
 }
 
-// ─── 全文搜索索引 ───
-// 索引按分类分片存放：data/search-index/<category>.json，清单在 data/search-index.json。
-// 为什么分片：藏书扩到七位数字数后，单个 search-index.json 会超过 Cloudflare Pages
-// 的 25MB 单文件上限，根本传不上去。分片后各片并行取，搜索行为与合并成一份完全一致。
-// 兼容：若 search-index.json 仍是旧的扁平数组（未跑 ingest.py index），照旧直接使用。
-async function loadSearchIndex() {
-  if (State.searchIdx) return State.searchIdx;
-  if (!State.searchIdxP) {
-    State.searchIdxP = fetch('./data/search-index.json')
-      .then(r => r.ok ? r.json() : null)
-      .then(async d => {
-        let entries = null;
-        if (Array.isArray(d)) {
-          entries = d;                                     // 旧格式：整份扁平数组
-        } else if (d && Array.isArray(d.shards)) {
-          const parts = await Promise.all(d.shards.map(s =>
-            fetch(`./data/search-index/${s}.json`)
-              .then(r => (r.ok ? r.json() : []))
-              .catch(() => [])));
-          entries = parts.flat();
-        }
-        if (Array.isArray(entries)) {
-          // 预计算每条目的繁→简归一化文本，避免搜索时重复计算
-          for (const e of entries) e._n = normalizeHan(e.text || '');
-        }
-        State.searchIdx = entries;
-        return entries;
-      })
-      .catch(() => null);
+// ─── 搜索索引：两段式 ───
+// 藏书扩到 244 部 / 千万字后，全文索引 35MB（gzip 14MB）。一进站就下这个量，
+// 手机上不可接受；而截断正文来压体积等于让搜索悄悄搜不全，更不可接受。
+// 所以分两段：
+//   第一段 _titles.json（599KB / gzip 50KB）只含书名章名，进站即载，打开就能搜；
+//   第二段 <category>.json 是正文，用户点「搜正文」时才拉，拉完这一会话内一直可用。
+// 正文分片本身未做任何截断——全部载完后的覆盖面与合并成一份完全一致。
+// 分片同时解决 Cloudflare Pages 的 25MB 单文件上限。
+// 兼容：若 search-index.json 仍是旧的扁平数组（未跑 ingest.py index），直接当全文用。
+async function loadSearchManifest() {
+  if (!State.searchManifestP) {
+    State.searchManifestP = fetch('./data/search-index.json')
+      .then(r => (r.ok ? r.json() : null)).catch(() => null);
   }
-  return State.searchIdxP;
+  return State.searchManifestP;
+}
+
+async function loadTitleIndex() {
+  if (State.titleIdx) return State.titleIdx;
+  if (!State.titleIdxP) {
+    State.titleIdxP = (async () => {
+      const m = await loadSearchManifest();
+      if (Array.isArray(m)) {                       // 旧格式：本身就是全文索引
+        for (const e of m) e._n = normalizeHan(e.text || '');
+        State.searchIdx = m;
+        State.ftLoaded = true;
+        return m;
+      }
+      const r = await fetch('./data/search-index/_titles.json').catch(() => null);
+      const d = r && r.ok ? await r.json() : [];
+      for (const e of d) e._nl = normalizeHan((e.chapterLabel || '') + (e.bookTitle || ''));
+      State.titleIdx = d;
+      return d;
+    })();
+  }
+  return State.titleIdxP;
+}
+
+// 按需拉全文分片。onProgress(已完成片数, 总片数) 用于显示进度。
+async function loadFullIndex(onProgress) {
+  if (State.searchIdx) return State.searchIdx;
+  if (!State.ftP) {
+    State.ftP = (async () => {
+      const m = await loadSearchManifest();
+      if (Array.isArray(m)) return m;
+      const shards = (m && m.shards) || [];
+      const out = [];
+      let done = 0;
+      for (const s of shards) {
+        try {
+          const r = await fetch(`./data/search-index/${s}.json`);
+          if (r.ok) out.push(...(await r.json()));
+        } catch (_) { /* 单片失败不影响其余，覆盖面在下方如实回报 */ }
+        done++;
+        if (onProgress) onProgress(done, shards.length);
+      }
+      for (const e of out) e._n = normalizeHan(e.text || '');
+      State.searchIdx = out;
+      State.ftLoaded = true;
+      return out;
+    })();
+  }
+  return State.ftP;
+}
+
+// 第一段：只搜书名与章名，进站即可用
+function titleSearch(q, titles) {
+  if (!titles || !ftQueryValid(q)) return [];
+  const normQ = normalizeHan(q);
+  const results = [];
+  for (const e of titles) {
+    if ((e._nl || '').includes(normQ)) {
+      results.push({ bookId: e.bookId, bookTitle: e.bookTitle, chapterId: e.chapterId,
+                     chapterLabel: e.chapterLabel, isAnnot: false, snippet: '' });
+      if (results.length >= 80) break;
+    }
+  }
+  return results;
 }
 
 // 在 entry.t 中找 q 的位置，返回前后 40 字的片段（繁简混搜：用归一化形式定位，高亮原文对应字）
@@ -845,15 +897,24 @@ async function updateFullTextResults() {
   if (!ftQueryValid(q)) { box.innerHTML = ''; return; }
 
   // 显示加载中占位
-  box.innerHTML = `<div class="ft-loading">全文搜索中…</div>`;
+  box.innerHTML = `<div class="ft-loading">搜索中…</div>`;
 
   // 记录本次 query，异步结束后校验是否仍有效（防止乱序回填）
   const thisQ = q;
-  const idx = await loadSearchIndex();
+
+  // 正文分片已在本会话载过就直接全文搜；否则先出章名命中，正文按需再拉。
+  let hits, scope;
+  if (State.ftLoaded) {
+    hits = fullTextSearch(q, State.searchIdx);
+    scope = 'full';
+  } else {
+    hits = titleSearch(q, await loadTitleIndex());
+    scope = State.ftLoaded ? 'full' : 'title';   // 旧格式索引会在 loadTitleIndex 里直接转全文
+    if (scope === 'full') hits = fullTextSearch(q, State.searchIdx);
+  }
   if (State.searchQuery.trim() !== thisQ) return; // 用户已改变搜索词
 
-  const hits = fullTextSearch(q, idx);
-  if (!hits.length) { box.innerHTML = ''; return; }
+  if (!hits.length && scope === 'full') { box.innerHTML = ''; return; }
 
   // 按书分组
   const byBook = {};
@@ -862,8 +923,20 @@ async function updateFullTextResults() {
     byBook[h.bookId].chapters.push(h);
   });
 
+  const mf = await loadSearchManifest();
+  const ftMB = (mf && mf.shardBytes)
+    ? (Object.values(mf.shardBytes).reduce((a, b) => a + b, 0) / 1048576 / 2.4).toFixed(0)
+    : '十余';
+  const deepBar = scope === 'title'
+    ? `<div class="ft-deep">
+         <span>以上只搜了书名与章名。正文尚未载入（约 ${ftMB} MB，载一次本次浏览一直可用）。</span>
+         <button class="ft-deep-btn" onclick="runDeepSearch()">搜正文</button>
+       </div>`
+    : '';
+
   const html = `
-    <div class="ft-header">全文命中 ${hits.length} 处（${Object.keys(byBook).length} 部）</div>
+    <div class="ft-header">${scope === 'full' ? '全文' : '书名章名'}命中 ${hits.length} 处（${Object.keys(byBook).length} 部）</div>
+    ${deepBar}
     ${Object.entries(byBook).map(([bid, g]) => `
       <div class="ft-book-group">
         <div class="ft-book-title" onclick="navigate('#/book/${bid}')">${highlight(g.bookTitle, q)}</div>
@@ -877,6 +950,19 @@ async function updateFullTextResults() {
       </div>`).join('')}`;
   if (State.searchQuery.trim() !== thisQ) return;
   box.innerHTML = html;
+}
+
+// 用户显式要求搜正文：按片拉取并回报进度，拉完重跑搜索。
+// 空结果也照常回报，不假装「正在加载」——见 registry.meta.notice 的诚实原则。
+window.runDeepSearch = runDeepSearch;
+async function runDeepSearch() {
+  const box = el('fulltext-results'); if (!box) return;
+  const bar = box.querySelector('.ft-deep');
+  if (bar) bar.innerHTML = '<span>正在载入正文索引…</span>';
+  await loadFullIndex((done, total) => {
+    if (bar) bar.innerHTML = `<span>正在载入正文索引… ${done}/${total} 片</span>`;
+  });
+  updateFullTextResults();
 }
 
 function renderBookCard(b, q) {

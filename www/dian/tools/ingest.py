@@ -781,7 +781,8 @@ def check():
                 continue
             disk += json.load(open(p))
         stray = [f[:-5] for f in os.listdir(os.path.join(DATA, 'search-index'))
-                 if f.endswith('.json') and f[:-5] not in disk_raw['shards']] \
+                 if f.endswith('.json') and not f.startswith('_')
+                 and f[:-5] not in disk_raw['shards']] \
             if os.path.isdir(os.path.join(DATA, 'search-index')) else []
         if stray:
             errs.append(f'data/search-index/ 有清单外的残留分片：{stray}（会被前端忽略，应删）')
@@ -914,7 +915,7 @@ def main():
         for e in idx:
             groups.setdefault(e['category'], []).append(e)
         for old in os.listdir(shard_dir):
-            if old.endswith('.json') and old[:-5] not in groups:
+            if old.endswith('.json') and not old.startswith('_') and old[:-5] not in groups:
                 os.remove(os.path.join(shard_dir, old))
         sizes = {}
         for cat, items in groups.items():
@@ -922,13 +923,27 @@ def main():
             with open(p, 'w') as f:
                 json.dump(items, f, ensure_ascii=False)
             sizes[cat] = os.path.getsize(p)
+        # 标题索引：只有书名与章名，没有正文。用于「打开就能搜」的第一段，
+        # 全文分片按需再拉——244 部书的全文索引 gzip 后 14MB，手机上不能一进来就下。
+        titles = [{'id': e['id'], 'bookId': e['bookId'], 'bookTitle': e['bookTitle'],
+                   'category': e['category'], 'chapterId': e['chapterId'],
+                   'chapterLabel': e['chapterLabel']}
+                  for e in idx if e['type'] == 'content']
+        tp = os.path.join(shard_dir, '_titles.json')
+        with open(tp, 'w') as f:
+            json.dump(titles, f, ensure_ascii=False)
+        title_size = os.path.getsize(tp)
         manifest = {
-            'format': 'sharded-v1',
-            'note': '索引按分类分片存于 data/search-index/<category>.json；'
-                    '本文件只是清单。分片是因为单份索引会超过 Cloudflare Pages '
-                    '25MB 单文件上限。前端 loadSearchIndex() 并行取全部分片后合并，'
-                    '搜索覆盖面与合并成一份完全一致，未做任何截断。',
+            'format': 'sharded-v2',
+            'note': '两段式搜索。第一段：data/search-index/_titles.json 只含书名与章名，'
+                    '进站即载，打开就能搜。第二段：正文按分类分片存于 '
+                    'data/search-index/<category>.json，用户点「搜正文」时按需拉取。'
+                    '分片同时解决 Cloudflare Pages 25MB 单文件上限。'
+                    '正文未做任何截断——全部分片载完后的搜索覆盖面，与合并成一份完全一致。',
             'shards': sorted(groups),
+            'shardBytes': {c: sizes[c] for c in sorted(sizes)},
+            'titleIndex': '_titles.json',
+            'titleBytes': title_size,
             'entries': len(idx),
             'builtBy': 'tools/ingest.py index',
         }
@@ -939,6 +954,7 @@ def main():
               f"（正文 {sum(1 for e in idx if e['type']=='content')} / "
               f"注 {sum(1 for e in idx if e['type']=='annotation')}），"
               f'{len(groups)} 个分片，合计 {sum(sizes.values())/1048576:.1f} MB')
+        print(f'    {"_titles":<10}{title_size/1048576:>7.2f} MB  ← 进站即载')
         for c in sorted(sizes, key=lambda k: -sizes[k]):
             print(f'    {c:<10}{sizes[c]/1048576:>7.2f} MB')
         if big:

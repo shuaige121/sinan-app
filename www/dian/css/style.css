@@ -371,6 +371,15 @@ button { cursor: pointer; border: none; outline: none; font-family: inherit; col
 #fulltext-results { max-width: 800px; margin: 0 auto; padding: 0 1rem; }
 .ft-loading { text-align: center; padding: 0.6rem; color: var(--text-muted); font-size: 0.8rem; }
 .ft-header { font-size: 0.75rem; color: var(--text-muted); padding: 0.6rem 0 0.3rem; border-top: 1px solid var(--border); }
+/* 两段式搜索：先出书名章名命中，正文索引按需再拉（全部载完覆盖面与不分片时一致） */
+.ft-deep { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;
+  font-size: 0.75rem; color: var(--text-muted); line-height: 1.5;
+  padding: 0.5rem 0.6rem; margin: 0.3rem 0 0.2rem;
+  background: var(--bg-soft, rgba(127,127,127,0.07)); border-radius: 6px; }
+.ft-deep-btn { flex: none; font: inherit; font-size: 0.75rem; cursor: pointer;
+  padding: 0.28rem 0.8rem; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--bg); color: var(--text); }
+.ft-deep-btn:hover { border-color: var(--accent, currentColor); }
 .ft-book-group { border: 1px solid var(--border); border-radius: 10px; margin: 0.5rem 0; background: var(--bg-card); }
 .ft-book-title { padding: 0.5rem 0.8rem; font-size: 0.9rem; font-weight: 600; color: var(--accent); cursor: pointer; border-bottom: 1px solid var(--border); }
 .ft-book-title:hover { text-decoration: underline; }
