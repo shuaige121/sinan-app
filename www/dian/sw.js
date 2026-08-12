@@ -1,6 +1,6 @@
-/* 司南·典籍阁 Service Worker — 离线缓存 v20260812b */
+/* 司南·典籍阁 Service Worker — 离线缓存 v20260812c */
 'use strict';
-const CACHE = 'djg-v20260812-b';
+const CACHE = 'djg-v20260812-c';
 const SHELL = ['./', './css/style.css', './js/app.js', './data/registry.json', './manifest.json', './icon.svg', './img/changming-archive-hall-v1.webp'];
 
 self.addEventListener('install', e => {

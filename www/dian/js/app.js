@@ -726,6 +726,7 @@ function refreshChrome() {
 
 // 首页 hero：一句话定位 + 数据选出的「从这本开始」精选大卡
 function renderHero(allBooks) {
+  const annotatedCount = allBooks.filter(b => b.hasAnnotated && b.status !== '待补').length;
   const featured = allBooks
     .filter(b => b.hasAnnotated && b.status !== '待补')
     .sort((a, b) => (b.charCount || 0) - (a.charCount || 0))
@@ -744,7 +745,7 @@ function renderHero(allBooks) {
     <div class="archive-hero-copy">
       <div class="hero-tag">常明城 · 藏经阁</div>
       <div class="hero-headline">每一句判断，都能回到它来时的原文</div>
-      <div class="hero-sub">22 部堪舆·命理典籍逐句白话译注。这里不是书皮陈列，而是一座能查证、能追溯的地下档案馆。</div>
+      <div class="hero-sub">${allBooks.length} 部典籍入阁，其中 ${annotatedCount} 部可读逐句白话译注。这里不是书皮陈列，而是一座能查证、能追溯的城中档案馆。</div>
     </div>
     ${cards ? `<div class="archive-hero-picks"><div class="hero-pick-label">从这卷开始</div>
     <div class="hero-cards">${cards}</div></div>` : ''}

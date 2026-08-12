@@ -41,6 +41,33 @@
     金: V9_ROOT + 'relations/peer-metal-v1.webp',
     水: V9_ROOT + 'relations/peer-water-v1.webp'
   });
+  const RELATION_SCENES = Object.freeze(Object.fromEntries(STEM_ORDER.map(stem => {
+    const slug = ({ 甲: 'jia', 乙: 'yi', 丙: 'bing', 丁: 'ding', 戊: 'wu', 己: 'ji', 庚: 'geng', 辛: 'xin', 壬: 'ren', 癸: 'gui' })[stem];
+    const suffixes = {
+      甲: { output: 'output-fire', source: 'source-water', control: 'control-earth', pressure: 'pressure-metal' },
+      乙: { output: 'output-fire-trio', source: 'source-water', control: 'control-earth', pressure: 'pressure-metal' },
+      丙: { output: 'output-earth', source: 'source-wood', control: 'control-metal', pressure: 'pressure-water' },
+      丁: { output: 'output-earth', source: 'source-wood', control: 'control-metal', pressure: 'pressure-water' },
+      戊: { output: 'output-metal', source: 'source-fire', control: 'control-water', pressure: 'pressure-wood' },
+      己: { output: 'output-metal', source: 'source-fire', control: 'control-water', pressure: 'pressure-wood' },
+      庚: { output: 'output-water', source: 'source-earth', control: 'control-wood', pressure: 'pressure-fire' },
+      辛: { output: 'output-water', source: 'source-earth', control: 'control-wood', pressure: 'pressure-fire' },
+      壬: { output: 'output-wood', source: 'source-metal', control: 'control-fire', pressure: 'pressure-earth' },
+      癸: { output: 'output-wood', source: 'source-metal', control: 'control-fire', pressure: 'pressure-earth' }
+    }[stem];
+    return [stem, Object.freeze(Object.fromEntries(Object.entries(suffixes).map(([key, suffix]) => [key, `${V9_ROOT}relations/${slug}-${suffix}-v1.webp`])))];
+  })));
+  const SPECIAL_SCENES = Object.freeze({
+    '甲己': V9_ROOT + 'relations/jia-ji-combine-v1.webp',
+    '乙庚': V9_ROOT + 'relations/yi-geng-combine-v1.webp',
+    '丙辛': V9_ROOT + 'relations/bing-xin-combine-v1.webp',
+    '丁壬': V9_ROOT + 'relations/ding-ren-combine-v1.webp',
+    '戊癸': V9_ROOT + 'relations/wu-gui-combine-v1.webp',
+    '甲庚': V9_ROOT + 'relations/jia-geng-clash-v1.webp',
+    '乙辛': V9_ROOT + 'relations/yi-xin-clash-v1.webp',
+    '丙壬': V9_ROOT + 'relations/bing-ren-clash-v1.webp',
+    '丁癸': V9_ROOT + 'relations/ding-gui-clash-v1.webp'
+  });
 
   const CHARACTERS = {
     甲: {
@@ -290,6 +317,7 @@
     const controlledStems = ELEMENT_STEMS[controlledEl];
     const pressureStems = ELEMENT_STEMS[pressureEl];
     const en = lang === 'en';
+    const scenes = RELATION_SCENES[stem] || {};
     const cards = [
       {
         key: 'peer', kind: 'peer', label: en ? 'Kin' : '同类', term: en ? '比劫 · peers' : '比劫',
@@ -301,7 +329,7 @@
         key: 'output', kind: 'generate', label: en ? 'I generate' : '我生', term: en ? '食伤 · output' : '食伤',
         plain: en ? 'What you give also costs you' : '你交出去，也会被消耗',
         title: textOf(output, 'title', lang), story: textOf(output, 'story', lang),
-        scene: stem === '乙' ? V9_ROOT + 'relations/yi-output-fire-trio-v1.webp' : '',
+        scene: scenes.output || '',
         relatedStems: outputStems, related: namesFor(outputStems, lang),
         relatedDetails: outputStems.map(target => ({
           stem: target,
@@ -311,19 +339,19 @@
       {
         key: 'source', kind: 'source', label: en ? 'Generates me' : '生我', term: en ? '印 · support' : '印',
         plain: en ? 'Supports you, and may become dependence' : '托住你，也可能让你依赖',
-        title: textOf(source, 'title', lang), story: textOf(source, 'story', lang), scene: '',
+        title: textOf(source, 'title', lang), story: textOf(source, 'story', lang), scene: scenes.source || '',
         relatedStems: sourceStems, related: namesFor(sourceStems, lang)
       },
       {
         key: 'control', kind: 'control', label: en ? 'I regulate' : '我制', term: en ? '财 · stewardship' : '财',
         plain: en ? 'You can handle it, and must bear the outcome' : '你能处理，也要承担后果',
-        title: textOf(controlled, 'title', lang), story: textOf(controlled, 'story', lang), scene: '',
+        title: textOf(controlled, 'title', lang), story: textOf(controlled, 'story', lang), scene: scenes.control || '',
         relatedStems: controlledStems, related: namesFor(controlledStems, lang)
       },
       {
         key: 'pressure', kind: 'pressure', label: en ? 'Regulates me' : '制我', term: en ? '官杀 · pressure' : '官杀',
         plain: en ? 'Presses you, and forces you into shape' : '让你受压，也迫使你成形',
-        title: textOf(pressure, 'title', lang), story: textOf(pressure, 'story', lang), scene: '',
+        title: textOf(pressure, 'title', lang), story: textOf(pressure, 'story', lang), scene: scenes.pressure || '',
         relatedStems: pressureStems, related: namesFor(pressureStems, lang)
       }
     ];
@@ -337,10 +365,7 @@
           ? (en ? 'Opposing motions interlock; the next state stays open' : '相制动作互锁，长出谁都不是的下一种状态')
           : (en ? 'Equal force on one axis; no villain and no fixed ending' : '同轴等量受力，没有反派，也没有固定结局'),
         title: textOf(sp, 'title', lang), story: textOf(sp, 'story', lang),
-        scene: sp.type === '合' && ((sp.a === '乙' && sp.b === '庚') || (sp.a === '庚' && sp.b === '乙'))
-          ? V9_ROOT + 'relations/yi-geng-combine-v1.webp'
-          : (sp.type === '冲' && ((sp.a === '乙' && sp.b === '辛') || (sp.a === '辛' && sp.b === '乙'))
-            ? V9_ROOT + 'relations/yi-xin-clash-v1.webp' : ''),
+        scene: SPECIAL_SCENES[sp.a + sp.b] || SPECIAL_SCENES[sp.b + sp.a] || '',
         relatedStems: [other], related: namesFor([other], lang)
       });
     });

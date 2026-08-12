@@ -10,7 +10,8 @@
   const ELEMENTS = ['木', '火', '土', '金', '水'];
   const ELEMENT_EN = { 木: 'Wood', 火: 'Fire', 土: 'Earth', 金: 'Metal', 水: 'Water' };
   const ELEMENT_HEX = C.EL_HEX || { 木: '#45a66b', 火: '#d94c33', 土: '#d9a821', 金: '#d8c47a', 水: '#5489cc' };
-  const state = { chart: null, input: null, dayMasterStem: null, guideStems: [], guideElement: null, guideBalanced: false, activeStem: null, relationIndex: 0, returnFocus: null };
+  const THEME_KEY = 'changming-theme-stem';
+  const state = { chart: null, input: null, dayMasterStem: null, themeStem: null, guideStems: [], guideElement: null, guideBalanced: false, activeStem: null, relationIndex: 0, returnFocus: null };
   let root = null;
   let content = null;
 
@@ -22,6 +23,22 @@
     })[c]);
   }
   function itemText(item, key) { return Characters.text(item, key, en() ? 'en' : 'zh'); }
+
+  function readTheme() {
+    try {
+      const stem = global.localStorage.getItem(THEME_KEY);
+      return Characters.get(stem) ? stem : null;
+    } catch (e) { return null; }
+  }
+
+  function writeTheme(stem) {
+    try {
+      if (Characters.get(stem)) global.localStorage.setItem(THEME_KEY, stem);
+      else global.localStorage.removeItem(THEME_KEY);
+    } catch (e) {}
+    state.themeStem = Characters.get(stem) ? stem : null;
+    document.dispatchEvent(new CustomEvent('changming-theme-change', { detail: { stem: state.themeStem } }));
+  }
 
   function readChart() {
     let input = null;
@@ -92,14 +109,19 @@
       if (!item) return '';
       const isGuide = state.guideStems.includes(stem);
       const isDayMaster = stem === state.dayMasterStem;
+      const isTheme = stem === (state.themeStem || state.dayMasterStem);
       const current = stem === activeStem;
       const name = itemText(item, 'name');
-      const note = isDayMaster
-        ? text('我的日主', 'My Day Master')
+      const note = isDayMaster && isTheme
+        ? text('我的日主 · 主题人物', 'My Day Master · Theme')
+        : (isDayMaster
+          ? text('我的日主', 'My Day Master')
+          : (isTheme
+            ? text('我的主题人物', 'My Theme Character')
         : ((isGuide && !state.guideBalanced)
-          ? text(`较少的${item.element} · 两位一起看`, `Lower ${ELEMENT_EN[item.element]} · shown as a pair`)
-          : itemText(item, 'role'));
-      return `<button type="button" class="cm-cast-person${current ? ' is-active' : ''}${isDayMaster ? ' is-mine' : ''}${isGuide ? ' is-low' : ''}" data-cm-stem="${stem}" aria-pressed="${current}">
+          ? text(`较少的${item.element} · ${state.guideStems.join('、')}`, `Lower ${ELEMENT_EN[item.element]} · ${state.guideStems.join(' / ')}`)
+          : itemText(item, 'role'))));
+      return `<button type="button" class="cm-cast-person${current ? ' is-active' : ''}${isDayMaster ? ' is-mine' : ''}${isTheme ? ' is-theme' : ''}${isGuide ? ' is-low' : ''}" data-cm-stem="${stem}" aria-pressed="${current}">
         <img src="${esc(item.heroScene || item.background)}" alt="${esc(stem + '·' + name)}" loading="lazy" decoding="async" style="--scene-focus:${esc(item.heroFocus || '50% 50%')}">
         <span><b>${esc(stem + '·' + name)}</b><small>${esc(note)}</small></span>
       </button>`;
@@ -128,7 +150,6 @@
       ${narrative}
       <div><span>${esc(card.term)}</span><b>${esc(card.related)}</b></div>
       <p>${esc(card.plain)}</p>
-      <small>${text('关系由日主与五行生、克、合、冲推出；只说明作用方向，不作吉凶判断。', 'The relation is derived from the Day Master and five-phase generation, control, combination, and clash. It describes direction, not fortune.')}</small>
     </div>`;
   }
 
@@ -157,6 +178,7 @@
     const primaryHex = ELEMENT_HEX[primary];
     const secondaryHex = ELEMENT_HEX[secondary];
     const isDayMaster = !!state.dayMasterStem && state.activeStem === state.dayMasterStem;
+    const isTheme = state.activeStem === (state.themeStem || state.dayMasterStem);
     const isGuide = state.guideStems.includes(state.activeStem);
     const polarity = item.yang ? text('阳', 'Yang') : text('阴', 'Yin');
     const name = itemText(item, 'name');
@@ -167,13 +189,20 @@
       ? text('五色距离很近，环境光才趋向白。', 'The five colors are close enough for the ambient light to approach white.')
       : text(`此刻以${primary}、${secondary}显色，其余三色仍在流动。`, `${ELEMENT_EN[primary]} and ${ELEMENT_EN[secondary]} are most visible now; the other three colors remain in motion.`);
     const sourceLine = state.chart
-      ? text('按本机命盘五行分值映射，只呈结构，不作吉凶。', 'Mapped from the five-phase scores stored on this device. It shows structure, not fortune.')
-      : text('未读取命盘，暂以五色等量展示。', 'No chart is loaded; the five colors are shown equally for preview.');
-    const enterLabel = isDayMaster
-      ? text('这是你的日主 · 人物叙事从这里开始', 'Your Day Master · your story begins here')
-      : (isGuide && !state.guideBalanced
-        ? text(`你盘里较少的${item.element} · ${state.guideStems.join('、')}一起出现`, `Lower ${ELEMENT_EN[item.element]} · both stems appear together`)
-        : text('城中人物志', 'A life in Changming'));
+      ? text('五色来自你的命盘。', 'These five colors come from your chart.')
+      : text('还没有命盘，先以五色等量照亮这座城。', 'Without a chart, the city begins in equal light.');
+    const enterLabel = isDayMaster && isTheme
+      ? text('你的日主 · 也是你的主题人物', 'Your Day Master · also your theme character')
+      : (isTheme
+        ? text(`你的主题人物 · 日主仍是${state.dayMasterStem || '未定'}`, `Your theme character · Day Master ${state.dayMasterStem || 'not set'}`)
+        : (isDayMaster
+          ? text('这是你的日主', 'Your Day Master')
+          : (isGuide && !state.guideBalanced
+            ? text(`你盘里较少的${item.element} · ${state.guideStems.join('、')}一起出现`, `Lower ${ELEMENT_EN[item.element]} · both stems appear together`)
+            : text('此刻正在读他与全城的关系', 'Reading this character across the whole city'))));
+    const themeAction = isTheme
+      ? `<button type="button" class="cm-theme-button is-current" data-cm-theme-reset>${text('主题跟随日主', 'Theme follows Day Master')}</button>`
+      : `<button type="button" class="cm-theme-button" data-cm-theme="${esc(state.activeStem)}">${text(`设${state.activeStem}为主题人物`, `Set ${state.activeStem} as theme`)}</button>`;
     const fireCycle = item.element === '火' ? `<figure class="cm-fire-cycle">
       <img src="img/ten-archetypes/human/v8/scenes/fire-cycle-v1.webp" alt="${esc(text('忘归向外展开晨光，西窗在明暗交界护住火种', 'Wanggui opens into daylight while Xichuang protects the ember at its edge'))}" loading="lazy" decoding="async">
       <figcaption><b>${text('凤凰与卵', 'Phoenix and Egg')}</b><span>${text('同一股火，一边向外给予，一边把未来收拢；院外晨光正在展开，掌心微光仍未熄灭。', 'One fire gives outward while the other encloses the future; dawn opens outside while the ember remains lit within her hands.')}</span></figcaption>
@@ -194,6 +223,7 @@
           <p class="cm-role">${esc(polarity + item.element + ' · ' + role)}</p>
           <div class="cm-tags">${tags.map(tag => `<span>${esc(tag)}</span>`).join('')}</div>
           <p class="cm-intro">${esc(itemText(item, 'desc'))}</p>
+          <div class="cm-theme-actions">${themeAction}</div>
         </div>
         <button type="button" class="cm-scroll-cue" data-cm-scroll="balance">${text('向下 · 看城中气色', 'Continue · See the city’s colors')}</button>
       </section>
@@ -212,16 +242,18 @@
         ${fireCycle}
       </section>
 
-      <section class="cm-section cm-relations">
-        <div class="cm-section-head"><span>03</span><div><small>${text('关系经纬', 'RELATION LINES')}</small><h2>${text('关系从五行里长出来', 'Relations grow from the five phases')}</h2></div></div>
+      <section class="cm-section cm-relations" id="cm-relations-browser">
+        <div class="cm-section-head"><span>03</span><div><small>${text('全城关系', 'CITY RELATIONS')}</small><h2>${text('任选一个人，看他与谁发生作用', 'Choose anyone and read every connection')}</h2></div></div>
+        <p class="cm-cast-intro">${text('先选人物，再点同类、生、制、合或冲。这里可以看任意两人、三人的故事，不限于你的日主。', 'Choose a character, then open kin, generation, control, combination, or clash. These stories are open across the whole cast.')}</p>
+        <div class="cm-cast-rail is-relations">${castMarkup(state.activeStem)}</div>
         <div class="cm-relation-tabs" role="tablist">${relationCards.map((card, index) => `<button type="button" role="tab" aria-selected="${index === 0}" class="${index === 0 ? 'is-active' : ''}" data-cm-rel="${index}">${esc(card.label)}</button>`).join('')}</div>
         <div id="cm-relation-panel" class="cm-relation-panel" role="tabpanel" aria-live="polite"></div>
       </section>
 
       <section class="cm-section cm-cast">
-        <div class="cm-section-head"><span>04</span><div><small>${text('十干人物', 'THE TEN STEMS')}</small><h2>${text('城中还有九个人', 'Nine others hold the city with you')}</h2></div></div>
-        <p class="cm-cast-intro">${text('木引火，火归土，土生金，金出水，水再养木。点一个人，进入他的场景。', 'Wood feeds Fire, Fire returns to Earth, Earth bears Metal, Metal opens Water, and Water nourishes Wood. Choose a person to enter their setting.')}</p>
-        <div class="cm-cast-rail">${castMarkup(state.activeStem)}</div>
+        <div class="cm-section-head"><span>04</span><div><small>${text('主题人物', 'THEME CHARACTER')}</small><h2>${text('让谁陪你走过司南', 'Choose who travels with you')}</h2></div></div>
+        <p class="cm-cast-intro">${text('主题人物会出现在首页人物卡、今日小传和常明城默认入口；你的日主与关系计算不会因此改变。', 'Your theme appears on the home character card, daily story, and default Changming entry. Your Day Master and relation structure stay unchanged.')}</p>
+        <div class="cm-theme-picker"><b>${esc(state.activeStem + '·' + name)}</b>${themeAction}</div>
       </section>`;
 
     const mineButton = root.querySelector('#cm-mine');
@@ -229,6 +261,8 @@
       mineButton.hidden = !state.dayMasterStem || isDayMaster;
       mineButton.textContent = text('回到我的日主', 'Back to my Day Master');
     }
+    const relationsButton = root.querySelector('#cm-relations');
+    if (relationsButton) relationsButton.textContent = text('全城关系', 'City relations');
     const brand = root.querySelector('.cm-brand');
     if (brand) brand.innerHTML = `<b>常明城</b><small>${text('十干人物志', 'TEN-STEM CHRONICLES')}</small>`;
     const back = root.querySelector('.cm-back span');
@@ -237,22 +271,24 @@
     content.scrollTop = 0;
   }
 
-  function open(stem) {
+  function open(stem, view) {
     if (!root || !content) return;
     const loaded = readChart();
     state.input = loaded.input;
     state.chart = loaded.chart;
     state.dayMasterStem = loaded.chart ? loaded.chart.dm : null;
+    state.themeStem = readTheme();
     const guide = Characters.guideFor(loaded.chart);
     state.guideStems = guide.pair ? guide.pair.slice() : [];
     state.guideElement = guide.element;
     state.guideBalanced = !!guide.balanced; // 五行等量时没有「最少」，文案不能照说
     state.returnFocus = document.activeElement;
-    render(stem || state.dayMasterStem || state.guideStems[0] || '甲');
+    render(stem || state.themeStem || state.dayMasterStem || state.guideStems[0] || '甲');
     root.hidden = false;
     root.setAttribute('aria-hidden', 'false');
     document.body.classList.add('changming-open');
     requestAnimationFrame(() => root.classList.add('is-open'));
+    if (view === 'relations') setTimeout(() => content.querySelector('#cm-relations-browser')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
     const closeButton = root.querySelector('#cm-close');
     if (closeButton) setTimeout(() => closeButton.focus({ preventScroll: true }), 40);
   }
@@ -276,7 +312,7 @@
       const trigger = event.target.closest && event.target.closest('[data-changming-open]');
       if (trigger) {
         event.preventDefault();
-        open(trigger.getAttribute('data-stem') || undefined);
+        open(trigger.getAttribute('data-stem') || undefined, trigger.getAttribute('data-cm-view') || undefined);
         return;
       }
       const relation = event.target.closest && event.target.closest('[data-cm-rel]');
@@ -293,10 +329,23 @@
       if (scroll && root.contains(scroll)) {
         const target = content.querySelector('#cm-balance');
         if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+      const theme = event.target.closest && event.target.closest('[data-cm-theme]');
+      if (theme && root.contains(theme)) {
+        writeTheme(theme.dataset.cmTheme);
+        render(state.activeStem);
+        return;
+      }
+      const themeReset = event.target.closest && event.target.closest('[data-cm-theme-reset]');
+      if (themeReset && root.contains(themeReset)) {
+        writeTheme(null);
+        render(state.activeStem);
       }
     });
     root.querySelector('#cm-close')?.addEventListener('click', close);
     root.querySelector('#cm-mine')?.addEventListener('click', () => { if (state.dayMasterStem) render(state.dayMasterStem); });
+    root.querySelector('#cm-relations')?.addEventListener('click', () => content.querySelector('#cm-relations-browser')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
     document.addEventListener('keydown', event => { if (event.key === 'Escape' && !root.hidden) close(); });
   }
 

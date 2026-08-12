@@ -3039,13 +3039,15 @@ body.changming-open { overflow: hidden; }
   padding: env(safe-area-inset-top) 18px 10px; border-bottom: .7px solid rgba(235,222,194,.13);
   background: linear-gradient(180deg, rgba(6,8,10,.96), rgba(6,8,10,.72)); backdrop-filter: blur(16px);
 }
-.cm-back, .cm-mine {
+.cm-back, .cm-mine, .cm-relations-jump {
   min-height: 36px; border: 0; border-radius: 99px; background: transparent; color: rgba(239,232,213,.78);
   font: 500 12px/1 inherit; letter-spacing: .04em; cursor: pointer;
 }
 .cm-back { justify-self: start; display: flex; align-items: center; gap: 6px; padding: 0 8px 0 0; font-size: 20px; }
 .cm-back span { font-size: 12px; }
-.cm-mine { justify-self: end; padding: 0 12px; border: .7px solid rgba(201,162,39,.34); color: #d9bd63; }
+.cm-top-actions { justify-self: end; display: flex; gap: 7px; }
+.cm-mine, .cm-relations-jump { padding: 0 12px; border: .7px solid rgba(201,162,39,.34); color: #d9bd63; }
+.cm-relations-jump { border-color: rgba(235,222,194,.22); color: rgba(239,232,213,.78); }
 .cm-brand { align-self: center; text-align: center; line-height: 1.05; }
 .cm-brand b { display: block; color: #e7d18b; font: 600 17px/1.1 serif; letter-spacing: .17em; }
 .cm-brand small { display: block; margin-top: 5px; color: rgba(239,232,213,.44); font-size: 8px; letter-spacing: .19em; }
@@ -3161,6 +3163,17 @@ body.changming-open { overflow: hidden; }
 .cm-cast-person.is-active { border-color: var(--cm-primary); background: color-mix(in srgb, var(--cm-primary) 10%, transparent); }
 .cm-cast-person.is-active img { filter: saturate(.92) brightness(1); }
 .cm-cast-person.is-mine small { color: #d9bd63; }
+.cm-cast-person.is-theme { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--cm-character) 36%, transparent); }
+.cm-cast-person.is-theme small { color: var(--cm-character); }
+.cm-cast-rail.is-relations { margin-bottom: 22px; }
+.cm-theme-actions { display: flex; gap: 8px; margin-top: 20px; }
+.cm-theme-button { min-height: 36px; padding: 0 13px; border: .7px solid color-mix(in srgb, var(--cm-character) 46%, rgba(235,222,194,.18)); border-radius: 999px; background: rgba(8,9,11,.45); color: #eee5d2; font-size: 11px; cursor: pointer; }
+.cm-theme-button.is-current { color: #d9bd63; border-color: rgba(201,162,39,.42); }
+.cm-theme-picker { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin: 26px 0 0 39px; padding: 16px 18px; border: .7px solid rgba(235,222,194,.14); border-radius: 12px; background: rgba(255,255,255,.02); }
+.cm-theme-picker b { color: #ede5d4; font-size: 14px; }
+.relation-city-entry { margin: 14px 0 4px; }
+.bazi-arch-basis summary { cursor: pointer; color: var(--paper-dim); }
+.bazi-arch-basis p { margin: 6px 0 0; }
 
 @media (max-width: 620px) {
   /* 文案块底部锚定且 30% 处就接近全黑：卡片必须留出足够高度，
@@ -3178,7 +3191,7 @@ body.changming-open { overflow: hidden; }
   .character-story-visual { height: 238px; }
   .cm-topbar { grid-template-columns: 1fr auto 1fr; padding-left: 12px; padding-right: 12px; }
   .cm-back span { display: none; }
-  .cm-mine { padding: 0 9px; font-size: 10px; }
+  .cm-mine, .cm-relations-jump { padding: 0 8px; font-size: 9px; }
   .cm-hero { min-height: calc(100dvh - 62px - env(safe-area-inset-top)); }
   .cm-hero-background { background-position: 58% center; }
   .cm-hero-background::after { background: linear-gradient(180deg, rgba(5,7,8,.08) 0%, rgba(5,7,8,.16) 34%, #080b0d 82%); }
@@ -3189,7 +3202,7 @@ body.changming-open { overflow: hidden; }
   .cm-tags { margin-top: 11px; }
   .cm-scroll-cue { bottom: 10px; opacity: .72; }
   .cm-section { width: calc(100% - 30px); padding: 60px 0; }
-  .cm-section-lead, .cm-cast-intro, .cm-balance-bars, .cm-story-line, .cm-fire-cycle, .cm-relation-tabs, .cm-relation-panel, .cm-cast-rail { margin-left: 0; }
+  .cm-section-lead, .cm-cast-intro, .cm-balance-bars, .cm-story-line, .cm-fire-cycle, .cm-relation-tabs, .cm-relation-panel, .cm-cast-rail, .cm-theme-picker { margin-left: 0; }
   .cm-relation-scene { height: 260px; }
   .cm-relation-people { gap: 7px; padding: 18px 10px 0; }
   .cm-relation-person { flex-basis: 38%; }
