@@ -1566,7 +1566,7 @@ function renderDrawer(book, chapters, idx) {
   return `
     <div class="drawer-mask" id="drawer-mask" onclick="closeDrawer()"></div>
     <div class="drawer" id="drawer">
-      <div class="drawer-head">${esc(book.title)} · 目录</div>
+      <div class="drawer-head"><span>${esc(book.title)} · 目录</span><button type="button" class="drawer-close" onclick="closeDrawer()" aria-label="关闭目录">✕</button></div>
       ${showSearch ? `<input type="search" class="drawer-search" id="drawer-search"
         placeholder="搜章节…" oninput="filterDrawer(this.value)" autocomplete="off">` : ''}
       <div class="drawer-list" id="drawer-list">
@@ -1600,7 +1600,8 @@ function filterDrawer(q) {
 function openDrawer() {
   el('drawer')?.classList.add('open');
   el('drawer-mask')?.classList.add('show');
-  setTimeout(() => el('drawer-search')?.focus(), 280);
+  // 触屏设备不自动聚焦：一打开就弹起软键盘会把目录挤掉大半，用户是来看目录的不是来搜的。
+  if (!('ontouchstart' in window)) setTimeout(() => el('drawer-search')?.focus(), 280);
 }
 function closeDrawer() {
   el('drawer')?.classList.remove('open');
