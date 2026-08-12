@@ -182,12 +182,12 @@ button { cursor: pointer; border: none; outline: none; font-family: inherit; col
 .book-read-tag { font-size: 0.60rem; color: var(--accent); background: var(--tag-bg); border-radius: 8px; padding: 0.1em 0.45em; white-space: nowrap; flex-shrink: 0; }
 [data-theme="night"] .book-alias-note { background: #3a2e08; color: #d8b860; }
 
-/* ─── 实景封面：所有书共享门类插画，标题仍由 HTML 清晰排印 ─── */
+/* ─── 叙事封面：重点书逐本定制，标题由 HTML 清晰排印 ─── */
 .book-cover { position: relative; margin: 0; overflow: hidden; background: var(--book-dark); color: #f7ecd0; }
 .book-cover img { width: 100%; height: 100%; display: block; object-fit: cover; }
 .book-cover-shade {
   position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(180deg, rgba(3,7,7,.02) 20%, rgba(4,7,6,.3) 58%, rgba(6,7,6,.93) 100%);
+  background: linear-gradient(180deg, rgba(3,7,7,0) 48%, rgba(4,7,6,.18) 68%, rgba(6,7,6,.88) 100%);
 }
 .book-cover figcaption { position: absolute; z-index: 1; inset: auto .65rem .65rem; display: flex; flex-direction: column; gap: .18rem; text-shadow: 0 2px 10px #000; }
 .book-cover figcaption b { font-size: 1.02rem; line-height: 1.25; letter-spacing: .07em; }
@@ -1108,8 +1108,11 @@ html:not([data-view="read"]) .book-card {
   border: 1px solid rgba(222, 228, 220, .13);
   border-radius: 9px;
   color: #dce0da;
-  background: var(--book-card);
+  background: color-mix(in srgb, var(--book-dark) 46%, #121613);
   box-shadow: 0 10px 26px rgba(0, 0, 0, .18);
+}
+html:not([data-view="read"]) .book-card-copy {
+  background: color-mix(in srgb, var(--book-dark) 34%, #151a16);
 }
 html:not([data-view="read"]) .book-card::before {
   inset: 9px auto 9px 0;

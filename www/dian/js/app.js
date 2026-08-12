@@ -103,7 +103,8 @@ function highlight(text, query) {
 }
 
 // ─── 典籍封面与卷册主题 ───
-// 每部书都获得所属门类的实景插画；色板同时作用于详情与正文，避免封面、按钮、纸张各说各话。
+// 重点典籍使用逐本叙事封面；其余书沿用门类插画。色板同时作用于详情与正文，
+// 让封面、按钮与阅读纸张属于同一本书，而不是套用同一套金棕模板。
 const BOOK_PALETTES = Object.freeze({
   jingyi:   ['#8f3b24', '#cb8b55', '#2e1711', '#f5e4c2', '#efe0c5'],
   zhexue:   ['#42645d', '#85a08b', '#142a29', '#edf0df', '#e7ebdc'],
@@ -118,13 +119,45 @@ const BOOK_PALETTES = Object.freeze({
   bencao:   ['#49633d', '#a99456', '#182516', '#edf0dc', '#e3e8d8'],
   daozang:  ['#31545b', '#bb985a', '#102326', '#e9e9d9', '#dfe5dc'],
 });
-const BOOK_COVERS = new Set([
-  'xinji-bianfang', 'shenshi-xuankong', 'dili-wujue', 'bazhai-mingjing',
-  'shanhaijing', 'yuanhai-ziping', 'zangshu', 'daodejing'
+const BOOK_COVERS_V2 = new Set([
+  'bazhai-mingjing', 'boshan-pian', 'daodejing', 'dili-bianzheng',
+  'dili-renzi', 'dili-wujue', 'ditiansui', 'fawei-lun',
+  'hanlong-jing', 'luojing-toujie', 'nuqing-tianlu', 'sanfu-huangtu',
+  'sanming-tonghui', 'shanhaijing', 'shenfeng-tongkao', 'shenshi-xuankong',
+  'tonghua-lu', 'xinji-bianfang', 'yangzhai-sanyao', 'yangzhai-shishu',
+  'yilong-jing', 'yuanhai-ziping', 'zangshu', 'ziping-zhenquan'
 ]);
-function bookPalette(book) { return BOOK_PALETTES[book && book.category] || BOOK_PALETTES.jingyi; }
+const BOOK_PALETTE_OVERRIDES = Object.freeze({
+  'bazhai-mingjing': ['#9a542b', '#d5a06a', '#15191d', '#eee1ca', '#e8dac3'],
+  'boshan-pian': ['#526b62', '#a69a7b', '#272823', '#e5dfd1', '#ded8cb'],
+  'daodejing': ['#5f7271', '#a3aaa0', '#323735', '#f2eee2', '#ebe6da'],
+  'dili-bianzheng': ['#b34f3b', '#7eaaa5', '#304340', '#f1eadb', '#e7e2d7'],
+  'dili-renzi': ['#9b3029', '#b89062', '#141c23', '#eee1ca', '#e5d8c3'],
+  'dili-wujue': ['#b45735', '#758d73', '#172229', '#f0e7d8', '#e8dfcf'],
+  'ditiansui': ['#272a29', '#c89493', '#323536', '#f3f0e8', '#ebe8df'],
+  'fawei-lun': ['#973d30', '#9e9b91', '#191918', '#e9e4da', '#dfdbd2'],
+  'hanlong-jing': ['#b16d48', '#61907d', '#10201d', '#e7e2d4', '#dce1d7'],
+  'luojing-toujie': ['#315f78', '#a58d6b', '#262b2d', '#ebe4d6', '#e0dbd1'],
+  'nuqing-tianlu': ['#a74839', '#8d9da3', '#111e2a', '#e9e1d2', '#ded9d0'],
+  'sanfu-huangtu': ['#a6492c', '#447e91', '#3b2616', '#f0dfc0', '#e5d2b5'],
+  'sanming-tonghui': ['#bd7748', '#6f7785', '#332b25', '#efe2cc', '#e6dac6'],
+  'shanhaijing': ['#a9482e', '#38566a', '#392317', '#f0dfc4', '#e5d3b8'],
+  'shenfeng-tongkao': ['#a96739', '#938471', '#211b16', '#eadcc6', '#e1d2bd'],
+  'shenshi-xuankong': ['#395f8e', '#91a5b7', '#111f33', '#e8e4db', '#dce1e4'],
+  'tonghua-lu': ['#a33e31', '#81a198', '#3d3831', '#f0e3cc', '#e7dbc7'],
+  'xinji-bianfang': ['#b54735', '#88929b', '#303334', '#ede4d6', '#e5ddd2'],
+  'yangzhai-sanyao': ['#aa3b27', '#31577b', '#60301f', '#f1dfc5', '#e8d5bc'],
+  'yangzhai-shishu': ['#c0923c', '#7c8580', '#242421', '#e9e1d2', '#dfd8cc'],
+  'yilong-jing': ['#325fa8', '#999d9b', '#44423e', '#efede7', '#e5e3dd'],
+  'yuanhai-ziping': ['#bd4631', '#7d8c93', '#101e2b', '#e9deca', '#ded4c3'],
+  'zangshu': ['#b06d36', '#4f7770', '#1d2926', '#eee6d7', '#e3ddd1'],
+  'ziping-zhenquan': ['#b44d2d', '#91816d', '#393127', '#efe0c4', '#e5d7be'],
+});
+function bookPalette(book) {
+  return (book && BOOK_PALETTE_OVERRIDES[book.id]) || BOOK_PALETTES[book && book.category] || BOOK_PALETTES.jingyi;
+}
 function bookCover(book) {
-  if (book && BOOK_COVERS.has(book.id)) return `./img/covers/books/${encodeURIComponent(book.id)}.webp`;
+  if (book && BOOK_COVERS_V2.has(book.id)) return `./img/covers/books-v2/${encodeURIComponent(book.id)}.webp`;
   return `./img/covers/categories/${encodeURIComponent((book && book.category) || 'jingyi')}.webp`;
 }
 function bookThemeStyle(book) {
