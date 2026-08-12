@@ -6283,15 +6283,17 @@
     try { savedInput = JSON.parse(localStorage.getItem('bazi-input') || 'null'); }
     catch (e) { localStorage.removeItem('bazi-input'); }
     const birthSegments = [
-      { el: $('bazi-year'), size: 4, min: 1600, max: new Date().getFullYear(), label: '年份' },
-      { el: $('bazi-month'), size: 2, min: 1, max: 12, label: '月份' },
-      { el: $('bazi-day'), size: 2, min: 1, max: 31, label: '日期' },
-      { el: $('bazi-hour'), size: 2, min: 0, max: 23, label: '小时', hint: '按 24 小时制填，下午 2 点是 14' },
-      { el: $('bazi-minute'), size: 2, min: 0, max: 59, label: '分钟', optional: true }
+      { el: $('bazi-year'), size: 4, min: 1600, max: new Date().getFullYear(), label: '年份', labelEn: 'year' },
+      { el: $('bazi-month'), size: 2, min: 1, max: 12, label: '月份', labelEn: 'month' },
+      { el: $('bazi-day'), size: 2, min: 1, max: 31, label: '日期', labelEn: 'day' },
+      { el: $('bazi-hour'), size: 2, min: 0, max: 23, label: '小时', labelEn: 'hour' },
+      { el: $('bazi-minute'), size: 2, min: 0, max: 59, label: '分钟', labelEn: 'minute', optional: true }
     ];
     // 说清楚哪一格错了。此前跨格非法日期（如 2 月 30 日）只是让「排盘」变灰，
     // 五格全满、无一格标红、提示语一字不变——用户只能对着死按钮反复戳。
-    const hintEl = document.querySelector('#bazi-form .form-hint');
+    // 必须按 id 取：表单里还有一个「高级·真太阳时」折叠区内的 .form-hint，
+    // querySelector 会先抓到那个（默认折叠、offsetParent 为 null），提示就写进了看不见的地方。
+    const hintEl = document.getElementById('bazi-form-hint');
     const HINT_DEFAULT = hintEl ? hintEl.textContent : '';
     let lastProblem = null; // { index, message }
     function setHint(message, isError) {
@@ -6312,7 +6314,9 @@
         if (!raw || raw.length !== part.size) return;
         const value = +raw;
         if (value < part.min || value > part.max) {
-          problem = { index, message: `${part.label}要在 ${part.min}–${part.max} 之间，现在填的是 ${value}` };
+          problem = { index, message: isEN()
+            ? `${part.labelEn} must be between ${part.min} and ${part.max}; you entered ${value}`
+            : `${part.label}要在 ${part.min}–${part.max} 之间，现在填的是 ${value}` };
         }
       });
       let valid = complete && !problem;
@@ -6321,9 +6325,19 @@
         const check = new Date(y, m - 1, d, h, minute);
         valid = check.getFullYear() === y && check.getMonth() === m - 1 && check.getDate() === d
           && check.getHours() === h && check.getMinutes() === minute;
-        if (!valid) {
+        if (valid && check.getTime() > Date.now()) {
+          // 还没到的时刻不能排盘：原校验只卡年份 ≤ 今年，于是今年更晚的日期照样放行，
+          // 等于给一个还没出生的人出命盘。
+          valid = false;
+          problem = { index: 0, message: isEN()
+            ? 'That moment has not happened yet — check the birth date'
+            : '这个时刻还没到，确认一下出生日期' };
+        }
+        if (!valid && !problem) {
           // 单格都合法但组合起来不存在这一天：点名到「日」，并说出这个月到底几天。
-          problem = { index: 2, message: `${y} 年 ${m} 月只有 ${daysInMonth(y, m)} 天，没有 ${d} 日` };
+          problem = { index: 2, message: isEN()
+            ? `${m}/${y} has only ${daysInMonth(y, m)} days — there is no day ${d}`
+            : `${y} 年 ${m} 月只有 ${daysInMonth(y, m)} 天，没有 ${d} 日` };
         }
       }
       lastProblem = problem || (complete ? null : { index: values.findIndex((v, i) => v.length !== birthSegments[i].size), message: null });
@@ -6516,15 +6530,15 @@
     }
     function explainWhyNotReady() {
       if ($('bazi-islunar').checked) {
-        const missing = [[ySel, '年'], [mSel, '月'], [dSel, '日'], [scSel, '时辰']].find(pair => pair[0].value === '');
-        setHint(missing ? `还差「${missing[1]}」没选` : null, !!missing);
+        const missing = [[ySel, '年', 'year'], [mSel, '月', 'month'], [dSel, '日', 'day'], [scSel, '时辰', 'two-hour period']].find(pair => pair[0].value === '');
+        setHint(missing ? (isEN() ? `Still need the ${missing[2]}` : `还差「${missing[1]}」没选`) : null, !!missing);
         if (missing) missing[0].focus();
         return;
       }
       syncBirthDateTime(true);
       if (!lastProblem) return;
       const seg = birthSegments[lastProblem.index >= 0 ? lastProblem.index : 0];
-      if (!lastProblem.message && seg) setHint(`还差「${seg.label}」没填完`, true);
+      if (!lastProblem.message && seg) setHint(isEN() ? `Still need the ${seg.labelEn}` : `还差「${seg.label}」没填完`, true);
       if (seg && seg.el) { seg.el.focus(); if (seg.el.select) seg.el.select(); }
     }
     $('bazi-islunar').addEventListener('change', () => {
@@ -6539,12 +6553,12 @@
     // 农历选择器填充
     const ySel = $('lunar-year'), mSel = $('lunar-month'), dSel = $('lunar-day'), scSel = $('lunar-shichen');
     const thisYear = new Date().getFullYear();
-    ySel.add(new Option('出生年', ''));
+    ySel.add(new Option(isEN() ? 'Year' : '出生年', ''));
     for (let y = thisYear; y >= 1920; y--) ySel.add(new Option(y, y));
     const LY = window.LunarYear, LM = window.LunarMonth;
     function fillDays(y, m) {
       const prev = dSel.value; dSel.innerHTML = '';
-      dSel.add(new Option('日期', ''));
+      dSel.add(new Option(isEN() ? 'Day' : '日期', ''));
       if (!y || !m) { dSel.value = ''; return; }
       let cnt = 30;
       try { if (LM) cnt = LM.fromYm(y, m).getDayCount(); } catch (e) { cnt = 30; } // 小月 29 天，不再多出不存在的三十
@@ -6553,7 +6567,7 @@
     }
     function fillMonths(y) {
       const prev = mSel.value; mSel.innerHTML = '';
-      mSel.add(new Option('月份', ''));
+      mSel.add(new Option(isEN() ? 'Month' : '月份', ''));
       if (!y) { mSel.value = ''; fillDays(0, 0); return; }
       let leap = 0;
       try { if (LY) leap = LY.fromYear(y).getLeapMonth(); } catch (e) { leap = 0; } // 0=无闰
@@ -6565,7 +6579,7 @@
       fillDays(y, +mSel.value);
     }
     const sc = ['子时 23-01', '丑时 01-03', '寅时 03-05', '卯时 05-07', '辰时 07-09', '巳时 09-11', '午时 11-13', '未时 13-15', '申时 15-17', '酉时 17-19', '戌时 19-21', '亥时 21-23'];
-    scSel.add(new Option('时辰', ''));
+    scSel.add(new Option(isEN() ? 'Hour branch' : '时辰', ''));
     sc.forEach((s, i) => scSel.add(new Option(s, i)));
     // 四个下拉一律空开局，任何一个没选都不放行——不预填任何人的生日。
     ySel.value = ''; fillMonths(0); scSel.value = '';
@@ -7577,12 +7591,23 @@
     {
       const total = C.ELEMENTS.reduce((s, e) => s + (c.scores[e] || 0), 0);
       const sorted = C.ELEMENTS.slice().sort((a, b) => c.scores[b] - c.scores[a]);
+      // 并列要如实说「并列」，不能从排序结果里随便挑一个宣称最多/最少；
+      // 五行完全等量时更不能同时编出一个最多和一个最少。
+      const hiVal = c.scores[sorted[0]], loVal = c.scores[sorted[sorted.length - 1]];
+      const eps = 1e-9;
+      const tops = C.ELEMENTS.filter(e => Math.abs(c.scores[e] - hiVal) <= eps);
+      const bottoms = C.ELEMENTS.filter(e => Math.abs(c.scores[e] - loVal) <= eps);
+      const allEven = Math.abs(hiVal - loVal) <= eps;
       const top = sorted[0], bottom = sorted[sorted.length - 1];
       const head = document.createElement('div');
       head.className = 'bazi-bars-head';
       head.innerHTML = isEN()
-        ? `<b>Five phases in your chart</b><p>How much of each phase your eight characters add up to (total ${total.toFixed(1)}). Longer bar = more of it. Neither more nor less is “good”; balance is what the reading looks at.</p><p class="bazi-bars-lede">Most: <b style="color:${C.EL_HEX[top]}">${escapeHtml(elEN(top))} ${c.scores[top].toFixed(1)}</b> · Least: <b style="color:${C.EL_HEX[bottom]}">${escapeHtml(elEN(bottom))} ${c.scores[bottom].toFixed(1)}</b></p>`
-        : `<b>你八字里的五行</b><p>八个字折算下来，每一行各占多少（合计 ${total.toFixed(1)} 分）。条越长这一行越多。多不等于好、少也不等于差，看的是均不均。</p><p class="bazi-bars-lede">最多的是<b style="color:${C.EL_HEX[top]}">${escapeHtml(top)} ${c.scores[top].toFixed(1)}</b>，最少的是<b style="color:${C.EL_HEX[bottom]}">${escapeHtml(bottom)} ${c.scores[bottom].toFixed(1)}</b>。</p>`;
+        ? `<b>Five phases in your chart</b><p>How much of each phase your eight characters add up to (total ${total.toFixed(1)}). Longer bar = more of it. Neither more nor less is “good”; balance is what the reading looks at.</p><p class="bazi-bars-lede">${allEven
+            ? `All five come out even, at ${hiVal.toFixed(1)} each.`
+            : `Most: <b style="color:${C.EL_HEX[top]}">${escapeHtml(tops.map(elEN).join(', '))} ${hiVal.toFixed(1)}</b> · Least: <b style="color:${C.EL_HEX[bottom]}">${escapeHtml(bottoms.map(elEN).join(', '))} ${loVal.toFixed(1)}</b>`}</p>`
+        : `<b>你八字里的五行</b><p>八个字折算下来，每一行各占多少（合计 ${total.toFixed(1)} 分）。条越长这一行越多。多不等于好、少也不等于差，看的是均不均。</p><p class="bazi-bars-lede">${allEven
+            ? `五行分得很匀，每一行都是 ${hiVal.toFixed(1)}。`
+            : `最多的是<b style="color:${C.EL_HEX[top]}">${escapeHtml(tops.join('、'))} ${hiVal.toFixed(1)}</b>，最少的是<b style="color:${C.EL_HEX[bottom]}">${escapeHtml(bottoms.join('、'))} ${loVal.toFixed(1)}</b>。`}</p>`;
       bars.appendChild(head);
     }
     C.ELEMENTS.forEach(e => {
@@ -7751,7 +7776,9 @@
             note = document.createElement('p');
             note.id = 'kanyu-ink-note';
             note.className = 'kanyu-ink-note';
-            top.appendChild(note);
+            // 必须 prepend：#kanyu-top 有 max-height + overflow:auto（卡在罗盘上缘），
+            // append 到末尾会被整条裁掉——实测 note 顶边 253px、裁切线 222px，用户永远看不见。
+            top.insertBefore(note, top.firstChild);
           }
           note.textContent = tt('kanyu.ink_note');
           note.hidden = false;

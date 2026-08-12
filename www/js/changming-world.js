@@ -370,7 +370,7 @@
         render(state.activeStem);
       }
     });
-    root.querySelector('#cm-close')?.addEventListener('click', close);
+    root.querySelector('#cm-close')?.addEventListener('click', () => close()); // 不能直接传 close：MouseEvent 会被当成 fromHistory=true，于是不退回历史
     root.querySelector('#cm-mine')?.addEventListener('click', () => { if (state.dayMasterStem) render(state.dayMasterStem); });
     root.querySelector('#cm-relations')?.addEventListener('click', () => content.querySelector('#cm-relations-browser')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
     document.addEventListener('keydown', event => { if (event.key === 'Escape' && !root.hidden) close(); });

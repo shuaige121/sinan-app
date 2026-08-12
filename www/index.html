@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
-<link rel="stylesheet" href="css/style.css?v=20260813b">
+<link rel="stylesheet" href="css/style.css?v=20260813c">
 </head>
 <body>
 
@@ -535,7 +535,6 @@
         <label><input type="text" id="bazi-minute" inputmode="numeric" maxlength="2" placeholder="00" aria-label="出生分钟"><span>分</span></label>
       </div>
       <input type="hidden" id="bazi-datetime">
-      <p class="form-hint" data-i18n="bazi.solar_hint">按 24 小时制填，下午 2 点写 14。分钟不确定可以留空——时辰的分界都在整点。</p>
       <details class="bz-adv" id="bazi-solar-adv">
         <summary data-i18n="bazi.adv_summary">高级 · 真太阳时</summary>
         <div class="bz-adv-body">
@@ -560,6 +559,9 @@
       <select id="lunar-day"></select>
       <select id="lunar-shichen"></select>
     </div>
+    <!-- 提示语必须放在两种模式之外：原来它在 #bazi-solar-row 里，勾「农历」时整行被隐藏，
+         于是农历模式下的「还差年没选」写进了看不见的地方。 -->
+    <p class="form-hint" id="bazi-form-hint" data-i18n="bazi.solar_hint">按 24 小时制填，下午 2 点写 14。分钟不确定可以留空——时辰的分界都在整点。</p>
     <button class="btn-gold" id="btn-paipan" style="width:100%" data-i18n="bazi.btn_paipan">排　盘</button>
   </div>
   <div id="bazi-result" style="display:none">
@@ -736,8 +738,8 @@
 <script src="js/share-card.js?v=20260707a"></script>
 <script src="js/birth-places.js?v=20260812a"></script>
 <script src="js/character-manifest.js?v=20260813a"></script>
-<script src="js/changming-world.js?v=20260813a"></script>
-<script src="js/app.js?v=20260813b"></script>
+<script src="js/changming-world.js?v=20260813c"></script>
+<script src="js/app.js?v=20260813c"></script>
 <script src="js/qa-engine.js?v=20260706a"></script>
 <script src="js/ics-export.js?v=20260703a"></script>
 </body>

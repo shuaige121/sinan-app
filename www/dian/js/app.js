@@ -69,7 +69,7 @@ function debounce(fn, ms) {
 }
 
 // ─── 繁簡混搜：繁→簡字形映射（约140对，覆盖本站典籍高频字） ───
-const _T2S_PAIRS = '書书學学龍龙經经傳传陰阴陽阳氣气風风靈灵數数術术歷历東东長长門门關关開开國国來来過过時时會会為为萬万興兴發发說说讀读後后義义實实從从體体認认個个見见無无對对兩两漢汉間间結结運运聯联節节際际觀观線线圖图總总統统強强進进語语邊边變变頭头電电題题場场難难達达愛爱遠远歸归處处屬属張张單单話话種种導导連连繼继記记樂乐壽寿聲声師师華华腎肾膽胆臟脏脈脉針针協协羅罗綱纲筆笔談谈莊庄禮礼範范澤泽點点廣广廟庙雲云鄉乡顯显響响齊齐齋斋魚鱼馬马鳥鸟黃黄龜龟鳳凤劍剑寶宝斷断腦脑臨临補补視视請请謝谢識识遷迁銀银錢钱鐵铁鎮镇帶带樹树車车與与並并參参歲岁紀纪質质聖圣賢贤貴贵財财費费資资廢废廳厅廬庐陸陆險险隱隐隨随雖虽雙双雜杂霧雾領领頻频顏颜類类飛飞養养驗验鬧闹鬥斗麗丽黨党齒齿齡龄動动藥药絡络蘭兰陳陈蔣蒋覽览勝胜鑑鉴離离兌兑損损漸渐晉晋復复豐丰謙谦則则積积產产壇坛燈灯禪禅緣缘願愿護护擇择讓让祿禄鬚须蔭荫';
+const _T2S_PAIRS = '書书學学龍龙經经傳传陰阴陽阳氣气風风靈灵數数術术歷历東东長长門门關关開开國国來来過过時时會会為为萬万興兴發发說说讀读後后義义實实從从體体認认個个見见無无對对兩两漢汉間间結结運运聯联節节際际觀观線线圖图總总統统強强進进語语邊边變变頭头電电題题場场難难達达愛爱遠远歸归處处屬属張张單单話话種种導导連连繼继記记樂乐壽寿聲声師师華华腎肾膽胆臟脏脈脉針针協协羅罗綱纲筆笔談谈莊庄禮礼範范澤泽點点廣广廟庙雲云鄉乡顯显響响齊齐齋斋魚鱼馬马鳥鸟黃黄龜龟鳳凤劍剑寶宝斷断腦脑臨临補补視视請请謝谢識识遷迁銀银錢钱鐵铁鎮镇帶带樹树車车與与並并參参歲岁紀纪質质聖圣賢贤貴贵財财費费資资廢废廳厅廬庐陸陆險险隱隐隨随雖虽雙双雜杂霧雾領领頻频顏颜類类飛飞養养驗验鬧闹鬥斗麗丽黨党齒齿齡龄動动藥药絡络蘭兰陳陈蔣蒋覽览勝胜鑑鉴離离兌兑損损漸渐晉晋復复豐丰謙谦則则積积產产壇坛燈灯禪禅緣缘願愿護护擇择讓让祿禄鬚须蔭荫須须錄录濟济儀仪訣诀選选論论釋释醫医殘残據据驚惊';
 const _T2S = (() => {
   const m = {};
   for (let i = 0; i + 1 < _T2S_PAIRS.length; i += 2) m[_T2S_PAIRS[i]] = _T2S_PAIRS[i + 1];
@@ -156,6 +156,19 @@ const BOOK_PALETTE_OVERRIDES = Object.freeze({
 function bookPalette(book) {
   return (book && BOOK_PALETTE_OVERRIDES[book.id]) || BOOK_PALETTES[book && book.category] || BOOK_PALETTES.jingyi;
 }
+// 命中理由要看得见命中词本身：从头切 40 字往往整段都不含搜索词，
+// 用户的疑问会从「这本书为什么出现」变成「这段没头没尾的话是什么」。
+function snippetAround(text, qNorm, radius) {
+  const src = String(text || '');
+  if (!src) return '';
+  const r = radius || 16;
+  const idx = normalizeHan(src).indexOf(qNorm);
+  if (idx < 0) return src.slice(0, r * 2) + (src.length > r * 2 ? '…' : '');
+  const from = Math.max(0, idx - r);
+  const to = Math.min(src.length, idx + qNorm.length + r);
+  return (from > 0 ? '…' : '') + src.slice(from, to) + (to < src.length ? '…' : '');
+}
+
 function bookCover(book) {
   if (book && BOOK_COVERS_V2.has(book.id)) return `./img/covers/books-v2/${encodeURIComponent(book.id)}.webp`;
   return `./img/covers/categories/${encodeURIComponent((book && book.category) || 'jingyi')}.webp`;
@@ -938,7 +951,10 @@ function updateResults() {
     // 否则用户看到的是一张跟关键词毫无关系的书卡，只会觉得搜索坏了。
     b._why = null;
     if (!visibleHit && matchSearch) {
-      if (hiddenHit) b._why = '备注：' + String(b.authorNote && n(b.authorNote).includes(qNorm) ? b.authorNote : b.statusNote).slice(0, 40);
+      if (hiddenHit) {
+        const src = String(b.authorNote && n(b.authorNote).includes(qNorm) ? b.authorNote : b.statusNote || '');
+        b._why = '书目说明：' + snippetAround(src, qNorm);
+      }
       else if (inCat) b._why = '分类：' + (cat.label || '') + (cat.desc ? '（' + cat.desc + '）' : '');
       else if (inFrag) b._why = '正文中出现';
     }

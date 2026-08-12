@@ -1089,7 +1089,9 @@ input[type=radio], input[type=checkbox] { accent-color: var(--gold); }
 .leaflet-top.leaflet-right, .leaflet-control-layers { z-index: 900; }
 .leaflet-control-layers-expanded { position: relative; z-index: 901; }
 /* 列表展开时让读数卡整体让出点击（视觉不变，只是不再抢事件） */
-#page-kanyu.layers-open #kanyu-top { pointer-events: none; }
+/* #veinmap 自建层叠上下文，里面的 Leaflet 控件无论 z-index 多高都出不去，
+   所以不能靠抬高菜单，只能让读数卡在菜单展开期间整体退场。 */
+#page-kanyu.layers-open #kanyu-top { opacity: 0; pointer-events: none; }
 .leaflet-control-layers {
   background: rgba(26, 24, 20, .94) !important;
   color: var(--paper) !important;
@@ -1604,13 +1606,17 @@ input[type=radio], input[type=checkbox] { accent-color: var(--gold); }
 
 /* ============ 通用出处 chip + 引用弹层（cite-popover.js）============ */
 /* 可点出处 chip：极轻视觉暗示（下划虚线金），不喧宾夺主 */
+/* 下划线用 text-decoration 而非 border-bottom：border 画在 padding 盒外缘，
+   一旦为撑热区加了纵向 padding，虚线就会整条沉到文字下方十几像素、压在下一行上。
+   text-decoration 跟随文字基线，与 padding 无关。 */
 .cite-chip {
   cursor: pointer;
-  border-bottom: 1px dashed var(--border-strong);
-  transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
-  padding: 13px 4px; margin: -13px -4px;   /* 同 .term-chip：撑热区不改版式 */
+  text-decoration: underline dashed var(--border-strong);
+  text-decoration-thickness: 1px; text-underline-offset: 3px;
+  transition: color var(--dur-fast) var(--ease), text-decoration-color var(--dur-fast) var(--ease);
+  padding: 13px 4px; margin: -13px -4px;   /* 只撑热区 */
 }
-.cite-chip:hover { color: var(--gold); border-bottom-color: var(--gold); }
+.cite-chip:hover { color: var(--gold); text-decoration-color: var(--gold); }
 .cite-chip:focus-visible { outline: 1.5px solid var(--gold); outline-offset: 2px; border-radius: 2px; }
 /* 半屏弹层遮罩 */
 .cite-backdrop {
@@ -2814,13 +2820,13 @@ input[type=radio], input[type=checkbox] { accent-color: var(--gold); }
 /* 可点术语：墨灰点状下划线，与金虚线 cite-chip 区分（一个查白话·一个查出处） */
 .term-chip {
   cursor: pointer;
-  border-bottom: 1px dotted rgba(201, 192, 168, .5);
-  transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
-  /* 热区：行内元素的 padding 会撑大点击盒但不改行高，配等量负 margin 后视觉零变化。
-     此前 term-chip 实测只有 24×18，手指点不中——白话写得再好也拿不到。 */
-  padding: 13px 4px; margin: -13px -4px;
+  /* 同 .cite-chip：虚线必须走 text-decoration，否则会被热区 padding 顶到下一行去。 */
+  text-decoration: underline dotted rgba(201, 192, 168, .5);
+  text-decoration-thickness: 1px; text-underline-offset: 3px;
+  transition: color var(--dur-fast) var(--ease), text-decoration-color var(--dur-fast) var(--ease);
+  padding: 13px 4px; margin: -13px -4px;   /* 只撑热区；实测 18px → 45px */
 }
-.term-chip:hover { color: var(--paper); border-bottom-color: var(--paper-dim); }
+.term-chip:hover { color: var(--paper); text-decoration-color: var(--paper-dim); }
 .term-chip:focus-visible { outline: 1.5px solid var(--paper-dim); outline-offset: 2px; border-radius: 2px; }
 /* 词条浮层：复用 .cite-backdrop/.cite-pop/.cite-jian 骨架，仅补词条正文体例 */
 .term-jian { padding: 15px 16px 14px; }
@@ -3378,3 +3384,18 @@ body.changming-open { overflow: hidden; }
 .bazi-bars-head p { margin: 7px 0 0; color: var(--paper-dim); font-size: 12px; line-height: 1.7; }
 .bazi-bars-head .bazi-bars-lede { margin-top: 9px; color: rgba(239,232,213,.9); font-size: 13.5px; }
 .bazi-bars-head .bazi-bars-lede b { display: inline; font-size: inherit; }
+
+
+/* 已经自带边框的 chip（.tp-tag / .diverge-chip 等）不能再吃热区 padding：
+   9px 小字外面会套出一个 ~35px 的虚线框，直接压进上一行文字。
+   这类目标本身就有 padding 与边框，点击面积够，热区交给它自己。 */
+.tp-tag.cite-chip, .diverge-chip.cite-chip, .seal.cite-chip {
+  padding: 0 4px; margin-left: 5px; margin-right: 0; margin-top: 0; margin-bottom: 0;
+  text-decoration: none;
+}
+
+
+/* 词条/出处浮层要能盖住常明城全屏层（.changming-world 是 z-index:1200 的独立层叠上下文）。
+   否则在常明城里点「比劫」这类词条，浮层开在它下面，表现为「点了没反应」，
+   而关掉常明城之后它又突然出现在主页面上。 */
+.cite-backdrop, .term-backdrop { z-index: 1400; }
