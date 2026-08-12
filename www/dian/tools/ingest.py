@@ -255,16 +255,55 @@ def dc_chapters(index_url):
 
 
 def dc_body(page_html):
-    """正文在 <div id="content" class="panel-body"> 里。"""
-    m = re.search(r'<div[^>]+id="content"[^>]*>(.*?)</div>\s*(?:<div|</div>|<script)',
-                  page_html, re.S)
-    seg = m.group(1) if m else page_html
-    paras, _ = html_to_paras(seg)
-    return [p for p in paras if cjk_count(p) >= 2]
+    """正文在 <div id="content" ...> 里，按 div 配平取整块。
+
+    坑：旧版用非贪婪正则 (.*?)</div> 截取，遇到正文里有嵌套 div 就在第一个
+    </div> 处提前收工——《景祐六壬神定经》整页 5978 字被截成 0 字，然后判「失败」。
+    这里数 <div>/</div> 深度取到真正的闭合处。
+
+    坑二（反爬蜜罐）：部分书页有多个 id="content"，前面几个带 style="display:none"，
+    内容是「0 1 2 3 4 5 6」这类假文本，真正文在最后一个可见的里。浏览器按 CSS 只显示
+    可见那个，爬虫按 DOM 顺序取第一个就中招——《景祐六壬神定经》整页 5978 字因此抓成
+    0 字。所以这里取遍所有 id="content"，选汉字最多的那块，不选第一块。
+    """
+    cands = []
+    for m in re.finditer(r'<div[^>]+id="content"[^>]*>', page_html):
+        if 'display:none' in m.group(0).replace(' ', ''):
+            continue
+        i = m.end()
+        depth, seg = 1, page_html[i:]
+        for t in re.finditer(r'<div\b|</div>', page_html[i:]):
+            depth += 1 if t.group(0) != '</div>' else -1
+            if depth == 0:
+                seg = page_html[i:i + t.start()]
+                break
+        cands.append(seg)
+    if not cands:
+        cands = [page_html]
+    best, best_n = [], -1
+    for seg in cands:
+        paras, _ = html_to_paras(seg)
+        paras = [p for p in paras if cjk_count(p) >= 2]
+        n = sum(cjk_count(p) for p in paras)
+        if n > best_n:
+            best, best_n = paras, n
+    return best
 
 
 def txt_body(raw_text):
-    """殆知阁一类纯文本源：按空行/换行切段。"""
+    """殆知阁一类纯文本源：按空行/换行切段。
+
+    坑：spec 里标了 plaintext 的源未必真是纯文本——古文岛/算准网/识典古籍返回的是
+    整页 HTML，旧版直接当正文切行入库，结果《鲁班经》9912 字符里只有 943 个汉字，
+    其余全是 <meta> 和脚本。这里按内容判形：像 HTML 就走 HTML 抽取。
+    判据放在这里而不是 spec 上，是因为「源站改成返回 HTML」这种事不会通知你。
+    """
+    head = raw_text[:2000].lower()
+    if '<html' in head or '<!doctype html' in head or '<meta ' in head or '<body' in head:
+        paras = dc_body(raw_text)                      # 复用「取汉字最多的容器」策略
+        if not paras:
+            paras, _ = html_to_paras(raw_text)
+        return [p for p in paras if cjk_count(p) >= 2]
     parts = [ln.strip() for ln in re.split(r'\n\s*\n|\r?\n', raw_text)]
     return [p for p in parts if cjk_count(p) >= 2]
 
@@ -588,6 +627,8 @@ def merge_registry(specs):
             'hasTextData': True,
             'chapterCount': len(chs),
             'charCount': len(joined),
+            # 汉字数单独记：charCount 含标点与拉丁字符，做回退比对会被网页残渣抬高。
+            'cjkCount': cjk_count(joined),
             'hasAnnotated': os.path.exists(os.path.join(DATA, 'annotated', s['id'] + '.json')),
         }
         if s['id'] in byid:
@@ -699,18 +740,28 @@ def check():
         if len(cids) != len(set(cids)):
             errs.append(f"{b['id']}: 章节 id 重复")
 
-        real = sum(cjk_count(f.get('text', '')) for c in chs for f in c.get('fragments', []))
-        if b.get('status') in ('全', '较全') and real < 1000:
-            errs.append(f"{b['id']}: status={b['status']} 但实际只有 {real} 个汉字（空壳）")
+        joined = ''.join(f.get('text', '') for c in chs for f in c.get('fragments', []))
+        real = cjk_count(joined)
 
-        # 回退守卫：registry 记着 charCount（含标点，约为汉字数的 1.2 倍），
-        # 若正文汉字数掉到它的六成以下，多半是重抓时抽取出错把好数据覆盖没了。
-        # 实测教训：2026-08-12 一次重抓把《钦定协纪辨方书》3607 字覆盖成 1296 字，
-        # 当时的空壳判据（<1000）刚好放行。
-        claimed = b.get('charCount')
-        if claimed and real < claimed * 0.6:
-            errs.append(f"{b['id']}: 正文汉字数 {real} 远低于 registry 记录的 charCount "
-                        f"{claimed}（<60%）——疑似重抓时抽取失败覆盖了好数据，"
+        # ③ 汉字占比：抓进来的是古文还是网页残渣。
+        # 「字数太少」不是好判据——《青囊奥语》460 字、《清静经》612 字本来就这么短，
+        # 而《鲁班经》9912 字符里只有 943 个汉字（其余是 <meta> 和脚本）才是真故障。
+        # 实测：识典古籍两部书抓到的 JS 样板汉字数一模一样都是 10294，占比 6%。
+        if joined:
+            ratio = real / len(joined)
+            if ratio < 0.5:
+                errs.append(f"{b['id']}: 正文汉字占比仅 {ratio:.0%}"
+                            f"（{real}/{len(joined)}）——抓到的多半是网页残渣不是古文")
+            elif ratio < 0.68 and real > 500:
+                warns.append(f"{b['id']}: 汉字占比 {ratio:.0%} 偏低，值得抽查")
+
+        # ④ 回退守卫：registry 记着上次入库时的汉字数，掉到六成以下多半是重抓时
+        # 抽取出错把好数据覆盖没了。实测教训：2026-08-12 一次重抓把《钦定协纪辨方书》
+        # 3607 字覆盖成 1296 字，而当时的判据（字数<1000）刚好放行。
+        prev = b.get('cjkCount')
+        if prev and real < prev * 0.6:
+            errs.append(f"{b['id']}: 正文汉字数 {real} 远低于上次入库的 {prev}（<60%）"
+                        f"——疑似重抓时抽取失败覆盖了好数据，"
                         f"请 `git diff data/texts/{b['id']}.json` 核对")
 
         no_src = [c['id'] for c in chs if c.get('fragments') and not c.get('sourceUrl')]

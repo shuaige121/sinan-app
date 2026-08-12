@@ -1,0 +1,919 @@
+{
+  "id": "ruanji-yonghuai",
+  "title": "咏怀诗八十二首",
+  "subtitle": "詠懷詩五言八十二首",
+  "author": "阮籍",
+  "authorNote": "阮籍撰。非托名。",
+  "dynasty": "曹魏",
+  "category": "zhexue",
+  "licenseNote": "公有领域",
+  "source": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96",
+  "sourceName": "维基文库·詠懷詩五言八十二首",
+  "sourceCC": "CC-BY-SA",
+  "fetchNote": "原文录自维基文库，保留繁体原字；古籍本身属公有领域。抓取于 2026-08-12，由 tools/ingest.py 自动入库。",
+  "status": "较全",
+  "chapters": [
+    {
+      "id": "ch01",
+      "label": "第一首",
+      "fragments": [
+        {
+          "text": "夜中不能寐，起坐彈鳴琴。薄帷鑒明月，清風吹我衿一作「襟」。孤鴻號外野，朔一作「翔」鳥鳴北林。徘徊將何見，憂思獨傷心。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch02",
+      "label": "第二首",
+      "fragments": [
+        {
+          "text": "二妃遊江濱，逍遙順風翔。交甫懷佩環，婉孌有芬芳。猗靡情歡愛，千載不相忘。傾城迷下蔡，容好結中腸。感激生憂思，萱草樹蘭房。膏沐為誰施，其雨怨朝陽。如何金石交，一旦更離傷。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch03",
+      "label": "第三首",
+      "fragments": [
+        {
+          "text": "嘉樹下成蹊，東園桃與李。秋風吹飛藿，零落從此始。繁華有憔悴，堂上生荊杞。驅馬之去，去上西山趾。一身不自保，何況戀妻子。凝霜被野草，歲暮亦已。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch04",
+      "label": "第四首",
+      "fragments": [
+        {
+          "text": "天馬出西北，由來從東道。春秋非有托，富貴焉常保。清露被皋蘭，凝霜沾野草。朝為媚少年，夕暮成醜老。自非王子晉，誰能常美好。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch05",
+      "label": "第五首",
+      "fragments": [
+        {
+          "text": "平生少年時，輕薄好弦歌。西遊咸陽中，趙李相經過。娛樂未終極，白日忽蹉跎。驅馬復來歸，反顧望三河。黃金百鎰盡，資用常苦多。北臨太行道，失路將如何。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch06",
+      "label": "第六首",
+      "fragments": [
+        {
+          "text": "昔聞東陵瓜，近在青門外。連畛距阡陌，子母相鉤帶。五色曜朝日，嘉賓四面會。膏火自煎熬，多財為患害。布衣可終身，寵祿豈足賴。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch07",
+      "label": "第七首",
+      "fragments": [
+        {
+          "text": "炎暑惟茲夏，三旬將欲移。芳樹垂綠葉，青雲自逶迤。四時更代謝，日月遞參差。徘徊空堂上，忉怛莫我知。願睹卒歡好，不見悲別離。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch08",
+      "label": "第八首",
+      "fragments": [
+        {
+          "text": "灼灼西隤日，餘光照我衣。回風吹四壁，寒鳥相因依。周周尚銜羽，蛩蛩亦念饑。如何當路子，磬折忘所歸。豈為誇譽名，憔悴使心悲。寧與燕雀翔，不隨黃鵠飛。黃鵠遊四海，中路將安歸。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch09",
+      "label": "第九首",
+      "fragments": [
+        {
+          "text": "步出上東門，北望首陽岑。下有採薇士，上有嘉樹林。良辰在何許，凝霜沾衣襟。寒風振山岡，玄雲起重陰。鳴鴈飛南征，鶗鴃發哀音。素質遊商聲，悽愴傷我心。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch10",
+      "label": "第十首",
+      "fragments": [
+        {
+          "text": "北里多奇舞，濮上有微音。輕薄閒遊子，俯仰乍浮沉。方式從狹路，僶俛趨荒淫。焉見王子喬，乘雲翔鄧林。獨有延年術，可以慰我心。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch11",
+      "label": "第十一首",
+      "fragments": [
+        {
+          "text": "湛湛長江水，上有楓樹林。皋蘭被徑路，青驪逝駸駸。遠望令人悲，春氣感我心。三楚多秀士，朝雲進荒淫。朱華振芬芳，高蔡相追尋。一為黃雀哀，淚下誰能禁。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch12",
+      "label": "第十二首",
+      "fragments": [
+        {
+          "text": "昔日繁華子，安陵與龍陽。夭夭桃李花，灼灼有輝光。悅懌若九春，磬折似秋霜。流盻發姿媚，言笑吐芬芳。攜手等歡愛，宿昔同衣裳。願為雙飛鳥，比翼共翱翔。丹青著明誓，永世不相忘。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch13",
+      "label": "第十三首",
+      "fragments": [
+        {
+          "text": "登高臨四野，北望青山阿。松柏翳岡岑，飛鳥鳴相過。感慨懷辛酸，怨毒常苦多。李公悲東門，蘇子狹三河。求仁自得仁，豈復歎咨嗟。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch14",
+      "label": "第十四首",
+      "fragments": [
+        {
+          "text": "開秋兆涼氣，蟋蟀鳴床帷。感物懷殷憂，悄悄令心悲。多言焉所告，繁辭將訴誰。微風吹羅袂，明月耀清暉。晨雞鳴高樹，命駕起旋歸。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch15",
+      "label": "第十五首",
+      "fragments": [
+        {
+          "text": "昔年十四五，志尚好詩書。被褐懷珠玉，顏閔相與期。開軒臨四野，登高望所思。丘墓蔽山岡，萬代同一時。千秋萬歲後，榮名安所之。乃悟羨門子，噭噭令自嗤。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch16",
+      "label": "第十六首",
+      "fragments": [
+        {
+          "text": "徘徊蓬池上，還顧望大樑。綠水揚洪波，曠野莽茫茫。走獸交橫馳，飛鳥相隨翔。是時鶉火中，日月正相望。朔風厲嚴寒，陰氣下微霜。羈旅無儔匹，俛仰懷哀傷。小人計其功，君子道其常。豈惜終憔悴，詠言著斯章。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch17",
+      "label": "第十七首",
+      "fragments": [
+        {
+          "text": "獨坐空堂上，誰可與歡者。出門臨永路，不見行車馬。登高望九州，悠悠分曠野。孤鳥西北飛，離獸東南下。日暮思親友，晤言用自寫。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch18",
+      "label": "第十八首",
+      "fragments": [
+        {
+          "text": "懸車在西南，羲和將欲傾。流光耀四海，忽忽至夕冥。朝為咸池暉，濛汜受其榮。豈知窮達士，一死不再生。視彼桃李花，誰能久熒熒。君子在何計，歎息未合併。瞻仰景山松，可以慰吾情。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch19",
+      "label": "第十九首",
+      "fragments": [
+        {
+          "text": "西方有佳人，皎若白日光。被服纖羅衣，左右佩雙璜。修容耀姿美，順風振微芳。登高眺所思，舉袂當朝陽。寄顏雲霄閑，揮袖淩虛翔。飄颻恍惚中，流眄顧我傍。悅懌未交接，晤言用感傷。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch20",
+      "label": "第二十首",
+      "fragments": [
+        {
+          "text": "楊朱泣歧路，墨子悲染絲。揖讓長離別，飄颻難與期。豈徒燕婉情，存亡誠有之。蕭索人所悲，禍釁不可辭。趙女媚中山，謙柔愈見欺。嗟嗟塗上士，何用自保持。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch21",
+      "label": "第二十一首",
+      "fragments": [
+        {
+          "text": "于心懷寸陰，羲陽將欲冥。揮袂撫長劍，仰觀浮雲徵。雲間有玄鶴，抗志揚哀聲。一飛沖青天，曠世不再鳴。豈與鶉鷃遊，連翩戲中庭。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch22",
+      "label": "第二十二首",
+      "fragments": [
+        {
+          "text": "夏后乘靈輿，夸父為鄧林。存亡從變化，日月有浮沉。鳳凰鳴參差，伶倫發其音。王子好簫管，世世相追尋。誰言不可見，青鳥明我心。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch23",
+      "label": "第二十三首",
+      "fragments": [
+        {
+          "text": "東南有射山，汾水出其陽。六龍服氣輿，雲蓋切天綱。仙者四五人，逍遙晏蘭房。寢息一純和，呼噏成露霜。沐浴丹淵中，照耀日月光。豈安通靈台，遊瀁去高翔。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch24",
+      "label": "第二十四首",
+      "fragments": [
+        {
+          "text": "殷憂令志結，怵惕常若驚。逍遙未終晏，朱華忽西傾。蟋蟀在戶牖，蟪蛄號中庭。心腸未相好，誰云亮我情。願為雲間鳥，千里一哀鳴。三芝延瀛洲，遠遊可長生。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch25",
+      "label": "第二十五首",
+      "fragments": [
+        {
+          "text": "拔劍臨白刃，安能相中傷。但畏工言字，稱我三江旁。飛泉流玉山，懸車棲扶桑。日月徑千里，素風發微霜。勢路有窮達，咨嗟安可長。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch26",
+      "label": "第二十六首",
+      "fragments": [
+        {
+          "text": "朝登洪坡顛，日夕望西山。荊棘被原野，群鳥飛翩翩。鸞鷖時棲宿，性命有自然。建木誰能近，射幹復嬋娟。不見林中葛，延蔓相勾連。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch27",
+      "label": "第二十七首",
+      "fragments": [
+        {
+          "text": "周鄭天下交，街術當三河。妖冶閑都子，煥耀何芬葩。玄髮發朱顏，睇眄有光華。傾城思一顧，遺視來相誇。願為三春遊，朝陽忽蹉跎。盛衰在須臾，離別將如何。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch28",
+      "label": "第二十八首",
+      "fragments": [
+        {
+          "text": "若花耀四海，扶桑翳瀛洲。日月經天塗，明暗不相讎。窮達自有常，得失又何求。豈效路上童，攜手共遨遊。陰陽有變化，誰云沉不浮。朱鱉躍飛泉，夜飛過吳洲。俛仰運天地，再撫四海流。系累名利場，駑駿同一輈。豈若遺耳目，升遐去殷憂。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch29",
+      "label": "第二十九首",
+      "fragments": [
+        {
+          "text": "昔余遊大梁，登于黃華顛。共工宅玄冥，高臺造青天。幽荒邈悠悠，悽愴懷所憐。所憐者誰子，明察自照妍。應龍沈冀州，妖女不得眠。肆侈陵世俗，豈云永厥年。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch30",
+      "label": "第三十首",
+      "fragments": [
+        {
+          "text": "驅車出門去，意欲遠征行。征行安所如，背棄誇與名。誇名不在己，但願適中情。單帷蔽皎日，高樹隔微聲。讒邪使交疏，浮雲令晝冥。嬿婉同衣裳，一顧傾人城。從容在一時，繁華不再榮。晨朝奄復暮，不見所歡形。黃鳥東南飛，寄言謝友生。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch31",
+      "label": "第三十一首",
+      "fragments": [
+        {
+          "text": "駕言發魏都，南向望吹臺。簫管有遺音，梁王安在哉。戰士食糟糠，賢者處蒿萊。歌舞曲未終，秦兵已復來。夾林非吾有，朱宮生塵埃。軍敗華陽下，身竟為土灰。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch32",
+      "label": "第三十二首",
+      "fragments": [
+        {
+          "text": "朝陽不再盛，白日忽西幽。去此若俯仰，如何似九秋。人生若塵露，天道邈悠悠。齊景升丘山，涕泗紛交流。孔聖臨長川，惜逝忽若浮。去者餘不及，來者吾不留。願登太華山，上與松子遊。漁父知世患，乘流泛輕舟。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch33",
+      "label": "第三十三首",
+      "fragments": [
+        {
+          "text": "一日復一夕，一夕復一朝。顏色改平常，精神自損消。胸中懷湯火，變化故相招。萬事無窮極，知謀苦不饒。但恐須臾間，魂氣隨風飄。終身履薄冰，誰知我心焦。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch34",
+      "label": "第三十四首",
+      "fragments": [
+        {
+          "text": "一日復一朝，一昏復一晨。容色改平常，精神自飄淪。臨觴多哀楚，思我故時人。對酒不能言，悽愴懷酸辛。願耕東皋陽，誰與守其真。愁苦在一時，高行傷微身。曲直何所為，龍蛇為我鄰。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch35",
+      "label": "第三十五首",
+      "fragments": [
+        {
+          "text": "世務何繽紛，人道苦不遑。壯年以時逝，朝露待太陽。願攬羲和轡，白日不移光。天階路殊絕，雲漢邈無梁。濯髮暘谷濱，遠遊昆嶽傍。登彼列仙岨，採此秋蘭芳。時路烏足爭，太極可翱翔。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch36",
+      "label": "第三十六首",
+      "fragments": [
+        {
+          "text": "誰言萬事艱，逍遙可終生。臨堂翳華樹，悠悠念無形。彷徨思親友，倏忽復至冥。寄言東飛鳥，可用慰我情。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch37",
+      "label": "第三十七首",
+      "fragments": [
+        {
+          "text": "嘉時在今辰，零雨灑塵埃。臨路望所思，日夕復不來。人情有感慨，蕩漾焉能排。揮涕懷哀傷，辛酸誰語哉。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch38",
+      "label": "第三十八首",
+      "fragments": [
+        {
+          "text": "炎光延萬里，洪川蕩湍瀨。彎弓掛扶桑，長劍倚天外。泰山成砥礪，黃河為裳帶。視彼莊周子，榮枯何足賴。捐身棄中野，烏鳶作患害。豈若雄傑士，功名從此大。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch39",
+      "label": "第三十九首",
+      "fragments": [
+        {
+          "text": "壯士何慷慨，志欲威八荒。驅車遠行役，受命念自忘。良弓挾烏號，明甲有精光。臨難不顧生，身死魂飛揚。豈為全軀士，效命爭戰場。忠為百世榮，義使令名彰。垂聲謝後世，氣節故有常。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch40",
+      "label": "第四十首",
+      "fragments": [
+        {
+          "text": "混元生兩儀，四象運衡璣。曒日布炎精，素月垂景輝。晷度有昭回，哀哉人命微。飄若風塵逝，忽若慶雲晞。修齡適餘願，光寵非己威。安期步天路，松子與世違。焉得淩霄翼，飄颻登雲湄。嗟哉尼父志，何為居九夷。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch41",
+      "label": "第四十一首",
+      "fragments": [
+        {
+          "text": "天網彌四野，六翮掩不舒。隨波紛綸客，泛泛若浮鳧。生命無期度，朝夕有不虞。列仙停修齡，養志在沖虛。飄颻雲日間，邈與世路殊。榮名非己寶，聲色焉足娛。採藥無旋返，神仙志不符。逼此良可惑，令我久躊躇。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch42",
+      "label": "第四十二首",
+      "fragments": [
+        {
+          "text": "王業須良輔，建功俟英雄。元凱康哉美，多士頌聲隆。陰陽有舛錯，日月不當融。天時有否泰，人事多盈沖。園綺遯南嶽，伯陽隱西戎。保身念道真，寵耀焉足崇。人誰不善始，鮮能克厥終。休哉上世士，萬載垂清風。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch43",
+      "label": "第四十三首",
+      "fragments": [
+        {
+          "text": "鴻鵠相隨飛，飛飛適荒裔。雙翮臨長風，須臾萬里逝。朝餐琅玕實，夕宿丹山際。抗身青雲中，網羅孰能制。豈與鄉曲士，攜手共言誓。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch44",
+      "label": "第四十四首",
+      "fragments": [
+        {
+          "text": "儔物終始殊，修短各異方。琅玕生高山，芝英耀朱堂。熒熒桃李花，成蹊將夭傷。焉敢希千術，三春表微光。自非淩風樹，憔悴烏有常。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch45",
+      "label": "第四十五首",
+      "fragments": [
+        {
+          "text": "幽蘭不可佩，朱草為誰榮。修竹隱山陰，射幹臨增城。葛藟延幽谷，綿綿瓜瓞生。樂極消靈神，哀深傷人情。竟知憂無益，豈若歸太清。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch46",
+      "label": "第四十六首",
+      "fragments": [
+        {
+          "text": "鷽鳩飛桑榆，海鳥運天池。豈不識宏大，羽翼不相宜。招搖安可翔，不若棲樹枝。下集蓬艾間，上遊園圃籬。但爾亦自足，用子為追隨。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch47",
+      "label": "第四十七首",
+      "fragments": [
+        {
+          "text": "生命辰安在，憂戚涕沾襟。高鳥翔山岡，燕雀棲下林。青雲蔽前庭，素琴淒我心。崇山有鳴鶴，豈可相追尋。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch48",
+      "label": "第四十八首",
+      "fragments": [
+        {
+          "text": "鳴鳩嬉庭樹，焦明遊浮雲。焉見孤翔鳥，翩翩無匹群。死生自然理，消散何繽紛。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch49",
+      "label": "第四十九首",
+      "fragments": [
+        {
+          "text": "步遊三衢旁，惆悵念所思。豈為今朝見，恍惚誠有之。澤中生喬松，萬世未可期。高鳥摩天飛，淩雲共遊嬉。豈有孤行士，垂涕悲故時。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch50",
+      "label": "第五十首",
+      "fragments": [
+        {
+          "text": "清露為凝霜，華草成蒿萊。誰云君子賢，明達安可能。乘雲招松喬，呼噏永矣哉。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch51",
+      "label": "第五十一首",
+      "fragments": [
+        {
+          "text": "丹心失恩澤，重德喪所宜。善言焉可長，慈惠未易施。不見南飛燕，羽翼正差池。高子怨新詩，三閭悼乖離。何為混沌氏，倏忽體貌隳。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch52",
+      "label": "第五十二首",
+      "fragments": [
+        {
+          "text": "十日出暘谷，弭節馳萬里。經天耀四海，倏忽潛蒙泛。誰言焱炎久，遊沒何行俟。逝者豈長生，亦去荊與杞。千歲猶崇朝，一餐聊自已。是非得失間，焉足相譏理。計利知術窮，哀情遽能止。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch53",
+      "label": "第五十三首",
+      "fragments": [
+        {
+          "text": "自然有成理，生死道無常。智巧萬端出，大要不易方。如何誇毘子，作色懷驕腸。乘軒驅良馬，憑几向膏粱。被服纖羅衣，深榭設閒房。不見日夕華，翩翩飛路旁。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch54",
+      "label": "第五十四首",
+      "fragments": [
+        {
+          "text": "誇談快憤懣，情慵發煩心。西北登不周，東南望鄧林。曠野彌九州，崇山抗高岑。一餐度萬世，千歲再浮沈。誰云玉石同，淚下不可禁。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch55",
+      "label": "第五十五首",
+      "fragments": [
+        {
+          "text": "人言願延年，延年欲焉之。黃鵠呼子安，千秋未可期。獨坐山巖中，惻愴懷所思。王子一何好，猗靡相攜持。悅懌猶今辰，計校在一時。置此明朝事，日夕將見期。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch56",
+      "label": "第五十六首",
+      "fragments": [
+        {
+          "text": "貴賤在天命，窮達自有時。婉孌佞邪子，隨利來相欺。孤思損惠施，但為讒夫蚩。鶺鴒鳴雲中，載飛靡所期。焉知傾側士，一旦不可持。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch57",
+      "label": "第五十七首",
+      "fragments": [
+        {
+          "text": "驚風振四野，回雲蔭堂隅。床帷為誰設，几杖為誰扶。雖非明君子，豈闇桑與榆。世有此聾聵，芒芒將焉如。翩翩從風飛，悠悠去故居。離麾玉山下，遺棄毀與譽。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch58",
+      "label": "第五十八首",
+      "fragments": [
+        {
+          "text": "危冠切浮雲，長劍出天外。細故何足慮，高度跨一世。非子為我馭，逍遙遊荒裔。顧謝西王母，吾將從此逝。豈與蓬戶士，彈琴誦言誓。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch59",
+      "label": "第五十九首",
+      "fragments": [
+        {
+          "text": "河上有丈人，緯蕭棄明珠。甘彼藜藿食，樂是蓬蒿廬。豈效繽紛子，良馬騁輕輿。朝生衢路旁，夕瘞橫術隅。歡笑不終宴，俛仰復欷歔。鑒茲二三者，憤懣從此舒。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch60",
+      "label": "第六十首",
+      "fragments": [
+        {
+          "text": "儒者通六藝，立志不可干。違禮不為動，非法不肯言。渴飲清泉流，饑食併一簞。歲時無以祀，衣服常苦寒。屣履詠南風，縕袍笑華軒。通道守詩書，義不受一餐。烈烈褒貶辭，老氏用長歎。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch61",
+      "label": "第六十一首",
+      "fragments": [
+        {
+          "text": "少年學擊刺，妙伎過曲城。英風截雲霓，超世發奇聲。揮劍臨沙漠，飲馬九野坰。旗幟何翩翩，但聞金鼓鳴。軍旅令人悲，烈烈有哀情。念我平常時，悔恨從此生。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch62",
+      "label": "第六十二首",
+      "fragments": [
+        {
+          "text": "平晝整衣冠，思見客與賓。賓客者誰子，倏忽若飛塵。裳衣佩雲氣，言語究靈神。須臾相背棄，何時見斯人。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch63",
+      "label": "第六十三首",
+      "fragments": [
+        {
+          "text": "多慮令志散，寂寞使心憂。翱翔觀陂澤，撫劍登輕舟。但願長閒暇，後歲復來遊。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch64",
+      "label": "第六十四首",
+      "fragments": [
+        {
+          "text": "朝出上東門，遙望首陽基。松柏鬱森沉，鸝黃相與嬉。逍遙九曲間，徘徊欲何之。念我平居時，郁然思妖姬。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch65",
+      "label": "第六十五首",
+      "fragments": [
+        {
+          "text": "王子十五年，遊衍伊洛濱。朱顏茂春華，辯慧懷清真。焉見浮丘公，舉手謝時人。輕蕩易恍惚，飄颻棄其身。飛飛鳴且翔，揮翼且酸辛。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch66",
+      "label": "第六十六首",
+      "fragments": [
+        {
+          "text": "塞門不可出，海水焉可浮。朱明不相見，奄昧獨無侯。持瓜思東陵，黃雀誠獨羞。失勢在須臾，帶劍上吾丘。悼彼桑林子，涕下自交流。假乘汧渭間，鞍馬去行遊。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch67",
+      "label": "第六十七首",
+      "fragments": [
+        {
+          "text": "洪生資制度，被服正有常。尊卑設次序，事物齊紀綱。容飾整顏色，磬折執圭璋。堂上置玄酒，室中盛稻粱。外厲貞素談，戶內滅芬芳。放口從衷出，復說道義方。委曲周旋儀，姿態愁我腸。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch68",
+      "label": "第六十八首",
+      "fragments": [
+        {
+          "text": "北臨幹昧溪，西行遊少任。遙顧望天津，駘蕩樂我心。綺靡存亡門，一遊不再尋。儻遇晨風鳥，飛駕出南林。漭瀁淫光中，忽忽肆荒淫。休息晏清都，超世又誰禁。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch69",
+      "label": "第六十九首",
+      "fragments": [
+        {
+          "text": "人知結交易，交友誠獨難。險路多疑惑，明珠未可干。彼求饗太牢，我欲併一餐。損益生怨毒，咄咄復何言。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch70",
+      "label": "第七十首",
+      "fragments": [
+        {
+          "text": "有悲則有情，無悲亦無思。茍非嬰網罟，何必萬里畿。翔風拂重霄，慶雲招所晞。灰心寄枯宅，曷顧人間姿。始得忘我難，焉知嘿自遺。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch71",
+      "label": "第七十一首",
+      "fragments": [
+        {
+          "text": "木槿榮丘墓，煌煌有光色。白日頹林中，翩翩零路側。蟋蟀吟戶牖，蟪蛄鳴荊棘。蜉蝣玩三朝，采采修羽翼。衣裳為誰施，俛仰自收拭。生命幾何時，慷慨各努力。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch72",
+      "label": "第七十二首",
+      "fragments": [
+        {
+          "text": "修塗馳軒車，長川載輕舟。性命豈自然，勢路有所由。高名令志惑，重利使心憂。親昵懷反側，骨肉還相讎。更希毀珠玉，可用登遨遊。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch73",
+      "label": "第七十三首",
+      "fragments": [
+        {
+          "text": "橫術有奇士，黃駿服其箱。朝起瀛洲野，日夕宿明光。再撫四海外，羽翼自飛揚。去置世上事，豈足愁我腸。一去長離絕，千歲復相望。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch74",
+      "label": "第七十四首",
+      "fragments": [
+        {
+          "text": "猗歟上世士，恬淡志安貧。季葉道陵遲，馳騖紛垢塵。甯子豈不類，楊歌誰肯殉。棲棲非我偶，徨徨非己倫。咄嗟榮辱事，去來味道真。道真信可娛，清潔存精神。巢由抗高節，從此適河濱。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch75",
+      "label": "第七十五首",
+      "fragments": [
+        {
+          "text": "梁東有芳草，一朝再三榮。色容豔姿美，光華耀傾城。豈為明哲士，妖蠱諂媚生。輕薄在一時，安知百世名。路端便娟子，但恐日月傾。焉見冥靈木，悠悠竟無形。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch76",
+      "label": "第七十六首",
+      "fragments": [
+        {
+          "text": "秋駕安可學，東野窮路旁。綸深魚淵潛，矰設鳥高翔。泛泛乘輕舟，演漾靡所望。吹噓誰以益，江湖相捐忘。都冶難為顏，修容是我常。茲年在松喬，恍惚誠未央。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch77",
+      "label": "第七十七首",
+      "fragments": [
+        {
+          "text": "咄嗟行至老，僶俛常苦憂。臨川羨洪波，同始異支流。百年何足言，但苦怨與讎。讎怨者誰子，耳目還相羞。聲色為胡越，人情自逼遒。招彼玄通士，去來歸羨遊。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch78",
+      "label": "第七十八首",
+      "fragments": [
+        {
+          "text": "昔有神仙士，乃處射山阿。乘雲馭飛龍，噓歙嘰瓊華。可聞不可見，慷慨歎咨嗟。自傷非儔類，愁苦來相加。下學而上達，忽忽將如何。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch79",
+      "label": "第七十九首",
+      "fragments": [
+        {
+          "text": "林中有奇鳥，自言是鳳凰。清朝飲醴泉，日夕棲山岡。高鳴徹九州，延頸望八荒。適逢商風起，羽翼自摧藏。一去崑崙西，何時復回翔。但恨處非位，愴恨使心傷。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch80",
+      "label": "第八十首",
+      "fragments": [
+        {
+          "text": "出門望佳人，佳人豈在茲。三山招松喬，萬世誰與期。存亡有長短，慷慨將焉知。忽忽朝日隤，行行將何之。不見季秋草，摧折在今時。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch81",
+      "label": "第八十一首",
+      "fragments": [
+        {
+          "text": "昔有神仙者，羨門及松喬。歙習九陽間，升遐嘰雲霄。人生樂長久，百年自言遼。白日隕隅谷，一夕不再朝。豈若遺世物，登明遂飄颻。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    },
+    {
+      "id": "ch82",
+      "label": "第八十二首",
+      "fragments": [
+        {
+          "text": "墓前熒熒者，木槿耀朱華。榮好未終朝，連飆隕其葩。豈若西山草，琅玕與丹禾。垂影臨增城，餘光照九阿。甯微少年子，日夕難咨嗟。"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E8%A9%A0%E6%87%B7%E8%A9%A9%E4%BA%94%E8%A8%80%E5%85%AB%E5%8D%81%E4%BA%8C%E9%A6%96"
+    }
+  ]
+}

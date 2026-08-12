@@ -3,13 +3,18 @@
  "note": "索引按分类分片存于 data/search-index/<category>.json；本文件只是清单。分片是因为单份索引会超过 Cloudflare Pages 25MB 单文件上限。前端 loadSearchIndex() 并行取全部分片后合并，搜索覆盖面与合并成一份完全一致，未做任何截断。",
  "shards": [
   "bencao",
+  "bushi",
   "daozang",
   "jingyi",
   "kanyu",
   "liqi",
   "mingli",
+  "sanshi",
+  "tianwen",
+  "xiangshu",
+  "zeri",
   "zhexue"
  ],
- "entries": 1359,
+ "entries": 4084,
  "builtBy": "tools/ingest.py index"
 }
