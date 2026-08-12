@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
-<link rel="stylesheet" href="css/style.css?v=20260813c">
+<link rel="stylesheet" href="css/style.css?v=20260813d">
 </head>
 <body>
 
@@ -561,8 +561,8 @@
     </div>
     <!-- 提示语必须放在两种模式之外：原来它在 #bazi-solar-row 里，勾「农历」时整行被隐藏，
          于是农历模式下的「还差年没选」写进了看不见的地方。 -->
-    <p class="form-hint" id="bazi-form-hint" data-i18n="bazi.solar_hint">按 24 小时制填，下午 2 点写 14。分钟不确定可以留空——时辰的分界都在整点。</p>
-    <button class="btn-gold" id="btn-paipan" style="width:100%" data-i18n="bazi.btn_paipan">排　盘</button>
+    <p class="form-hint" id="bazi-form-hint" aria-live="polite" data-i18n="bazi.solar_hint">按 24 小时制填，下午 2 点写 14。分钟不确定可以留空——时辰的分界都在整点。</p>
+    <button class="btn-gold" id="btn-paipan" aria-describedby="bazi-form-hint" style="width:100%" data-i18n="bazi.btn_paipan">排　盘</button>
   </div>
   <div id="bazi-result" style="display:none">
     <div class="bazi-result-actions">
@@ -581,13 +581,19 @@
     <!-- B1 生辰黄历回放卡（排盘后·命盘卡之后填充）：出生当日 干支/宜忌/时卦/节气，lunar-js 回算。未排盘为空。 -->
     <div id="bazi-birthday"></div>
     <div class="card" id="bazi-bars"></div>
-    <!-- 司南十象：学术命盘之后的文化叙事入口。保持紧凑，不抢四柱与五行结构的阅读顺序。 -->
-    <section id="bazi-archetype" class="bazi-archetype" aria-live="polite" hidden></section>
+    <!-- 断语紧跟五行条：用户交出了精确到分钟的出生时间，第一屏就该给他能看懂的结论，
+         而不是先走 1700px 的虚构人物插画。文言原文折叠在「看古文原句」里。 -->
     <div class="card">
       <span class="seal" data-i18n="bazi.verdict_seal">断语</span><span class="gold" id="bazi-strength" style="font-size:14px"></span>
+      <p class="bazi-verdict-plain" id="bazi-verdict-plain"></p>
       <p class="dim" id="bazi-minggua" style="font-size:13px;margin:7px 0 0"></p>
-      <p class="master-text" id="bazi-master" style="margin-top:9px"></p>
+      <details class="bazi-master-fold" id="bazi-master-fold">
+        <summary data-i18n="bazi.see_classical">看古文原句</summary>
+        <p class="master-text" id="bazi-master" style="margin-top:9px"></p>
+      </details>
     </div>
+    <!-- 司南十象：文化叙事层，放在结论之后。它是可选的读物，不是命盘结论。 -->
+    <section id="bazi-archetype" class="bazi-archetype" aria-live="polite" hidden></section>
     <section id="bazi-character-relations" class="bazi-character-relations" hidden></section>
     <div id="bazi-personal-calendar" hidden></div>
     <div class="card gjl-card" id="bazi-guji" style="display:none"></div>
@@ -635,7 +641,7 @@
   <button data-tab="today" class="active" data-i18n-node="tab.today"><span>历</span>今日</button>
   <button data-tab="kanyu" data-i18n-node="tab.kanyu"><span>堪</span>堪舆</button>
   <button data-tab="bazi" data-i18n-node="tab.bazi"><span>命</span>八字</button>
-  <button data-tab="shuge" data-i18n-node="tab.shuge"><span>书</span>藏书阁</button>
+  <button data-tab="shuge" data-i18n-node="tab.shuge"><span>书</span>典籍阁</button>
 </nav>
 
 <!-- 黄历 ICS 日历导出（底部抽屉，复用 #fp-wizard 抽屉体系）— 由 js/ics-export.js 驱动 -->
@@ -718,19 +724,19 @@
 <script src="https://cdn.jsdelivr.net/npm/lunar-javascript@1.7.7/lunar.js" integrity="sha384-CkiJVUh8zHLFNZYeiszeRw7KEWYDIf1yIZ+jVnZt+omUzQLv2ilCE94w1VItn8uH" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/leaflet-rotate@0.2.8/dist/leaflet-rotate.js" integrity="sha384-MtIdllebpZyms2pw9K3YJl8BEqrKNQCdSFAySjeglab6z2PkeFdF4Lb9cDsnxQuG" crossorigin="anonymous"></script>
-<script src="js/i18n/zh.js?v=20260813a"></script>
-<script src="js/i18n/en.js?v=20260813a"></script>
+<script src="js/i18n/zh.js?v=20260813d"></script>
+<script src="js/i18n/en.js?v=20260813d"></script>
 <script src="js/i18n.js?v=20260706a"></script>
 <script src="js/vendor/suncalc.js?v=20260703a"></script>
 <script src="js/quotes-bazhai.js?v=20260703a"></script>
 <script src="js/cite-map.js?v=20260703a"></script>
 <script src="js/cite-popover.js?v=20260703a"></script>
-<script src="js/plain-glossary.js?v=20260813a"></script>
+<script src="js/plain-glossary.js?v=20260813d"></script>
 <script src="js/quotes-opening.js?v=20260703a"></script>
-<script src="js/core.js?v=20260813a"></script>
+<script src="js/core.js?v=20260813d"></script>
 <script src="js/chartfacts.js?v=20260705a"></script>
 <script src="js/rulekit.js?v=20260705a"></script>
-<script src="js/personal-calendar.js?v=20260706a"></script>
+<script src="js/personal-calendar.js?v=20260813d"></script>
 <script src="js/xingsha.js?v=20260703a"></script>
 <script src="js/sandwater.js?v=20260703a"></script>
 <script src="js/floorplan.js?v=20260703a"></script>
@@ -738,8 +744,8 @@
 <script src="js/share-card.js?v=20260707a"></script>
 <script src="js/birth-places.js?v=20260812a"></script>
 <script src="js/character-manifest.js?v=20260813a"></script>
-<script src="js/changming-world.js?v=20260813c"></script>
-<script src="js/app.js?v=20260813c"></script>
+<script src="js/changming-world.js?v=20260813d"></script>
+<script src="js/app.js?v=20260813d"></script>
 <script src="js/qa-engine.js?v=20260706a"></script>
 <script src="js/ics-export.js?v=20260703a"></script>
 </body>

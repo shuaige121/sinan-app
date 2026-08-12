@@ -3399,3 +3399,54 @@ body.changming-open { overflow: hidden; }
    否则在常明城里点「比劫」这类词条，浮层开在它下面，表现为「点了没反应」，
    而关掉常明城之后它又突然出现在主页面上。 */
 .cite-backdrop, .term-backdrop { z-index: 1400; }
+
+/* 朝向未实测/手动设定时就地说明，并把吉凶结论降级呈现——
+   没量过的方位不该端出「五鬼方 · 大凶」这种确定性断言。 */
+.compass-unmeasured {
+  display: block; margin-top: 4px;
+  color: #e0b96a; font-size: 10.5px; line-height: 1.5; letter-spacing: .02em;
+}
+#page-kanyu.heading-unmeasured #compass-fit,
+#page-kanyu.heading-unmeasured #kanyu-read-sub { opacity: .55; }
+#page-kanyu.heading-unmeasured #compass-face { opacity: .8; }
+
+/* 未定位时的阳宅警示：这份方位结论可能建在别人的房子上。 */
+.yz-geo-warn {
+  margin: 0 0 8px; padding: 8px 11px; border-radius: 8px;
+  border: .7px solid rgba(194,68,40,.42); background: rgba(40,14,10,.72);
+  color: #f0b9a6; font-size: 11.5px; line-height: 1.6;
+}
+#page-kanyu.geo-unknown #compass-fit { opacity: .55; }
+
+/* 图片占位：大图都是 lazy 且容器纯黑，滑动时先出现一片黑块，
+   用户的第一反应是「图挂了/断网了」——而这些图恰好承载了那一段的全部意义。 */
+.bazi-cast-card img, .cm-relation-person img, .cm-relation-story img,
+.cm-cast-person img, .character-story-person, .bazi-persona-art, .relation-story-scene img {
+  background-color: #1b1f22;
+  background-image: linear-gradient(100deg, #1b1f22 30%, #262b2f 50%, #1b1f22 70%);
+  background-size: 220% 100%;
+  animation: imgWait 1.5s ease-in-out infinite;
+}
+.bazi-cast-card img[src]:not([data-loading]), .cm-cast-person img[src]:not([data-loading]) { animation: none; }
+@keyframes imgWait { 0% { background-position: 120% 0; } 100% { background-position: -20% 0; } }
+@media (prefers-reduced-motion: reduce) { @keyframes imgWait { 0%,100% { background-position: 50% 0; } } }
+
+/* 术语与短语不许被拦腰断行：「属马」断成「属/马」、「岁破北」断成「岁破/北」都在线上出现过。 */
+.nowrap, .term-chip, .cite-chip, .ch-benming, .bazi-arch-tags span, .cm-tags span { white-space: nowrap; }
+
+/* 断语的文言原文折叠：白话结论先给，古文留给想看的人。 */
+.bazi-master-fold { margin-top: 10px; }
+.bazi-master-fold > summary {
+  cursor: pointer; color: var(--gold); font-size: 12px; letter-spacing: .06em;
+  padding: 8px 0; list-style: none;
+}
+.bazi-master-fold > summary::-webkit-details-marker { display: none; }
+.bazi-master-fold > summary::after { content: ' ▾'; opacity: .7; }
+.bazi-master-fold[open] > summary::after { content: ' ▴'; }
+
+/* 断语第一行的白话结论：比下面的术语行更亮、更靠前。 */
+.bazi-verdict-plain {
+  margin: 10px 0 0; padding-left: 11px;
+  border-left: 2px solid rgba(201,162,39,.5);
+  color: var(--paper); font-size: 14px; line-height: 1.75;
+}

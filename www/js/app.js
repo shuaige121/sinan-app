@@ -1470,8 +1470,12 @@
         return true;
       }
     }
+    // 极昼/极夜（或算不出）时不要把整块 UI 藏掉：那会让用户以为自己点坏了。
+    // 留在原地，按钮换成一句能解释也能再点的话。
     clockSunTimes = null;
-    clockArcState = 'off';
+    clockArcState = 'prompt';
+    const btn = $('ch-locate');
+    if (btn) btn.textContent = tt('clock.no_sun_times');
     return false;
   }
 
@@ -2128,7 +2132,23 @@
   function updateCompassCard() {
     const d = C.norm(heading);
     const r = C.directionReading(d);
+    // 定盘冻结的可能正是那个从没量过的 0°，所以 locked 不能算「测过」。
+    const measured = headingSource === 'sensor';
+    const page = $('page-kanyu');
+    if (page) page.classList.toggle('heading-unmeasured', !measured);
     $('compass-face').textContent = tt('kanyu.facing_read', { deg: Math.round(d * 10) / 10, name: r.facing.name, trigram: r.trigram });
+    // 没量到就当场说清楚，别把默认值伪装成读数。
+    let flag = document.getElementById('compass-unmeasured');
+    if (!measured) {
+      if (!flag) {
+        flag = document.createElement('span');
+        flag.id = 'compass-unmeasured';
+        flag.className = 'compass-unmeasured';
+        $('kanyu-read-main').appendChild(flag);
+      }
+      flag.textContent = tt(headingSource === 'manual' ? 'kanyu.heading_manual' : 'kanyu.unmeasured');
+      flag.hidden = false;
+    } else if (flag) { flag.hidden = true; }
     $('compass-sub').textContent = tt('kanyu.wuxing_read', { el: r.facing.el, zuoxiang: r.zuoXiang });
     $('compass-sub').style.color = C.EL_HEX[r.facing.el];
     // 实时契合：双声部并列——八宅（键命卦·游年八星）+ 子平（键日主·喜用神）
@@ -3582,6 +3602,9 @@
   // 用户无感知。桌面端等 2.5s 收不到任何方向事件，才静默亮出模拟滑杆。
   let sensorAttached = false;
   let lastSensorTs = 0;
+  // 朝向是不是真的量出来的。没有传感器时 heading 恒为 0，若不区分，
+  // 「面向 0°」会被当作实测值一路推出「五鬼方 · 大凶」——用户拿到的是一个从未测量过的结论。
+  let headingSource = 'none';   // 'sensor' 实测 | 'manual' 用户手动设定 | 'none' 从未测过
   function startSensor() {
     if (sensorAttached) return;
     sensorAttached = true;
@@ -3593,6 +3616,7 @@
       else if (e.absolute && typeof e.alpha === 'number') raw = C.norm(360 - e.alpha);        // Android 绝对方位
       if (raw !== null) {
         lastSensorTs = Date.now();
+        headingSource = 'sensor';
         $('sim-row').classList.remove('shown');
         setHeading(raw);
       }
@@ -3633,6 +3657,7 @@
     }
     // 模拟朝向滑杆（无传感器时浮现）
     $('compass-slider').addEventListener('input', e => {
+      headingSource = 'manual';   // 用户手动设定的方向：是输入，但不是实测
       sensorOn = false;
       if (lockedHeading !== null) { lockedHeading = null; $('btn-lock').textContent = '定盘'; $('btn-lock').classList.remove('locked'); $('lock-panel').classList.remove('shown'); if (compassFx) compassFx.setLocked(false); } // 拖滑杆即释盘，按钮态同步，别留「释盘」假象
       setHeading(parseFloat(e.target.value));
@@ -3677,6 +3702,25 @@
       $('page-kanyu').classList.toggle('yz-open', open); // 底部阳宅横条展开时隐朝向模拟条（避免底部三条相叠）
       // 进勘察模式（展开阳宅工具栏）：水墨底自动切卫星供勘察（见 initKanyu 内 _kanyuEnsureTileForSurvey）
       if (open && window._kanyuEnsureTileForSurvey) window._kanyuEnsureTileForSurvey();
+      // 没定位就直说：屏幕上这片屋顶不是用户家的。此前会在一片陌生城区航拍上
+      // 照样摆床摆灶出吉凶断语，用户完全看不出这份结论建在别人的房子上。
+      const pk = $('page-kanyu');
+      if (pk) pk.classList.toggle('geo-unknown', open && !window._kanyuGeoFixed);
+      if (open && !window._kanyuGeoFixed) {
+        let warn = document.getElementById('yz-geo-warn');
+        if (!warn) {
+          warn = document.createElement('p');
+          warn.id = 'yz-geo-warn';
+          warn.className = 'yz-geo-warn';
+          const tb = $('yangzhai-toolbar');
+          if (tb) tb.insertBefore(warn, tb.firstChild);
+        }
+        warn.textContent = tt('kanyu.geo_unknown');
+        warn.hidden = false;
+      } else {
+        const warn = document.getElementById('yz-geo-warn');
+        if (warn) warn.hidden = true;
+      }
     });
     $('kanyu-expand').addEventListener('click', () => {
       $('kanyu-read').classList.toggle('expanded'); // 详读展开：#kanyu-top 统一滚动，无需再重定位原句卡
@@ -6300,6 +6344,8 @@
       if (!hintEl) return;
       hintEl.textContent = message || HINT_DEFAULT;
       hintEl.classList.toggle('is-error', !!isError);
+      // aria-disabled 只解决了鼠标/触摸的反馈；屏幕阅读器要靠 aria-live 才听得到缺什么。
+      hintEl.setAttribute('role', isError ? 'alert' : 'status');
     }
     function daysInMonth(y, m) { return new Date(y, m, 0).getDate(); }
     function syncBirthDateTime(markInvalid) {
@@ -6348,6 +6394,9 @@
         const shouldMark = problem ? problem.index === index
           : (markInvalid && !!part.el.value && part.el.value.length !== part.size);
         part.el.classList.toggle('is-invalid', !!shouldMark);
+        part.el.setAttribute('aria-invalid', shouldMark ? 'true' : 'false');
+        if (shouldMark) part.el.setAttribute('aria-describedby', 'bazi-form-hint');
+        else part.el.removeAttribute('aria-describedby');
       });
       setHint(problem ? problem.message : null, !!problem);
       updatePaipanState();
@@ -6385,10 +6434,19 @@
       const digits = (event.clipboardData && event.clipboardData.getData('text') || '').replace(/\D/g, '');
       if (digits.length < 8) return;
       event.preventDefault();
-      const chunks = [digits.slice(0, 4), digits.slice(4, 6), digits.slice(6, 8), digits.slice(8, 10) || '00', digits.slice(10, 12) || '00'];
+      // 只粘了日期就别替他把时辰补成午夜：那等于凭空替用户断言「子时出生」。
+      // 分钟可以留空（时辰分界在整点），小时不行。
+      const hasHour = digits.length >= 10;
+      const chunks = [digits.slice(0, 4), digits.slice(4, 6), digits.slice(6, 8),
+        hasHour ? digits.slice(8, 10) : '', digits.slice(10, 12) || ''];
       birthSegments.forEach((part, index) => { part.el.value = chunks[index]; part.el.classList.remove('is-invalid'); });
       syncBirthDateTime(true);
-      birthSegments[Math.min(4, Math.floor(Math.min(digits.length, 12) / 2))].el.focus();
+      if (!hasHour) {
+        setHint(isEN() ? 'Date filled in — still need the hour of birth' : '日期已填好，还差出生的「小时」', true);
+        birthSegments[3].el.focus();
+      } else {
+        birthSegments[Math.min(4, Math.floor(Math.min(digits.length, 12) / 2))].el.focus();
+      }
     });
 
     const countrySel = $('bazi-country'), regionSel = $('bazi-region'), citySel = $('bazi-city');
@@ -6946,7 +7004,7 @@
       }
       if (hasLibrary) html += '</details>';
       const held = res.stats.held + res.stats.skippedRequires + res.stats.skippedCapability;
-      html += `<p class="gjl-foot">${enG ? 'A cultural interpretation, not a scientific diagnosis or a promise of outcomes. A further ' + held + ' rules did not take part because they require a compass bearing or await review.' : '传统文化视角，不是科学诊断，也不承诺现实结果。另有 ' + held + ' 条规则因需罗盘方位／待复核未参与。'}</p>`;
+      html += `<p class="gjl-foot">${enG ? 'A cultural interpretation, not a scientific diagnosis or a promise of outcomes. Another ' + held + ' rules were not used here — they either need a compass bearing or are still being checked against their sources.' : '传统文化视角，不是科学诊断，也不承诺现实结果。另有 ' + held + ' 条规则这次没用上——它们要么需要罗盘方位，要么还在核对古籍出处。'}</p>`;
       box.innerHTML = html;
       box.style.display = '';
     }).catch(() => { /* 静默降级：不显卡、不报错 */ });
@@ -7626,6 +7684,17 @@
     $('bazi-strength').innerHTML = isEN()
       ? `${renderTerm('日主')} ${escapeHtml(c.dm)} ${escapeHtml(elEN(c.dmEl))} · ${renderTerm('身强身弱', c.isStrong ? '身强 strong' : '身弱 weak')} · ${renderTerm('喜用')} ${escapeHtml(elsEN(c.favorable))}`
       : `${renderTerm('日主')}：${escapeHtml(c.dm)}${escapeHtml(c.dmEl)}·${renderTerm('身强身弱', c.isStrong ? '身强' : '身弱')} · ${renderTerm('喜用')}：${escapeHtml(c.favorable.join(' '))}`;
+    // 断语的第一行必须是能看懂的话：原来这张卡最上面是「日主：辛金·身弱 · 喜用：土 金」，
+    // 对第一次来的人来说全是生词。
+    {
+      const vp = $('bazi-verdict-plain');
+      if (vp) {
+        const favs = (c.favorable || []).join('、');
+        vp.textContent = isEN()
+          ? `In plain terms: your chart leans ${c.isStrong ? 'strong' : 'weak'} — the ${c.dmEl} you were born on has ${c.isStrong ? 'plenty of' : 'little'} support. Traditionally that means leaning on ${elsEN(c.favorable)}.`
+          : `说人话：你这张盘偏${c.isStrong ? '强' : '弱'}——出生那天的「${c.dm}${c.dmEl}」${c.isStrong ? '帮手多' : '帮手少'}。传统上说这种盘要多借${favs}的力。`;
+      }
+    }
     try {
       const bz = C.computeBaZhai(input);
       const tri = C.TRIGRAMS[bz.mingGua];
@@ -7852,6 +7921,9 @@
     // 当前位置：蓝点 + 精度圈（WGS-84 直接落点，无需纠偏）
     let posDot = null, posRing = null;
     function showPosition(lat, lon, accuracy, recenter) {
+      window._kanyuGeoFixed = true;   // 真的拿到过一次定位
+      const pk = document.getElementById('page-kanyu');
+      if (pk) pk.classList.remove('geo-unknown');
       const ll = [lat, lon];
       if (posRing) { map.removeLayer(posRing); posRing = null; }
       if (posDot) { map.removeLayer(posDot); posDot = null; }

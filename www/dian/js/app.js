@@ -158,6 +158,12 @@ function bookPalette(book) {
 }
 // 命中理由要看得见命中词本身：从头切 40 字往往整段都不含搜索词，
 // 用户的疑问会从「这本书为什么出现」变成「这段没头没尾的话是什么」。
+// 清空搜索时必须一并清掉全文命中区：否则会出现「未找到」和上一次的「命中 1 处」同屏并存。
+function clearFullTextResults() {
+  const box = el('fulltext-results');
+  if (box) box.innerHTML = '';
+}
+
 function snippetAround(text, qNorm, radius) {
   const src = String(text || '');
   if (!src) return '';
@@ -806,7 +812,7 @@ function renderShelf() {
     updateResults();
   });
   const sc = el('search-clear');
-  if (sc) sc.addEventListener('click', () => { si.value = ''; State.searchQuery = ''; si.focus(); refreshChrome(); updateResults(); });
+  if (sc) sc.addEventListener('click', () => { si.value = ''; State.searchQuery = ''; si.focus(); refreshChrome(); updateResults(); clearFullTextResults(); });
 }
 
 // 仅刷新搜索框旁的清空按钮（避免重建输入框）
@@ -817,7 +823,7 @@ function refreshChrome() {
   if (has && !btn) {
     btn = document.createElement('button');
     btn.className = 'search-clear'; btn.id = 'search-clear'; btn.textContent = '✕';
-    btn.addEventListener('click', () => { const si = el('search-input'); si.value = ''; State.searchQuery = ''; si.focus(); refreshChrome(); updateResults(); });
+    btn.addEventListener('click', () => { const si = el('search-input'); si.value = ''; State.searchQuery = ''; si.focus(); refreshChrome(); updateResults(); clearFullTextResults(); });
     bar.appendChild(btn);
   } else if (!has && btn) btn.remove();
 }
@@ -1109,12 +1115,14 @@ function renderBookCard(b, q) {
       ${b.hasAnnotated ? '<span class="book-annot-badge" title="逐句白话译注">逐句译注</span>' : ''}
       ${State.lastRead && State.lastRead.bookId === b.id ? `<span class="book-last-ribbon">${isEN() ? 'Last read' : '上次读到'}</span>` : ''}
       ${bookCoverHtml(b, 'book-card-cover')}
-      <div class="book-card-copy"><div class="book-title">${highlight(b.title, q)}</div>
+      <div class="book-card-copy">
+      ${/* 封面图上已印了书名与「朝代 · 作者」，这里不再复读；
+           只有搜索需要高亮命中时才重出书名/作者。 */''}
+      ${q ? `<div class="book-title">${highlight(b.title, q)}</div>` : ''}
       ${showSub ? `<div class="book-dynasty">${highlight(b.subtitle, q)}</div>` : ''}
-      <div class="book-author">${highlight(b.author || '', q)}</div>
+      ${q && b.author && normalizeHan(b.author).includes(normalizeHan(q)) ? `<div class="book-author">${highlight(b.author, q)}</div>` : ''}
       ${q && b._why ? `<div class="book-why">命中 · ${esc(b._why)}</div>` : ''}
       <div class="book-foot">
-        <span class="book-dynasty">${esc(b.dynasty || '')}</span>
         ${statsStr ? `<span class="book-stats">${esc(statsStr)}</span>` : ''}
         ${readStr ? `<span class="book-read-tag">${esc(readStr)}</span>` : ''}
         <span class="book-status ${statusCls}">${esc(statusTxt)}</span>
@@ -1476,7 +1484,9 @@ function renderChapterContent(book, chapters, idx, sent) {
 function scrollToTop() {
   const rt = el('reader-text');
   if (rt && rt.classList.contains('vertical')) {
-    rt.scrollTo({ left: 0, behavior: 'smooth' });
+    const first = rt.querySelector('.passage, .frag, p, div');
+    if (first && first.scrollIntoView) first.scrollIntoView({ inline: 'start', block: 'nearest', behavior: 'smooth' });
+    else rt.scrollTo({ left: 0, behavior: 'smooth' });
   } else {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -1590,12 +1600,12 @@ function renderDrawer(book, chapters, idx) {
           const label = c.label || c.title || c.id;
           const pending = chapterIsPending(c);
           const isRead = isChapterRead(book.id, c.id);
-          return `<div class="drawer-item ${i === idx ? 'current' : ''} ${pending ? 'pending' : ''}${isRead ? ' is-read' : ''}"
+          return `<button type="button" class="drawer-item ${i === idx ? 'current' : ''} ${pending ? 'pending' : ''}${isRead ? ' is-read' : ''}"
             data-label="${esc(label.toLowerCase())}"
             onclick="closeDrawer();navigate('#/read/${book.id}/${encodeURIComponent(c.id)}')">
             <span class="drawer-idx">${i + 1}</span><span>${esc(label)}</span>
             ${isRead ? '<span class="drawer-read-mark" title="已读">✓</span>' : ''}
-            ${pending ? '<span class="chapter-tag">待补</span>' : ''}</div>`;
+            ${pending ? '<span class="chapter-tag">待补</span>' : ''}</button>`;
         }).join('')}
         <div class="drawer-no-result hidden" id="drawer-no-result">无匹配章节</div>
       </div>
@@ -1744,6 +1754,16 @@ function setOrientation(o) {
   const rt = el('reader-text');
   if (rt) rt.className = `reader-content ${o === 'vertical' ? 'vertical' : 'horizontal'}`;
   qsa('.orientation-btn').forEach(b => b.classList.toggle('active', b.dataset.o === o));
+  // 竖排是 vertical-rl：正文从右往左排，而容器初始停在最左边——那是全文的末尾，
+  // 于是点「竖」之后第一屏是一张白纸。用 scrollIntoView 定位到第一段，
+  // 不依赖各浏览器对 vertical-rl 下 scrollLeft 正负号的不同约定。
+  if (rt && o === 'vertical') {
+    requestAnimationFrame(() => {
+      const first = rt.querySelector('.passage, .frag, p, div');
+      if (first && first.scrollIntoView) first.scrollIntoView({ inline: 'start', block: 'nearest' });
+      else rt.scrollLeft = rt.scrollWidth;
+    });
+  }
 }
 window.setOrientation = setOrientation;
 
