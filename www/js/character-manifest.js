@@ -321,13 +321,13 @@
     const cards = [
       {
         key: 'peer', kind: 'peer', label: en ? 'Kin' : '同类', term: en ? '比劫 · peers' : '比劫',
-        plain: en ? 'Like you, and reaching for the same light' : '像你，也会和你争同一束光',
+        plain: en ? 'People like you: they get you, and they want the same things' : '和你像的人：懂你，也会跟你抢同一个机会',
         title: textOf(peer, 'title', lang), story: textOf(peer, 'story', lang), scene: peer.scene || '',
         relatedStems: peerStems, related: namesFor(peerStems, lang)
       },
       {
         key: 'output', kind: 'generate', label: en ? 'I generate' : '我生', term: en ? '食伤 · output' : '食伤',
-        plain: en ? 'What you give also costs you' : '你交出去，也会被消耗',
+        plain: en ? 'What you put out: it lands, and it drains you' : '你付出的那一面：给得出去，也会把自己耗掉',
         title: textOf(output, 'title', lang), story: textOf(output, 'story', lang),
         scene: scenes.output || '',
         relatedStems: outputStems, related: namesFor(outputStems, lang),
@@ -338,19 +338,19 @@
       },
       {
         key: 'source', kind: 'source', label: en ? 'Generates me' : '生我', term: en ? '印 · support' : '印',
-        plain: en ? 'Supports you, and may become dependence' : '托住你，也可能让你依赖',
+        plain: en ? 'What holds you up: reliable, and easy to lean on too long' : '托着你的人：靠得住，靠久了也会离不开',
         title: textOf(source, 'title', lang), story: textOf(source, 'story', lang), scene: scenes.source || '',
         relatedStems: sourceStems, related: namesFor(sourceStems, lang)
       },
       {
         key: 'control', kind: 'control', label: en ? 'I regulate' : '我制', term: en ? '财 · stewardship' : '财',
-        plain: en ? 'You can handle it, and must bear the outcome' : '你能处理，也要承担后果',
+        plain: en ? 'What you can handle: you take it on, you clean it up' : '你管得住的事：拿得下，也得自己收尾',
         title: textOf(controlled, 'title', lang), story: textOf(controlled, 'story', lang), scene: scenes.control || '',
         relatedStems: controlledStems, related: namesFor(controlledStems, lang)
       },
       {
         key: 'pressure', kind: 'pressure', label: en ? 'Regulates me' : '制我', term: en ? '官杀 · pressure' : '官杀',
-        plain: en ? 'Presses you, and forces you into shape' : '让你受压，也迫使你成形',
+        plain: en ? 'What presses on you: it hurts, and it shapes you' : '压着你的事：不好受，但也把你逼出个样子',
         title: textOf(pressure, 'title', lang), story: textOf(pressure, 'story', lang), scene: scenes.pressure || '',
         relatedStems: pressureStems, related: namesFor(pressureStems, lang)
       }

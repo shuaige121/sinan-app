@@ -135,7 +135,7 @@
       if (!person) return '';
       return `<figure class="cm-relation-person${index === 0 ? ' is-focus' : ''}">
         <img src="${esc(person.heroScene || person.background)}" alt="${esc(sceneStem + '·' + itemText(person, 'name'))}" loading="lazy" decoding="async" style="--scene-focus:${esc(person.heroFocus || '50% 50%')}">
-        <figcaption>${index === 0 ? text('此刻所读 · ', 'Now reading · ') : ''}${esc(sceneStem + '·' + itemText(person, 'name'))}</figcaption>
+        <figcaption>${index === 0 ? text('正在看 · ', 'Viewing · ') : ''}${esc(sceneStem + '·' + itemText(person, 'name'))}</figcaption>
       </figure>`;
     }).join('');
     const active = Characters.get(stem);
@@ -186,11 +186,11 @@
     const tags = en() ? item.tagsEn : item.tagsZh;
     const relationCards = Characters.relationCards(state.activeStem, en() ? 'en' : 'zh');
     const balanceLead = profile.balanced
-      ? text('五色距离很近，环境光才趋向白。', 'The five colors are close enough for the ambient light to approach white.')
-      : text(`此刻以${primary}、${secondary}显色，其余三色仍在流动。`, `${ELEMENT_EN[primary]} and ${ELEMENT_EN[secondary]} are most visible now; the other three colors remain in motion.`);
+      ? text('你的五行分得很匀，所以这里整体偏白。', 'Your five phases are evenly matched, so the city reads close to white.')
+      : text(`你盘里${primary}和${secondary}最多，所以这里主要是这两个颜色。`, `Your chart has the most ${ELEMENT_EN[primary]} and ${ELEMENT_EN[secondary]}, so those two colors lead here.`);
     const sourceLine = state.chart
-      ? text('五色来自你的命盘。', 'These five colors come from your chart.')
-      : text('还没有命盘，先以五色等量照亮这座城。', 'Without a chart, the city begins in equal light.');
+      ? text('这些比例来自你排的盘。', 'These proportions come from the chart you cast.')
+      : text('你还没排过盘，先按五行等量显示。', 'You have not cast a chart yet, so all five are shown equal.');
     const enterLabel = isDayMaster && isTheme
       ? text('你的日主 · 也是你的主题人物', 'Your Day Master · also your theme character')
       : (isTheme
@@ -199,7 +199,7 @@
           ? text('这是你的日主', 'Your Day Master')
           : (isGuide && !state.guideBalanced
             ? text(`你盘里较少的${item.element} · ${state.guideStems.join('、')}一起出现`, `Lower ${ELEMENT_EN[item.element]} · both stems appear together`)
-            : text('此刻正在读他与全城的关系', 'Reading this character across the whole city'))));
+            : text('正在看他和其他人的关系', 'Viewing this character’s connections'))));
     const themeAction = isTheme
       ? `<button type="button" class="cm-theme-button is-current" data-cm-theme-reset>${text('主题跟随日主', 'Theme follows Day Master')}</button>`
       : `<button type="button" class="cm-theme-button" data-cm-theme="${esc(state.activeStem)}">${text(`设${state.activeStem}为主题人物`, `Set ${state.activeStem} as theme`)}</button>`;
@@ -225,25 +225,25 @@
           <p class="cm-intro">${esc(itemText(item, 'desc'))}</p>
           <div class="cm-theme-actions">${themeAction}</div>
         </div>
-        <button type="button" class="cm-scroll-cue" data-cm-scroll="balance">${text('向下 · 看城中气色', 'Continue · See the city’s colors')}</button>
+        <button type="button" class="cm-scroll-cue" data-cm-scroll="balance">${text('往下看 · 你的五行', 'Continue · Your five phases')}</button>
       </section>
 
       <section class="cm-section cm-balance" id="cm-balance">
-        <div class="cm-section-head"><span>01</span><div><small>${text('你的结构', 'YOUR STRUCTURE')}</small><h2>${text('五色如何照进常明城', 'How five colors enter Changming')}</h2></div></div>
+        <div class="cm-section-head"><span>01</span><div><small>${text('你的五行', 'YOUR FIVE PHASES')}</small><h2>${text('你盘里五行各占多少', 'How much of each phase your chart holds')}</h2></div></div>
         <p class="cm-section-lead">${esc(balanceLead)}<small>${esc(sourceLine)}</small></p>
         <div class="cm-balance-bars">${barsMarkup(profile)}</div>
       </section>
 
       <section class="cm-section cm-biography">
         <div class="cm-section-head"><span>02</span><div><small>${text('人物志', 'CHARACTER RECORD')}</small><h2>${esc(state.activeStem + '·' + name)}</h2></div></div>
-        <div class="cm-story-line is-scar"><span>${text('隐痛', 'The wound')}</span><p>${esc(itemText(item, 'scar'))}</p></div>
-        <div class="cm-story-line is-highlight"><span>${text('高光', 'The moment')}</span><p>${esc(itemText(item, 'highlight'))}</p></div>
-        <div class="cm-story-line is-now"><span>${text('此刻', 'Now')}</span><p>${esc(itemText(item, 'ongoing'))}</p></div>
+        <div class="cm-story-line is-scar"><span>${text('心里过不去的一件事', 'Never said out loud')}</span><p>${esc(itemText(item, 'scar'))}</p></div>
+        <div class="cm-story-line is-highlight"><span>${text('做得最漂亮的一次', 'Got it right')}</span><p>${esc(itemText(item, 'highlight'))}</p></div>
+        <div class="cm-story-line is-now"><span>${text('现在还没有答案', 'No answer yet')}</span><p>${esc(itemText(item, 'ongoing'))}</p></div>
         ${fireCycle}
       </section>
 
       <section class="cm-section cm-relations" id="cm-relations-browser">
-        <div class="cm-section-head"><span>03</span><div><small>${text('全城关系', 'CITY RELATIONS')}</small><h2>${text('任选一个人，看他与谁发生作用', 'Choose anyone and read every connection')}</h2></div></div>
+        <div class="cm-section-head"><span>03</span><div><small>${text('十个人的关系', 'THE TEN')}</small><h2>${text('点开任意一个人，看他和谁互相影响', 'Open anyone and see who affects whom')}</h2></div></div>
         <p class="cm-cast-intro">${text('先选人物，再点同类、生、制、合或冲。这里可以看任意两人、三人的故事，不限于你的日主。', 'Choose a character, then open kin, generation, control, combination, or clash. These stories are open across the whole cast.')}</p>
         <div class="cm-cast-rail is-relations">${castMarkup(state.activeStem)}</div>
         <div class="cm-relation-tabs" role="tablist">${relationCards.map((card, index) => `<button type="button" role="tab" aria-selected="${index === 0}" class="${index === 0 ? 'is-active' : ''}" data-cm-rel="${index}">${esc(card.label)}</button>`).join('')}</div>
@@ -251,7 +251,7 @@
       </section>
 
       <section class="cm-section cm-cast">
-        <div class="cm-section-head"><span>04</span><div><small>${text('主题人物', 'THEME CHARACTER')}</small><h2>${text('让谁陪你走过司南', 'Choose who travels with you')}</h2></div></div>
+        <div class="cm-section-head"><span>04</span><div><small>${text('主题人物', 'THEME CHARACTER')}</small><h2>${text('选一个人，让他一直陪着你用司南', 'Pick one to stay with you across Sinan')}</h2></div></div>
         <p class="cm-cast-intro">${text('主题人物会出现在首页人物卡、今日小传和常明城默认入口；你的日主与关系计算不会因此改变。', 'Your theme appears on the home character card, daily story, and default Changming entry. Your Day Master and relation structure stay unchanged.')}</p>
         <div class="cm-theme-picker"><b>${esc(state.activeStem + '·' + name)}</b>${themeAction}</div>
       </section>`;
@@ -262,7 +262,7 @@
       mineButton.textContent = text('回到我的日主', 'Back to my Day Master');
     }
     const relationsButton = root.querySelector('#cm-relations');
-    if (relationsButton) relationsButton.textContent = text('全城关系', 'City relations');
+    if (relationsButton) relationsButton.textContent = text('十个人的关系', 'The ten');
     const brand = root.querySelector('.cm-brand');
     if (brand) brand.innerHTML = `<b>常明城</b><small>${text('十干人物志', 'TEN-STEM CHRONICLES')}</small>`;
     const back = root.querySelector('.cm-back span');

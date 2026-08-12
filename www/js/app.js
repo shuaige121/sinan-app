@@ -7329,8 +7329,9 @@
       ? (en ? `YOUR THEME · DAY MASTER ${cap1(STEM_PY[c.dm] || c.dm)}` : `你的主题人物 · 日主仍是${c.dm}`)
       : (en ? 'YOUR DAY MASTER · A LIFE IN PROGRESS' : '你的日主 · 人物小传');
     const headings = en
-      ? ['The unspoken wound', 'An irreplaceable moment', 'Still unfolding']
-      : ['没有说出口的事', '不可替代的高光', '仍在发生'];
+      // 小标题要让人一眼知道这段在讲什么。别用「高光/伤疤」这类字段名直译——中文里没人这么说话。
+      ? ['What they never said out loud', 'The one thing they got right', 'Still without an answer']
+      : ['心里过不去的一件事', '做得最漂亮的一次', '现在还没有答案'];
     const storyAsset = a.heroScene || a.background;
     const storyAlt = en
       ? `${characterText(a, 'name', true)} character-story pose`
