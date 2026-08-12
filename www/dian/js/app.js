@@ -180,6 +180,19 @@ function bookPalette(book) {
   setInterval(sweep, 900);
 })();
 
+// 竖排下鼠标滚轮只会带动整页纵向滚动，横向读不下去——桌面用户会永远卡在空白首屏。
+// 把滚轮映射到横轴。
+(function wireVerticalWheel() {
+  document.addEventListener('wheel', e => {
+    const rt = document.getElementById('reader-text');
+    if (!rt || !rt.classList.contains('vertical')) return;
+    if (!rt.contains(e.target)) return;
+    if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;   // 用户本来就在横向滚，别插手
+    rt.scrollLeft += e.deltaY;
+    e.preventDefault();
+  }, { passive: false });
+})();
+
 function clearFullTextResults() {
   const box = el('fulltext-results');
   if (box) box.innerHTML = '';
@@ -1792,7 +1805,9 @@ function setOrientation(o) {
     requestAnimationFrame(() => {
       // vertical-rl 下 block 轴才是横向（从右往左）的阅读方向，inline 轴是竖直的。
       // 之前写成 inline:'start' 根本不横向定位，白屏照旧。
-      const first = rt.querySelector('.passage, .frag, p, div');
+      // 跳过横排的「导读」块，定位到第一句真正的原文——否则首屏 70~85% 是空白，
+      // 用户会以为这章没内容。
+      const first = rt.querySelector('.passage, .frag, .para, .chapter-body p') || rt.querySelector('p, div');
       if (first && first.scrollIntoView) first.scrollIntoView({ block: 'start', inline: 'nearest' });
       else rt.scrollLeft = rt.scrollWidth;
     });

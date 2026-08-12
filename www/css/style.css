@@ -3411,10 +3411,15 @@ body.changming-open { overflow: hidden; }
 #page-kanyu.heading-unmeasured #compass-face { opacity: .8; }
 
 /* 未定位时的阳宅警示：这份方位结论可能建在别人的房子上。 */
+/* 工具栏是 display:flex; flex-wrap:nowrap 的横向胶囊；警示条一旦成为 flex item
+   会被压到 min-content（一个汉字宽）并把整条胶囊撑高几百像素。
+   浮到胶囊上方，不参与横排。 */
 .yz-geo-warn {
-  margin: 0 0 8px; padding: 8px 11px; border-radius: 8px;
-  border: .7px solid rgba(194,68,40,.42); background: rgba(40,14,10,.72);
+  position: absolute; left: 0; right: 0; bottom: calc(100% + 8px);
+  margin: 0; padding: 8px 11px; border-radius: 8px;
+  border: .7px solid rgba(194,68,40,.42); background: rgba(40,14,10,.92);
   color: #f0b9a6; font-size: 11.5px; line-height: 1.6;
+  white-space: normal; z-index: 12; pointer-events: none;
 }
 #page-kanyu.geo-unknown #compass-fit { opacity: .55; }
 
@@ -3427,7 +3432,14 @@ body.changming-open { overflow: hidden; }
   background-size: 220% 100%;
   animation: imgWait 1.5s ease-in-out infinite;
 }
-.bazi-cast-card img[src]:not([data-loading]), .cm-cast-person img[src]:not([data-loading]) { animation: none; }
+/* 加载完成/失败后停掉微光并撤掉占位底色，由 app.js 的 wireImageLoadState 挂 .is-loaded/.is-error。
+   （早先写成 :not([data-loading])，而 data-loading 全站从未被设置过，等于没接线。） */
+.bazi-cast-card img.is-loaded, .cm-relation-person img.is-loaded, .cm-relation-story img.is-loaded,
+.cm-cast-person img.is-loaded, .character-story-person.is-loaded, .bazi-persona-art.is-loaded, .relation-story-scene img.is-loaded,
+.bazi-cast-card img.is-error, .cm-relation-person img.is-error, .cm-relation-story img.is-error,
+.cm-cast-person img.is-error, .character-story-person.is-error, .bazi-persona-art.is-error, .relation-story-scene img.is-error {
+  animation: none; background-image: none; background-color: transparent;
+}
 @keyframes imgWait { 0% { background-position: 120% 0; } 100% { background-position: -20% 0; } }
 @media (prefers-reduced-motion: reduce) { @keyframes imgWait { 0%,100% { background-position: 50% 0; } } }
 
@@ -3449,4 +3461,18 @@ body.changming-open { overflow: hidden; }
   margin: 10px 0 0; padding-left: 11px;
   border-left: 2px solid rgba(201,162,39,.5);
   color: var(--paper); font-size: 14px; line-height: 1.75;
+}
+/* EN 模式：外层折叠摊平，避免与 renderVerdictEN 自带的「原文（中文）」折叠叠成两层。 */
+.bazi-master-fold.is-flat > summary { display: none; }
+
+/* 常明城 hero 背景是 CSS background-image（不是 <img>），图慢时开场是一整屏近纯黑。
+   给它一层与 <img> 占位一致的微光底。 */
+.cm-hero-background {
+  background-color: #1b1f22;
+}
+.cm-hero-background::before {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(100deg, #1b1f22 30%, #262b2f 50%, #1b1f22 70%);
+  background-size: 220% 100%;
+  animation: imgWait 1.6s ease-in-out infinite;
 }

@@ -254,6 +254,21 @@
     requestAnimationFrame(() => _termBd.classList.add('shown'));
     document.addEventListener('keydown', termOnKey);
   }
+  // 图片占位微光需要真实的加载状态才能停下来。全局委托：任何带占位样式的 <img>
+  // 加载完成或失败都打上标记，CSS 据此撤掉动画与底色。
+  (function wireImageLoadState() {
+    const SEL = '.bazi-cast-card img, .cm-relation-person img, .cm-relation-story img, .cm-cast-person img, img.character-story-person, img.bazi-persona-art, .relation-story-scene img';
+    const mark = (img, cls) => { if (img && img.matches && img.matches(SEL)) img.classList.add(cls); };
+    document.addEventListener('load', e => mark(e.target, 'is-loaded'), true);
+    document.addEventListener('error', e => mark(e.target, 'is-error'), true);
+    // 已在缓存里、事件早于监听的，补一轮
+    const sweep = () => document.querySelectorAll(SEL).forEach(img => {
+      if (img.complete) img.classList.add(img.naturalWidth ? 'is-loaded' : 'is-error');
+    });
+    document.addEventListener('DOMContentLoaded', sweep);
+    setInterval(sweep, 1200);
+  })();
+
   // 事件委托（capture 相：先于挂点容器自身 click，如时卦折叠钮 —— stopPropagation 免其连带触发）
   function handleTermChip(e) {
     const chip = e.target.closest && e.target.closest('.term-chip[data-term]');
@@ -1557,7 +1572,9 @@
     const timeEl = $('ch-time');
     if (!timeEl) return;                                 // 无 hero（防御）
     // 跨零点：已定位则用缓存坐标重算当日日出日落，避免弧陈旧
-    if (clockGeo && clockArcState === 'located' && clockSunDay !== now.toDateString()) {
+    // 处于 prompt（极昼/极夜或取位失败）时也要跨日重算：否则高纬地区进入重新有日出日落的
+    // 日期后，仍会一直显示极昼文案，直到用户主动再点一次。
+    if (clockGeo && (clockArcState === 'located' || clockArcState === 'prompt') && clockSunDay !== now.toDateString()) {
       applyGeo(clockGeo.lat, clockGeo.lng, now);
     }
     timeEl.textContent = fmtHM(now);
@@ -1638,8 +1655,9 @@
     navigator.geolocation.getCurrentPosition(
       pos => {
         saveGeo(pos.coords.latitude, pos.coords.longitude);
-        applyGeo(pos.coords.latitude, pos.coords.longitude);
-        if (btn) { btn.disabled = false; btn.textContent = tt('clock.locate'); }
+        // 极昼/极夜时 applyGeo 会返回 false 并写好说明，别再无条件改回默认文案。
+        const hasSunTimes = applyGeo(pos.coords.latitude, pos.coords.longitude);
+        if (btn) { btn.disabled = false; btn.textContent = tt(hasSunTimes ? 'clock.locate' : 'clock.no_sun_times'); }
         renderClock();
       },
       () => {
@@ -2130,7 +2148,9 @@
   window._recomputeKanyuTopOffset = recomputeKanyuTopOffset;   // 供 initKanyu 内底图切换/定尺后调用
 
   function updateCompassCard() {
-    const d = C.norm(heading);
+    // 锁盘（户型对齐/定盘）后实际参与计算的是 lockedHeading，卡面必须读同一个值，
+    // 否则会出现「卡面显示手机朝向、玄空按锁定角度算」这种自相矛盾。
+    const d = C.norm(lockedHeading !== null ? lockedHeading : heading);
     const r = C.directionReading(d);
     // 定盘冻结的可能正是那个从没量过的 0°，所以 locked 不能算「测过」。
     const measured = headingSource === 'sensor';
@@ -3605,6 +3625,7 @@
   // 朝向是不是真的量出来的。没有传感器时 heading 恒为 0，若不区分，
   // 「面向 0°」会被当作实测值一路推出「五鬼方 · 大凶」——用户拿到的是一个从未测量过的结论。
   let headingSource = 'none';   // 'sensor' 实测 | 'manual' 用户手动设定 | 'none' 从未测过
+  let lastManualTs = 0;         // 刚手动拖过滑杆的时刻：这段时间内不让传感器抢回控制权
   function startSensor() {
     if (sensorAttached) return;
     sensorAttached = true;
@@ -3616,7 +3637,12 @@
       else if (e.absolute && typeof e.alpha === 'number') raw = C.norm(360 - e.alpha);        // Android 绝对方位
       if (raw !== null) {
         lastSensorTs = Date.now();
-        headingSource = 'sensor';
+        // 锁盘时 setHeading 会拒绝这个值，那就不能声称「实测」——
+        // 否则标记来自一个根本没被采用的读数。
+        if (lockedHeading === null) {
+          if (headingSource === 'manual' && Date.now() - lastManualTs < 10000) return; // 刚手动调过就先听用户的
+          headingSource = 'sensor';
+        }
         $('sim-row').classList.remove('shown');
         setHeading(raw);
       }
@@ -3658,7 +3684,10 @@
     // 模拟朝向滑杆（无传感器时浮现）
     $('compass-slider').addEventListener('input', e => {
       headingSource = 'manual';   // 用户手动设定的方向：是输入，但不是实测
-      sensorOn = false;
+      lastManualTs = Date.now();
+      // 不再永久关掉传感器：此前拖一次滑杆之后，即使指南针后来才就绪，
+      // 事件也全被丢弃且没有明显的恢复入口。改为「有真实读数就自动接管」。
+      sensorOn = true;
       if (lockedHeading !== null) { lockedHeading = null; $('btn-lock').textContent = '定盘'; $('btn-lock').classList.remove('locked'); $('lock-panel').classList.remove('shown'); if (compassFx) compassFx.setLocked(false); } // 拖滑杆即释盘，按钮态同步，别留「释盘」假象
       setHeading(parseFloat(e.target.value));
     });
@@ -6391,8 +6420,11 @@
         ? `${values[0]}-${values[1]}-${values[2]}T${values[3]}:${values[4]}`
         : '';
       birthSegments.forEach((part, index) => {
+        // 必填格空着也要标出来：粘贴纯日期后小时是空的，只提示不标红，
+        // 辅助技术就听不到错误落在哪个字段。
+        const emptyRequired = markInvalid && !part.optional && !part.el.value;
         const shouldMark = problem ? problem.index === index
-          : (markInvalid && !!part.el.value && part.el.value.length !== part.size);
+          : (markInvalid && ((!!part.el.value && part.el.value.length !== part.size) || emptyRequired));
         part.el.classList.toggle('is-invalid', !!shouldMark);
         part.el.setAttribute('aria-invalid', shouldMark ? 'true' : 'false');
         if (shouldMark) part.el.setAttribute('aria-describedby', 'bazi-form-hint');
@@ -6431,19 +6463,32 @@
       });
     });
     $('bazi-datetime-segments').addEventListener('paste', event => {
-      const digits = (event.clipboardData && event.clipboardData.getData('text') || '').replace(/\D/g, '');
+      const raw = (event.clipboardData && event.clipboardData.getData('text') || '');
+      const digits = raw.replace(/\D/g, '');
       if (digits.length < 8) return;
       event.preventDefault();
+      // 先按结构解析，别按固定位置硬切：'1990-02-03 8:30' 去掉符号后是 19900203830，
+      // 定位切片会得到 hour=83、minute=0。
+      const structured = /^\s*(\d{4})\D+(\d{1,2})\D+(\d{1,2})(?:\D+(\d{1,2})(?:\D+(\d{1,2}))?)?/.exec(raw);
       // 只粘了日期就别替他把时辰补成午夜：那等于凭空替用户断言「子时出生」。
       // 分钟可以留空（时辰分界在整点），小时不行。
-      const hasHour = digits.length >= 10;
-      const chunks = [digits.slice(0, 4), digits.slice(4, 6), digits.slice(6, 8),
-        hasHour ? digits.slice(8, 10) : '', digits.slice(10, 12) || ''];
+      const pad2 = v => (v == null || v === '') ? '' : String(v).padStart(2, '0');
+      let chunks, hasHour;
+      if (structured) {
+        hasHour = structured[4] != null;
+        chunks = [structured[1], pad2(structured[2]), pad2(structured[3]), pad2(structured[4]), pad2(structured[5])];
+      } else {
+        hasHour = digits.length >= 10;
+        chunks = [digits.slice(0, 4), digits.slice(4, 6), digits.slice(6, 8),
+          hasHour ? digits.slice(8, 10) : '', digits.slice(10, 12) || ''];
+      }
       birthSegments.forEach((part, index) => { part.el.value = chunks[index]; part.el.classList.remove('is-invalid'); });
       syncBirthDateTime(true);
       if (!hasHour) {
-        setHint(isEN() ? 'Date filled in — still need the hour of birth' : '日期已填好，还差出生的「小时」', true);
+        // focus() 会同步触发上一格的 blur → syncBirthDateTime(true) → setHint 复位，
+        // 所以提示必须放在 focus 之后，否则这句话活不过一帧。
         birthSegments[3].el.focus();
+        setHint(isEN() ? 'Date filled in — still need the hour of birth' : '日期已填好，还差出生的「小时」', true);
       } else {
         birthSegments[Math.min(4, Math.floor(Math.min(digits.length, 12) / 2))].el.focus();
       }
@@ -6574,7 +6619,19 @@
     // 此前农历模式的四个下拉被预填成 1995/6/15/午时，勾一下「农历」就能一个字不输地
     // 排出别人的命盘——用户拿到的是一张完全不属于自己的盘，而且自己发现不了。
     function lunarComplete() {
-      return !!($('lunar-year').value && $('lunar-month').value && $('lunar-day').value && $('lunar-shichen').value !== '');
+      if (!($('lunar-year').value && $('lunar-month').value && $('lunar-day').value && $('lunar-shichen').value !== '')) return false;
+      // 农历路径也要挡未来时刻，否则换个 tab 就能绕过公历那边的校验，
+      // 照样给还没出生的人排盘。
+      return !lunarIsFuture();
+    }
+    function lunarIsFuture() {
+      try {
+        if (typeof window.Lunar === 'undefined') return false;
+        const i = parseInt($('lunar-shichen').value, 10);
+        const solar = window.Lunar.fromYmdHms(+$('lunar-year').value, +$('lunar-month').value, +$('lunar-day').value,
+          i === 0 ? 0 : i * 2, 0, 0).getSolar();
+        return new Date(solar.getYear(), solar.getMonth() - 1, solar.getDay(), solar.getHour() || 0).getTime() > Date.now();
+      } catch (e) { return false; }   // 换算不出来就不拦，避免误伤
     }
     function updatePaipanState() {
       const lunarOn = $('bazi-islunar').checked;
@@ -6589,6 +6646,10 @@
     function explainWhyNotReady() {
       if ($('bazi-islunar').checked) {
         const missing = [[ySel, '年', 'year'], [mSel, '月', 'month'], [dSel, '日', 'day'], [scSel, '时辰', 'two-hour period']].find(pair => pair[0].value === '');
+        if (!missing && lunarIsFuture()) {
+          setHint(isEN() ? 'That moment has not happened yet — check the birth date' : '这个时刻还没到，确认一下出生日期', true);
+          return;
+        }
         setHint(missing ? (isEN() ? `Still need the ${missing[2]}` : `还差「${missing[1]}」没选`) : null, !!missing);
         if (missing) missing[0].focus();
         return;
@@ -7622,7 +7683,8 @@
       $('bazi-head').textContent = `${genderEN} · ${solarEchoEN}${lunEN} · ${sxEN(c.shengXiao)} (属${c.shengXiao})`;
     } else {
       const solarEcho = input.isLunar ? '' : `公历${input.year}-${pad(input.month)}-${pad(input.day)} ${pad(input.hour)}:${pad(input.minute || 0)} · `;
-      $('bazi-head').textContent = `${input.gender} · ${solarEcho}${c.lunarText} · 属${c.shengXiao}`;
+      // 「属马」被拦腰断行会在结果页第一行留下一个孤零零的「马」，用 nowrap 包住。
+      $('bazi-head').innerHTML = `${escapeHtml(input.gender)} · ${escapeHtml(solarEcho + c.lunarText)} · <span class="nowrap">属${escapeHtml(c.shengXiao)}</span>`;
     }
     renderSolarLine(input); // 真太阳时开启则双行呈现钟表时/真太阳时时辰（异说 chip 复用 diverge 浮层）
     renderBaziArchetype(c); // 日主作为「你」；五行相对较少项以阴阳两位共同出现
@@ -7687,6 +7749,10 @@
     // 断语的第一行必须是能看懂的话：原来这张卡最上面是「日主：辛金·身弱 · 喜用：土 金」，
     // 对第一次来的人来说全是生词。
     {
+      // EN 模式下 renderVerdictEN 会自己生成一层「原文（中文）」折叠；
+      // 外层再折一次的话用户要展开两次才看得到原文。英文下把外层摊平。
+      const fold = $('bazi-master-fold');
+      if (fold) { fold.open = isEN(); fold.classList.toggle('is-flat', isEN()); }
       const vp = $('bazi-verdict-plain');
       if (vp) {
         const favs = (c.favorable || []).join('、');
@@ -7924,6 +7990,8 @@
       window._kanyuGeoFixed = true;   // 真的拿到过一次定位
       const pk = document.getElementById('page-kanyu');
       if (pk) pk.classList.remove('geo-unknown');
+      const oldWarn = document.getElementById('yz-geo-warn');
+      if (oldWarn) oldWarn.hidden = true;   // 否则定位成功后警告还赖在那儿
       const ll = [lat, lon];
       if (posRing) { map.removeLayer(posRing); posRing = null; }
       if (posDot) { map.removeLayer(posDot); posDot = null; }

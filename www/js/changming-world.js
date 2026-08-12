@@ -36,6 +36,16 @@
     return `<span class="term-chip" data-term="${esc(key)}" role="button" tabindex="0">${esc(raw)}</span>`;
   }
 
+  // 背景 inert：把 body 下除浮层之外的兄弟节点设为不可交互/不可读。
+  function setBackgroundInert(on) {
+    if (!root || !root.parentElement) return;
+    Array.prototype.forEach.call(root.parentElement.children, el => {
+      if (el === root) return;
+      if (on) { el.setAttribute('inert', ''); el.setAttribute('aria-hidden', 'true'); }
+      else { el.removeAttribute('inert'); el.removeAttribute('aria-hidden'); }
+    });
+  }
+
   function readTheme() {
     try {
       const stem = global.localStorage.getItem(THEME_KEY);
@@ -308,6 +318,9 @@
     if (!historyPushed) {
       try { global.history.pushState({ changming: 1 }, ''); historyPushed = true; } catch (e) {}
     }
+    // 全屏 modal 必须把背景关掉，否则 Tab 会走到底部 tabbar 与背景按钮，
+    // screen reader 也照样能读到背后的页面。
+    setBackgroundInert(true);
     requestAnimationFrame(() => root.classList.add('is-open'));
     if (view === 'relations') setTimeout(() => content.querySelector('#cm-relations-browser')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
     const closeButton = root.querySelector('#cm-close');
@@ -322,6 +335,7 @@
       try { global.history.back(); return; } catch (e) { /* 退化为直接关闭 */ }
     }
     historyPushed = false;
+    setBackgroundInert(false);
     root.classList.remove('is-open');
     root.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('changming-open');
@@ -373,7 +387,14 @@
     root.querySelector('#cm-close')?.addEventListener('click', () => close()); // 不能直接传 close：MouseEvent 会被当成 fromHistory=true，于是不退回历史
     root.querySelector('#cm-mine')?.addEventListener('click', () => { if (state.dayMasterStem) render(state.dayMasterStem); });
     root.querySelector('#cm-relations')?.addEventListener('click', () => content.querySelector('#cm-relations-browser')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
-    document.addEventListener('keydown', event => { if (event.key === 'Escape' && !root.hidden) close(); });
+    document.addEventListener('keydown', event => {
+      if (event.key !== 'Escape' || root.hidden) return;
+      // 词条/出处浮层开在常明城之上；Esc 应该只关最上面那层，
+      // 否则一次 Esc 会把浮层和常明城一起关掉。
+      const overlay = document.querySelector('.cite-backdrop.shown, .term-backdrop.shown');
+      if (overlay && !overlay.hidden) return;
+      close();
+    });
     // 手机返回键：先关这一层，而不是直接退出整个站点。
     global.addEventListener('popstate', () => { if (root && !root.hidden) close(true); });
   }
