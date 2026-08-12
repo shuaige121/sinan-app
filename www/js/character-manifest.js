@@ -77,12 +77,12 @@
       tagsZh: ['方向', '担当', '生长'], tagsEn: ['Direction', 'Responsibility', 'Growth'],
       descZh: '像参天大树一样先确定方向，再让结构向上成立。可靠、直接，也容易把继续向前当成唯一答案。',
       descEn: 'Like a tall tree, Guangmo establishes direction and gives structure somewhere to rise—reliable and direct, yet prone to treating forward motion as the only answer.',
-      scarZh: '第一片林曾被砍去救城。决定是对的，伤口也是真的；从那以后，广莫不再给树取名。',
-      scarEn: 'The first forest was cut down to save the city. The decision was right and the wound was real; Guangmo has not named a tree since.',
-      highlightZh: '当所有人都要求继续扩张时，最擅长向前的广莫第一个说：「先停下。」',
-      highlightEn: 'When everyone demanded more growth, the one most built to advance was first to say: “Stop here.”',
-      ongoingZh: '正在学习让别人改变自己的方向，但下一次是否仍能停下，没有答案。',
-      ongoingEn: 'Learning to let others alter the route—but whether Guangmo can stop again next time remains open.'
+      scarZh: '空带那年为了救城，运斤砍掉了广莫亲手种下的第一片林。广莫在旁边看到天亮，没有阻止——那是当时必须做的决定。从那以后，广莫再也不给任何一棵树取名字。',
+      scarEn: 'The year of the Hollow Belt, Yunjin cut down the first grove Guangmo had planted, to save the city. Guangmo watched until dawn and did not stop it — at the time it was the necessary call. Guangmo has not named a tree since.',
+      highlightZh: '五色错位之后，所有人都要求木部继续扩张。最擅长往前推的广莫第一个说「先停下」，同意切掉还活着的旧根，给水部留出一条不会再被堵住的回路。',
+      highlightEn: 'After the colors slipped apart, everyone demanded the Wood district keep expanding. Guangmo — the one built to push forward — was first to say “stop here,” allowing living old roots to be cut so the Water district could keep a channel that would not clog again.',
+      ongoingZh: '肯放掉活着的根，不等于愿意重新给树取名字；和运斤之间那件事，也一直没有和解。',
+      ongoingEn: 'Letting living roots go is not the same as being willing to name a tree again — and nothing between Guangmo and Yunjin has been settled.'
     },
     乙: {
       element: '木', yang: false, ...visualSet('yi-wood'), poses: poseSet('yi-wood'),
@@ -90,12 +90,12 @@
       tagsZh: ['连接', '借势', '韧性'], tagsEn: ['Connection', 'Leverage', 'Resilience'],
       descZh: '不靠蛮力向上，而是找到结构、缝隙和另一条路。能适应所有人，也因此容易忘记自己原本想去哪里。',
       descEn: 'Nanzhi rises by finding structures, gaps, and alternate routes rather than forcing a way through—able to adapt to anyone, sometimes at the cost of a direction of their own.',
-      scarZh: '能让任何人喜欢自己，却很少有人问南枝自己到底想要什么。',
-      scarEn: 'Nanzhi can make almost anyone feel understood, yet few ask what Nanzhi actually wants.',
-      highlightZh: '旧暗渠已经断裂，南枝沿别人忽略的墙缝与旧根，画出了唯一可走的新路线。',
-      highlightEn: 'With the old channel broken, Nanzhi traced the only viable route through cracks and roots everyone else ignored.',
-      ongoingZh: '这一次说出了自己的方向；下一次会继续开口，还是重新迁就，仍有可能变化。',
-      ongoingEn: 'This time Nanzhi named a direction; next time may bring another choice between speaking and adapting.'
+      scarZh: '南枝能让几乎任何人觉得被理解，可几乎没人反过来问一句：你自己想去哪里。想要什么，南枝只用站的位置暗示，别人读不懂也不解释。',
+      scarEn: 'Nanzhi can make almost anyone feel understood, yet almost no one asks the reverse: where do you want to go? Nanzhi signals needs only by where they stand, and never corrects a misreading.',
+      highlightZh: '旧树根堵死了回水渠，南枝最早从缝里看出问题。第一次说出来被压了下去；三天后旧办法失败，南枝画出新的回水路线，第一次公开要求另外九个人跟着走。',
+      highlightEn: 'Old roots had choked the return channel, and Nanzhi was first to spot it through a crack. The first warning was brushed aside; three days later the old method failed, and Nanzhi drew a new return route and asked the other nine to follow — the first time Nanzhi named a direction out loud.',
+      ongoingZh: '这一次开了口。下一次会不会还开口，南枝自己也不知道。',
+      ongoingEn: 'This time Nanzhi spoke up. Whether there will be a next time, Nanzhi does not know either.'
     },
     丙: {
       element: '火', yang: true, ...visualSet('bing-fire'), poses: poseSet('bing-fire'),
@@ -103,12 +103,12 @@
       tagsZh: ['动员', '公开', '感染'], tagsEn: ['Mobilizing', 'Open', 'Inspiring'],
       descZh: '像白日，也像已经展开的凤凰：把热和方向给所有人。忘归对陌生人与最亲近的人一样热情，也很少只为一人停留。',
       descEn: 'Like daylight—or a phoenix already unfolded—Wanggui gives warmth and direction to everyone, rarely pausing for only one person.',
-      scarZh: '从来没有一个只属于忘归的人，因为忘归从不为任何人多停一秒。',
-      scarEn: 'No one has ever belonged only to Wanggui, because Wanggui never stops an extra second for anyone.',
-      highlightZh: '五色错位时，忘归让所有工坊同时安静，把全城目光完整交给西窗的一点微光。',
-      highlightEn: 'When the five colors slipped apart, Wanggui quieted every workshop and handed the city’s attention to Xichuang’s tiny signal.',
-      ongoingZh: '忘归已经转身走向下一间工坊；身后，西窗护住的火种又亮了一次。',
-      ongoingEn: 'Wanggui is already turning toward the next workshop; behind him, Xichuang’s protected ember pulses once more.'
+      scarZh: '忘归对陌生人和对最亲近的人一样热情，所以谁都不觉得自己特别。热度平均分给了所有人，没有一个人是只属于忘归的。',
+      scarEn: 'Wanggui is as warm to a stranger as to the closest friend, so no one feels singled out. The heat is shared evenly, and no one has ever belonged only to Wanggui.',
+      highlightZh: '五色错位最乱的时候，最习惯站在光里的忘归让全城工坊同时安静下来，把所有人的目光让给西窗手里那一点火，自己退到人群后面。',
+      highlightEn: 'At the worst of the color drift, the one most used to standing in the light made every workshop in the city fall silent at once, handed the city’s attention to the single ember in Xichuang’s hands, and stepped back into the crowd.',
+      ongoingZh: '忘归还是不知道，怎么才能只为一个人多停一秒。',
+      ongoingEn: 'Wanggui still does not know how to stop one second longer for just one person.'
     },
     丁: {
       element: '火', yang: false, ...visualSet('ding-fire'), poses: poseSet('ding-fire'),
@@ -116,12 +116,12 @@
       tagsZh: ['专注', '守微', '耐久'], tagsEn: ['Focused', 'Attentive', 'Enduring'],
       descZh: '像尚未破壳的凤凰卵：势弱，却守住火仍能回来的可能。西窗不照亮所有人，只让最后一点不被噪声淹没。',
       descEn: 'Like an unhatched phoenix egg, Xichuang is faint yet preserves the chance that fire can return—keeping one final point from disappearing in noise.',
-      scarZh: '期待黑夜，因为只有黑夜需要这点微光；西窗也因此感到羞耻。',
-      scarEn: 'Xichuang looks forward to darkness because darkness needs that small light—and feels ashamed of the wish.',
-      highlightZh: '全城失去共同节拍时，只有西窗能连续守住那枚微小而准确的火种，让九个人仍有下一步。',
-      highlightEn: 'When the city lost a shared rhythm, Xichuang alone kept the tiny exact ember alive, leaving all nine others a next move.',
-      ongoingZh: '卵形火种在掌心又跳了一次；西窗没有松手，院外的天正一点点亮起来。',
-      ongoingEn: 'The oval ember pulses again in Xichuang’s hands; she does not let go as the courtyard slowly grows lighter.'
+      scarZh: '白天西窗的账页几乎都是零——只有天黑了，那枚小火种才被人需要。西窗因此盼着天黑，又为这份盼望觉得难为情。',
+      scarEn: 'By day Xichuang’s ledger is mostly zeros — only after dark is that small ember needed at all. So Xichuang waits for nightfall, and is ashamed of the waiting.',
+      highlightZh: '五个区的光接不上节拍，中央的白光散成一道道色带。西窗数出赤光快了半拍，熄掉外围所有多余的灯，只留手里那一枚；另外九个人第一次照着这枚最小的火对节奏。',
+      highlightEn: 'The five districts fell out of step and the white light at the center split into misaligned bands. Xichuang counted the red light running half a beat early, put out every spare lamp on the outer ring, and kept only the one in hand — the other nine set their timing by the smallest flame in the city for the first time.',
+      ongoingZh: '西窗在白天要求过全城跟随一次。但天一黑，西窗还是会盼着，还是会低头。',
+      ongoingEn: 'Xichuang once asked the whole city to follow, in daylight. But when night comes, Xichuang still waits for it, and still looks down.'
     },
     戊: {
       element: '土', yang: true, ...visualSet('wu-earth'), poses: poseSet('wu-earth'),
@@ -129,12 +129,12 @@
       tagsZh: ['边界', '承重', '稳定'], tagsEn: ['Boundaries', 'Bearing', 'Stability'],
       descZh: '让所有人知道什么可以通过、什么必须停下。不周保护了城，也可能把保护变成无法离开的墙。',
       descEn: 'Buzhou makes clear what may pass and what must stop—protecting the city, while risking turning protection into a wall no one can leave.',
-      scarZh: '那道堤挡住了洪水，也挡住了想走的人；有人因此没能离开。',
-      scarEn: 'The dike stopped a flood and also stopped people who meant to leave. Someone never made it out.',
-      highlightZh: '洪水抵达前，不周亲手打开自己建造的堤门，并站在门边承担判断的全部后果。',
-      highlightEn: 'Before the flood arrived, Buzhou opened a gate built by their own hands and stood beside it to bear the consequences.',
-      ongoingZh: '留下了一道门，也仍在担心门最终会放进什么。',
-      ongoingEn: 'A gate now exists, along with the unresolved fear of what it may admit.'
+      scarZh: '洪水前不周按用过的旧办法封住北堤，堤没决口，水位也没降——同一道正确的保护，在新条件下变成了封锁。它挡住了洪水，也挡住了想离开这座城的人。',
+      scarEn: 'Before the flood, Buzhou sealed the north dike the way that had always worked. The dike held and the water did not fall — the same correct protection had become a blockade. It stopped the flood, and it stopped the people who meant to leave.',
+      highlightZh: '洪水来之前，不周亲手打开自己修的那道堤门，然后就站在门边，不走。水确实冲坏了东西，不周的手也没有从门闩上移开。',
+      highlightEn: 'With the flood coming, Buzhou opened by hand the dike gate Buzhou had built, then stood beside it and stayed. The water did break things, and Buzhou never took a hand off the bolt.',
+      ongoingZh: '门开过一次了，可那份「会不会出事」的担心，一点没少。',
+      ongoingEn: 'The gate has been opened once. The worry about what might come through has not gone down at all.'
     },
     己: {
       element: '土', yang: false, ...visualSet('ji-earth'), poses: poseSet('ji-earth'),
@@ -142,12 +142,12 @@
       tagsZh: ['承接', '养育', '包容'], tagsEn: ['Receiving', 'Nurturing', 'Holding'],
       descZh: '让零散的人事物拥有继续生长的地方。沃野很少拒绝，也很难分清哪些东西已经不该继续留下。',
       descEn: 'Woye gives scattered people and things somewhere to keep growing—rarely refusing, and often unsure what should no longer remain.',
-      scarZh: '任何东西都能在沃野身上长起来，包括不该长的东西。',
-      scarEn: 'Anything can grow in Woye, including what should not.',
-      highlightZh: '所有人都在抢救材料时，沃野亲手挑出必须舍弃的部分，为人和水腾出了空间。',
-      highlightEn: 'While everyone tried to save every material, Woye chose what had to be left behind and made room for people and water.',
-      ongoingZh: '清走过一次堆积，但下一次该留与该弃，仍不会自动变得容易。',
-      ongoingEn: 'One pile has been cleared; the next choice between keeping and releasing will not become easy by itself.'
+      scarZh: '交接失败最后都会留下实物，没人来取的东西全堆在沃野这里，情绪也一样。堆得久了，沃野自己也分不清哪一件该扔。',
+      scarEn: 'Every failed handoff leaves something physical behind, and whatever no one comes to collect ends up stacked around Woye — feelings included. After enough years, Woye can no longer tell which of it should go.',
+      highlightZh: '洪水进洼地那天，最擅长把东西留下来的沃野，第一次从收了多年的堆积里挑出必须舍弃的部分，给人和水腾出地方。',
+      highlightEn: 'The day the flood reached the low ground, the one best at keeping things picked out — for the first time — what had to be given up from years of accumulation, to make room for people and for water.',
+      ongoingZh: '清走了一部分。口袋里还留着一件，一直没舍得丢。',
+      ongoingEn: 'Part of it was cleared out. One thing is still in a pocket, still not thrown away.'
     },
     庚: {
       element: '金', yang: true, ...visualSet('geng-metal'), poses: poseSet('geng-metal'),
@@ -155,12 +155,12 @@
       tagsZh: ['决断', '执行', '承担'], tagsEn: ['Decisive', 'Executing', 'Accountable'],
       descZh: '面对不能继续拖延的事，运斤会完成那一步。果断不是无情，而是知道总得有人承担不可撤回的结果。',
       descEn: 'When delay is no longer possible, Yunjin completes the step. Decisiveness is not cruelty; it is accepting an irreversible outcome someone must carry.',
-      scarZh: '所有果断都建立在「总得有人来做」上，却从来没有人为此道谢。',
-      scarEn: 'Every decision rests on “someone has to do it,” and no one has ever thanked Yunjin for being that person.',
-      highlightZh: '九个人都能建议位置，只有运斤能在唯一正确的时刻切断卡死循环的旧渠。',
-      highlightEn: 'Nine people could advise the cut; only Yunjin could make it at the single moment when the blocked cycle could still be saved.',
-      ongoingZh: '这一次等到了辛的校准；下一次仍可能必须在没人同意时独自落手。',
-      ongoingEn: 'This time Yunjin waited for Xin’s calibration; next time may require acting before anyone agrees.'
+      scarZh: '空带那年，运斤一夜之间砍出隔离带救下全城，也砍掉了广莫亲手种的第一片林。事情办成了，但从来没有人对运斤说过一句谢谢。',
+      scarEn: 'The year of the Hollow Belt, Yunjin cut a firebreak overnight and saved the city — and cut down the first grove Guangmo had planted. It worked. No one has ever thanked Yunjin for it.',
+      highlightZh: '旧渠把循环卡死时，全城最快的那把刀第一次没有立刻落下——运斤等瑾瑜校准完，才落下那唯一一刀。切口不好看，但问题终于被切开了。',
+      highlightEn: 'When the old channel locked the cycle solid, the fastest blade in the city did not fall at once for the first time — Yunjin waited for Jinyu to finish calibrating, then made the single irreversible cut. The cut was not clean, but the problem was finally open.',
+      ongoingZh: '下一次可能还得一个人拍板，那句谢谢大概还是不会来。',
+      ongoingEn: 'Next time the call may again have to be made alone, and the thanks probably still will not come.'
     },
     辛: {
       element: '金', yang: false, ...visualSet('xin-metal'), poses: poseSet('xin-metal'),
@@ -168,12 +168,12 @@
       tagsZh: ['标准', '精度', '克制'], tagsEn: ['Standards', 'Precision', 'Restraint'],
       descZh: '看见决定成败的细小误差，让粗糙的东西真正成器。瑾瑜也可能用完美，把一切永远挡在「还差一点」。',
       descEn: 'Jinyu sees the small errors that decide outcomes and turns rough work into something usable—while perfection can leave everything forever “not quite ready.”',
-      scarZh: '害怕被使用，因为被使用就会留下磨损。',
-      scarEn: 'Jinyu fears being used, because use always leaves wear.',
-      highlightZh: '时间耗尽前，瑾瑜给出了并不完美却足以继续运行的安全范围，并说：「可以了。」',
-      highlightEn: 'As time ran out, Jinyu defined a safe range that was imperfect but workable, and said: “It is enough.”',
-      ongoingZh: '允许过一次误差，却还没有停止害怕下一道划痕。',
-      ongoingEn: 'One imperfection has been allowed; the fear of the next scratch remains.'
+      scarZh: '空带那年瑾瑜把隔离带的宽度算窄了一次，从此对误差近乎苛刻。真正怕的不是算错，是东西被拿去用、被磨损——所以自己最好的那件，反而一直不肯用。',
+      scarEn: 'The year of the Hollow Belt, Jinyu once measured the firebreak too narrow, and has been merciless about error ever since. The real fear is not miscalculating but being used and worn down — which is why Jinyu’s own best piece is the one never put to use.',
+      highlightZh: '旧渠只允许一指宽的切口，瑾瑜测出唯一那个位置；并且在误差还没完全消掉的时候，第一次说出「可以用了」——这句话的责任由瑾瑜自己担。',
+      highlightEn: 'The old channel allowed a cut only a finger wide. Jinyu measured the one position that worked and, with the error not fully gone, said “it can be used” for the first time — and carried the weight of having said it.',
+      ongoingZh: '接受过一次不完美，还是没停止害怕磨损。那根留下划痕的闸杆一直没换掉，每次经过还是会停一下。',
+      ongoingEn: 'Having accepted imperfection once has not stopped the fear of wear. The gate lever with the scratch on it was never replaced, and Jinyu still pauses at it every time.'
     },
     壬: {
       element: '水', yang: true, ...visualSet('ren-water'), poses: poseSet('ren-water'),
@@ -181,12 +181,12 @@
       tagsZh: ['流动', '远见', '见识'], tagsEn: ['Movement', 'Horizon', 'Experience'],
       descZh: '看见远方，也能推动跨越整座城的变化。既望的问题从来不是走不动，而是不知道什么时候应该放慢。',
       descEn: 'Jiwang sees far away and can move change across the whole city. The difficulty is never movement—it is knowing when to slow down.',
-      scarZh: '唯一走出去又回来的人；回来不是因为舍不得，而是因为外面也一样。',
-      scarEn: 'The only one to leave and return—not from longing for home, but because the outside was the same.',
-      highlightZh: '只有既望能改变外河整股流向，并把大水压到足以听见一滴细水的速度。',
-      highlightEn: 'Only Jiwang could turn the outer river and slow a vast current enough to hear a single drop.',
-      ongoingZh: '放慢过一次，远方仍不断要求既望继续向前。',
-      ongoingEn: 'Jiwang slowed once; the horizon continues to call.'
+      scarZh: '既望走过五湖四海，也见过外海真正压过船舷的浪。回来只报宽窄快慢，从不把远方讲成神话——因为「外面也一样」。',
+      scarEn: 'Jiwang has crossed every water there is, and has seen open-sea waves come over the rail for real. Jiwang comes back reporting only width and speed, never dressing distance up as a legend — because “out there is the same.”',
+      highlightZh: '远方不断要求引进更大的水量，既望第一次没有继续加速，而是把主流压慢到能听见雪泥那一滴水。代价是下游水位不够、渡口停摆。',
+      highlightEn: 'With the far side demanding ever more volume, Jiwang for the first time did not speed up, but slowed the main current until the single drop Xueni was tracking could be heard. The cost was low water downstream and ferries at a standstill.',
+      ongoingZh: '远方还在催，既望的衣摆还是朝着外河的方向。',
+      ongoingEn: 'The far side is still calling, and Jiwang’s coat still hangs toward the outer river.'
     },
     癸: {
       element: '水', yang: false, ...visualSet('gui-water'), poses: poseSet('gui-water'),
@@ -195,12 +195,12 @@
       tagsZh: ['感知', '渗透', '倾听'], tagsEn: ['Sensing', 'Permeating', 'Listening'],
       descZh: '能进入所有人忽略的细处，让影响在很久之后抵达。雪泥太擅长不被察觉，也容易让重要的话来得太迟。',
       descEn: 'Xueni reaches the smallest overlooked places and lets effects arrive much later—so skilled at going unnoticed that important words can come too late.',
-      scarZh: '太擅长不被察觉，以至于开始怀疑自己是否真的在场过。',
-      scarEn: 'Xueni has become so good at going unnoticed that even their own presence feels uncertain.',
-      highlightZh: '改变全城节拍的只是一滴提前的水；雪泥在它仍然只是一滴时，让九个人都看见了。',
-      highlightEn: 'The city’s rhythm shifted because one drop arrived early; Xueni made all nine others see it while it was still only a drop.',
-      ongoingZh: '当面说出过一次问题，下一句话是否仍会等待三天，没有答案。',
-      ongoingEn: 'One problem was spoken aloud; whether the next sentence waits three days remains unknown.'
+      scarZh: '雪泥总在别人发现之前就把细缝润过去了，所以没人记得雪泥来过。做了不说，久了连自己都拿不出「我在场」的证据。',
+      scarEn: 'Xueni reaches the small gaps before anyone notices them, so no one remembers Xueni was there. Doing it without saying it means Xueni can no longer produce proof of having been present at all.',
+      highlightZh: '檐水每天早落一滴，雪泥多年前就看见了，一直以为无害；那天才确认，这一滴的提前已经把水部的节拍推离了另外四个区。雪泥在雨里当面把话说完，沉默了几秒，才终于有人转过头。',
+      highlightEn: 'The eaves had been dripping one drop early every day, and Xueni had seen it years ago and assumed it was harmless. That day it was confirmed: that one early drop had already pushed the Water district off the other four. Xueni said the whole thing out loud, in the rain, and after a few seconds of silence someone finally turned around.',
+      ongoingZh: '这次说出来了。下一句话会不会又等三天，还不知道。',
+      ongoingEn: 'This time it was said. Whether the next sentence waits another three days is still unknown.'
     }
   };
 
