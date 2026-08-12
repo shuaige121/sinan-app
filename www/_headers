@@ -17,7 +17,10 @@
   X-Frame-Options: SAMEORIGIN
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'self' https://dao.leonardchow.work
+  # style-src/font-src 放行 Google Fonts：index.html 一直挂着 Noto Serif SC 的 link，
+  # 但旧 CSP 把它拦掉了，典籍阁从来只用系统宋体渲染（2026-08-12 真实浏览器 console 才发现）。
+  # script-src 放行 CF Insights beacon，同样是一直被拦、白报错。
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://cloudflareinsights.com; frame-ancestors 'self' https://dao.leonardchow.work
 
 # 缓存策略：每类路径唯一、互不重叠。js/css 即时再验证（部署秒生效，
 # 对齐主站 /js/*、/css/*，根治旧版本被长缓存钉死的问题）。
