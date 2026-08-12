@@ -222,6 +222,7 @@
           <h1><b>${esc(state.activeStem)}</b>${esc(name)}</h1>
           <p class="cm-role">${esc(polarity + item.element + ' · ' + role)}</p>
           <div class="cm-tags">${tags.map(tag => `<span>${esc(tag)}</span>`).join('')}</div>
+          <p class="cm-worldnote">${text('常明城是一座虚构的城，住着十个天干各自的人物。以下都是故事，不是命理断语。', 'Changming is a fictional city inhabited by one character per heavenly stem. What follows is a story, not a reading.')}</p>
           <p class="cm-intro">${esc(itemText(item, 'desc'))}</p>
           <div class="cm-theme-actions">${themeAction}</div>
         </div>

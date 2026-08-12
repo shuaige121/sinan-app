@@ -7230,6 +7230,11 @@
     const combine = relationCards.find(card => card.kind === 'combine');
     const clash = relationCards.find(card => card.kind === 'clash');
     const kicker = en ? 'WHO YOU ARE · WHO ENTERS YOUR STORY' : '你是谁 · 谁走进你的故事';
+    // 第一次看到的人对常明城、对这些名字一无所知。人物出场前必须先交代这是什么，
+    // 否则八字结果页突然冒出一个虚构角色，读者只会觉得莫名其妙。
+    const worldIntro = en
+      ? `Changming is a fictional story we wrote for the ten heavenly stems — ten stems, ten people. Your Day Master is ${cap1(STEM_PY[selfStem] || selfStem)}, so ${cap1(STEM_PY[selfStem] || selfStem)} comes first. It is a story, not a fortune reading.`
+      : `常明城是我们给十个天干写的一个虚构故事——十个天干，十个人。你的日主是${selfStem}，所以先出现的是${selfStem}。这里讲故事，不讲吉凶。`;
     const plain = themeStem
       ? (en
         ? `${cap1(STEM_PY[displayStem] || displayStem)} is your chosen theme character. Your Day Master remains ${cap1(STEM_PY[selfStem] || selfStem)}.`
@@ -7295,6 +7300,7 @@
     host.dataset.stem = displayStem;
     host.classList.remove('awaken', 'image-missing', 'asset-ready');
     host.innerHTML = `
+      <p class="bazi-persona-intro">${escapeHtml(worldIntro)}</p>
       <article class="bazi-persona-hero">
         <img class="bazi-persona-art" src="${escapeHtml(a.heroScene || a.background)}" alt="${escapeHtml(alt)}" decoding="async" style="--scene-focus:${escapeHtml(a.heroFocus || '50% 50%')}">
         <span class="bazi-persona-shade" aria-hidden="true"></span>
@@ -7347,6 +7353,9 @@
         <span class="seal">${escapeHtml(label)}</span>
         <h3><b>${escapeHtml(guideStem + '·' + characterText(a, 'name', en))}</b><small>${escapeHtml(characterText(a, 'role', en))}</small></h3>
       </div>
+      <p class="character-story-intro">${en
+        ? `A fictional character we wrote for the heavenly stem ${cap1(STEM_PY[guideStem] || guideStem)}. Three moments from ${characterText(a, 'name', true)}'s life below — a story, not a reading of yours.`
+        : `${guideStem}是天干之一，${characterText(a, 'name', false)}是我们为它写的虚构人物。下面是关于这个人的三件事——是故事，不是在说你。`}</p>
       <div class="character-story-visual is-full-scene">
         <img class="character-story-person" src="${escapeHtml(storyAsset)}" alt="${escapeHtml(storyAlt)}" loading="lazy" decoding="async" style="--scene-focus:${escapeHtml(a.heroFocus || '50% 50%')}">
       </div>
