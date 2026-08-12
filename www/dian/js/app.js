@@ -739,7 +739,7 @@ function renderHero(allBooks) {
     </button>`).join('');
   return `<div class="shelf-hero has-archive" id="shelf-hero">
     <figure class="archive-hero-media" aria-hidden="true">
-      <img src="./img/changming-archive-hall-v1.webp" alt="" width="1600" height="900" loading="eager" decoding="async">
+      <img src="./img/changming-archive-hall-v3.webp" alt="" width="1600" height="900" loading="eager" decoding="async">
     </figure>
     <div class="archive-hero-shade" aria-hidden="true"></div>
     <div class="archive-hero-copy">
