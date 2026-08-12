@@ -15,6 +15,7 @@
   python3 tools/ingest.py check                         # 一致性硬检（CI 用，不联网）；任一失败 exit 1
   python3 tools/ingest.py audit   [--json]              # 体检：实际汉字数 vs registry 声称
   python3 tools/ingest.py verify  [id ...]              # 抽样回源核对：库里的字是不是源站的字
+  python3 tools/ingest.py authors                       # 著者比对（advisory）：registry 著者 vs 正文自带署名
 
 spec.json 格式（数组，每项一本书）
 --------------------------------
@@ -396,7 +397,28 @@ def _carry_annotations(spec, chapters):
     return chapters
 
 
+def _trim(spec, chapters):
+    """按 spec.trim 裁掉源页面里窜入的他书内容。
+
+    源站页面本身会串。实测：维基文库《天玉經外編》第 44 段起窜入《撼龍經》全文
+    10946 字（「須彌山是天地骨」起），而这些字本阁《撼龙经》条目里已有——不裁就是
+    既重复又张冠李戴。写进 spec 而不是一次性手改，是为了重抓时不会又长回来。
+    格式：{"章名含此串": 保留到第几段(不含)}
+    """
+    rules = spec.get('trim') or {}
+    for key, keep in rules.items():
+        for c in chapters:
+            if key in (c.get('label') or ''):
+                before = len(c['fragments'])
+                c['fragments'] = c['fragments'][:keep]
+                c['trimmed'] = {'from': keep, 'dropped': before - keep,
+                                'reason': rules.get('_reason') or '源页面窜入他书内容'}
+                print(f'  ✂︎ {c["label"]}: 裁去第 {keep} 段起共 {before - keep} 段（源页面窜入）')
+    return chapters
+
+
 def _assemble(spec, chapters, skipped, source_url, source_name, source_cc, fetch_note):
+    chapters = _trim(spec, chapters)
     chapters = _carry_annotations(spec, chapters)
     chapters = _preserve(spec, chapters)
     total = sum(cjk_count(f['text']) for c in chapters for f in c['fragments'])
@@ -512,6 +534,10 @@ def fetch_book(spec, sleep=0.4, verbose=True):
 
     ws = spec['wsTitle']
     chapters_spec = spec.get('wsChapters')
+    # spec 里显式列的章节要原样照抓；下面「滤掉目录页自身」那条只对自动发现的子页生效。
+    # 实测教训：《天玉经》spec 写明抓「天玉經內傳」「天玉經外編」两篇，而 wsTitle 恰是内传，
+    # 结果内传被当成目录页滤掉，只入库了外编——那是北宋吴克诚的书，不是杨筠松的。
+    explicit = bool(chapters_spec)
 
     if not chapters_spec:
         st, root = ws_html(ws)
@@ -533,7 +559,7 @@ def fetch_book(spec, sleep=0.4, verbose=True):
 
     # 目录页自身常混在 chapterUrls 里（普查 agent 直接把根页也列了进来），
     # 不滤掉会把整份目录当成一章正文入库。
-    if chapters_spec:
+    if chapters_spec and not explicit:
         chapters_spec = [c for c in chapters_spec
                          if c.replace('_', ' ').strip() != ws.replace('_', ' ').strip()]
 
@@ -801,6 +827,80 @@ def check():
     return errs, warns
 
 
+# ---------------------------------------------------------------- 著者比对
+
+
+# 维基文库正文里常自带署名：「作者：憨山明」「明建鄴憨山道者德清著」「魏 王弼 撰」。
+# 把它抽出来跟 registry 的 author 比，能抓到「书名对、注者不对」这类错配——
+# 这是所有既有闸门都抓不到的一类错：结构合法、汉字占比正常、回源核对也过
+# （库里的字确实来自那个页面），唯独装的是另一个人的书。
+# 实测：2026-08-12 把维基文库「老子道德經註」当王弼注入库，实为明·憨山德清
+# 《老子道德经解》，正文里白纸黑字写着「作者：憨山明」，四道闸门无一报警。
+SIGN_PATTERNS = [
+    # 「作者：憨山明」——维基文库页头的显式署名，最可靠
+    re.compile(r'作者[：:]\s*([一-鿿]{2,10})'),
+    # 「魏何晏集解」「宋朱子」「漢鄭康成注」——必须带朝代字，否则正则会把
+    # 「諸侯人事自」「五曰轉」这类正文碎片当成人名（实测 77 条里大半是这种噪声）。
+    re.compile(r'(?:漢|後漢|魏|晉|宋|齊|梁|陳|隋|唐|五代|後蜀|遼|金|元|明|清|國朝|本朝)'
+               r'\s*([一-鿿]{2,5}?)\s*(?:撰|著|註|注|疏|集解|章句|編|輯|述|解)'),
+    # 「明建鄴憨山道者德清著」这类带籍贯的长署名
+    re.compile(r'(?:漢|魏|晉|宋|梁|隋|唐|元|明|清)[一-鿿]{0,6}?([一-鿿]{2,6})'
+               r'(?:道者|真人|居士|先生)?\s*(?:撰|著|註|注|疏)'),
+]
+# 同一个人的不同写法/常见别名，比对时视为一致
+ALIAS = {
+    '憨山明': '憨山德清', '憨山道者德清': '憨山德清', '憨山道人清': '憨山德清',
+    '王輔嗣': '王弼', '郭子玄': '郭象', '朱子': '朱熹', '鄭康成': '郑玄',
+    '杨维德': '杨惟德', '楊維德': '杨惟德',
+}
+
+
+def signature_names(book_id, max_chars=1500):
+    """从正文开头抽出可能的著者署名（去重，保序）。"""
+    p = os.path.join(TEXTS, book_id + '.json')
+    if not os.path.exists(p):
+        return []
+    d = json.load(open(p))
+    head = ''
+    for c in d.get('chapters', [])[:2]:
+        for f in c.get('fragments', [])[:3]:
+            head += f.get('text', '')
+            if len(head) > max_chars:
+                break
+        if len(head) > max_chars:
+            break
+    head = head[:max_chars]
+    out, seen = [], set()
+    for pat in SIGN_PATTERNS:
+        for m in pat.finditer(head):
+            nm = (m.group(len(m.groups())) or '').strip()
+            nm = ALIAS.get(nm, nm)
+            if 2 <= len(nm) <= 12 and nm not in seen:
+                seen.add(nm)
+                out.append(nm)
+    return out
+
+
+def author_audit():
+    """逐本比对 registry.author 与正文自带署名。返回 (可疑列表, 已核对数)。"""
+    reg = json.load(open(os.path.join(DATA, 'registry.json')))
+    sus, checked = [], 0
+    for b in reg['books']:
+        names = signature_names(b['id'])
+        if not names:
+            continue
+        checked += 1
+        declared = ALIAS.get((b.get('author') or ''), b.get('author') or '')
+        decl_chars = set(re.findall(r'[一-鿿]', declared))
+        # 只要有一个署名与 registry 的 author 有实质重叠就算对得上
+        hit = any(len(set(n) & decl_chars) >= max(2, len(n) - 1) or n in declared
+                  for n in names)
+        if not hit:
+            sus.append({'id': b['id'], 'title': b['title'],
+                        'declared': b.get('author'), 'inText': names[:5]})
+    return sus, checked
+
+
 # ---------------------------------------------------------------- 回源核对
 
 
@@ -987,6 +1087,15 @@ def main():
                   f"{r['waitingChapters']:>4}  {r['title']}{flag}")
         print(f"\n合计 {sum(r['realCjk'] for r in rows)} 字，"
               f"{sum(1 for r in rows if r['realCjk'] >= 1000)}/{len(rows)} 部有实质正文")
+        return 0
+
+    if cmd == 'authors':
+        sus, checked = author_audit()
+        print(f'能从正文抽到署名的 {checked} 部，与 registry 著者对不上的 {len(sus)} 部：')
+        print('（advisory：繁简与别名差异会造成误报，如「李誡/李诫」「焦贛/焦延寿」，需人工过目）\n')
+        for x in sus:
+            print(f"  {x['title']:<20} registry「{(x['declared'] or '')[:26]}」")
+            print(f"  {'':<20} 正文署名 {x['inText'][:3]}")
         return 0
 
     if cmd == 'verify':
