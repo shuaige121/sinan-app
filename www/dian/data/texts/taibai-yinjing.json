@@ -15,14 +15,78 @@
   "chapters": [
     {
       "id": "ch01",
-      "label": "序",
+      "label": "太白陰經",
+      "sourceAttribution": "李筌唐唐",
       "fragments": [
         {
-          "text": "太白陰經\n卷首\n作者：李筌唐"
+          "text": "神機制敵太白陰經目錄"
         },
         {
-          "text": "卷一"
+          "text": "卷一人謀上"
         },
+        {
+          "text": "天無陰陽地無險阻人無勇怯主有道德國有富强賢有遇時將有智謀術有陰謀數有探心政有誅强"
+        },
+        {
+          "text": "卷二人謀下"
+        },
+        {
+          "text": "善師貴和廟勝沉謀子卒選士勵士刑賞地勢兵形作戰攻守行人鑑才"
+        },
+        {
+          "text": "卷三雜儀"
+        },
+        {
+          "text": "授鉞部署將軍陣將隊將馬將鑑人相馬誓衆軍令關塞四夷"
+        },
+        {
+          "text": "卷四戰具"
+        },
+        {
+          "text": "攻城具守城具水攻具火攻具濟水具水戰具器械軍裝"
+        },
+        {
+          "text": "卷五預備"
+        },
+        {
+          "text": "築城鑿濠弩臺烽熢臺馬鋪土河遊奕聽報平安嚴警鼓角定鋪夜號更刻鄕導井泉迷途搜山燒草前茅後殿釁鼓屯田人糧馬料軍資宴設音樂"
+        },
+        {
+          "text": "卷六陣圖"
+        },
+        {
+          "text": "風握奇壘圖風握奇外壘太白營圖偃月營圖陰陽隊圖教旗圖草教圖教弩圖合而爲一陣圖敵而爲八陣圖"
+        },
+        {
+          "text": "卷七祭文捷書藥方"
+        },
+        {
+          "text": "禡牙文禡馬文祭蚩尤文祭名山大川文祭風伯雨師文祭毘沙門天王文露文治人藥方治馬藥方"
+        },
+        {
+          "text": "卷八雜占"
+        },
+        {
+          "text": "占日占月占五星占流星占客星占妖星占雲氣分野占風角五音占風鳥情占"
+        },
+        {
+          "text": "卷九遁甲"
+        },
+        {
+          "text": "卷十雜式"
+        },
+        {
+          "text": "元女式察情勝敗主客向背推神煞門戶龜卜山岡營壘"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E5%A4%AA%E7%99%BD%E9%99%B0%E7%B6%93"
+    },
+    {
+      "id": "ch02",
+      "label": "序",
+      "sourceAttribution": "李筌唐卷",
+      "fragments": [
         {
           "text": "神機制敵太白陰經序〈〇舊抄無此序，張刻本有之，今姑存以俟考。〉"
         },
@@ -64,18 +128,10 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E5%A4%AA%E7%99%BD%E9%99%B0%E7%B6%93/%E5%BA%8F"
     },
     {
-      "id": "ch02",
+      "id": "ch03",
       "label": "卷一",
+      "sourceAttribution": "李筌",
       "fragments": [
-        {
-          "text": "卷首"
-        },
-        {
-          "text": "神機制敵太白陰經卷一\n人謀上唐\n唐李筌撰\n金山錢熙祚錫之校"
-        },
-        {
-          "text": "卷二"
-        },
         {
           "text": "天無陰陽篇第一"
         },
@@ -174,18 +230,10 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E5%A4%AA%E7%99%BD%E9%99%B0%E7%B6%93/%E5%8D%B7%E4%B8%80"
     },
     {
-      "id": "ch03",
+      "id": "ch04",
       "label": "卷二",
+      "sourceAttribution": "李筌唐卷",
       "fragments": [
-        {
-          "text": "卷一"
-        },
-        {
-          "text": "神機制敵太白陰經卷二\n人謀下\n作者：李筌唐"
-        },
-        {
-          "text": "卷三"
-        },
         {
           "text": "善師篇第十一"
         },
@@ -332,18 +380,10 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E5%A4%AA%E7%99%BD%E9%99%B0%E7%B6%93/%E5%8D%B7%E4%BA%8C"
     },
     {
-      "id": "ch04",
+      "id": "ch05",
       "label": "卷三",
+      "sourceAttribution": "李筌唐卷",
       "fragments": [
-        {
-          "text": "卷二"
-        },
-        {
-          "text": "神機制敵太白陰經卷三\n雜儀類\n作者：李筌唐"
-        },
-        {
-          "text": "卷四"
-        },
         {
           "text": "授鉞篇第二十五"
         },
@@ -616,18 +656,10 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E5%A4%AA%E7%99%BD%E9%99%B0%E7%B6%93/%E5%8D%B7%E4%B8%89"
     },
     {
-      "id": "ch05",
+      "id": "ch06",
       "label": "卷四",
+      "sourceAttribution": "李筌唐卷",
       "fragments": [
-        {
-          "text": "卷三"
-        },
-        {
-          "text": "神機制敵太白陰經卷四\n戰具類\n作者：李筌唐"
-        },
-        {
-          "text": "卷五"
-        },
         {
           "text": "攻城具篇第三十五〈○此篇舊抄本脫去，以文瀾閣本參張刻補。〉"
         },
@@ -1047,18 +1079,10 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E5%A4%AA%E7%99%BD%E9%99%B0%E7%B6%93/%E5%8D%B7%E5%9B%9B"
     },
     {
-      "id": "ch06",
+      "id": "ch07",
       "label": "卷五",
+      "sourceAttribution": "李筌唐卷",
       "fragments": [
-        {
-          "text": "卷四"
-        },
-        {
-          "text": "神機制敵太白陰經卷五\n作者：李筌唐"
-        },
-        {
-          "text": "卷六"
-        },
         {
           "text": "預備總序"
         },
@@ -1397,18 +1421,10 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E5%A4%AA%E7%99%BD%E9%99%B0%E7%B6%93/%E5%8D%B7%E4%BA%94"
     },
     {
-      "id": "ch07",
+      "id": "ch08",
       "label": "卷六",
+      "sourceAttribution": "李筌唐卷",
       "fragments": [
-        {
-          "text": "卷五"
-        },
-        {
-          "text": "神機制敵太白陰經卷六\n作者：李筌唐"
-        },
-        {
-          "text": "卷七"
-        },
         {
           "text": "陣圖總序"
         },
@@ -1684,18 +1700,10 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E5%A4%AA%E7%99%BD%E9%99%B0%E7%B6%93/%E5%8D%B7%E5%85%AD"
     },
     {
-      "id": "ch08",
+      "id": "ch09",
       "label": "卷七",
+      "sourceAttribution": "李筌唐卷",
       "fragments": [
-        {
-          "text": "卷六"
-        },
-        {
-          "text": "神機制敵太白陰經卷七\n作者：李筌唐"
-        },
-        {
-          "text": "卷八"
-        },
         {
           "text": "祭文總序〈○此下舊抄本並脫去，以文瀾閣本參張刻本補篇題。閣本作《祭文㨗書藥方總序》。按︰序文中不及㨗書、藥方，故依張刻本刪正。〉"
         },
@@ -2010,18 +2018,10 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E5%A4%AA%E7%99%BD%E9%99%B0%E7%B6%93/%E5%8D%B7%E4%B8%83"
     },
     {
-      "id": "ch09",
+      "id": "ch10",
       "label": "卷八",
+      "sourceAttribution": "李筌唐卷",
       "fragments": [
-        {
-          "text": "卷七"
-        },
-        {
-          "text": "神機制敵太白陰經卷八\n作者：李筌唐"
-        },
-        {
-          "text": "卷九"
-        },
         {
           "text": "雜占總序"
         },
@@ -3362,18 +3362,10 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E5%A4%AA%E7%99%BD%E9%99%B0%E7%B6%93/%E5%8D%B7%E5%85%AB"
     },
     {
-      "id": "ch10",
+      "id": "ch11",
       "label": "卷九",
+      "sourceAttribution": "李筌唐卷",
       "fragments": [
-        {
-          "text": "卷八"
-        },
-        {
-          "text": "神機制敵太白陰經卷九\n作者：李筌唐"
-        },
-        {
-          "text": "卷十"
-        },
         {
           "text": "遁甲總序〈○原脫「總序」二字，今校補。〉"
         },
@@ -3778,15 +3770,10 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E5%A4%AA%E7%99%BD%E9%99%B0%E7%B6%93/%E5%8D%B7%E4%B9%9D"
     },
     {
-      "id": "ch11",
+      "id": "ch12",
       "label": "卷十",
+      "sourceAttribution": "李筌唐",
       "fragments": [
-        {
-          "text": "卷九"
-        },
-        {
-          "text": "神機制敵太白陰經卷十\n雜式\n作者：李筌唐"
-        },
         {
           "text": "元女式"
         },
@@ -4283,5 +4270,6 @@
       "annotation": "",
       "sourceUrl": "https://zh.wikisource.org/wiki/%E5%A4%AA%E7%99%BD%E9%99%B0%E7%B6%93/%E5%8D%B7%E5%8D%81"
     }
-  ]
+  ],
+  "statusNote": "【收录理由】补「术数用于军事」这一整块空白。卷八至卷十是唐代式占、遁甲、风角、云气、龟卜的实操手册，写法极具体（何时何云主何事、式盘怎么起），跟《乙巳占》的天文占互为表里，是判断唐代术数真实操作形态最可靠的一手材料。且李筌是《阴符经》注家，收其本人著作可与本轮已收的《黄帝阴符经集注》交叉印证，避免只凭一段注文判断作者立场。"
 }

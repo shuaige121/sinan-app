@@ -106,6 +106,20 @@ def ws_subpages(title, page_html):
             out.append(t)
     return out
 
+def ws_attribution(page_html):
+    """从维基文库页头 headerContainer 里抽出「作者：X」署名（正文里已被滤掉）。"""
+    m = re.search(r'(?:id|class)="[^"]*headerContainer[^"]*"(.{0,6000}?)</div>',
+                  page_html, re.S)
+    seg = m.group(1) if m else page_html[:4000]
+    txt = re.sub(r'\s+', '', re.sub(r'<[^>]+>', '', seg))
+    # 署名后面常紧跟书名（「作者：憨山明老子道德經註」），故以书名/朝代等常见起始
+    # 字样截断，宁可截短也不要把书名粘进人名。
+    a = re.search(r'作者[：:]([一-鿿]{2,8}?)(?=[《【(（]|老子|周易|南華|莊子|欽定|$)', txt)
+    if not a:
+        a = re.search(r'作者[：:]([一-鿿]{2,4})', txt)
+    return a.group(1) if a else ''
+
+
 # ---------------------------------------------------------------- HTML → 正文
 
 
@@ -119,8 +133,14 @@ class _Extract(HTMLParser):
     # title 必须滤：HTMLParser 会连 <head><title> 一起读，
     # 否则每章第一段变成「周易略例/明象」这样的页面标题，污染正文与搜索索引。
     SKIP_TAGS = {'style', 'script', 'sup', 'sub', 'title', 'head'}
-    SKIP_CLASS = re.compile(r'\b(ws-noexport|noprint|navigation|header_notes|mw-editsection|'
-                            r'catlinks|ambox|licence|licenseContainer|reflist|references)\b')
+    # headerContainer 是维基文库页头（上一篇/下一篇导航 + 书名 + 作者），不是正文。
+    # 不滤就会让每一章的第一段都变成「老子道德經註/序」这种导航串，污染章节预览与
+    # 搜索片段——只看字数与汉字占比看不出来，是看真实渲染才发现的。
+    # 但著者署名（「作者：憨山明」）也在这个块里，是 authors 比对的信号源，
+    # 故在 ws_attribution() 里单独抽出来存进 sourceAttribution，不随正文一起丢。
+    SKIP_CLASS = re.compile(r'\b(ws-noexport|noprint|navigation|headerContainer|header_notes|'
+                            r'mw-editsection|catlinks|ambox|licence|licenseContainer|'
+                            r'reflist|references)\b')
     VOID = {'br', 'img', 'hr', 'meta', 'link', 'input', 'source', 'base', 'col', 'area'}
 
     def __init__(self):
@@ -141,8 +161,10 @@ class _Extract(HTMLParser):
                 self.buf.append('\n')
             return
         a = dict(attrs)
-        is_skip = tag in self.SKIP_TAGS or (a.get('class')
-                                            and self.SKIP_CLASS.search(a['class']))
+        # class 与 id 都要查：维基文库页头写的是 id="headerContainer" 而非 class，
+        # 只查 class 会整块漏过去，让每章第一段变成上一篇/下一篇的导航串。
+        is_skip = tag in self.SKIP_TAGS or any(
+            a.get(k) and self.SKIP_CLASS.search(a[k]) for k in ('class', 'id'))
         self.stack.append((tag, bool(is_skip)))
         if is_skip:
             self.skip_depth += 1
@@ -342,7 +364,14 @@ def _preserve(spec, chapters):
 
 
 def _norm_label(s):
-    return re.sub(r'[·・\s]|第|卷|章|篇|卦|傳|传|[0-9一二三四五六七八九十百]+$', '', s or '').strip()
+    """章名归一化，用于重抓时迁移旧导读。
+
+    坑：早期版本把「卷」「章」与数字一并剥掉，于是「卷一」「卷二」…全归一成空串，
+    36 卷撞成同一个 key，只有第一卷能配上——《南华真经注疏》36 条导读因此只迁回 3 条。
+    现在保留数字，只去掉分隔符与「第」，并在调用处先做精确匹配再退回归一化匹配。
+    """
+    t = re.sub(r'[·・\s]|第', '', s or '').strip()
+    return t or (s or '').strip()
 
 
 def _carry_annotations(spec, chapters):
@@ -374,23 +403,26 @@ def _carry_annotations(spec, chapters):
     if not old_src:
         return chapters
 
-    pool = {}
+    exact, pool = {}, {}
     for c in old_src:
         an = (c.get('annotation') or '').strip()
         if an:
-            pool[_norm_label(c.get('label', ''))] = (c.get('label'), an)
-    if not pool:
+            exact[(c.get('label') or '').strip()] = (c.get('label'), an)
+            pool.setdefault(_norm_label(c.get('label', '')), (c.get('label'), an))
+    if not exact:
         return chapters
     moved, used = 0, set()
     for c in chapters:
-        k = _norm_label(c.get('label', ''))
-        if k in pool and k not in used and not (c.get('annotation') or '').strip():
-            c['annotation'] = pool[k][1]
-            used.add(k)
+        lbl = (c.get('label') or '').strip()
+        hit = exact.get(lbl) or pool.get(_norm_label(lbl))
+        key = hit[0] if hit else None
+        if hit and key not in used and not (c.get('annotation') or '').strip():
+            c['annotation'] = hit[1]
+            used.add(key)
             moved += 1
     if moved:
         print(f'  ⊙ 迁移旧导读 {moved} 条')
-    orphan = [pool[k][0] for k in pool if k not in used]
+    orphan = [v[0] for v in exact.values() if v[0] not in used]
     if orphan:
         print(f'  ⚠️  {len(orphan)} 条旧导读在新章节里找不到对应章名，未迁移：'
               f'{"、".join(orphan[:6])}')
@@ -579,9 +611,11 @@ def fetch_book(spec, sleep=0.4, verbose=True):
                 skipped.append({'page': sub, 'reason': '页面无正文'})
                 continue
             label = sub.split('/', 1)[1] if '/' in sub else sub
+            attrib = ws_attribution(h)
             chapters.append({
                 'id': f'ch{i:02d}',
                 'label': label,
+                **({'sourceAttribution': attrib} if attrib else {}),
                 'fragments': [{'text': t} for t in body],
                 'annotation': '',
                 'sourceUrl': 'https://zh.wikisource.org/wiki/' + urllib.parse.quote(sub.replace(' ', '_'), safe='/'),
@@ -856,11 +890,22 @@ ALIAS = {
 
 
 def signature_names(book_id, max_chars=1500):
-    """从正文开头抽出可能的著者署名（去重，保序）。"""
+    """抽出可能的著者署名。优先用抓取时存下的页头署名 sourceAttribution
+    （维基文库 headerContainer 里的「作者：X」，正文里已滤掉），
+    没有再退回扫正文开头。"""
     p = os.path.join(TEXTS, book_id + '.json')
     if not os.path.exists(p):
         return []
     d = json.load(open(p))
+    hdr = [c['sourceAttribution'] for c in d.get('chapters', [])
+           if c.get('sourceAttribution')]
+    if hdr:
+        seen, out = set(), []
+        for n in hdr:
+            n = ALIAS.get(n, n)
+            if n not in seen:
+                seen.add(n); out.append(n)
+        return out
     head = ''
     for c in d.get('chapters', [])[:2]:
         for f in c.get('fragments', [])[:3]:

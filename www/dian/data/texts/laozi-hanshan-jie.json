@@ -16,13 +16,8 @@
     {
       "id": "ch01",
       "label": "序",
+      "sourceAttribution": "憨山明",
       "fragments": [
-        {
-          "text": "老子道德經註\n序\n作者：憨山明"
-        },
-        {
-          "text": "老子道德經註/上篇"
-        },
         {
           "text": "敘意"
         },
@@ -135,16 +130,8 @@
     {
       "id": "ch02",
       "label": "上篇",
+      "sourceAttribution": "憨山明",
       "fragments": [
-        {
-          "text": "老子道德經註/序"
-        },
-        {
-          "text": "老子道德經註\n上篇\n作者：憨山明"
-        },
-        {
-          "text": "老子道德經註/下篇"
-        },
         {
           "text": "老子道德經解上篇"
         },
@@ -383,13 +370,8 @@
     {
       "id": "ch03",
       "label": "下篇",
+      "sourceAttribution": "憨山明",
       "fragments": [
-        {
-          "text": "老子道德經註/上篇"
-        },
-        {
-          "text": "老子道德經註\n下篇\n作者：憨山明"
-        },
         {
           "text": "老子道德經解下篇"
         },

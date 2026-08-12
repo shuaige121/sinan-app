@@ -101,8 +101,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 73,
-      "charCount": 44196,
+      "chapterCount": 74,
+      "charCount": 44703,
+      "cjkCount": 33382,
       "hasAnnotated": false
     },
     {
@@ -492,6 +493,7 @@
       "hasTextData": true,
       "chapterCount": 1,
       "charCount": 27452,
+      "cjkCount": 22941,
       "hasAnnotated": true
     },
     {
@@ -600,6 +602,7 @@
       "hasTextData": true,
       "chapterCount": 23,
       "charCount": 29505,
+      "cjkCount": 25052,
       "hasAnnotated": false
     },
     {
@@ -641,6 +644,7 @@
       "hasTextData": true,
       "chapterCount": 8,
       "charCount": 7912,
+      "cjkCount": 6197,
       "hasAnnotated": true
     },
     {
@@ -831,8 +835,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 36,
-      "charCount": 243958,
+      "chapterCount": 37,
+      "charCount": 255147,
+      "cjkCount": 237102,
       "hasAnnotated": true
     },
     {
@@ -854,6 +859,7 @@
       "hasTextData": true,
       "chapterCount": 8,
       "charCount": 201497,
+      "cjkCount": 169108,
       "hasAnnotated": true
     },
     {
@@ -913,6 +919,7 @@
       "hasTextData": true,
       "chapterCount": 5,
       "charCount": 41500,
+      "cjkCount": 36323,
       "hasAnnotated": true
     },
     {
@@ -934,6 +941,7 @@
       "hasTextData": true,
       "chapterCount": 9,
       "charCount": 73688,
+      "cjkCount": 61543,
       "hasAnnotated": true
     },
     {
@@ -955,6 +963,7 @@
       "hasTextData": true,
       "chapterCount": 11,
       "charCount": 36715,
+      "cjkCount": 30863,
       "hasAnnotated": true
     },
     {
@@ -1291,8 +1300,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 37,
-      "charCount": 196512,
-      "cjkCount": 150022,
+      "charCount": 195798,
+      "cjkCount": 149395,
       "hasAnnotated": false
     },
     {
@@ -1334,9 +1343,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 2,
-      "charCount": 16520,
-      "cjkCount": 13468,
+      "chapterCount": 3,
+      "charCount": 24556,
+      "cjkCount": 19960,
       "hasAnnotated": false
     },
     {
@@ -1357,8 +1366,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 20,
-      "charCount": 89077,
-      "cjkCount": 75212,
+      "charCount": 88442,
+      "cjkCount": 74695,
       "hasAnnotated": false
     },
     {
@@ -1533,8 +1542,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 51,
-      "charCount": 48478,
-      "cjkCount": 39508,
+      "charCount": 48106,
+      "cjkCount": 39177,
       "hasAnnotated": false
     },
     {
@@ -1599,8 +1608,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 35,
-      "charCount": 9088,
-      "cjkCount": 7587,
+      "charCount": 7902,
+      "cjkCount": 6471,
       "hasAnnotated": false
     },
     {
@@ -1774,9 +1783,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 1,
-      "charCount": 12756,
-      "cjkCount": 10180,
+      "chapterCount": 2,
+      "charCount": 13077,
+      "cjkCount": 10431,
       "hasAnnotated": false
     },
     {
@@ -1906,9 +1915,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 3,
-      "charCount": 5570,
-      "cjkCount": 4777,
+      "chapterCount": 4,
+      "charCount": 11426,
+      "cjkCount": 10437,
       "hasAnnotated": false
     },
     {
@@ -2369,8 +2378,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 1,
-      "charCount": 1199,
-      "cjkCount": 1034,
+      "charCount": 1182,
+      "cjkCount": 1021,
       "hasAnnotated": false
     },
     {
@@ -2413,8 +2422,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 2,
-      "charCount": 13885,
-      "cjkCount": 11940,
+      "charCount": 13603,
+      "cjkCount": 11714,
       "hasAnnotated": false
     },
     {
@@ -2456,9 +2465,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 9,
-      "charCount": 139356,
-      "cjkCount": 110363,
+      "chapterCount": 10,
+      "charCount": 160038,
+      "cjkCount": 126801,
       "hasAnnotated": false
     },
     {
@@ -2478,9 +2487,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 1,
-      "charCount": 2435,
-      "cjkCount": 2332,
+      "chapterCount": 2,
+      "charCount": 5391,
+      "cjkCount": 5242,
       "hasAnnotated": false
     },
     {
@@ -2500,9 +2509,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 1,
-      "charCount": 513,
-      "cjkCount": 393,
+      "chapterCount": 2,
+      "charCount": 1091,
+      "cjkCount": 833,
       "hasAnnotated": false
     },
     {
@@ -2522,9 +2531,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 1,
-      "charCount": 9932,
-      "cjkCount": 9876,
+      "chapterCount": 2,
+      "charCount": 23165,
+      "cjkCount": 23050,
       "hasAnnotated": false
     },
     {
@@ -2544,9 +2553,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 1,
-      "charCount": 7974,
-      "cjkCount": 7778,
+      "chapterCount": 2,
+      "charCount": 17829,
+      "cjkCount": 17345,
       "hasAnnotated": false
     },
     {
@@ -2588,9 +2597,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 3,
-      "charCount": 4342,
-      "cjkCount": 3501,
+      "chapterCount": 4,
+      "charCount": 17487,
+      "cjkCount": 13934,
       "hasAnnotated": false
     },
     {
@@ -2654,9 +2663,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 3,
-      "charCount": 54151,
-      "cjkCount": 44615,
+      "chapterCount": 4,
+      "charCount": 67092,
+      "cjkCount": 54891,
       "hasAnnotated": false
     },
     {
@@ -2676,9 +2685,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 4,
-      "charCount": 59255,
-      "cjkCount": 49039,
+      "chapterCount": 5,
+      "charCount": 71607,
+      "cjkCount": 59216,
       "hasAnnotated": false
     },
     {
@@ -2742,9 +2751,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 33,
-      "charCount": 111621,
-      "cjkCount": 101422,
+      "chapterCount": 34,
+      "charCount": 115179,
+      "cjkCount": 104723,
       "hasAnnotated": false
     },
     {
@@ -2759,8 +2768,8 @@
       "source": "https://www.guwendao.net/guwen/book_c9ebf2d4f134.aspx",
       "sourceName": "古文岛（原古诗文网）·鲁班经",
       "sourceCC": "公有领域",
-      "status": "较全",
-      "statusNote": "【收录理由】营造禁忌这条线目前藏经阁完全空白。伐木择日、动土、立柱上梁、鲁班尺合吉、间数吉凶、匠人符咒、魇禳解咒——这批内容同时喂三个模块：黄历（择吉宜忌与祝文仪式）、罗盘/阳宅（尺法与间数吉凶）、以及「术数如何落到日常生活」这条思想史线。它也是《营造法式》的民间对照面：一部官修、一部行帮，同题异构。",
+      "status": "部分",
+      "statusNote": "⚠️ 此来源页仅含提要与节录，实抓 760 字；普查阶段声称的 23,013 字系按裸剥标签统计、把页面脚本一并计入所致，非真实正文量。全本待另寻公有领域来源。 【收录理由】营造禁忌这条线目前藏经阁完全空白。伐木择日、动土、立柱上梁、鲁班尺合吉、间数吉凶、匠人符咒、魇禳解咒——这批内容同时喂三个模块：黄历（择吉宜忌与祝文仪式）、罗盘/阳宅（尺法与间数吉凶）、以及「术数如何落到日常生活」这条思想史线。它也是《营造法式》的民间对照面：一部官修、一部行帮，同题异构。",
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
@@ -2787,8 +2796,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 1,
-      "charCount": 1693,
-      "cjkCount": 1437,
+      "charCount": 1682,
+      "cjkCount": 1428,
       "hasAnnotated": false
     },
     {
@@ -2809,8 +2818,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 1,
-      "charCount": 724,
-      "cjkCount": 605,
+      "charCount": 711,
+      "cjkCount": 594,
       "hasAnnotated": false
     },
     {
@@ -2830,9 +2839,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 3,
-      "charCount": 2299,
-      "cjkCount": 2081,
+      "chapterCount": 4,
+      "charCount": 3780,
+      "cjkCount": 3266,
       "hasAnnotated": false
     },
     {
@@ -2869,8 +2878,8 @@
       "source": "https://www.suanzhun.net/dianji/xingpinghuihai/",
       "sourceName": "算准网·星平会海",
       "sourceCC": "公有领域",
-      "status": "较全",
-      "statusNote": "【收录理由】星平合參的祖本——「星」（七政四餘）與「平」（子平）在同一部書裡對照排列，這正是司南若同時要做八字與星盤時最需要的對照材料。18 萬字，含玉衡經、干支暗藏訣、諸論口訣等大量可直接抽成規則的歌訣。全網公有領域全文只有算准网這一份可機讀（ctext 封 IP，其餘皆為 PDF 掃描）",
+      "status": "部分",
+      "statusNote": "⚠️ 此来源页仅含提要与节录，实抓 2,868 字；普查阶段声称的 182,247 字系按裸剥标签统计、把页面脚本一并计入所致，非真实正文量。全本待另寻公有领域来源。 【收录理由】星平合參的祖本——「星」（七政四餘）與「平」（子平）在同一部書裡對照排列，這正是司南若同時要做八字與星盤時最需要的對照材料。18 萬字，含玉衡經、干支暗藏訣、諸論口訣等大量可直接抽成規則的歌訣。全網公有領域全文只有算准网這一份可機讀（ctext 封 IP，其餘皆為 PDF 掃描）",
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
@@ -3397,8 +3406,8 @@
       "source": "https://www.suanzhun.net/dianji/lantaimiaoxuan/",
       "sourceName": "算准网·兰台妙选",
       "sourceCC": "公有领域",
-      "status": "较全",
-      "statusNote": "【收录理由】八字格局學裡最特殊的一路：不論十神生剋，純以干支組合的「象」取貴格（如天乙拱貴、金馬玉堂）。司南若做格局判定，這是規則形態最異質的一組樣本，正好用來檢驗引擎有沒有被單一流派鎖死。體量只有 4000 字，收錄成本極低",
+      "status": "部分",
+      "statusNote": "⚠️ 此来源页仅含提要与节录，实抓 817 字；普查阶段声称的 4,212 字系按裸剥标签统计、把页面脚本一并计入所致，非真实正文量。全本待另寻公有领域来源。 【收录理由】八字格局學裡最特殊的一路：不論十神生剋，純以干支組合的「象」取貴格（如天乙拱貴、金馬玉堂）。司南若做格局判定，這是規則形態最異質的一組樣本，正好用來檢驗引擎有沒有被單一流派鎖死。體量只有 4000 字，收錄成本極低",
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
@@ -3469,8 +3478,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 1,
-      "charCount": 2018,
-      "cjkCount": 1640,
+      "charCount": 1988,
+      "cjkCount": 1614,
       "hasAnnotated": false
     },
     {
@@ -3490,9 +3499,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 4,
-      "charCount": 35316,
-      "cjkCount": 34577,
+      "chapterCount": 5,
+      "charCount": 71407,
+      "cjkCount": 69908,
       "hasAnnotated": false
     },
     {
@@ -3534,9 +3543,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 1,
-      "charCount": 37398,
-      "cjkCount": 31064,
+      "chapterCount": 5,
+      "charCount": 27261,
+      "cjkCount": 22841,
       "hasAnnotated": false
     },
     {
@@ -3557,8 +3566,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 1,
-      "charCount": 36244,
-      "cjkCount": 30454,
+      "charCount": 36230,
+      "cjkCount": 30442,
       "hasAnnotated": false
     },
     {
@@ -3732,9 +3741,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 2,
-      "charCount": 22681,
-      "cjkCount": 19510,
+      "chapterCount": 3,
+      "charCount": 23606,
+      "cjkCount": 20277,
       "hasAnnotated": false
     },
     {
@@ -3755,8 +3764,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 1,
-      "charCount": 13776,
-      "cjkCount": 11191,
+      "charCount": 13761,
+      "cjkCount": 11178,
       "hasAnnotated": false
     },
     {
@@ -3777,8 +3786,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 11,
-      "charCount": 30477,
-      "cjkCount": 29364,
+      "charCount": 30451,
+      "cjkCount": 29347,
       "hasAnnotated": false
     },
     {
@@ -3909,8 +3918,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 11,
-      "charCount": 130890,
-      "cjkCount": 105636,
+      "charCount": 130867,
+      "cjkCount": 105622,
       "hasAnnotated": false
     },
     {
@@ -3997,8 +4006,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 22,
-      "charCount": 159148,
-      "cjkCount": 131643,
+      "charCount": 159135,
+      "cjkCount": 131631,
       "hasAnnotated": false
     },
     {
@@ -4019,8 +4028,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 85,
-      "charCount": 262289,
-      "cjkCount": 213297,
+      "charCount": 259852,
+      "cjkCount": 211121,
       "hasAnnotated": false
     },
     {
@@ -4107,8 +4116,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 10,
-      "charCount": 52695,
-      "cjkCount": 40344,
+      "charCount": 52584,
+      "cjkCount": 40236,
       "hasAnnotated": false
     },
     {
@@ -4151,8 +4160,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 1,
-      "charCount": 12831,
-      "cjkCount": 10112,
+      "charCount": 12817,
+      "cjkCount": 10100,
       "hasAnnotated": false
     },
     {
@@ -4195,8 +4204,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 9,
-      "charCount": 12941,
-      "cjkCount": 10706,
+      "charCount": 12816,
+      "cjkCount": 10631,
       "hasAnnotated": false
     },
     {
@@ -4217,8 +4226,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 4,
-      "charCount": 8293,
-      "cjkCount": 6601,
+      "charCount": 8276,
+      "cjkCount": 6587,
       "hasAnnotated": false
     },
     {
@@ -4261,8 +4270,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 1,
-      "charCount": 2285,
-      "cjkCount": 1809,
+      "charCount": 2260,
+      "cjkCount": 1787,
       "hasAnnotated": false
     },
     {
@@ -4305,8 +4314,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 1,
-      "charCount": 746,
-      "cjkCount": 612,
+      "charCount": 720,
+      "cjkCount": 589,
       "hasAnnotated": false
     },
     {
@@ -4371,8 +4380,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 1,
-      "charCount": 8735,
-      "cjkCount": 6922,
+      "charCount": 8663,
+      "cjkCount": 6865,
       "hasAnnotated": false
     },
     {
@@ -4437,8 +4446,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 1,
-      "charCount": 17716,
-      "cjkCount": 14908,
+      "charCount": 17700,
+      "cjkCount": 14894,
       "hasAnnotated": false
     },
     {
@@ -4503,8 +4512,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 1,
-      "charCount": 2151,
-      "cjkCount": 1792,
+      "charCount": 2121,
+      "cjkCount": 1767,
       "hasAnnotated": false
     },
     {
@@ -4547,8 +4556,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 1,
-      "charCount": 43536,
-      "cjkCount": 36366,
+      "charCount": 43507,
+      "cjkCount": 36342,
       "hasAnnotated": false
     },
     {
@@ -4635,8 +4644,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 1,
-      "charCount": 3058,
-      "cjkCount": 2556,
+      "charCount": 2997,
+      "cjkCount": 2500,
       "hasAnnotated": false
     },
     {
@@ -4679,8 +4688,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 20,
-      "charCount": 147454,
-      "cjkCount": 122767,
+      "charCount": 147317,
+      "cjkCount": 122654,
       "hasAnnotated": false
     },
     {
@@ -4701,8 +4710,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 25,
-      "charCount": 114229,
-      "cjkCount": 96580,
+      "charCount": 113594,
+      "cjkCount": 96063,
       "hasAnnotated": false
     },
     {
@@ -4766,9 +4775,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 6,
-      "charCount": 54778,
-      "cjkCount": 53366,
+      "chapterCount": 7,
+      "charCount": 55387,
+      "cjkCount": 53949,
       "hasAnnotated": false
     },
     {
@@ -4788,9 +4797,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 2,
-      "charCount": 3815,
-      "cjkCount": 3277,
+      "chapterCount": 3,
+      "charCount": 53479,
+      "cjkCount": 44018,
       "hasAnnotated": false
     },
     {
@@ -4811,8 +4820,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 1,
-      "charCount": 5901,
-      "cjkCount": 4571,
+      "charCount": 5886,
+      "cjkCount": 4558,
       "hasAnnotated": false
     },
     {
@@ -4832,9 +4841,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 1,
-      "charCount": 7755,
-      "cjkCount": 7600,
+      "chapterCount": 2,
+      "charCount": 17310,
+      "cjkCount": 15007,
       "hasAnnotated": false
     },
     {
@@ -4854,9 +4863,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 4,
-      "charCount": 15969,
-      "cjkCount": 15387,
+      "chapterCount": 5,
+      "charCount": 16649,
+      "cjkCount": 16040,
       "hasAnnotated": false
     },
     {
@@ -4876,9 +4885,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 10,
-      "charCount": 58620,
-      "cjkCount": 45040,
+      "chapterCount": 11,
+      "charCount": 58980,
+      "cjkCount": 45374,
       "hasAnnotated": false
     },
     {
@@ -4965,8 +4974,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 25,
-      "charCount": 126596,
-      "cjkCount": 108267,
+      "charCount": 126564,
+      "cjkCount": 108239,
       "hasAnnotated": false
     },
     {
@@ -5052,9 +5061,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 3,
-      "charCount": 53571,
-      "cjkCount": 44312,
+      "chapterCount": 4,
+      "charCount": 65954,
+      "cjkCount": 54499,
       "hasAnnotated": false
     },
     {
@@ -5184,9 +5193,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 5,
-      "charCount": 49950,
-      "cjkCount": 40522,
+      "chapterCount": 6,
+      "charCount": 62255,
+      "cjkCount": 50253,
       "hasAnnotated": false
     },
     {
@@ -5207,8 +5216,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 13,
-      "charCount": 247215,
-      "cjkCount": 198169,
+      "charCount": 247194,
+      "cjkCount": 198156,
       "hasAnnotated": false
     },
     {
@@ -5294,9 +5303,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 5,
-      "charCount": 65395,
-      "cjkCount": 51033,
+      "chapterCount": 6,
+      "charCount": 79668,
+      "cjkCount": 63173,
       "hasAnnotated": false
     },
     {
@@ -5316,9 +5325,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 49,
-      "charCount": 329605,
-      "cjkCount": 294093,
+      "chapterCount": 50,
+      "charCount": 329689,
+      "cjkCount": 294156,
       "hasAnnotated": false
     },
     {
@@ -5338,9 +5347,9 @@
       "fragments": [],
       "chapters": [],
       "hasTextData": true,
-      "chapterCount": 11,
-      "charCount": 73213,
-      "cjkCount": 57969,
+      "chapterCount": 12,
+      "charCount": 73324,
+      "cjkCount": 58108,
       "hasAnnotated": false
     },
     {
@@ -5493,8 +5502,8 @@
       "chapters": [],
       "hasTextData": true,
       "chapterCount": 3,
-      "charCount": 60161,
-      "cjkCount": 50826,
+      "charCount": 60079,
+      "cjkCount": 50757,
       "hasAnnotated": false
     }
   ]

@@ -18,19 +18,19 @@
  "shardBytes": {
   "bencao": 232418,
   "bushi": 2357936,
-  "daozang": 3382964,
-  "jingyi": 7446284,
-  "kanyu": 1968466,
-  "liqi": 3118767,
+  "daozang": 3376369,
+  "jingyi": 7539799,
+  "kanyu": 2172075,
+  "liqi": 3221159,
   "mingli": 3753910,
-  "sanshi": 2808945,
-  "tianwen": 2711683,
+  "sanshi": 2890416,
+  "tianwen": 2712183,
   "xiangshu": 908984,
-  "zeri": 696262,
-  "zhexue": 7532114
+  "zeri": 922864,
+  "zhexue": 7545248
  },
  "titleIndex": "_titles.json",
- "titleBytes": 599122,
- "entries": 4206,
+ "titleBytes": 604498,
+ "entries": 4237,
  "builtBy": "tools/ingest.py index"
 }

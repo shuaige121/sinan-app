@@ -15,6 +15,108 @@
   "chapters": [
     {
       "id": "ch01",
+      "label": "田家占候集覽",
+      "sourceAttribution": "鄒存淦清",
+      "fragments": [
+        {
+          "text": "自識"
+        },
+        {
+          "text": "予家世務農，先大父於讀書之暇深喜占候，嘗輯俗諺之可信者，都為一冊，題其端曰「田家言時」。予方垂髻，每隨侍杖履，熟聞其說，及避亂陡亹，書已逸去。因采各書中占驗之言，分注於曆日之下，積久彌多，遂以成編，並附錄調攝、服食諸法，分為十卷，以成先大父未竟之志。語云：官出於民，民出於土。深知稼穡之艱難者，其亦有取於斯書也夫。光緒三年陽月，上澣海甯鄒存淦儷笙甫自識於省垣勤萟堂之南牕。"
+        },
+        {
+          "text": "目錄"
+        },
+        {
+          "text": "卷一"
+        },
+        {
+          "text": "日月星斗風雲"
+        },
+        {
+          "text": "霞氣虹雷電雨"
+        },
+        {
+          "text": "雪雹霜霧寒燠山"
+        },
+        {
+          "text": "水火花木草菌禽"
+        },
+        {
+          "text": "獸鱗介蛇蟲干支二十八宿分占"
+        },
+        {
+          "text": "補遺"
+        },
+        {
+          "text": "卷二"
+        },
+        {
+          "text": "春正月立春雨水朔至晦"
+        },
+        {
+          "text": "卷三"
+        },
+        {
+          "text": "二月驚蟄春分春社朔至晦"
+        },
+        {
+          "text": "三月寒食清明穀雨朔至晦"
+        },
+        {
+          "text": "卷四"
+        },
+        {
+          "text": "夏四月立夏小滿朔至晦"
+        },
+        {
+          "text": "卷五"
+        },
+        {
+          "text": "五月芒種夏至朔至晦"
+        },
+        {
+          "text": "卷六"
+        },
+        {
+          "text": "六月小暑三伏朔至晦"
+        },
+        {
+          "text": "卷七"
+        },
+        {
+          "text": "秋七月立秋處暑朔至晦"
+        },
+        {
+          "text": "卷八"
+        },
+        {
+          "text": "八月白露秋分秋社朔至晦"
+        },
+        {
+          "text": "九月寒露霜降朔至晦"
+        },
+        {
+          "text": "卷九"
+        },
+        {
+          "text": "冬十月立冬小雪朔至晦"
+        },
+        {
+          "text": "十一月冬至朔至晦"
+        },
+        {
+          "text": "卷十"
+        },
+        {
+          "text": "十二月朔至晦土王用事閏月"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E7%94%B0%E5%AE%B6%E5%8D%A0%E5%80%99%E9%9B%86%E8%A6%BD"
+    },
+    {
+      "id": "ch02",
       "label": "卷一",
       "fragments": [
         {
@@ -1105,7 +1207,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E7%94%B0%E5%AE%B6%E5%8D%A0%E5%80%99%E9%9B%86%E8%A6%BD/%E5%8D%B7%E4%B8%80"
     },
     {
-      "id": "ch02",
+      "id": "ch03",
       "label": "卷二",
       "fragments": [
         {
@@ -2133,7 +2235,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E7%94%B0%E5%AE%B6%E5%8D%A0%E5%80%99%E9%9B%86%E8%A6%BD/%E5%8D%B7%E4%BA%8C"
     },
     {
-      "id": "ch03",
+      "id": "ch04",
       "label": "卷三",
       "fragments": [
         {
@@ -3194,7 +3296,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E7%94%B0%E5%AE%B6%E5%8D%A0%E5%80%99%E9%9B%86%E8%A6%BD/%E5%8D%B7%E4%B8%89"
     },
     {
-      "id": "ch04",
+      "id": "ch05",
       "label": "卷四",
       "fragments": [
         {
@@ -3859,7 +3961,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E7%94%B0%E5%AE%B6%E5%8D%A0%E5%80%99%E9%9B%86%E8%A6%BD/%E5%8D%B7%E5%9B%9B"
     },
     {
-      "id": "ch05",
+      "id": "ch06",
       "label": "卷五",
       "fragments": [
         {
@@ -4758,7 +4860,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E7%94%B0%E5%AE%B6%E5%8D%A0%E5%80%99%E9%9B%86%E8%A6%BD/%E5%8D%B7%E4%BA%94"
     },
     {
-      "id": "ch06",
+      "id": "ch07",
       "label": "卷六",
       "fragments": [
         {
@@ -5273,7 +5375,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E7%94%B0%E5%AE%B6%E5%8D%A0%E5%80%99%E9%9B%86%E8%A6%BD/%E5%8D%B7%E5%85%AD"
     },
     {
-      "id": "ch07",
+      "id": "ch08",
       "label": "卷七",
       "fragments": [
         {
@@ -5827,7 +5929,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E7%94%B0%E5%AE%B6%E5%8D%A0%E5%80%99%E9%9B%86%E8%A6%BD/%E5%8D%B7%E4%B8%83"
     },
     {
-      "id": "ch08",
+      "id": "ch09",
       "label": "卷八",
       "fragments": [
         {
@@ -6801,7 +6903,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E7%94%B0%E5%AE%B6%E5%8D%A0%E5%80%99%E9%9B%86%E8%A6%BD/%E5%8D%B7%E5%85%AB"
     },
     {
-      "id": "ch09",
+      "id": "ch10",
       "label": "卷九",
       "fragments": [
         {
@@ -7850,15 +7952,9 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E7%94%B0%E5%AE%B6%E5%8D%A0%E5%80%99%E9%9B%86%E8%A6%BD/%E5%8D%B7%E4%B9%9D"
     },
     {
-      "id": "ch10",
+      "id": "ch11",
       "label": "卷十",
       "fragments": [
-        {
-          "text": "卷九"
-        },
-        {
-          "text": "田家占候集覽\n卷十"
-        },
         {
           "text": "田家占候集覽卷十"
         },
@@ -8544,5 +8640,6 @@
       "annotation": "",
       "sourceUrl": "https://zh.wikisource.org/wiki/%E7%94%B0%E5%AE%B6%E5%8D%A0%E5%80%99%E9%9B%86%E8%A6%BD/%E5%8D%B7%E5%8D%81"
     }
-  ]
+  ],
+  "statusNote": "【收录理由】择日门的农事占候层。卷一按天象分占，卷二起按节气与朔至晦逐日排，正好是黄历「节气 + 逐日」的数据形状；且每条都标了出处，可以做成带引文来源的物候/农谚模块。与官修《协纪辨方书》、民间《玉匣记》合起来，择日门从「只有一部官修书」变成官修 + 民间 + 农事三层齐全。"
 }

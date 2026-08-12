@@ -15,6 +15,54 @@
   "chapters": [
     {
       "id": "ch01",
+      "label": "事林廣記",
+      "sourceAttribution": "陳元靚南",
+      "fragments": [
+        {
+          "text": "目錄"
+        },
+        {
+          "text": "總目錄"
+        },
+        {
+          "text": "前集"
+        },
+        {
+          "text": "本族服圖(圖表1)"
+        },
+        {
+          "text": "外族母黨(圖表2)"
+        },
+        {
+          "text": "妻黨服圖(圖表3)"
+        },
+        {
+          "text": "妻為夫黨服制之圖(圖表4)"
+        },
+        {
+          "text": "繼父諸母服制之圖(圖表5)"
+        },
+        {
+          "text": "後集"
+        },
+        {
+          "text": "續集"
+        },
+        {
+          "text": "別集"
+        },
+        {
+          "text": "大元官制(圖表6)"
+        },
+        {
+          "text": "雜流品秩(圖表7)"
+        }
+      ],
+      "annotation": "",
+      "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98"
+    },
+    {
+      "id": "ch02",
       "label": "總目錄",
       "fragments": [
         {
@@ -9334,7 +9382,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E7%B8%BD%E7%9B%AE%E9%8C%84"
     },
     {
-      "id": "ch02",
+      "id": "ch03",
       "label": "前集",
       "fragments": [
         {
@@ -12090,7 +12138,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%89%8D%E9%9B%86"
     },
     {
-      "id": "ch03",
+      "id": "ch04",
       "label": "前集/卷01",
       "fragments": [
         {
@@ -12395,7 +12443,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%89%8D%E9%9B%86/%E5%8D%B701"
     },
     {
-      "id": "ch04",
+      "id": "ch05",
       "label": "前集/卷02",
       "fragments": [
         {
@@ -12880,7 +12928,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%89%8D%E9%9B%86/%E5%8D%B702"
     },
     {
-      "id": "ch05",
+      "id": "ch06",
       "label": "前集/卷03",
       "fragments": [
         {
@@ -13290,7 +13338,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%89%8D%E9%9B%86/%E5%8D%B703"
     },
     {
-      "id": "ch06",
+      "id": "ch07",
       "label": "前集/卷04",
       "fragments": [
         {
@@ -13592,7 +13640,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%89%8D%E9%9B%86/%E5%8D%B704"
     },
     {
-      "id": "ch07",
+      "id": "ch08",
       "label": "前集/卷05",
       "fragments": [
         {
@@ -14041,7 +14089,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%89%8D%E9%9B%86/%E5%8D%B705"
     },
     {
-      "id": "ch08",
+      "id": "ch09",
       "label": "前集/卷06",
       "fragments": [
         {
@@ -14532,7 +14580,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%89%8D%E9%9B%86/%E5%8D%B706"
     },
     {
-      "id": "ch09",
+      "id": "ch10",
       "label": "前集/卷07",
       "fragments": [
         {
@@ -14969,7 +15017,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%89%8D%E9%9B%86/%E5%8D%B707"
     },
     {
-      "id": "ch10",
+      "id": "ch11",
       "label": "前集/卷08",
       "fragments": [
         {
@@ -15409,7 +15457,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%89%8D%E9%9B%86/%E5%8D%B708"
     },
     {
-      "id": "ch11",
+      "id": "ch12",
       "label": "前集/卷09",
       "fragments": [
         {
@@ -16146,7 +16194,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%89%8D%E9%9B%86/%E5%8D%B709"
     },
     {
-      "id": "ch12",
+      "id": "ch13",
       "label": "前集/卷10",
       "fragments": [
         {
@@ -16943,7 +16991,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%89%8D%E9%9B%86/%E5%8D%B710"
     },
     {
-      "id": "ch13",
+      "id": "ch14",
       "label": "前集/卷11",
       "fragments": [
         {
@@ -17656,7 +17704,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%89%8D%E9%9B%86/%E5%8D%B711"
     },
     {
-      "id": "ch14",
+      "id": "ch15",
       "label": "前集/卷12",
       "fragments": [
         {
@@ -17934,7 +17982,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%89%8D%E9%9B%86/%E5%8D%B712"
     },
     {
-      "id": "ch15",
+      "id": "ch16",
       "label": "前集/繼父諸母服制之圖",
       "fragments": [
         {
@@ -17951,7 +17999,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%89%8D%E9%9B%86/%E7%B9%BC%E7%88%B6%E8%AB%B8%E6%AF%8D%E6%9C%8D%E5%88%B6%E4%B9%8B%E5%9C%96"
     },
     {
-      "id": "ch16",
+      "id": "ch17",
       "label": "後集",
       "fragments": [
         {
@@ -20959,7 +21007,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%BE%8C%E9%9B%86"
     },
     {
-      "id": "ch17",
+      "id": "ch18",
       "label": "後集/卷01",
       "fragments": [
         {
@@ -21549,7 +21597,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%BE%8C%E9%9B%86/%E5%8D%B701"
     },
     {
-      "id": "ch18",
+      "id": "ch19",
       "label": "後集/卷02",
       "fragments": [
         {
@@ -22919,7 +22967,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%BE%8C%E9%9B%86/%E5%8D%B702"
     },
     {
-      "id": "ch19",
+      "id": "ch20",
       "label": "後集/卷03",
       "fragments": [
         {
@@ -23101,7 +23149,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%BE%8C%E9%9B%86/%E5%8D%B703"
     },
     {
-      "id": "ch20",
+      "id": "ch21",
       "label": "後集/卷04",
       "fragments": [
         {
@@ -24168,7 +24216,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%BE%8C%E9%9B%86/%E5%8D%B704"
     },
     {
-      "id": "ch21",
+      "id": "ch22",
       "label": "後集/卷05",
       "fragments": [
         {
@@ -24203,7 +24251,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%BE%8C%E9%9B%86/%E5%8D%B705"
     },
     {
-      "id": "ch22",
+      "id": "ch23",
       "label": "後集/卷06",
       "fragments": [
         {
@@ -24547,7 +24595,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%BE%8C%E9%9B%86/%E5%8D%B706"
     },
     {
-      "id": "ch23",
+      "id": "ch24",
       "label": "後集/卷07",
       "fragments": [
         {
@@ -25389,7 +25437,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%BE%8C%E9%9B%86/%E5%8D%B707"
     },
     {
-      "id": "ch24",
+      "id": "ch25",
       "label": "後集/卷08",
       "fragments": [
         {
@@ -25739,7 +25787,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%BE%8C%E9%9B%86/%E5%8D%B708"
     },
     {
-      "id": "ch25",
+      "id": "ch26",
       "label": "後集/卷09",
       "fragments": [
         {
@@ -26185,7 +26233,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%BE%8C%E9%9B%86/%E5%8D%B709"
     },
     {
-      "id": "ch26",
+      "id": "ch27",
       "label": "後集/卷10",
       "fragments": [
         {
@@ -26787,7 +26835,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%BE%8C%E9%9B%86/%E5%8D%B710"
     },
     {
-      "id": "ch27",
+      "id": "ch28",
       "label": "後集/卷11",
       "fragments": [
         {
@@ -27194,7 +27242,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%BE%8C%E9%9B%86/%E5%8D%B711"
     },
     {
-      "id": "ch28",
+      "id": "ch29",
       "label": "後集/卷12",
       "fragments": [
         {
@@ -27601,7 +27649,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%BE%8C%E9%9B%86/%E5%8D%B712"
     },
     {
-      "id": "ch29",
+      "id": "ch30",
       "label": "後集/卷13",
       "fragments": [
         {
@@ -27735,7 +27783,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%BE%8C%E9%9B%86/%E5%8D%B713"
     },
     {
-      "id": "ch30",
+      "id": "ch31",
       "label": "續集",
       "fragments": [
         {
@@ -29792,7 +29840,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E7%BA%8C%E9%9B%86"
     },
     {
-      "id": "ch31",
+      "id": "ch32",
       "label": "續集/卷01",
       "fragments": [
         {
@@ -29827,7 +29875,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E7%BA%8C%E9%9B%86/%E5%8D%B701"
     },
     {
-      "id": "ch32",
+      "id": "ch33",
       "label": "續集/卷02",
       "fragments": [
         {
@@ -29862,7 +29910,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E7%BA%8C%E9%9B%86/%E5%8D%B702"
     },
     {
-      "id": "ch33",
+      "id": "ch34",
       "label": "續集/卷03",
       "fragments": [
         {
@@ -29897,7 +29945,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E7%BA%8C%E9%9B%86/%E5%8D%B703"
     },
     {
-      "id": "ch34",
+      "id": "ch35",
       "label": "續集/卷04",
       "fragments": [
         {
@@ -29932,7 +29980,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E7%BA%8C%E9%9B%86/%E5%8D%B704"
     },
     {
-      "id": "ch35",
+      "id": "ch36",
       "label": "續集/卷10",
       "fragments": [
         {
@@ -29967,7 +30015,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E7%BA%8C%E9%9B%86/%E5%8D%B710"
     },
     {
-      "id": "ch36",
+      "id": "ch37",
       "label": "續集/卷11",
       "fragments": [
         {
@@ -30002,7 +30050,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E7%BA%8C%E9%9B%86/%E5%8D%B711"
     },
     {
-      "id": "ch37",
+      "id": "ch38",
       "label": "續集/卷12",
       "fragments": [
         {
@@ -30037,7 +30085,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E7%BA%8C%E9%9B%86/%E5%8D%B712"
     },
     {
-      "id": "ch38",
+      "id": "ch39",
       "label": "續集/卷13",
       "fragments": [
         {
@@ -30072,7 +30120,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E7%BA%8C%E9%9B%86/%E5%8D%B713"
     },
     {
-      "id": "ch39",
+      "id": "ch40",
       "label": "別集",
       "fragments": [
         {
@@ -32903,7 +32951,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%88%A5%E9%9B%86"
     },
     {
-      "id": "ch40",
+      "id": "ch41",
       "label": "別集/卷01",
       "fragments": [
         {
@@ -34102,7 +34150,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%88%A5%E9%9B%86/%E5%8D%B701"
     },
     {
-      "id": "ch41",
+      "id": "ch42",
       "label": "別集/卷02",
       "fragments": [
         {
@@ -34137,7 +34185,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%88%A5%E9%9B%86/%E5%8D%B702"
     },
     {
-      "id": "ch42",
+      "id": "ch43",
       "label": "別集/卷03",
       "fragments": [
         {
@@ -34172,7 +34220,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%88%A5%E9%9B%86/%E5%8D%B703"
     },
     {
-      "id": "ch43",
+      "id": "ch44",
       "label": "別集/卷04",
       "fragments": [
         {
@@ -34207,7 +34255,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%88%A5%E9%9B%86/%E5%8D%B704"
     },
     {
-      "id": "ch44",
+      "id": "ch45",
       "label": "別集/卷05",
       "fragments": [
         {
@@ -34242,7 +34290,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%88%A5%E9%9B%86/%E5%8D%B705"
     },
     {
-      "id": "ch45",
+      "id": "ch46",
       "label": "別集/卷07",
       "fragments": [
         {
@@ -34277,7 +34325,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%88%A5%E9%9B%86/%E5%8D%B707"
     },
     {
-      "id": "ch46",
+      "id": "ch47",
       "label": "別集/卷08",
       "fragments": [
         {
@@ -34312,7 +34360,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%88%A5%E9%9B%86/%E5%8D%B708"
     },
     {
-      "id": "ch47",
+      "id": "ch48",
       "label": "別集/卷09",
       "fragments": [
         {
@@ -34371,7 +34419,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%88%A5%E9%9B%86/%E5%8D%B709"
     },
     {
-      "id": "ch48",
+      "id": "ch49",
       "label": "別集/卷10",
       "fragments": [
         {
@@ -34775,7 +34823,7 @@
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%88%A5%E9%9B%86/%E5%8D%B710"
     },
     {
-      "id": "ch49",
+      "id": "ch50",
       "label": "別集/卷11",
       "fragments": [
         {
@@ -34809,5 +34857,6 @@
       "annotation": "",
       "sourceUrl": "https://zh.wikisource.org/wiki/%E4%BA%8B%E6%9E%97%E5%BB%A3%E8%A8%98/%E5%88%A5%E9%9B%86/%E5%8D%B711"
     }
-  ]
+  ],
+  "statusNote": "【收录理由】补元代断层的第二块，也是全库唯一一部「术数在日常生活里怎么被用」的活样本。前集有服制图与算法，后集有农桑医药，续集别集有阴阳、克择、相术、宅经、茶酒。它不是理论书，是元代普通人手边的工具书——罗盘、黄历、八字这些功能要做「历史上人们真的这样用」的注脚，此书是最好的一手来源。29 万字，是本轮所有候选里体量最大的一部。"
 }
