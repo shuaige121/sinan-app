@@ -1156,6 +1156,13 @@
     const posName = (d.pos >= 0 ? ZHIXING_ORDER[d.pos] : '') || d.zhiXing;
     let h = `<div class="yj-dv-head"><b class="${isJi ? 'kw-ji' : 'kw-yi'}">「${escapeHtml(term)}」</b>`
       + `<span class="dim"> · 今日所${isJi ? '忌' : '宜'}之一，溯其历理</span></div>`;
+    // 先回答「这个词是什么意思」，再讲它从哪条历理推来。
+    // 此前直接从值神/建除讲起，等于用五个新词解释一个旧词——词库里明明有现成的白话。
+    const entry = window.PLAIN_GLOSSARY && window.PLAIN_GLOSSARY[term];
+    if (entry && entry.plain) {
+      h += `<div class="yj-dv-row is-plain"><span class="yj-dv-tag">这是什么</span><span class="yj-dv-body">`
+        + `${escapeHtml(entry.plain)}${entry.more ? ` <span class="dim">${escapeHtml(entry.more)}</span>` : ''}</span></div>`;
+    }
     h += `<div class="yj-dv-row"><span class="yj-dv-tag">${renderTerm('值神')}</span><span class="yj-dv-body">`
       + `今日值神 <b>${renderTerm(d.zhiShen)}</b>${d.zhiShenType ? `（<b>${renderTerm(d.zhiShenType)}</b>日）` : ''}。`
       + `十二值神逐日轮值，古历据以别宜忌之纲。${chip}</span></div>`;
@@ -1631,9 +1638,11 @@
         if (btn) { btn.disabled = false; btn.textContent = tt('clock.locate'); }
         renderClock();
       },
-      () => {                                            // 拒绝/失败：隐藏日照，仅钟+双历（无解释文案）
-        clockArcState = 'off';
-        if (btn) { btn.disabled = false; btn.textContent = tt('clock.locate'); }
+      () => {
+        // 此前这里把整块日照 UI 隐藏掉（clockArcState='off'），刷新也回不来，
+        // 用户以为自己把界面点坏了。改成留在原地、说明原因、可以再点一次。
+        clockArcState = 'prompt';
+        if (btn) { btn.disabled = false; btn.textContent = tt('clock.locate_retry'); }
         renderClock();
       },
       { enableHighAccuracy: false, timeout: 8000, maximumAge: 864e5 }
@@ -1651,7 +1660,9 @@
       clockArcState = 'off';                             // 判定前不显弧/按钮，避免闪
       navigator.permissions.query({ name: 'geolocation' }).then(st => {
         if (st.state === 'granted') locateForClock(true);         // 已授权：静默取位
-        else if (st.state === 'denied') { clockArcState = 'off'; renderClock(); } // 已拒：优雅降级
+        // 已拒也留着按钮：用户可能是误点，或者后来在系统设置里放开了。
+        // 原来判 denied 就永久 off，等于这个功能对他消失了且无从恢复。
+        else if (st.state === 'denied') { clockArcState = 'prompt'; if (btn) btn.textContent = tt('clock.locate_retry'); renderClock(); }
         else { clockArcState = 'prompt'; renderClock(); }         // 未决：显示点亮按钮
       }).catch(() => { clockArcState = 'prompt'; renderClock(); });
     } else {
@@ -6272,33 +6283,59 @@
     try { savedInput = JSON.parse(localStorage.getItem('bazi-input') || 'null'); }
     catch (e) { localStorage.removeItem('bazi-input'); }
     const birthSegments = [
-      { el: $('bazi-year'), size: 4, min: 1600, max: new Date().getFullYear() },
-      { el: $('bazi-month'), size: 2, min: 1, max: 12 },
-      { el: $('bazi-day'), size: 2, min: 1, max: 31 },
-      { el: $('bazi-hour'), size: 2, min: 0, max: 23 },
-      { el: $('bazi-minute'), size: 2, min: 0, max: 59 }
+      { el: $('bazi-year'), size: 4, min: 1600, max: new Date().getFullYear(), label: '年份' },
+      { el: $('bazi-month'), size: 2, min: 1, max: 12, label: '月份' },
+      { el: $('bazi-day'), size: 2, min: 1, max: 31, label: '日期' },
+      { el: $('bazi-hour'), size: 2, min: 0, max: 23, label: '小时', hint: '按 24 小时制填，下午 2 点是 14' },
+      { el: $('bazi-minute'), size: 2, min: 0, max: 59, label: '分钟', optional: true }
     ];
+    // 说清楚哪一格错了。此前跨格非法日期（如 2 月 30 日）只是让「排盘」变灰，
+    // 五格全满、无一格标红、提示语一字不变——用户只能对着死按钮反复戳。
+    const hintEl = document.querySelector('#bazi-form .form-hint');
+    const HINT_DEFAULT = hintEl ? hintEl.textContent : '';
+    let lastProblem = null; // { index, message }
+    function setHint(message, isError) {
+      if (!hintEl) return;
+      hintEl.textContent = message || HINT_DEFAULT;
+      hintEl.classList.toggle('is-error', !!isError);
+    }
+    function daysInMonth(y, m) { return new Date(y, m, 0).getDate(); }
     function syncBirthDateTime(markInvalid) {
       const values = birthSegments.map(part => part.el.value);
+      // 分钟可留空：时辰的分界都在整点，分钟只在开「真太阳时」时才影响结果。
+      if (!values[4]) values[4] = '00';
       const complete = values.every((value, index) => value.length === birthSegments[index].size);
-      let valid = complete && birthSegments.every((part, index) => {
-        const value = +values[index];
-        return value >= part.min && value <= part.max;
+      let problem = null;
+      birthSegments.forEach((part, index) => {
+        if (problem) return;
+        const raw = values[index];
+        if (!raw || raw.length !== part.size) return;
+        const value = +raw;
+        if (value < part.min || value > part.max) {
+          problem = { index, message: `${part.label}要在 ${part.min}–${part.max} 之间，现在填的是 ${value}` };
+        }
       });
+      let valid = complete && !problem;
       if (valid) {
         const y = +values[0], m = +values[1], d = +values[2], h = +values[3], minute = +values[4];
         const check = new Date(y, m - 1, d, h, minute);
         valid = check.getFullYear() === y && check.getMonth() === m - 1 && check.getDate() === d
           && check.getHours() === h && check.getMinutes() === minute;
+        if (!valid) {
+          // 单格都合法但组合起来不存在这一天：点名到「日」，并说出这个月到底几天。
+          problem = { index: 2, message: `${y} 年 ${m} 月只有 ${daysInMonth(y, m)} 天，没有 ${d} 日` };
+        }
       }
+      lastProblem = problem || (complete ? null : { index: values.findIndex((v, i) => v.length !== birthSegments[i].size), message: null });
       $('bazi-datetime').value = valid
         ? `${values[0]}-${values[1]}-${values[2]}T${values[3]}:${values[4]}`
         : '';
-      if (markInvalid) birthSegments.forEach((part, index) => {
-        const value = part.el.value;
-        const numeric = +value;
-        part.el.classList.toggle('is-invalid', !!value && (value.length !== part.size || numeric < part.min || numeric > part.max));
+      birthSegments.forEach((part, index) => {
+        const shouldMark = problem ? problem.index === index
+          : (markInvalid && !!part.el.value && part.el.value.length !== part.size);
+        part.el.classList.toggle('is-invalid', !!shouldMark);
       });
+      setHint(problem ? problem.message : null, !!problem);
       updatePaipanState();
       return valid;
     }
@@ -6461,50 +6498,98 @@
       const city = selectedBirthCity();
       $('bazi-lng').value = city ? Number(city[3]).toFixed(2) : '';
     });
-    // 排盘可用性：阳历模式须填生辰才放行（默认置空→灰态）；农历模式选择器恒有值，放行。
+    // 排盘可用性：两种模式都必须真的填过才放行。
+    // 此前农历模式的四个下拉被预填成 1995/6/15/午时，勾一下「农历」就能一个字不输地
+    // 排出别人的命盘——用户拿到的是一张完全不属于自己的盘，而且自己发现不了。
+    function lunarComplete() {
+      return !!($('lunar-year').value && $('lunar-month').value && $('lunar-day').value && $('lunar-shichen').value !== '');
+    }
     function updatePaipanState() {
       const lunarOn = $('bazi-islunar').checked;
-      $('btn-paipan').disabled = !(lunarOn || $('bazi-datetime').value);
+      const ready = lunarOn ? lunarComplete() : !!$('bazi-datetime').value;
+      const btn = $('btn-paipan');
+      // 故意不用 disabled：disabled 元素收不到 click，用户点了得不到任何反馈，
+      // 只会以为「这 App 坏了」。改用 aria-disabled，保留点击以便说明缺什么。
+      btn.disabled = false;
+      btn.setAttribute('aria-disabled', String(!ready));
+      btn.classList.toggle('is-disabled', !ready);
+    }
+    function explainWhyNotReady() {
+      if ($('bazi-islunar').checked) {
+        const missing = [[ySel, '年'], [mSel, '月'], [dSel, '日'], [scSel, '时辰']].find(pair => pair[0].value === '');
+        setHint(missing ? `还差「${missing[1]}」没选` : null, !!missing);
+        if (missing) missing[0].focus();
+        return;
+      }
+      syncBirthDateTime(true);
+      if (!lastProblem) return;
+      const seg = birthSegments[lastProblem.index >= 0 ? lastProblem.index : 0];
+      if (!lastProblem.message && seg) setHint(`还差「${seg.label}」没填完`, true);
+      if (seg && seg.el) { seg.el.focus(); if (seg.el.select) seg.el.select(); }
     }
     $('bazi-islunar').addEventListener('change', () => {
       const lunarOn = $('bazi-islunar').checked;
       $('bazi-solar-row').style.display = lunarOn ? 'none' : '';
       $('bazi-lunar-row').style.display = lunarOn ? '' : 'none';
+      if (lunarOn) prefillLunarFromSolar(); // 已填过阳历就真实换算带过去，别让人重填一遍
       updatePaipanState();
     });
     $('bazi-datetime').addEventListener('input', updatePaipanState);
     updatePaipanState();
     // 农历选择器填充
     const ySel = $('lunar-year'), mSel = $('lunar-month'), dSel = $('lunar-day'), scSel = $('lunar-shichen');
-    for (let y = 2026; y >= 1920; y--) ySel.add(new Option(y, y));
+    const thisYear = new Date().getFullYear();
+    ySel.add(new Option('出生年', ''));
+    for (let y = thisYear; y >= 1920; y--) ySel.add(new Option(y, y));
     const LY = window.LunarYear, LM = window.LunarMonth;
     function fillDays(y, m) {
       const prev = dSel.value; dSel.innerHTML = '';
+      dSel.add(new Option('日期', ''));
+      if (!y || !m) { dSel.value = ''; return; }
       let cnt = 30;
       try { if (LM) cnt = LM.fromYm(y, m).getDayCount(); } catch (e) { cnt = 30; } // 小月 29 天，不再多出不存在的三十
       for (let d = 1; d <= cnt; d++) dSel.add(new Option(d + '日', d));
-      if (+prev >= 1 && +prev <= cnt) dSel.value = prev;
+      dSel.value = (+prev >= 1 && +prev <= cnt) ? prev : '';
     }
     function fillMonths(y) {
       const prev = mSel.value; mSel.innerHTML = '';
+      mSel.add(new Option('月份', ''));
+      if (!y) { mSel.value = ''; fillDays(0, 0); return; }
       let leap = 0;
       try { if (LY) leap = LY.fromYear(y).getLeapMonth(); } catch (e) { leap = 0; } // 0=无闰
       for (let m = 1; m <= 12; m++) {       // 正月..腊月，闰月（负数值）紧随其月之后
         mSel.add(new Option(m + '月', m));
         if (leap === m) mSel.add(new Option('闰' + m + '月', -m));
       }
-      if (Array.prototype.some.call(mSel.options, o => o.value === prev)) mSel.value = prev;
+      mSel.value = Array.prototype.some.call(mSel.options, o => o.value === prev) ? prev : '';
       fillDays(y, +mSel.value);
     }
-    ySel.addEventListener('change', () => fillMonths(+ySel.value));
-    mSel.addEventListener('change', () => fillDays(+ySel.value, +mSel.value));
     const sc = ['子时 23-01', '丑时 01-03', '寅时 03-05', '卯时 05-07', '辰时 07-09', '巳时 09-11', '午时 11-13', '未时 13-15', '申时 15-17', '酉时 17-19', '戌时 19-21', '亥时 21-23'];
+    scSel.add(new Option('时辰', ''));
     sc.forEach((s, i) => scSel.add(new Option(s, i)));
-    ySel.value = 1995; fillMonths(1995);
-    if (Array.prototype.some.call(mSel.options, o => +o.value === 6)) mSel.value = 6;
-    fillDays(1995, +mSel.value);
-    if (Array.prototype.some.call(dSel.options, o => +o.value === 15)) dSel.value = 15;
-    scSel.value = 6;
+    // 四个下拉一律空开局，任何一个没选都不放行——不预填任何人的生日。
+    ySel.value = ''; fillMonths(0); scSel.value = '';
+    [ySel, mSel, dSel, scSel].forEach(sel => sel.addEventListener('change', updatePaipanState));
+    ySel.addEventListener('change', () => { fillMonths(+ySel.value); updatePaipanState(); });
+    mSel.addEventListener('change', () => { fillDays(+ySel.value, +mSel.value); updatePaipanState(); });
+    // 勾「农历」时把已填的阳历真实换算过来，而不是丢给用户一组默认值。
+    function prefillLunarFromSolar() {
+      if (ySel.value) return;                      // 已经选过就别覆盖
+      const v = $('bazi-datetime').value;
+      if (!v || typeof window.Solar === 'undefined') return;
+      try {
+        const dt = new Date(v);
+        const l = window.Solar.fromYmdHms(dt.getFullYear(), dt.getMonth() + 1, dt.getDate(), dt.getHours(), dt.getMinutes(), 0).getLunar();
+        ySel.value = String(l.getYear());
+        fillMonths(l.getYear());
+        const lm = String(l.getMonth());           // 负数=闰月
+        if (Array.prototype.some.call(mSel.options, o => o.value === lm)) mSel.value = lm;
+        fillDays(l.getYear(), +mSel.value);
+        const ld = String(l.getDay());
+        if (Array.prototype.some.call(dSel.options, o => o.value === ld)) dSel.value = ld;
+        scSel.value = String(Math.floor(((dt.getHours() + 1) % 24) / 2)); // 子时含 23:00 与 00:00
+      } catch (e) { /* 换算不出来就保持空，绝不填默认值 */ }
+    }
 
     // 结果页可随时回来修改：旧盘在成功重排前继续保留，表单完整回填上次输入。
     function populateBaziForm(input) {
@@ -6575,6 +6660,12 @@
     });
 
     $('btn-paipan').addEventListener('click', (ev) => {
+      const paipanBtn = $('btn-paipan');
+      if (paipanBtn.getAttribute('aria-disabled') === 'true') {
+        explainWhyNotReady();
+        paipanBtn.classList.remove('shake'); void paipanBtn.offsetWidth; paipanBtn.classList.add('shake');
+        return;
+      }
       spawnRipple(ev);
       const gender = document.querySelector('input[name=gender]:checked').value;
       let input;
@@ -7417,7 +7508,7 @@
         ? card.relatedDetails.map(detail => `${detail.stem}·${detail.role}`).join(' · ')
         : card.related;
       panel.innerHTML = `${visual}${narrative}
-        <div class="relation-panel-meta"><span>${escapeHtml(card.term)}</span><b>${escapeHtml(relatedLine)}</b></div>
+        <div class="relation-panel-meta"><span>${renderTerm(String(card.term).split('·')[0].trim(), card.term)}</span><b>${escapeHtml(relatedLine)}</b></div>
         <p class="relation-plain">${escapeHtml(card.plain)}</p>
         <button type="button" class="character-world-link is-compact" data-changming-open data-stem="${escapeHtml(c.dm)}" data-cm-view="relations"><span>${en ? 'Read this relation in Changming' : '进入常明城看这段关系'}</span><b aria-hidden="true">↗</b></button>`;
       panel.querySelectorAll('.relation-character img').forEach(image => {
@@ -7481,6 +7572,23 @@
     const bars = $('bazi-bars');
     bars.innerHTML = '';
     const max = Math.max(...C.ELEMENTS.map(e => c.scores[e]), 0.1);
+    // 原来这张卡的全部文字就是「木 1.8 火 3.0 …」：没有标题、没有单位、没有满分，
+    // 也没说数字大到底是好是坏。补一个标题 + 量纲 + 一句人话结论。
+    {
+      const total = C.ELEMENTS.reduce((s, e) => s + (c.scores[e] || 0), 0);
+      const sorted = C.ELEMENTS.slice().sort((a, b) => c.scores[b] - c.scores[a]);
+      const top = sorted[0], bottom = sorted[sorted.length - 1];
+      const head = document.createElement('div');
+      head.className = 'bazi-bars-head';
+      head.innerHTML = isEN()
+        ? `<b>Five phases in your chart</b>
+           <p>How much of each phase your eight characters add up to (total ${total.toFixed(1)}). Longer bar = more of it. Neither more nor less is “good”; balance is what the reading looks at.</p>
+           <p class="bazi-bars-lede">Most: <b style="color:${C.EL_HEX[top]}">${escapeHtml(elEN(top))} ${c.scores[top].toFixed(1)}</b> · Least: <b style="color:${C.EL_HEX[bottom]}">${escapeHtml(elEN(bottom))} ${c.scores[bottom].toFixed(1)}</b></p>`
+        : `<b>你八字里的五行</b>
+           <p>八个字折算下来，每一行各占多少（合计 ${total.toFixed(1)} 分）。条越长这一行越多。多不等于好、少也不等于差，看的是均不均。</p>
+           <p class="bazi-bars-lede">最多的是 <b style="color:${C.EL_HEX[top]}">${escapeHtml(top)} ${c.scores[top].toFixed(1)}</b>，最少的是 <b style="color:${C.EL_HEX[bottom]}">${escapeHtml(bottom)} ${c.scores[bottom].toFixed(1)}</b>。</p>`;
+      bars.appendChild(head);
+    }
     C.ELEMENTS.forEach(e => {
       const row = document.createElement('div');
       row.className = 'bar-row';
@@ -7637,6 +7745,24 @@
     // 水墨态 chrome：隐藏缩放键/比例尺（对空底无意义），切瓦片层即恢复；地图拖动始终可用（只隐控件）
     function applyBasemapChrome(id) {
       mapContainer.classList.toggle('ink-basemap', id === 'ink');
+      // 水墨底刻意不加载任何瓦片（产品决策），但第一次来的人只会看到罗盘浮在噪点上，
+      // 以为地图挂了。挂一行说明并指向右上角的切换入口。
+      const top = document.getElementById('kanyu-top');
+      if (top) {
+        let note = document.getElementById('kanyu-ink-note');
+        if (id === 'ink') {
+          if (!note) {
+            note = document.createElement('p');
+            note.id = 'kanyu-ink-note';
+            note.className = 'kanyu-ink-note';
+            top.appendChild(note);
+          }
+          note.textContent = tt('kanyu.ink_note');
+          note.hidden = false;
+        } else if (note) {
+          note.hidden = true;
+        }
+      }
       recomputeKanyuTopOffset(); // 水墨↔瓦片切换会增删缩放钮 → 重算顶偏移，保证 #kanyu-top 恒在角钮之下
     }
     // 程序化切底图：移除其余 base、挂目标、记 chrome + 持久化（瓦片类另记 kanyu-basemap-tile 供勘察联动）
@@ -7665,6 +7791,21 @@
       'OneMap·日 (SG)': oneDay,
       'OneMap·夜 (SG)': oneNight,
     }, null, { position: 'topright', collapsed: true }).addTo(map);
+    // 图层控件展开时把读数卡的 pointer-events 关掉，否则它会吞掉下半截选项的点击。
+    (function wireLayerControl() {
+      const ctl = map.getContainer().querySelector('.leaflet-control-layers');
+      if (!ctl) return;
+      const toggle = ctl.querySelector('.leaflet-control-layers-toggle');
+      if (toggle) {
+        toggle.setAttribute('aria-label', '切换底图');
+        toggle.setAttribute('title', '切换底图');
+      }
+      const sync = () => document.getElementById('page-kanyu')
+        .classList.toggle('layers-open', ctl.classList.contains('leaflet-control-layers-expanded'));
+      ['mouseover', 'mouseout', 'click', 'touchstart', 'focusin', 'focusout'].forEach(t =>
+        ctl.addEventListener(t, () => requestAnimationFrame(sync), { passive: true }));
+      new MutationObserver(sync).observe(ctl, { attributes: true, attributeFilter: ['class'] });
+    })();
     // 用户在图层控件里切底图：Leaflet 仅在 UI 点击时 fire baselayerchange（程序切换不 fire）→ 持久化 + chrome
     map.on('baselayerchange', (e) => {
       const id = baseIdOf(e.layer) || 'ink';

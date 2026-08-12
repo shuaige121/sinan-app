@@ -1143,3 +1143,7 @@ html:not([data-view="read"]) .license-footer { color: rgba(218, 223, 216, .48); 
   .shelf-hero.has-archive .hero-card { min-height: 86px; }
   .shelf-hero.has-archive .hero-card-title { font-size: .82rem; }
 }
+
+/* 搜索命中理由：命中的是卡面看不到的字段（分类/备注/正文）时说清楚为什么出现这本。 */
+.book-why { margin: 6px 0 2px; font-size: 11px; line-height: 1.55; color: var(--accent); opacity: .9; }
+.empty-state .empty-why { margin-top: 8px; font-size: 12px; line-height: 1.6; opacity: .75; }

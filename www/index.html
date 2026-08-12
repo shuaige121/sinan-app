@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
-<link rel="stylesheet" href="css/style.css?v=20260812j">
+<link rel="stylesheet" href="css/style.css?v=20260813a">
 </head>
 <body>
 
@@ -61,7 +61,7 @@
       <span class="ch-horizon" aria-hidden="true"></span>
       <span class="ch-sun" id="ch-sun" hidden></span>
       <span class="ch-moon-arc" id="ch-moon-arc" hidden></span>
-      <button type="button" class="ch-locate" id="ch-locate" hidden data-i18n="clock.locate">点亮日照</button>
+      <button type="button" class="ch-locate" id="ch-locate" hidden data-i18n="clock.locate">显示今天的日出日落（需要定位）</button>
       <span class="ch-sunrise" id="ch-sunrise" hidden></span>
       <span class="ch-sunset" id="ch-sunset" hidden></span>
     </div>
@@ -515,6 +515,9 @@
 <section class="page" id="page-bazi">
   <h1 class="page-title" data-i18n="bazi.page_title">命 盘 推 演</h1>
   <div class="card" id="bazi-form">
+    <!-- 向人索要出生时间之前先说清楚：拿它做什么、存在哪里。此前这句隐私承诺
+         被写在 #bazi-result 里，只有已经交出生辰的人才看得到，等于没说。 -->
+    <p class="form-lede" data-i18n="bazi.form_lede">填出生时刻，排出你的八字四柱。生辰只在这台设备上计算，不上传、不联网，随时可在结果页「焚毁此盘」删掉。</p>
     <div class="form-row seg-row" id="gender-seg">
       <label class="seg-pill"><input type="radio" name="gender" value="乾造" checked><span data-i18n="bazi.gender_male">乾造 · 男</span></label>
       <label class="seg-pill"><input type="radio" name="gender" value="坤造"><span data-i18n="bazi.gender_female">坤造 · 女</span></label>
@@ -532,7 +535,7 @@
         <label><input type="text" id="bazi-minute" inputmode="numeric" maxlength="2" placeholder="00" aria-label="出生分钟"><span>分</span></label>
       </div>
       <input type="hidden" id="bazi-datetime">
-      <p class="form-hint" data-i18n="bazi.solar_hint">请选择出生的年月日与时刻（未填时无法排盘）</p>
+      <p class="form-hint" data-i18n="bazi.solar_hint">按 24 小时制填，下午 2 点写 14。分钟不确定可以留空——时辰的分界都在整点。</p>
       <details class="bz-adv" id="bazi-solar-adv">
         <summary data-i18n="bazi.adv_summary">高级 · 真太阳时</summary>
         <div class="bz-adv-body">
@@ -713,16 +716,16 @@
 <script src="https://cdn.jsdelivr.net/npm/lunar-javascript@1.7.7/lunar.js" integrity="sha384-CkiJVUh8zHLFNZYeiszeRw7KEWYDIf1yIZ+jVnZt+omUzQLv2ilCE94w1VItn8uH" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/leaflet-rotate@0.2.8/dist/leaflet-rotate.js" integrity="sha384-MtIdllebpZyms2pw9K3YJl8BEqrKNQCdSFAySjeglab6z2PkeFdF4Lb9cDsnxQuG" crossorigin="anonymous"></script>
-<script src="js/i18n/zh.js?v=20260706a"></script>
-<script src="js/i18n/en.js?v=20260706a"></script>
+<script src="js/i18n/zh.js?v=20260813a"></script>
+<script src="js/i18n/en.js?v=20260813a"></script>
 <script src="js/i18n.js?v=20260706a"></script>
 <script src="js/vendor/suncalc.js?v=20260703a"></script>
 <script src="js/quotes-bazhai.js?v=20260703a"></script>
 <script src="js/cite-map.js?v=20260703a"></script>
 <script src="js/cite-popover.js?v=20260703a"></script>
-<script src="js/plain-glossary.js?v=20260706a"></script>
+<script src="js/plain-glossary.js?v=20260813a"></script>
 <script src="js/quotes-opening.js?v=20260703a"></script>
-<script src="js/core.js?v=20260703a"></script>
+<script src="js/core.js?v=20260813a"></script>
 <script src="js/chartfacts.js?v=20260705a"></script>
 <script src="js/rulekit.js?v=20260705a"></script>
 <script src="js/personal-calendar.js?v=20260706a"></script>
@@ -732,9 +735,9 @@
 <script src="js/ai-reading.js?v=20260706a"></script>
 <script src="js/share-card.js?v=20260707a"></script>
 <script src="js/birth-places.js?v=20260812a"></script>
-<script src="js/character-manifest.js?v=20260812j"></script>
-<script src="js/changming-world.js?v=20260812j"></script>
-<script src="js/app.js?v=20260812j"></script>
+<script src="js/character-manifest.js?v=20260813a"></script>
+<script src="js/changming-world.js?v=20260813a"></script>
+<script src="js/app.js?v=20260813a"></script>
 <script src="js/qa-engine.js?v=20260706a"></script>
 <script src="js/ics-export.js?v=20260703a"></script>
 </body>

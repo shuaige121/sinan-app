@@ -260,12 +260,14 @@ h1.page-title { font-size: 17px; letter-spacing: 5px; text-align: center; paddin
 .ch-sunrise { left: 14%; transform: translateX(-50%); }
 .ch-sunset  { left: 86%; transform: translateX(-50%); }
 /* 点亮日照按钮（未授权态） */
+/* 文案从「点亮日照」改成说清代价的整句，所以不能再 nowrap 居中——给它宽度上限并允许折行。 */
 .ch-locate {
-  position: absolute; left: 50%; top: 52%; transform: translate(-50%, -50%);
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  max-width: min(84%, 300px); text-align: center;
   background: var(--ink-scrim); color: var(--gold);
-  border: var(--hairline) solid var(--border-strong); border-radius: var(--radius-pill);
-  font-family: inherit; font-size: 12px; padding: 7px 16px; cursor: pointer;
-  letter-spacing: .08em; white-space: nowrap;
+  border: var(--hairline) solid var(--border-strong); border-radius: 14px;
+  font-family: inherit; font-size: 12px; padding: 9px 14px; cursor: pointer;
+  letter-spacing: .04em; line-height: 1.5; white-space: normal;
 }
 .ch-locate:active { transform: translate(-50%, -50%) scale(.96); }
 .ch-locate:disabled { opacity: .6; }
@@ -740,7 +742,20 @@ input[type=radio], input[type=checkbox] { accent-color: var(--gold); }
 .bz-datetime-segments input:focus { border-bottom-color: var(--gold); box-shadow: 0 2px 0 rgba(201,162,39,.2); }
 .bz-datetime-segments input.is-invalid { border-bottom-color: var(--cinnabar); color: #f0a18e; }
 .bz-datetime-segments span { flex: none; margin-left: 2px; color: var(--paper-dim); font-size: 10px; }
+.form-lede { margin: 0 0 16px; padding-left: 11px; border-left: 2px solid rgba(201,162,39,.45); color: rgba(239,232,213,.78); font-size: 12.5px; line-height: 1.75; }
 .form-hint { font-size: 12px; color: var(--paper-dim); margin-top: 6px; line-height: 1.6; }
+/* 报错时提示语要看得见：此前无论缺什么、错什么都显示同一句话，等于没有说明。 */
+.form-hint.is-error { color: #f0a18e; }
+/* 未填完的「排盘」保持可点（否则收不到 click，用户点了零反馈），靠这套样式表达不可用。 */
+#btn-paipan.is-disabled { opacity: .45; box-shadow: none; }
+#btn-paipan.shake { animation: formShake .32s ease; }
+@keyframes formShake {
+  0%,100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  45% { transform: translateX(5px); }
+  70% { transform: translateX(-3px); }
+}
+@media (prefers-reduced-motion: reduce) { #btn-paipan.shake { animation: none; } }
 /* 排盘按钮：未填生辰时灰态禁用 + 金色涟漪/按压反馈 */
 .btn-gold { position: relative; overflow: hidden; }
 .btn-gold:disabled { opacity: .4; filter: grayscale(.55); box-shadow: none; cursor: not-allowed; }
@@ -1068,6 +1083,13 @@ input[type=radio], input[type=checkbox] { accent-color: var(--gold); }
 }
 .leaflet-container { font-family: inherit; }
 /* Leaflet 控件入墨：白底系统样式与主题违和 */
+/* 展开的图层列表必须压过 #kanyu-top(z-index:8)：此前 7 个底图选项里下面 5 个
+   （墨色暗地图/地形/OneMap 日/夜）整片被读数卡盖住，elementFromPoint 全部命中读数卡，
+   真手指点下去毫无反应——而那正是把「水墨·空相」换成真地图的唯一入口。 */
+.leaflet-top.leaflet-right, .leaflet-control-layers { z-index: 900; }
+.leaflet-control-layers-expanded { position: relative; z-index: 901; }
+/* 列表展开时让读数卡整体让出点击（视觉不变，只是不再抢事件） */
+#page-kanyu.layers-open #kanyu-top { pointer-events: none; }
 .leaflet-control-layers {
   background: rgba(26, 24, 20, .94) !important;
   color: var(--paper) !important;
@@ -1586,6 +1608,7 @@ input[type=radio], input[type=checkbox] { accent-color: var(--gold); }
   cursor: pointer;
   border-bottom: 1px dashed var(--border-strong);
   transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+  padding: 13px 4px; margin: -13px -4px;   /* 同 .term-chip：撑热区不改版式 */
 }
 .cite-chip:hover { color: var(--gold); border-bottom-color: var(--gold); }
 .cite-chip:focus-visible { outline: 1.5px solid var(--gold); outline-offset: 2px; border-radius: 2px; }
@@ -2793,6 +2816,9 @@ input[type=radio], input[type=checkbox] { accent-color: var(--gold); }
   cursor: pointer;
   border-bottom: 1px dotted rgba(201, 192, 168, .5);
   transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+  /* 热区：行内元素的 padding 会撑大点击盒但不改行高，配等量负 margin 后视觉零变化。
+     此前 term-chip 实测只有 24×18，手指点不中——白话写得再好也拿不到。 */
+  padding: 13px 4px; margin: -13px -4px;
 }
 .term-chip:hover { color: var(--paper); border-bottom-color: var(--paper-dim); }
 .term-chip:focus-visible { outline: 1.5px solid var(--paper-dim); outline-offset: 2px; border-radius: 2px; }
@@ -3205,7 +3231,10 @@ body.changming-open { overflow: hidden; }
   .bazi-arch-enter { margin-top: 10px; padding: 9px 11px; }
   .character-story-visual { height: 238px; }
   .cm-topbar { grid-template-columns: 1fr auto 1fr; padding-left: 12px; padding-right: 12px; }
-  .cm-back span { display: none; }
+  /* 退出这一层原来只剩一个 15px 的「‹」，没有文字、也不够点。
+     窄屏保留文字并撑足热区——这是整个全屏浮层唯一的出口。 */
+  .cm-back span { display: inline; font-size: 11px; }
+  .cm-back { padding: 10px 10px 10px 4px; font-size: 17px; }
   .cm-mine, .cm-relations-jump { padding: 0 8px; font-size: 9px; }
   .cm-hero { min-height: calc(100dvh - 62px - env(safe-area-inset-top)); }
   .cm-hero-background { background-position: 58% center; }
@@ -3333,3 +3362,16 @@ body.changming-open { overflow: hidden; }
   .cm-hero-background::after { background: linear-gradient(180deg, rgba(5,7,8,.04) 0%, rgba(5,7,8,.12) 38%, #080b0d 82%); }
   .cm-relation-story img { height: 260px; }
 }
+
+/* 水墨底说明条：解释「为什么没有地图」并指向切换入口（见 applyBasemapChrome）。 */
+.kanyu-ink-note {
+  margin: 0; padding: 8px 11px; border-radius: 9px;
+  border: .7px solid rgba(201,162,39,.26); background: rgba(10,13,14,.82);
+  color: rgba(239,232,213,.74); font-size: 11.5px; line-height: 1.65;
+}
+
+/* 五行卡抬头：说清这张卡是什么、数字什么量纲、以及一句直接结论。 */
+.bazi-bars-head { margin: 0 0 14px; }
+.bazi-bars-head b { display: block; color: var(--paper); font-size: 15px; letter-spacing: .04em; }
+.bazi-bars-head p { margin: 7px 0 0; color: var(--paper-dim); font-size: 12px; line-height: 1.7; }
+.bazi-bars-head .bazi-bars-lede { margin-top: 9px; color: rgba(239,232,213,.9); font-size: 13.5px; }

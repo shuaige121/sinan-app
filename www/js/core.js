@@ -1422,9 +1422,9 @@
       `年月日时四柱为 ${gzs}，日主${c.dm}属${c.dmEl}，纳音落「${c.pillars[2].naYin}」。`,
     ]));
     lines.push(spin(s, 'st', [
-      `盘中五行，${sorted[0]}气最盛，${sorted[4]}气最薄；比劫印绶共占${pct}分，故断为${c.isStrong ? '身强' : '身弱'}。`,
-      `论五行轻重：${sorted[0]}最旺、${sorted[4]}最薄，同党之气占${pct}分，此盘断作${c.isStrong ? '身强' : '身弱'}。`,
-      `五气盈缩各有数：${sorted[0]}盛而${sorted[4]}衰，比劫印绶合${pct}分——是为${c.isStrong ? '身强' : '身弱'}之局。`,
+      `盘中五行，${sorted[0]}气最盛，${sorted[4]}气最薄；比劫印绶共占${pct}%，故断为${c.isStrong ? '身强' : '身弱'}。`,
+      `论五行轻重：${sorted[0]}最旺、${sorted[4]}最薄，同党之气占${pct}%，此盘断作${c.isStrong ? '身强' : '身弱'}。`,
+      `五气盈缩各有数：${sorted[0]}盛而${sorted[4]}衰，比劫印绶合${pct}%——是为${c.isStrong ? '身强' : '身弱'}之局。`,
     ]));
     lines.push(c.isStrong ? spin(s, 'ad', [
       `身强者宜泄宜耗，喜用在${favs}。`,

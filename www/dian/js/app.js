@@ -919,15 +919,29 @@ function updateResults() {
   const books = allBooks.filter(b => {
     const matchCat = activeCat === 'all' || b.category === activeCat;
     if (State.hidePending && isBookPending(b)) return false;
-    if (State.annotatedOnly && !b.hasAnnotated) return false;
+    // 与首页 hero 的 annotatedCount 用同一判定，否则首页说 22 部、筛选列出 23 本。
+    if (State.annotatedOnly && !(b.hasAnnotated && b.status !== '待补')) return false;
     if (!q) return matchCat;
     const n = s => normalizeHan(s || '');
     const inFrag = (b.fragments || []).some(f =>
       (f.text && n(f.text).includes(qNorm)) || (f.ref && n(f.ref).includes(qNorm)));
+    // 分类名与分类简介也参与匹配：搜「风水」时《葬书》这类堪舆典籍本该出现，
+    // 此前只比标题/作者/朝代/内部备注，于是真正的风水书一本都搜不到。
+    const cat = (registry.categories || []).find(c => c.id === b.category) || {};
+    const inCat = n(cat.label).includes(qNorm) || n(cat.desc).includes(qNorm);
     // 繁简混搜：所有字段归一化后比较；同时涵盖 authorNote/statusNote（如"托名""二手引用"）
-    const matchSearch = n(b.title).includes(qNorm) || n(b.subtitle).includes(qNorm) ||
-      n(b.author).includes(qNorm) || n(b.dynasty).includes(qNorm) ||
-      n(b.authorNote).includes(qNorm) || n(b.statusNote).includes(qNorm) || inFrag;
+    const visibleHit = n(b.title).includes(qNorm) || n(b.subtitle).includes(qNorm) ||
+      n(b.author).includes(qNorm) || n(b.dynasty).includes(qNorm);
+    const hiddenHit = n(b.authorNote).includes(qNorm) || n(b.statusNote).includes(qNorm);
+    const matchSearch = visibleHit || hiddenHit || inFrag || inCat;
+    // 命中的是卡面上看不到的字段时，把理由记下来显示出来——
+    // 否则用户看到的是一张跟关键词毫无关系的书卡，只会觉得搜索坏了。
+    b._why = null;
+    if (!visibleHit && matchSearch) {
+      if (hiddenHit) b._why = '备注：' + String(b.authorNote && n(b.authorNote).includes(qNorm) ? b.authorNote : b.statusNote).slice(0, 40);
+      else if (inCat) b._why = '分类：' + (cat.label || '') + (cat.desc ? '（' + cat.desc + '）' : '');
+      else if (inFrag) b._why = '正文中出现';
+    }
     return matchCat && matchSearch;
   });
 
@@ -937,8 +951,17 @@ function updateResults() {
 
   const box = el('shelf-results'); if (!box) return;
   if (!books.length) {
+    // 空态要说清是被哪个开关筛掉的，而不是只丢一句「未找到」。
+    const filtersOn = [];
+    if (State.hidePending) filtersOn.push('已隐藏「待补」');
+    if (State.annotatedOnly) filtersOn.push('只看有译注');
+    if (activeCat !== 'all') {
+      const c = (registry.categories || []).find(x => x.id === activeCat);
+      if (c) filtersOn.push('限定分类「' + c.label + '」');
+    }
     box.innerHTML = `<div class="empty-state"><div class="icon">🔍</div>
-      <div>未找到${q ? `「${esc(q)}」相关` : ''}典籍</div></div>`;
+      <div>未找到${q ? `「${esc(q)}」相关` : ''}典籍</div>
+      ${filtersOn.length ? `<div class="empty-why">当前还开着：${esc(filtersOn.join(' · '))}——关掉可能就有了</div>` : ''}</div>`;
     return;
   }
   const categories = registry.categories;
@@ -1073,6 +1096,7 @@ function renderBookCard(b, q) {
       <div class="book-card-copy"><div class="book-title">${highlight(b.title, q)}</div>
       ${showSub ? `<div class="book-dynasty">${highlight(b.subtitle, q)}</div>` : ''}
       <div class="book-author">${highlight(b.author || '', q)}</div>
+      ${q && b._why ? `<div class="book-why">命中 · ${esc(b._why)}</div>` : ''}
       <div class="book-foot">
         <span class="book-dynasty">${esc(b.dynasty || '')}</span>
         ${statsStr ? `<span class="book-stats">${esc(statsStr)}</span>` : ''}

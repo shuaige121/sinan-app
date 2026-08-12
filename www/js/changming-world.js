@@ -13,6 +13,9 @@
   const THEME_KEY = 'changming-theme-stem';
   const state = { chart: null, input: null, dayMasterStem: null, themeStem: null, guideStems: [], guideElement: null, guideBalanced: false, activeStem: null, relationIndex: 0, returnFocus: null };
   let root = null;
+  let resetScrollOnNextRender = false;   // 仅 open() 置真：换人物/设主题时保留阅读位置
+  let keepScrollTop = null;
+  let historyPushed = false;             // 浮层占一格历史，让返回键先关它而不是退站
   let content = null;
 
   function en() { return !!(global.I18N && global.I18N.lang === 'en'); }
@@ -23,6 +26,15 @@
     })[c]);
   }
   function itemText(item, key) { return Characters.text(item, key, en() ? 'en' : 'zh'); }
+  // 关系术语（比劫/食伤/印/财/官杀）此前只是纯文本，浮层里一个可点词条都没有。
+  // term-chip 的点击委托挂在 document 上（app.js:266，capture 相），这里吐同样的标记即可复用。
+  function termChip(label) {
+    const raw = String(label == null ? '' : label);
+    const key = raw.split('·')[0].trim();          // 「比劫 · peers」→「比劫」
+    const has = global.PLAIN_GLOSSARY && Object.prototype.hasOwnProperty.call(global.PLAIN_GLOSSARY, key);
+    if (!has) return esc(raw);
+    return `<span class="term-chip" data-term="${esc(key)}" role="button" tabindex="0">${esc(raw)}</span>`;
+  }
 
   function readTheme() {
     try {
@@ -148,7 +160,7 @@
     return `${visual}
     <div class="cm-relation-copy">
       ${narrative}
-      <div><span>${esc(card.term)}</span><b>${esc(card.related)}</b></div>
+      <div><span>${termChip(card.term)}</span><b>${esc(card.related)}</b></div>
       <p>${esc(card.plain)}</p>
     </div>`;
   }
@@ -168,6 +180,7 @@
   }
 
   function render(stem) {
+    if (!resetScrollOnNextRender && content) keepScrollTop = content.scrollTop;
     const item = Characters.get(stem) || Characters.get(state.dayMasterStem) || Characters.get('甲');
     if (!item || !content) return;
     state.activeStem = Characters.get(stem) ? stem : (state.dayMasterStem || '甲');
@@ -269,7 +282,10 @@
     const back = root.querySelector('.cm-back span');
     if (back) back.textContent = text('返回司南', 'Back to Sinan');
     renderRelation(0);
-    content.scrollTop = 0;
+    // 只有刚打开这一层时才回到顶部。此前每次 render 都无条件归零，
+    // 于是在「关系」区换个人物或设主题，都会被一路甩回首屏——这层仅有的两个交互动作都这样。
+    if (resetScrollOnNextRender) { content.scrollTop = 0; resetScrollOnNextRender = false; }
+    else if (keepScrollTop != null) { content.scrollTop = keepScrollTop; keepScrollTop = null; }
   }
 
   function open(stem, view) {
@@ -284,18 +300,28 @@
     state.guideElement = guide.element;
     state.guideBalanced = !!guide.balanced; // 五行等量时没有「最少」，文案不能照说
     state.returnFocus = document.activeElement;
+    resetScrollOnNextRender = true;   // 只有真的「进入」这一层才回到首屏
     render(stem || state.themeStem || state.dayMasterStem || state.guideStems[0] || '甲');
     root.hidden = false;
     root.setAttribute('aria-hidden', 'false');
     document.body.classList.add('changming-open');
+    if (!historyPushed) {
+      try { global.history.pushState({ changming: 1 }, ''); historyPushed = true; } catch (e) {}
+    }
     requestAnimationFrame(() => root.classList.add('is-open'));
     if (view === 'relations') setTimeout(() => content.querySelector('#cm-relations-browser')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
     const closeButton = root.querySelector('#cm-close');
     if (closeButton) setTimeout(() => closeButton.focus({ preventScroll: true }), 40);
   }
 
-  function close() {
+  function close(fromHistory) {
     if (!root || root.hidden) return;
+    // 全屏浮层要吃掉一次「返回」，否则手机返回键会直接退出整个站点。
+    if (!fromHistory && historyPushed) {
+      historyPushed = false;
+      try { global.history.back(); return; } catch (e) { /* 退化为直接关闭 */ }
+    }
+    historyPushed = false;
     root.classList.remove('is-open');
     root.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('changming-open');
@@ -348,6 +374,8 @@
     root.querySelector('#cm-mine')?.addEventListener('click', () => { if (state.dayMasterStem) render(state.dayMasterStem); });
     root.querySelector('#cm-relations')?.addEventListener('click', () => content.querySelector('#cm-relations-browser')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
     document.addEventListener('keydown', event => { if (event.key === 'Escape' && !root.hidden) close(); });
+    // 手机返回键：先关这一层，而不是直接退出整个站点。
+    global.addEventListener('popstate', () => { if (root && !root.hidden) close(true); });
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', wire);
