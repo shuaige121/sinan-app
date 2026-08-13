@@ -162,7 +162,7 @@
     }).join('');
     const active = Characters.get(stem);
     const visual = card.scene
-      ? `<figure class="cm-relation-story"><img src="${esc(card.scene)}" alt="${esc(card.title + ' · ' + sceneStems.join('、'))}" loading="lazy" decoding="async"></figure>`
+      ? `<figure class="cm-relation-story"><img src="${esc(card.scene)}" alt="${esc(card.title + ' · ' + sceneStems.join('、'))}" loading="eager" decoding="sync" fetchpriority="high"></figure>`
       : `<div class="cm-relation-scene" style="--scene:url('../${esc(active.background)}')"><div class="cm-relation-people">${figures}</div></div>`;
     const narrative = card.title && card.story
       ? `<div class="cm-relation-narrative"><b>${esc(card.title)}</b><p>${esc(card.story)}</p></div>`
