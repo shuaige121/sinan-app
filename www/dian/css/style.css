@@ -169,18 +169,7 @@ button { cursor: pointer; border: none; outline: none; font-family: inherit; col
 .book-author { font-size: 0.72rem; color: var(--text-muted); line-height: 1.4; }
 .book-dynasty { font-size: 0.68rem; color: var(--text-light); }
 .book-foot { margin-top: auto; padding-top: 0.3rem; display: flex; align-items: center; flex-wrap: wrap; gap: 0.3rem 0.4rem; }
-.book-foot .book-status { margin-left: auto; }
-.book-status { padding: 2px 7px; border-radius: 10px; font-size: 0.62rem; white-space: nowrap; }
-.book-status.pending { background: #fff3cd; color: #856404; }
-.book-status.partial { background: #d1ecf1; color: #0c5460; }
-.book-status.done { background: #d4edda; color: #155724; }
-[data-theme="night"] .book-status.pending { background: #3a2e08; color: #d8b860; }
-[data-theme="night"] .book-status.partial { background: #08303a; color: #6fc0d0; }
-[data-theme="night"] .book-status.done { background: #0c2a14; color: #6fcf8a; }
-.book-alias-note { position: absolute; top: 6px; right: 6px; font-size: 0.58rem; background: #ffeeba; color: #856404; padding: 1px 5px; border-radius: 4px; }
-.book-stats { font-size: 0.60rem; color: var(--text-light); white-space: nowrap; flex-shrink: 0; }
 .book-read-tag { font-size: 0.60rem; color: var(--accent); background: var(--tag-bg); border-radius: 8px; padding: 0.1em 0.45em; white-space: nowrap; flex-shrink: 0; }
-[data-theme="night"] .book-alias-note { background: #3a2e08; color: #d8b860; }
 
 /* ─── 叙事封面：重点书逐本定制，标题由 HTML 清晰排印 ─── */
 .book-cover { position: relative; margin: 0; overflow: hidden; background: var(--book-dark); color: #f7ecd0; }
@@ -196,12 +185,12 @@ button { cursor: pointer; border: none; outline: none; font-family: inherit; col
 .book-card { padding: 0; gap: 0; border-color: color-mix(in srgb, var(--border) 72%, var(--book-accent)); }
 .book-card-cover { width: 100%; aspect-ratio: 2 / 2.75; border-radius: 9px 9px 0 0; }
 .book-card-cover img { object-position: center; }
-.book-card-copy { flex: none; display: flex; flex-direction: column; gap: .22rem; height: 132px; padding: .72rem .72rem .62rem; background: color-mix(in srgb, var(--bg-card) 94%, var(--book-accent) 6%); }
-.book-card.is-search-result .book-card-copy { height: auto; min-height: 132px; }
+.book-card-copy { flex: none; display: flex; flex-direction: column; gap: .22rem; min-height: 102px; padding: .72rem .72rem .62rem; background: color-mix(in srgb, var(--bg-card) 94%, var(--book-accent) 6%); }
+.book-card.is-search-result .book-card-copy { height: auto; min-height: 102px; }
 .book-card-copy .book-title { font-size: .96rem; line-height: 1.35; }
 .book-card-copy .book-title { display: -webkit-box; overflow: hidden; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 .book-card-copy .book-author { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.book-card > .book-annot-badge, .book-card > .book-alias-note, .book-card > .book-last-ribbon { z-index: 3; }
+.book-card > .book-annot-badge, .book-card > .book-last-ribbon { z-index: 3; }
 .book-card.has-annotated .book-title { padding-top: 0; }
 .book-card.is-pending .book-card-cover { filter: saturate(.62); }
 
@@ -968,7 +957,7 @@ html.embedded .drawer-mask { -webkit-backdrop-filter: blur(2px); backdrop-filter
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 590px;
+  min-height: 520px;
   width: calc(100% - 2rem);
   max-width: 960px;
   margin: 1rem auto .25rem;
@@ -1026,7 +1015,7 @@ html.embedded .drawer-mask { -webkit-backdrop-filter: blur(2px); backdrop-filter
   font-size: .8rem;
   line-height: 1.75;
 }
-.archive-hero-picks { margin-top: auto; padding-top: 5.3rem; }
+.archive-hero-picks { margin-top: auto; padding-top: 3.3rem; }
 .shelf-hero.has-archive .hero-pick-label {
   margin: 0 0 .58rem;
   color: rgba(238, 228, 196, .74);
@@ -1127,13 +1116,12 @@ html:not([data-view="read"]) .book-card::before {
 html:not([data-view="read"]) .book-card::after { content: none; }
 html:not([data-view="read"]) .book-title { color: #eceee8; }
 html:not([data-view="read"]) .book-author,
-html:not([data-view="read"]) .book-dynasty,
-html:not([data-view="read"]) .book-stats { color: rgba(219, 223, 216, .52); }
+html:not([data-view="read"]) .book-dynasty { color: rgba(219, 223, 216, .52); }
 html:not([data-view="read"]) .license-footer { color: rgba(218, 223, 216, .48); border-color: rgba(222, 228, 220, .12); }
 
 @media (max-width: 640px) {
   .shelf-hero.has-archive {
-    min-height: 610px;
+    min-height: 500px;
     width: calc(100% - 1rem);
     margin-top: .5rem;
     padding: 1.05rem;
@@ -1142,7 +1130,7 @@ html:not([data-view="read"]) .license-footer { color: rgba(218, 223, 216, .48); 
   .archive-hero-media img { object-position: 52% 44%; }
   .shelf-hero.has-archive .hero-headline { max-width: 9.8em; font-size: 1.55rem; }
   .shelf-hero.has-archive .hero-sub { max-width: 24em; font-size: .72rem; }
-  .archive-hero-picks { padding-top: 8.2rem; }
+  .archive-hero-picks { padding-top: 3.2rem; }
   .shelf-hero.has-archive .hero-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .shelf-hero.has-archive .hero-card { min-height: 86px; }
   .shelf-hero.has-archive .hero-card-title { font-size: .82rem; }

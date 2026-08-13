@@ -556,15 +556,6 @@ function findBook(id) { return (State.registry.books || []).find(b => b.id === i
 function isBookPending(b) {
   return b.status === '待补' && !(b.fragments && b.fragments.length) && !b.hasAnnotated;
 }
-// 书卡角标用的规模串（章·字），三处复用
-function bookStats(b) {
-  const ch = b.chapterCount, cc = b.charCount;
-  if (!ch) return '';
-  if (!cc || cc < 50) return `${ch}章`;
-  if (cc >= 10000) return `${ch}章·${(cc / 10000).toFixed(1)}万字`;
-  return `${ch}章·${cc}字`;
-}
-
 // ─── 搜索索引：两段式 ───
 // 藏书扩到 244 部 / 千万字后，全文索引 35MB（gzip 14MB）。一进站就下这个量，
 // 手机上不可接受；而截断正文来压体积等于让搜索悄悄搜不全，更不可接受。
@@ -820,15 +811,11 @@ function renderShelf() {
         ${q ? '<button class="search-clear" id="search-clear" aria-label="清空">✕</button>' : ''}
       </div>
       <div class="cat-tabs" id="cat-tabs">
-        <button class="cat-tab ${activeCat === 'all' ? 'active' : ''}" data-cat="all">全部 ${allBooks.length}</button>
-        ${categories.map(c => {
-          const cnt = allBooks.filter(b => b.category === c.id).length;
-          return `<button class="cat-tab ${activeCat === c.id ? 'active' : ''}" data-cat="${c.id}">${c.icon} ${esc(c.label)} ${cnt}</button>`;
-        }).join('')}
+        <button class="cat-tab ${activeCat === 'all' ? 'active' : ''}" data-cat="all">全部</button>
+        ${categories.map(c => `<button class="cat-tab ${activeCat === c.id ? 'active' : ''}" data-cat="${c.id}">${c.icon} ${esc(c.label)}</button>`).join('')}
       </div>
       <div class="filter-row">
-        <button class="filter-chip ${State.annotatedOnly ? 'active' : ''}" id="filter-annotated" type="button">✦ 有译注</button>
-        <button class="filter-chip ${State.hidePending ? 'active' : ''}" id="filter-content" type="button">仅看有内容</button>
+        <button class="filter-chip ${State.annotatedOnly ? 'active' : ''}" id="filter-annotated" type="button">有白话译注</button>
       </div>
     </div>
     ${cont}
@@ -856,11 +843,6 @@ function renderShelf() {
     qsa('.cat-tab').forEach(b => b.classList.toggle('active', b === btn));
     updateResults();
   });
-  el('filter-content').addEventListener('click', e => {
-    State.hidePending = !State.hidePending;
-    e.currentTarget.classList.toggle('active', State.hidePending);
-    updateResults();
-  });
   el('filter-annotated').addEventListener('click', e => {
     State.annotatedOnly = !State.annotatedOnly;
     e.currentTarget.classList.toggle('active', State.annotatedOnly);
@@ -885,7 +867,6 @@ function refreshChrome() {
 
 // 首页 hero：一句话定位 + 数据选出的「从这本开始」精选大卡
 function renderHero(allBooks) {
-  const annotatedCount = allBooks.filter(b => b.hasAnnotated && b.status !== '待补').length;
   const featured = allBooks
     .filter(b => b.hasAnnotated && b.status !== '待补')
     .sort((a, b) => (b.charCount || 0) - (a.charCount || 0))
@@ -894,9 +875,9 @@ function renderHero(allBooks) {
     <button class="hero-card" style="${bookThemeStyle(b)}" data-book-id="${esc(b.id)}" onclick="navigate('#/book/${b.id}')">
       <img class="hero-card-cover" src="${bookCover(b)}" alt="" width="800" height="1200" loading="lazy" decoding="async">
       <span class="hero-card-shade" aria-hidden="true"></span>
-      <span class="hero-card-badge">逐句译注</span>
+      <span class="hero-card-badge">白话译注</span>
       <span class="hero-card-title">${esc(b.title)}</span>
-      <span class="hero-card-meta">${esc(b.dynasty || '')}${bookStats(b) ? ' · ' + esc(bookStats(b)) : ''}</span>
+      <span class="hero-card-meta">${esc(b.dynasty || '')}</span>
     </button>`).join('');
   return `<div class="shelf-hero has-archive" id="shelf-hero">
     <figure class="archive-hero-media" aria-hidden="true">
@@ -905,8 +886,8 @@ function renderHero(allBooks) {
     <div class="archive-hero-shade" aria-hidden="true"></div>
     <div class="archive-hero-copy">
       <div class="hero-tag">常明城 · 藏经阁</div>
-      <div class="hero-headline">每一句判断，都能回到它来时的原文</div>
-      <div class="hero-sub">${allBooks.length} 部典籍入阁，其中 ${annotatedCount} 部可读逐句白话译注。这里不是书皮陈列，而是一座能查证、能追溯的城中档案馆。</div>
+      <div class="hero-headline">从原文开始读</div>
+      <div class="hero-sub">读古籍原文，也读白话译注。</div>
     </div>
     ${cards ? `<div class="archive-hero-picks"><div class="hero-pick-label">从这卷开始</div>
     <div class="hero-cards">${cards}</div></div>` : ''}
@@ -948,42 +929,6 @@ window.exportMarks = exportMarks;
 
 /* expandMarks 已废弃，#/marks 页代替 */
 
-// 全目一览折叠表格（所有书，按分类顺序，与搜索/过滤无关）
-function renderFullCatalog(allBooks, categories) {
-  let idx = 0;
-  const rows = categories.flatMap(cat => {
-    const bks = allBooks.filter(b => b.category === cat.id);
-    if (!bks.length) return [];
-    const head = `<tr class="catalog-cat-row"><td colspan="5" class="catalog-cat-head">${cat.icon} ${esc(cat.label)}</td></tr>`;
-    const brows = bks.map(b => {
-      idx++;
-      const statusCls = b.status === '待补' ? 'pending' : (b.status === '较全' ? 'done' : 'partial');
-      const ch = b.chapterCount || '?';
-      const cc = b.charCount;
-      const chars = (cc && cc >= 10000) ? `${(cc / 10000).toFixed(1)}万字` : (cc && cc >= 50 ? `${cc}字` : '—');
-      const alias = (b.authorNote && (b.authorNote.startsWith('【托名】') || b.authorNote.startsWith('【存疑】'))) ? '⚠' : '';
-      return `<tr>
-        <td class="cat-num">${idx}</td>
-        <td class="cat-title" onclick="navigate('#/book/${esc(b.id)}')">${esc(b.title)}${alias ? `<sup>${alias}</sup>` : ''}</td>
-        <td class="cat-dynasty">${esc(b.dynasty || '—')}</td>
-        <td class="cat-ch">${ch}章·${chars}</td>
-        <td><span class="book-status ${statusCls}">${esc(b.status || '可读')}</span></td>
-      </tr>`;
-    }).join('');
-    return [head + brows];
-  }).join('');
-  const aliasCount = allBooks.filter(b => b.authorNote && (b.authorNote.startsWith('【托名】') || b.authorNote.startsWith('【存疑】'))).length;
-  return `
-    <details class="full-catalog">
-      <summary>全目一览（${allBooks.length}部）</summary>
-      <table class="catalog-table">
-        <thead><tr><th>序</th><th>书名</th><th>朝代</th><th>规模</th><th>状态</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
-      ${aliasCount ? `<div class="catalog-note">⚠ 标记书目共 ${aliasCount} 部，题署作者存疑或为后世托名，书页有详注。</div>` : ''}
-    </details>`;
-}
-
 // 只更新结果区，不动输入框/分类条
 function updateResults() {
   const { registry, activeCat } = State;
@@ -1003,18 +948,17 @@ function updateResults() {
     // 此前只比标题/作者/朝代/内部备注，于是真正的风水书一本都搜不到。
     const cat = (registry.categories || []).find(c => c.id === b.category) || {};
     const inCat = n(cat.label).includes(qNorm) || n(cat.desc).includes(qNorm);
-    // 繁简混搜：所有字段归一化后比较；同时涵盖 authorNote/statusNote（如"托名""二手引用"）
+    // 作者考据可以参与检索；statusNote 是编目维护备注，绝不能进入用户搜索面。
     const visibleHit = n(b.title).includes(qNorm) || n(b.subtitle).includes(qNorm) ||
       n(b.author).includes(qNorm) || n(b.dynasty).includes(qNorm);
-    const hiddenHit = n(b.authorNote).includes(qNorm) || n(b.statusNote).includes(qNorm);
+    const hiddenHit = n(b.authorNote).includes(qNorm);
     const matchSearch = visibleHit || hiddenHit || inFrag || inCat;
     // 命中的是卡面上看不到的字段时，把理由记下来显示出来——
     // 否则用户看到的是一张跟关键词毫无关系的书卡，只会觉得搜索坏了。
     b._why = null;
     if (!visibleHit && matchSearch) {
       if (hiddenHit) {
-        const src = String(b.authorNote && n(b.authorNote).includes(qNorm) ? b.authorNote : b.statusNote || '');
-        b._why = '书目说明：' + snippetAround(src, qNorm);
+        b._why = '相关说明：' + snippetAround(b.authorNote || '', qNorm);
       }
       else if (inCat) b._why = '分类：' + (cat.label || '') + (cat.desc ? '（' + cat.desc + '）' : '');
       else if (inFrag) b._why = '正文中出现';
@@ -1030,8 +974,7 @@ function updateResults() {
   if (!books.length) {
     // 空态要说清是被哪个开关筛掉的，而不是只丢一句「未找到」。
     const filtersOn = [];
-    if (State.hidePending) filtersOn.push('已隐藏「待补」');
-    if (State.annotatedOnly) filtersOn.push('只看有译注');
+    if (State.annotatedOnly) filtersOn.push('只看有白话译注');
     if (activeCat !== 'all') {
       const c = (registry.categories || []).find(x => x.id === activeCat);
       if (c) filtersOn.push('限定分类「' + c.label + '」');
@@ -1048,10 +991,9 @@ function updateResults() {
   const searching = !!q;
   box.innerHTML = categories.filter(c => grouped[c.id].length).map(c => {
     const catBooks = grouped[c.id];
-    // 待补空壳折进「筹备中」；有内容/有译注的排前（稳定排序，有译注置顶）
+    // 未收录正文的书不进入用户书架；可读书中把带白话译注的排前。
     const content = catBooks.filter(b => !isBookPending(b))
       .sort((a, b) => (b.hasAnnotated ? 1 : 0) - (a.hasAnnotated ? 1 : 0));
-    const pending = catBooks.filter(b => isBookPending(b));
     const grid = arr => `<div class="book-grid">${arr.map(b => renderBookCard(b, q)).join('')}</div>`;
     let contentHtml;
     // 搜索态或不足 4 本时全展开；否则每分类默认 4 本 + 展开全部
@@ -1059,22 +1001,14 @@ function updateResults() {
       contentHtml = grid(content);
     } else {
       contentHtml = grid(content.slice(0, 4)) +
-        `<details class="cat-expand"><summary>展开全部（还有 ${content.length - 4} 本）</summary>${grid(content.slice(4))}</details>`;
+        `<details class="cat-expand"><summary>展开本类书目</summary>${grid(content.slice(4))}</details>`;
     }
-    const pendingHtml = pending.length
-      ? `<details class="cat-pending"><summary>筹备中（${pending.length} 本）</summary>${grid(pending)}</details>`
-      : '';
-    return `<div class="section-heading">${c.icon} ${esc(c.label)}</div>${contentHtml}${pendingHtml}`;
+    return `<div class="section-heading">${c.icon} ${esc(c.label)}</div>${contentHtml}`;
   }).join('')
-    + renderFullCatalog(allBooks, categories)
     + `
     <div class="license-footer">
-      <strong>司南·典籍阁</strong> · 古籍原文属公有领域 ·
-      维基文库来源遵 <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC-BY-SA 4.0</a> ·
-      <button class="cit-all-btn" onclick="navigate('#/citations')">引文全览</button> ·
-      daos.leonardchow.work
-      <div class="project-note">典籍阁程序与项目自有译注依 MIT License 开放。欢迎逐句指正版本、断句、翻译、注释与引文定位；请附可核查出处。
-        报错或建议请联系 <a href="https://wa.me/6586863695" target="_blank" rel="noopener">WhatsApp</a>。</div>
+      <button class="cit-all-btn" onclick="navigate('#/citations')">查看引文</button> ·
+      <a href="https://wa.me/6586863695" target="_blank" rel="noopener">反馈问题</a>
     </div>`;
 }
 
@@ -1111,20 +1045,16 @@ async function updateFullTextResults() {
     byBook[h.bookId].chapters.push(h);
   });
 
-  const mf = await loadSearchManifest();
-  const ftMB = (mf && mf.shardBytes)
-    ? (Object.values(mf.shardBytes).reduce((a, b) => a + b, 0) / 1048576 / 2.4).toFixed(0)
-    : '十余';
   const deepBar = scope === 'title'
     ? `<div class="ft-deep">
-         <span>以上只搜了书名与章名。正文尚未载入（约 ${ftMB} MB，载一次本次浏览一直可用）。</span>
-         <button class="ft-deep-btn" onclick="runDeepSearch()">搜正文</button>
+         <span>还要查书里的正文吗？第一次会多等一会儿。</span>
+         <button class="ft-deep-btn" onclick="runDeepSearch()">查正文</button>
        </div>`
     : '';
 
   const html = `
-    <div class="ft-header">${scope === 'full' ? '全文' : '书名章名'}命中 ${hits.length} 处（${Object.keys(byBook).length} 部）${
-      State.ftShardsFailed > 0 ? `<span class="ft-partial">· 有 ${State.ftShardsFailed} 个索引分片没加载成功，结果可能不全，重搜一次可重试</span>` : ''}</div>
+    <div class="ft-header">找到 ${hits.length} 处，来自 ${Object.keys(byBook).length} 本书${
+      State.ftShardsFailed > 0 ? '<span class="ft-partial">部分正文暂时没查到，可以再试一次。</span>' : ''}</div>
     ${deepBar}
     ${Object.entries(byBook).map(([bid, g]) => `
       <div class="ft-book-group">
@@ -1147,38 +1077,29 @@ window.runDeepSearch = runDeepSearch;
 async function runDeepSearch() {
   const box = el('fulltext-results'); if (!box) return;
   const bar = box.querySelector('.ft-deep');
-  if (bar) bar.innerHTML = '<span>正在载入正文索引…</span>';
+  if (bar) bar.innerHTML = '<span>正在查正文…</span>';
   await loadFullIndex((done, total) => {
-    if (bar) bar.innerHTML = `<span>正在载入正文索引… ${done}/${total} 片</span>`;
+    if (bar) bar.innerHTML = '<span>正在查正文…</span>';
   });
   updateFullTextResults();
 }
 
 function renderBookCard(b, q) {
-  const hasAlias = b.authorNote && (b.authorNote.startsWith('【托名】') || b.authorNote.startsWith('【存疑】'));
   const isPending = isBookPending(b);
-  const statusCls = isPending ? 'pending' : (b.status === '部分' || b.status === '较全' ? 'partial' : 'done');
-  const statusTxt = isPending ? '待补' : (b.status || '可读');
-  const statsStr = bookStats(b);
   const readN = getReadCount(b.id);
-  const readStr = readN > 0 ? `已读${readN}${b.chapterCount ? '/' + b.chapterCount : ''}章` : '';
+  const readStr = readN > 0 ? `已读 ${readN} 章` : '';
   const shelfMeta = [b.dynasty, b.author].filter(Boolean).join(' · ');
   return `
     <div role="button" tabindex="0" class="book-card ${q ? 'is-search-result' : ''} ${isPending ? 'is-pending' : ''} ${b.hasAnnotated ? 'has-annotated' : ''} ${State.lastRead && State.lastRead.bookId === b.id ? 'is-last-read' : ''}" style="${bookThemeStyle(b)}"
       data-book-id="${esc(b.id)}" onclick="navigate('#/book/${b.id}')">
-      ${hasAlias ? '<span class="book-alias-note">托名</span>' : ''}
-      ${b.hasAnnotated ? '<span class="book-annot-badge" title="逐句白话译注">逐句译注</span>' : ''}
+      ${b.hasAnnotated ? '<span class="book-annot-badge">白话译注</span>' : ''}
       ${State.lastRead && State.lastRead.bookId === b.id ? `<span class="book-last-ribbon">${isEN() ? 'Last read' : '上次读到'}</span>` : ''}
       ${bookCoverHtml(b, 'book-card-cover', { caption: false })}
       <div class="book-card-copy">
       <div class="book-title">${highlight(b.title, q)}</div>
       ${shelfMeta ? `<div class="book-author">${highlight(shelfMeta, q)}</div>` : ''}
-      ${q && b._why ? `<div class="book-why">命中 · ${esc(b._why)}</div>` : ''}
-      <div class="book-foot">
-        ${statsStr ? `<span class="book-stats">${esc(statsStr)}</span>` : ''}
-        ${readStr ? `<span class="book-read-tag">${esc(readStr)}</span>` : ''}
-        <span class="book-status ${statusCls}">${esc(statusTxt)}</span>
-      </div></div>
+      ${q && b._why ? `<div class="book-why">${esc(b._why)}</div>` : ''}
+      ${readStr ? `<div class="book-foot"><span class="book-read-tag">${esc(readStr)}</span></div>` : ''}</div>
     </div>`;
 }
 
@@ -1187,7 +1108,6 @@ async function renderBook(id, renderToken) {
   const book = findBook(id);
   if (!book) { el('app').innerHTML = notFound('找不到典籍'); return; }
   State.currentBook = book;
-  const hasAlias = book.authorNote && (book.authorNote.startsWith('【托名】') || book.authorNote.startsWith('【存疑】'));
   const fragments = book.fragments || [];
 
   el('app').innerHTML = `<div class="book-detail"><div class="reader-skeleton">载入中…</div></div>`;
@@ -1198,12 +1118,11 @@ async function renderBook(id, renderToken) {
   ]);
   if (renderToken !== State._renderToken) return;
   const chapters = (textData && textData.chapters) || book.chapters || [];
-  const fetchNote = textData && textData.fetchNote;
   const readableCh = chapters.filter(c => !chapterIsPending(c));
-  const firstReadable = readableCh[0] || chapters[0];
+  const firstReadable = readableCh[0];
   // 阅读进度圆环（书目详情页顶部，仅有阅读记录时显示）
   const readN = getReadCount(id);
-  const totalCh = chapters.length;
+  const totalCh = readableCh.length;
   const ringHtml = (() => {
     if (readN <= 0 || totalCh <= 0) return '';
     const r = 22, circ = +(2 * Math.PI * r).toFixed(1);
@@ -1230,21 +1149,22 @@ async function renderBook(id, renderToken) {
     .map((f, i) => ({ f, i }))
     .filter(({ f }) => f.text && f.text.length >= 5 && !f.text.includes('待从维基') && !f.text.includes('仓库已有') && !f.text.startsWith('（'));
 
-  // 版本与出处：作者/引文/收录/来源四条合并为默认收起的 accordion
-  const metaSummary = `底本：${esc(book.sourceName || '维基文库')}${book.sourceCC ? '（' + esc(book.sourceCC) + '）' : ''}`;
+  // 只保留读者需要核对的作者与底本信息。statusNote 是编目维护备注，禁止外露。
+  const authorNote = String(book.authorNote || '').replace(/^【(?:托名|存疑)】\s*/, '');
+  const authorNotice = book.authorNote && /^【(?:托名|存疑)】/.test(book.authorNote)
+    ? '这本书的作者归属有不同说法。'
+    : '';
   const metaAccordion = `<details class="meta-acc">
-    <summary>版本与出处 <span class="acc-hint">${metaSummary}</span></summary>
+    <summary>版本与出处</summary>
     <div class="acc-body">
-      ${book.authorNote ? `<div class="book-detail-note"><strong>作者说明：</strong>${esc(book.authorNote)}</div>` : ''}
-      ${fetchNote ? `<div class="book-detail-note dim"><strong>引文说明：</strong>${esc(fetchNote)}</div>` : ''}
-      ${book.statusNote ? `<div class="book-detail-note"><strong>收录说明：</strong>${esc(book.statusNote)}</div>` : ''}
-      <div class="book-detail-source">来源：<a href="${esc(book.source)}" target="_blank" rel="noopener">${esc(book.sourceName || '维基文库')}</a>${book.sourceCC ? `（${esc(book.sourceCC)}）` : ''}</div>
+      ${authorNotice ? `<div class="book-detail-note"><strong>${esc(authorNotice)}</strong>${authorNote ? ` ${esc(authorNote)}` : ''}</div>` : (authorNote ? `<div class="book-detail-note"><strong>作者：</strong>${esc(authorNote)}</div>` : '')}
+      <div class="book-detail-source">原文来自：<a href="${esc(book.source)}" target="_blank" rel="noopener">${esc(book.sourceName || '维基文库')}</a>${book.sourceCC ? ` · ${esc(book.sourceCC)}` : ''}</div>
     </div></details>`;
 
   // 权威白话译注指引：移到目录之后并默认收起
   const refsInner = classicsRefHtml(id, true);
   const refsAccordion = refsInner
-    ? `<details class="refs-acc"><summary>📖 白话译注指引</summary><div class="acc-body">${refsInner}</div></details>`
+    ? `<details class="refs-acc"><summary>哪里能读白话译注？</summary><div class="acc-body">${refsInner}</div></details>`
     : '';
 
   el('app').innerHTML = `
@@ -1263,9 +1183,7 @@ async function renderBook(id, renderToken) {
         <div class="book-detail-meta">
           <span class="meta-chip">📅 ${esc(book.dynasty || '')}</span>
           <span class="meta-chip">✍ ${esc(book.author || '')}</span>
-          ${hasAlias ? '<span class="meta-chip warning">⚠ 托名/存疑</span>' : ''}
-          ${book.hasAnnotated ? '<span class="meta-chip annot">✦ 逐句译注</span>' : ''}
-          <span class="meta-chip">📄 ${esc(book.licenseNote || '公有领域')}</span>
+          ${book.hasAnnotated ? '<span class="meta-chip annot">有白话译注</span>' : ''}
         </div>
         ${ringHtml}
         ${firstReadable ? `<button class="primary-read-btn"
@@ -1273,20 +1191,19 @@ async function renderBook(id, renderToken) {
         </div>
       </div>
 
-      ${chapters.length ? `
-        <div class="section-title">篇章目录（${chapters.length}章${readableCh.length < chapters.length ? `，${readableCh.length}章有内容` : ''}）</div>
+      ${readableCh.length ? `
+        <div class="section-title">目录</div>
         <div class="chapter-list">
-          ${chapters.map((c, i) => {
+          ${readableCh.map((c, i) => {
             const label = c.label || c.title || c.id;
-            const pending = chapterIsPending(c);
-            return `<div class="chapter-row ${pending ? 'pending-chapter' : ''}"
+            return `<div class="chapter-row"
                 onclick="navigate('#/read/${id}/${encodeURIComponent(c.id)}')">
                 <span class="chapter-idx">${i + 1}</span>
                 <span class="chapter-main">
                   <span class="chapter-label">${esc(label)}</span>
                   <span class="chapter-prev">${esc(chapterPreview(c))}</span>
                 </span>
-                ${pending ? '<span class="chapter-tag">待补</span>' : '<span class="chapter-arrow">›</span>'}
+                <span class="chapter-arrow">›</span>
               </div>`;
           }).join('')}
         </div>` : (fragItems.length ? '' : `
@@ -1296,7 +1213,7 @@ async function renderBook(id, renderToken) {
         </div>`)}
 
       ${fragItems.length ? `
-        <div class="section-title">本书名句（${fragItems.length}条）</div>
+        <div class="section-title">书中选句</div>
         <div class="fragment-list">
           ${fragItems.map(({ f, i }) => {
             const mch = findChapterForFragment(f, chapters);
@@ -1314,32 +1231,15 @@ async function renderBook(id, renderToken) {
       ${metaAccordion}
       ${refsAccordion}
 
-      ${book.status === '待补' ? `
-        <div class="contribute-box">
-          <div class="contribute-title">📖 帮助完善此书</div>
-          <div class="contribute-body">此书原文尚未收录。如您能从
-            <a href="${esc(book.source)}" target="_blank" rel="noopener">${esc(book.sourceName || '维基文库')}</a>
-            或 <a href="https://ctext.org" target="_blank" rel="noopener">中国哲学书电子化计划（ctext.org）</a>
-            获取原文，欢迎通过 GitHub 提 issue 贡献。古文原文为公有领域，无版权障碍。
-          </div>
-          <a class="contribute-btn" href="https://github.com/shuaige121/sinan-app/issues/new?title=典籍阁-补录原文：${encodeURIComponent(book.title)}&body=书名：${encodeURIComponent(book.title)}%0A维基文库链接：${encodeURIComponent(book.source || '')}" target="_blank" rel="noopener">在 GitHub 提交补录请求 →</a>
-        </div>` : ''}
-
       ${renderRelatedBooks(book)}
-
-      <div class="license-footer">
-        ${book.sourceCC === 'CC-BY-SA'
-          ? `本页内容来自 <a href="${esc(book.source)}" target="_blank" rel="noopener">${esc(book.sourceName)}</a>，遵 CC-BY-SA 4.0，须同协议分享并注明来源。`
-          : '古籍原文属公有领域。'} 项目自有译文与注释欢迎有出处的校订。
-      </div>
     </div>`;
   window.scrollTo(0, 0);
 }
 
-// 同类推荐（同分类的其他书，最多4本，按字数排序取内容最丰富的）
+// 同类推荐（同分类的其他可读书，最多4本）
 function renderRelatedBooks(book) {
   const siblings = (State.registry.books || [])
-    .filter(b => b.id !== book.id && b.category === book.category)
+    .filter(b => b.id !== book.id && b.category === book.category && !isBookPending(b))
     .sort((a, b) => (b.charCount || 0) - (a.charCount || 0))
     .slice(0, 4);
   if (!siblings.length) return '';
@@ -1347,20 +1247,9 @@ function renderRelatedBooks(book) {
   return `
     <div class="section-title">同类典籍（${catLabel}）</div>
     <div class="related-books">
-      ${siblings.map(s => {
-        const statsStr = (() => {
-          const ch = s.chapterCount;
-          const cc = s.charCount;
-          if (!ch) return '';
-          if (!cc || cc < 50) return `${ch}章`;
-          if (cc >= 10000) return `${ch}章·${(cc / 10000).toFixed(1)}万字`;
-          return `${ch}章·${cc}字`;
-        })();
-        return `<div class="related-chip" onclick="navigate('#/book/${s.id}')">
+      ${siblings.map(s => `<div class="related-chip" onclick="navigate('#/book/${s.id}')">
           <span class="related-title">${esc(s.title)}</span>
-          ${statsStr ? `<span class="related-stats">${esc(statsStr)}</span>` : ''}
-        </div>`;
-      }).join('')}
+        </div>`).join('')}
     </div>`;
 }
 
@@ -1449,12 +1338,8 @@ function readerChrome(book, breadcrumb, bodyHtml, navHtml, markBtn, chapPos) {
 }
 
 function renderFragmentBody(book, label, fragments, chapterSource) {
-  const items = fragments.map((f, fi) => ({ f, fi }));
+  const items = fragments.map((f, fi) => ({ f, fi })).filter(({ f }) => f.text && f.text !== '【待补】');
   const renderer = ({ f, fi }) => {
-    if (f.text === '【待补】') {
-      return `<div class="passage-pending" id="frag-${fi}" data-lazy-key="${fi}"><span>【待补】</span>
-        ${chapterSource ? `<a href="${esc(chapterSource)}" target="_blank" rel="noopener">→ 维基文库原文</a>` : ''}</div>`;
-    }
     return `<div class="passage-block" id="frag-${fi}" data-lazy-key="${fi}">
       ${f.attribution ? `<div class="passage-attr">（${esc(f.attribution)}）</div>` : ''}
       <div class="passage-text">${esc(f.text)}</div>
@@ -1465,7 +1350,7 @@ function renderFragmentBody(book, label, fragments, chapterSource) {
 }
 
 function renderPlainBody(content) {
-  const raw = String(content || '（内容待补）');
+  const raw = String(content || '');
   const paragraphs = raw.split(/\n{2,}/).flatMap(part => {
     if (part.length <= 900) return [part];
     const chunks = [];
@@ -1480,7 +1365,7 @@ function renderPlainBody(content) {
 function renderChapterContent(book, chapters, idx, sent) {
   const chapter = chapters[idx];
   const label = chapter.label || chapter.title || chapter.id;
-  const fragments = chapter.fragments || [];
+  const fragments = (chapter.fragments || []).filter(f => f.text && f.text !== '【待补】');
   const hasFragments = fragments.length > 0;
 
   // 逐句白话译注（风水/堪舆/命理类深做章节）：原文句下挂白话，点句展开逐字/量化/来源
@@ -1507,13 +1392,12 @@ function renderChapterContent(book, chapters, idx, sent) {
   const jumpBar = hasFragments && fragments.length > 15
     ? `<div class="frag-jump-bar" id="frag-jump-bar">
         <span class="frag-jump-label">跳段：</span>
-        ${fragments.map((f, fi) => { const tip = (f.text && f.text !== '【待补】') ? esc(f.text.slice(0, 18)) : ''; return `<button class="frag-jump-btn" onclick="fragJump(${fi})"${tip ? ` title="${tip}"` : ''}>${fi + 1}</button>`; }).join('')}
+        ${fragments.map((f, fi) => `<button class="frag-jump-btn" onclick="fragJump(${fi})" title="${esc(f.text.slice(0, 18))}">${fi + 1}</button>`).join('')}
       </div>`
     : '';
 
   const bodyHtml = `<div class="chapter-heading">【${esc(label)}】</div>${annotHtml}${baiToggleBar}${jumpBar}${bodyInner}
-    <div class="passage-source">出处：${esc(book.title)}·${esc(label)}
-      ${book.sourceCC === 'CC-BY-SA' ? `／ 内容来自 <a href="${esc(book.source)}" target="_blank" rel="noopener">${esc(book.sourceName)}</a>，CC-BY-SA 4.0` : '（古籍原文，公有领域）'}</div>`;
+    <div class="passage-source">出处：${esc(book.title)}·${esc(label)}${book.sourceCC === 'CC-BY-SA' ? ` · <a href="${esc(book.source)}" target="_blank" rel="noopener">${esc(book.sourceName)}</a>` : ''}</div>`;
 
   // 上一/下一章（跳过纯待补章）
   const prev = prevReadable(chapters, idx);
@@ -1629,8 +1513,7 @@ function bindPassageLongPress() {
 function renderFragmentReader(book, f) {
   const bodyHtml = `<div class="chapter-heading">【${esc(f.ref)}】</div>
     <div class="passage-block"><div class="passage-text">${esc(f.text)}</div></div>
-    <div class="passage-source">出处：${esc(book.title)}·${esc(f.ref)} ／ 引文来源：${esc(f.source)}
-      ${book.sourceCC === 'CC-BY-SA' ? `／ ${esc(book.sourceName)}，CC-BY-SA 4.0` : '（公有领域）'}</div>`;
+    <div class="passage-source">出处：${esc(book.title)}·${esc(f.ref)}${f.source ? ` · ${esc(f.source)}` : ''}</div>`;
   const navHtml = `<div class="chapter-nav"><button class="chap-btn mid" onclick="navigate('#/book/${book.id}')">← 返回 ${esc(book.title)}</button></div>`;
   el('app').innerHTML = readerChrome(book, f.ref, bodyHtml, navHtml, '');
   bindReaderControls(book, null, -1);
@@ -1638,15 +1521,16 @@ function renderFragmentReader(book, f) {
 
 function prevReadable(chapters, idx) {
   for (let i = idx - 1; i >= 0; i--) if (!chapterIsPending(chapters[i])) return chapters[i];
-  return idx > 0 ? chapters[idx - 1] : null;
+  return null;
 }
 function nextReadable(chapters, idx) {
   for (let i = idx + 1; i < chapters.length; i++) if (!chapterIsPending(chapters[i])) return chapters[i];
-  return idx < chapters.length - 1 ? chapters[idx + 1] : null;
+  return null;
 }
 
 function renderDrawer(book, chapters, idx) {
-  const showSearch = chapters.length >= 6;
+  const readable = chapters.map((c, i) => ({ c, i })).filter(({ c }) => !chapterIsPending(c));
+  const showSearch = readable.length >= 6;
   return `
     <div class="drawer-mask" id="drawer-mask" onclick="closeDrawer()"></div>
     <div class="drawer" id="drawer">
@@ -1654,16 +1538,14 @@ function renderDrawer(book, chapters, idx) {
       ${showSearch ? `<input type="search" class="drawer-search" id="drawer-search"
         placeholder="搜章节…" oninput="filterDrawer(this.value)" autocomplete="off">` : ''}
       <div class="drawer-list" id="drawer-list">
-        ${chapters.map((c, i) => {
+        ${readable.map(({ c, i }, visibleIndex) => {
           const label = c.label || c.title || c.id;
-          const pending = chapterIsPending(c);
           const isRead = isChapterRead(book.id, c.id);
-          return `<button type="button" class="drawer-item ${i === idx ? 'current' : ''} ${pending ? 'pending' : ''}${isRead ? ' is-read' : ''}"
+          return `<button type="button" class="drawer-item ${i === idx ? 'current' : ''}${isRead ? ' is-read' : ''}"
             data-label="${esc(label.toLowerCase())}"
             onclick="closeDrawer();navigate('#/read/${book.id}/${encodeURIComponent(c.id)}')">
-            <span class="drawer-idx">${i + 1}</span><span>${esc(label)}</span>
-            ${isRead ? '<span class="drawer-read-mark" title="已读">✓</span>' : ''}
-            ${pending ? '<span class="chapter-tag">待补</span>' : ''}</button>`;
+            <span class="drawer-idx">${visibleIndex + 1}</span><span>${esc(label)}</span>
+            ${isRead ? '<span class="drawer-read-mark" title="已读">✓</span>' : ''}</button>`;
         }).join('')}
         <div class="drawer-no-result hidden" id="drawer-no-result">无匹配章节</div>
       </div>
@@ -1929,7 +1811,7 @@ function renderCitations() {
           <div class="cit-no-result" style="display:none">此分类无匹配引文</div>
         </div>`).join('')}
       <div class="cit-global-no-result" id="cit-no-result" style="display:none">无匹配引文</div>
-      <div class="license-footer">典籍引文属公有领域或已如实标注出处及许可证。欢迎指正原文、翻译、注释与定位，并请附可核查出处。</div>
+      <div class="license-footer">如发现原文或出处有误，欢迎反馈。</div>
     </div>`;
 
   const qEl = el('cit-q');

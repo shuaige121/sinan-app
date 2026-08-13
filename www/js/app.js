@@ -4847,7 +4847,7 @@
           if (roads.length === 0 && bldgs.length === 0) {
             swCt.innerHTML = '<div style="padding:14px;text-align:center">'
               + '<p style="color:var(--cinnabar);margin-bottom:8px">⚠️ 当地 OSM 数据稀疏，砂法/水法检测不可用</p>'
-              + '<p class="dim" style="font-size:11px">说明：OSM 中国建筑数据覆盖有限（约16%城市人口），该区域可能无数据</p></div>';
+              + '<p class="dim" style="font-size:11px">这片区域的地图资料不足，暂时无法判断。</p></div>';
             return;
           }
           swCt.innerHTML = '<p class="dim" style="text-align:center;padding:14px">🗺 正在采样地形高程…</p>';
@@ -6114,8 +6114,7 @@
         }
       } catch (e5) { /* 飞星计算失败静默省略 */ }
 
-      h += '<p class="dim" style="font-size:10px;margin-top:8px">'
-        + '标记在户型图画布上（户型图坐标）· 解锁户型时清除 · 可拖移重定位</p>';
+      h += '<p class="dim" style="font-size:10px;margin-top:8px">可拖动标记；解锁户型后标记会清除。</p>';
 
       panelCt.innerHTML = h;
       panel.classList.add('shown');
@@ -6269,7 +6268,7 @@
             // v2-P6: noData flag → OSM 该区域无道路/建筑数据（区别于"有数据但无形煞"）
             if (sha.noData) {
               h2 += '<div class="sha-item sha-weak">⚠️ 当地 OSM 数据稀疏，形煞检测不可用'
-                + '<br><span style="font-size:10px">说明：OSM 中国建筑数据覆盖有限（约16%城市人口），该区域可能无数据</span></div>';
+                + '<br><span style="font-size:10px">这片区域的地图资料不足，暂时无法判断。</span></div>';
             } else {
               h2 += '<div class="sha-item sha-clear">✦ 200m 半径内未检测到明显形煞</div>';
             }
@@ -6284,7 +6283,7 @@
               h2 += '</div>';
             });
           }
-          h2 += '<p class="dim" style="font-size:10px;margin-top:8px">⚠️ = 现代形煞名称（20世纪香港/台湾命名，无明清典籍直接依据）；其余标有古籍出处。<br>判据：道路/建筑几何关系；OSM 数据 © OpenStreetMap (ODbL)</p>';
+          h2 += '<p class="dim" style="font-size:10px;margin-top:8px">带 ⚠️ 的名称来自近现代说法，古籍里没有同名条目。判断依据是周边道路与建筑位置。</p>';
           shaCt2.innerHTML = h2;
         }
         // v2-P11: 形煞向格叠色 — 将检测结果同步到户型画布
@@ -6300,7 +6299,7 @@
           shaCt2.innerHTML = '<p class="dim" style="text-align:center;padding:10px">'
             + 'OSM 数据获取失败（当前网络可能无法访问地图数据服务，浏览器端可重试）<br>'
             + (e.message || '') + '<br>'
-            + '<span style="font-size:10px">说明：OSM 中国建筑数据覆盖有限（约16%城市人口），该区域可能无数据</span></p>';
+            + '<span style="font-size:10px">这片区域的地图资料不足，也可能是网络暂时不可用。</span></p>';
         }
         toast(tt('toast.sha_query_fail'));
       }
@@ -7453,26 +7452,24 @@
     const output = relationCards.find(card => card.key === 'output');
     const combine = relationCards.find(card => card.kind === 'combine');
     const clash = relationCards.find(card => card.kind === 'clash');
-    const kicker = en ? 'WHO YOU ARE · WHO ENTERS YOUR STORY' : '你是谁 · 谁走进你的故事';
-    // 第一次看到的人对常明城、对这些名字一无所知。人物出场前必须先交代这是什么，
-    // 否则八字结果页突然冒出一个虚构角色，读者只会觉得莫名其妙。
+    const kicker = en ? 'YOUR CHARACTER' : '你的天干人物';
     const worldIntro = en
-      ? `Changming is a fictional story we wrote for the ten heavenly stems — ten stems, ten people. Your Day Master is ${cap1(STEM_PY[selfStem] || selfStem)}, so ${cap1(STEM_PY[selfStem] || selfStem)} comes first. It is a story, not a fortune reading.`
-      : `常明城是我们给十个天干写的一个虚构故事——十个天干，十个人。你的日主是${selfStem}，所以先出现的是${selfStem}。这里讲故事，不讲吉凶。`;
+      ? `We made one fictional character for each heavenly stem. This is a story, not a prediction.`
+      : '十个天干各有一个虚构人物。这里讲人物故事，不作吉凶判断。';
     const plain = themeStem
       ? (en
         ? `${cap1(STEM_PY[displayStem] || displayStem)} is your chosen theme character. Your Day Master remains ${cap1(STEM_PY[selfStem] || selfStem)}.`
-        : `你选择${displayStem}·${name}作为主题人物；命盘日主仍是${selfStem}。`)
+        : `你选了${displayStem}·${name}作为常用人物；你的日主仍是${selfStem}。`)
       : (en
         ? `Your story begins with Day Master ${cap1(STEM_PY[selfStem] || selfStem)}.`
-        : `你的命盘从日主${selfStem}出发，常明城也先从这里展开。`);
+        : `你的日主是${selfStem}，先从${selfStem}认识这个人物世界。`);
     const basis = guide.balanced
       ? (en
         ? 'The five phases are close, so no single phase is shown as the lower pair.'
-        : '五行相近，没有单独出现的较少五行人物。')
+        : '五行分布接近，所以没有单独推荐哪一行。')
       : (en
         ? `${elEN(guide.element)} is relatively lower, so both ${pairEn.join(' and ')} appear: the Yang and Yin faces of the same phase.`
-        : `${guide.element}相对较少，所以同属${guide.element}的${pairZh.join('、')}一起出现：一位是阳${guide.element}，一位是阴${guide.element}。`);
+        : `你的五行里${guide.element}相对少，所以同时推荐${pairZh.join('、')}；他们分别代表阳${guide.element}和阴${guide.element}。`);
     const alt = en ? `${stem}, ${name}, ${role}, in Changming City` : `${stem}·${name}·${role}在常明城中的完整场景`;
     const archHex = C.EL_HEX[a.element] || '#c9a227';
     const archNum = parseInt(archHex.slice(1), 16);
@@ -7496,26 +7493,26 @@
     const castCards = [
       sceneCard({
         kind: 'weak',
-        label: guide.balanced ? (en ? 'PHASES EVEN' : '五行接近') : (en ? `LOWEST · ${elEN(guide.element)}` : `较少 · ${guide.element}`),
-        title: guide.balanced ? (en ? 'No single missing-phase cast' : '没有单独缺口') : weakNames,
-        note: guide.balanced ? (en ? 'Begin with your Day Master' : '先从日主认识自己') : (en ? 'Both polarities appear together' : '两位同行人物一起出现'),
+        label: guide.balanced ? (en ? 'EVENLY SPREAD' : '五行分布接近') : (en ? `LOWEST · ${elEN(guide.element)}` : `${guide.element}相对少`),
+        title: guide.balanced ? (en ? 'Start with your Day Master' : `先看${selfStem}`) : weakNames,
+        note: guide.balanced ? (en ? 'No single phase stands out as lowest' : '没有哪一行明显更少') : (en ? 'Yang and Yin together' : `阳${guide.element}和阴${guide.element}`),
         asset: guide.balanced ? self.heroScene : weakScene,
         openStem: guide.balanced ? selfStem : pairZh[0],
         focus: guide.balanced ? self.heroFocus : '50% 50%'
       }),
       output && sceneCard({
-        kind: 'output', label: en ? 'I GENERATE · OUTPUT' : '我生 · 食神 / 伤官', title: outputNames,
-        note: en ? 'Two forms of what you give outward' : '同一份输出的两种表达',
+        kind: 'output', label: en ? 'WHAT YOU CREATE' : '你会带动的人', title: outputNames,
+        note: en ? 'Two ways your energy moves outward' : '看你会怎样影响他们',
         asset: outputScene, openStem: selfStem
       }),
       combine && combinePerson && sceneCard({
         kind: 'combine', label: combine.label, title: `${combine.related} · ${combine.title}`,
-        note: en ? 'Opposing motions interlock' : '相反动作互锁，形成第三种状态',
+        note: en ? 'Two people create a third state' : '看两个人合作后会发生什么',
         asset: combine.scene || combinePerson.heroScene, openStem: selfStem, focus: combine.scene ? '50% 50%' : combinePerson.heroFocus
       }),
       clash && clashPerson && sceneCard({
         kind: 'clash', label: clash.label, title: `${clash.related} · ${clash.title}`,
-        note: en ? 'A face-off without a villain' : '正面对冲，但没有固定反派',
+        note: en ? 'A face-off without a villain' : '看两个人正面交锋',
         asset: clash.scene || clashPerson.heroScene, openStem: selfStem, focus: clash.scene ? '50% 50%' : clashPerson.heroFocus
       })
     ].filter(Boolean).join('');
@@ -7534,12 +7531,12 @@
         <div class="bazi-arch-tags">${tags.map(tag => `<span>${escapeHtml(tag)}</span>`).join('')}</div>
         <p class="bazi-arch-plain">${escapeHtml(plain)}</p>
         <p class="bazi-arch-desc">${escapeHtml(desc)}</p>
-        <button type="button" class="bazi-arch-enter" data-changming-open data-stem="${escapeHtml(displayStem)}"><span>${en ? `Enter Changming with ${cap1(STEM_PY[displayStem] || displayStem)}` : `从${displayStem}开始，进入常明城`}</span><b aria-hidden="true">↗</b></button>
+        <button type="button" class="bazi-arch-enter" data-changming-open data-stem="${escapeHtml(displayStem)}"><span>${en ? `Read ${cap1(STEM_PY[displayStem] || displayStem)}'s story` : `看${displayStem}的故事`}</span><b aria-hidden="true">↗</b></button>
         </div>
       </article>
-      <div class="bazi-cast-heading"><span>${en ? 'PEOPLE IN YOUR STORY' : '走进你故事里的人'}</span><p>${en ? 'Your Day Master, the lower phase pair, what you generate, combination, and clash.' : '从你的日主出发，看看较少的五行、你所生、与你合与冲的人。'}</p></div>
+      <div class="bazi-cast-heading"><span>${en ? 'RELATED CHARACTERS' : '和你有关的人物'}</span><p>${en ? 'See who your chart points to and what happens between them.' : '看你的五行还会带出哪些人物，以及他们之间会发生什么。'}</p></div>
       <div class="bazi-cast-grid">${castCards}</div>
-      <details class="bazi-arch-basis"><summary>${en ? 'Why do these people appear?' : '为什么是这些人？'}</summary><p>${escapeHtml(basis)}</p></details>`;
+      <details class="bazi-arch-basis"><summary>${en ? 'Why this recommendation?' : '为什么推荐他们？'}</summary><p>${escapeHtml(basis)}</p></details>`;
     host.hidden = false;
     setCharacterImageState(host.querySelector('.bazi-persona-art'), host);
     requestAnimationFrame(() => {
@@ -7556,7 +7553,7 @@
     const en = isEN();
     const isTheme = guideStem !== c.dm;
     const label = isTheme
-      ? (en ? `YOUR THEME · DAY MASTER ${cap1(STEM_PY[c.dm] || c.dm)}` : `你的主题人物 · 日主仍是${c.dm}`)
+      ? (en ? `YOUR THEME · DAY MASTER ${cap1(STEM_PY[c.dm] || c.dm)}` : `你常看的角色 · 日主仍是${c.dm}`)
       : (en ? 'YOUR DAY MASTER · A LIFE IN PROGRESS' : '你的日主 · 人物小传');
     const headings = en
       // 小标题要让人一眼知道这段在讲什么。别用「高光/伤疤」这类字段名直译——中文里没人这么说话。
@@ -7609,11 +7606,11 @@
     const title = en ? 'Stories between you and the other nine' : '你与另外九人的故事';
     const sub = en
       ? 'Every relation is a shared event between two or three characters. Open one to see how they change each other.'
-      : '每一种关系，都是两个人或三个人共同经历的一件事。点开看看他们怎样彼此改变。';
+      : '点一个关系，看他们共同经历的故事。';
     host.innerHTML = `<div class="card character-relations-card">
-      <span class="seal">${en ? 'FIVE-PHASE RELATION MAP' : '五行关系图谱'}</span>
+      <span class="seal">${en ? 'CHARACTER STORIES' : '人物关系'}</span>
       <h3>${escapeHtml(title)}</h3><p class="dim">${escapeHtml(sub)}</p>
-      <button type="button" class="character-world-link is-compact relation-city-entry" data-changming-open data-stem="${escapeHtml(c.dm)}" data-cm-view="relations"><span>${en ? 'Browse every relation in Changming' : '进入常明城 · 看全城关系'}</span><b aria-hidden="true">↗</b></button>
+      <button type="button" class="character-world-link is-compact relation-city-entry" data-changming-open data-stem="${escapeHtml(c.dm)}" data-cm-view="relations"><span>${en ? 'See every character pairing' : '看任意人物之间的关系'}</span><b aria-hidden="true">↗</b></button>
       <div class="character-relation-tabs" role="tablist">${cards.map((card, index) => `<button type="button" role="tab" aria-selected="${index === 0}" class="${index === 0 ? 'active' : ''}" data-index="${index}">${escapeHtml(card.label)}</button>`).join('')}</div>
       <div class="character-relation-panel" role="tabpanel" aria-live="polite"></div>
     </div>`;

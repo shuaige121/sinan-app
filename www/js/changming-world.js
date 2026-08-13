@@ -135,11 +135,11 @@
       const current = stem === activeStem;
       const name = itemText(item, 'name');
       const note = isDayMaster && isTheme
-        ? text('我的日主 · 主题人物', 'My Day Master · Theme')
+        ? text('我的日主 · 常用人物', 'My Day Master · Theme')
         : (isDayMaster
           ? text('我的日主', 'My Day Master')
           : (isTheme
-            ? text('我的主题人物', 'My Theme Character')
+            ? text('我的常用人物', 'My Theme Character')
         : ((isGuide && !state.guideBalanced)
           ? text(`较少的${item.element} · ${state.guideStems.join('、')}`, `Lower ${ELEMENT_EN[item.element]} · ${state.guideStems.join(' / ')}`)
           : itemText(item, 'role'))));
@@ -209,23 +209,23 @@
     const tags = en() ? item.tagsEn : item.tagsZh;
     const relationCards = Characters.relationCards(state.activeStem, en() ? 'en' : 'zh');
     const balanceLead = profile.balanced
-      ? text('你的五行分得很匀，所以这里整体偏白。', 'Your five phases are evenly matched, so the city reads close to white.')
-      : text(`你盘里${primary}和${secondary}最多，所以这里主要是这两个颜色。`, `Your chart has the most ${ELEMENT_EN[primary]} and ${ELEMENT_EN[secondary]}, so those two colors lead here.`);
+      ? text('你的五行分布接近。', 'Your five phases are evenly matched.')
+      : text(`你的五行里${primary}和${secondary}相对多。`, `Your chart has the most ${ELEMENT_EN[primary]} and ${ELEMENT_EN[secondary]}.`);
     const sourceLine = state.chart
       ? text('这些比例来自你排的盘。', 'These proportions come from the chart you cast.')
       : text('你还没排过盘，先按五行等量显示。', 'You have not cast a chart yet, so all five are shown equal.');
     const enterLabel = isDayMaster && isTheme
-      ? text('你的日主 · 也是你的主题人物', 'Your Day Master · also your theme character')
+      ? text('你的日主 · 也是常用人物', 'Your Day Master · also your theme character')
       : (isTheme
-        ? text(`你的主题人物 · 日主仍是${state.dayMasterStem || '未定'}`, `Your theme character · Day Master ${state.dayMasterStem || 'not set'}`)
+        ? text(`你的常用人物 · 日主仍是${state.dayMasterStem || '未定'}`, `Your theme character · Day Master ${state.dayMasterStem || 'not set'}`)
         : (isDayMaster
           ? text('这是你的日主', 'Your Day Master')
           : (isGuide && !state.guideBalanced
             ? text(`你盘里较少的${item.element} · ${state.guideStems.join('、')}一起出现`, `Lower ${ELEMENT_EN[item.element]} · both stems appear together`)
             : text('正在看他和其他人的关系', 'Viewing this character’s connections'))));
     const themeAction = isTheme
-      ? `<button type="button" class="cm-theme-button is-current" data-cm-theme-reset>${text('主题跟随日主', 'Theme follows Day Master')}</button>`
-      : `<button type="button" class="cm-theme-button" data-cm-theme="${esc(state.activeStem)}">${text(`设${state.activeStem}为主题人物`, `Set ${state.activeStem} as theme`)}</button>`;
+      ? `<button type="button" class="cm-theme-button is-current" data-cm-theme-reset>${text('现在默认显示他', 'Theme follows Day Master')}</button>`
+      : `<button type="button" class="cm-theme-button" data-cm-theme="${esc(state.activeStem)}">${text(`以后默认显示${state.activeStem}`, `Set ${state.activeStem} as theme`)}</button>`;
     const fireCycle = item.element === '火' ? `<figure class="cm-fire-cycle">
       <img src="img/ten-archetypes/human/v8/scenes/fire-cycle-v1.webp" alt="${esc(text('忘归向外展开晨光，西窗在明暗交界护住火种', 'Wanggui opens into daylight while Xichuang protects the ember at its edge'))}" loading="lazy" decoding="async">
       <figcaption><b>${text('凤凰与卵', 'Phoenix and Egg')}</b><span>${text('同一股火，一边向外给予，一边把未来收拢；院外晨光正在展开，掌心微光仍未熄灭。', 'One fire gives outward while the other encloses the future; dawn opens outside while the ember remains lit within her hands.')}</span></figcaption>
@@ -245,11 +245,11 @@
           <h1><b>${esc(state.activeStem)}</b>${esc(name)}</h1>
           <p class="cm-role">${esc(polarity + item.element + ' · ' + role)}</p>
           <div class="cm-tags">${tags.map(tag => `<span>${esc(tag)}</span>`).join('')}</div>
-          <p class="cm-worldnote">${text('常明城是一座虚构的城，住着十个天干各自的人物。以下都是故事，不是命理断语。', 'Changming is a fictional city inhabited by one character per heavenly stem. What follows is a story, not a reading.')}</p>
+          <p class="cm-worldnote">${text('十个天干，十个虚构人物。以下是故事，不作吉凶判断。', 'Ten heavenly stems, ten fictional characters. What follows is a story, not a reading.')}</p>
           <p class="cm-intro">${esc(itemText(item, 'desc'))}</p>
           <div class="cm-theme-actions">${themeAction}</div>
         </div>
-        <button type="button" class="cm-scroll-cue" data-cm-scroll="balance">${text('往下看 · 你的五行', 'Continue · Your five phases')}</button>
+        <button type="button" class="cm-scroll-cue" data-cm-scroll="balance">${text('看我的五行', 'See my five phases')}</button>
       </section>
 
       <section class="cm-section cm-balance" id="cm-balance">
@@ -268,15 +268,14 @@
 
       <section class="cm-section cm-relations" id="cm-relations-browser">
         <div class="cm-section-head"><span>03</span><div><small>${text('十个人的关系', 'THE TEN')}</small><h2>${text('点开任意一个人，看他和谁互相影响', 'Open anyone and see who affects whom')}</h2></div></div>
-        <p class="cm-cast-intro">${text('先选人物，再点同类、生、制、合或冲。这里可以看任意两人、三人的故事，不限于你的日主。', 'Choose a character, then open kin, generation, control, combination, or clash. These stories are open across the whole cast.')}</p>
         <div class="cm-cast-rail is-relations">${castMarkup(state.activeStem)}</div>
         <div class="cm-relation-tabs" role="tablist">${relationCards.map((card, index) => `<button type="button" role="tab" aria-selected="${index === 0}" class="${index === 0 ? 'is-active' : ''}" data-cm-rel="${index}">${esc(card.label)}</button>`).join('')}</div>
         <div id="cm-relation-panel" class="cm-relation-panel" role="tabpanel" aria-live="polite"></div>
       </section>
 
       <section class="cm-section cm-cast">
-        <div class="cm-section-head"><span>04</span><div><small>${text('主题人物', 'THEME CHARACTER')}</small><h2>${text('选一个人，让他一直陪着你用司南', 'Pick one to stay with you across Sinan')}</h2></div></div>
-        <p class="cm-cast-intro">${text('主题人物会出现在首页人物卡、今日小传和常明城默认入口；你的日主与关系计算不会因此改变。', 'Your theme appears on the home character card, daily story, and default Changming entry. Your Day Master and relation structure stay unchanged.')}</p>
+        <div class="cm-section-head"><span>04</span><div><small>${text('默认人物', 'THEME CHARACTER')}</small><h2>${text('以后先显示谁？', 'Pick one to stay with you across Sinan')}</h2></div></div>
+        <p class="cm-cast-intro">${text('设好后，首页和常明城会先显示这个人。不会改变你的命盘。', 'Your theme appears first across Sinan. It does not change your chart.')}</p>
         <div class="cm-theme-picker"><b>${esc(state.activeStem + '·' + name)}</b>${themeAction}</div>
       </section>`;
 
