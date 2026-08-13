@@ -964,6 +964,17 @@ input[type=radio], input[type=checkbox] { accent-color: var(--gold); }
 .character-story-beat.is-open::before { background: linear-gradient(var(--gold), transparent); }
 .character-story-beat span { color: var(--gold-soft); font-size: 11px; letter-spacing: .1em; }
 .character-story-beat p { margin: 6px 0 0; color: var(--paper); font-size: 13px; line-height: 1.75; }
+.character-reader-story {
+  position: relative; margin-top: 16px; padding: 19px 18px 20px; overflow: hidden;
+  border: .7px solid rgba(201,162,39,.18); border-radius: 12px;
+  background: linear-gradient(145deg, rgba(201,162,39,.075), rgba(255,255,255,.012) 58%);
+}
+.character-reader-story::before {
+  content: ''; position: absolute; left: 0; top: 18px; bottom: 18px; width: 2px;
+  background: var(--gold); box-shadow: 0 0 14px rgba(201,162,39,.35);
+}
+.character-reader-story h4 { margin: 0; color: var(--gold-soft); font: 500 17px/1.45 serif; letter-spacing: .035em; }
+.character-reader-story p { margin: 10px 0 0; color: var(--paper); font-size: 13px; line-height: 1.9; }
 .character-story-comic { margin: 18px -18px -18px; border-top: .7px solid rgba(201,162,39,.2); background: #d8ccb1; }
 .character-story-comic figcaption {
   display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px;
@@ -972,6 +983,96 @@ input[type=radio], input[type=checkbox] { accent-color: var(--gold); }
 .character-story-comic figcaption span { color: var(--paper-dim); font-size: 10px; letter-spacing: .11em; }
 .character-story-comic figcaption b { color: var(--gold-soft); font-size: 13px; font-weight: 500; }
 .character-story-comic img { display: block; width: 100%; height: auto; background: #d8ccb1; }
+
+/* 八个字翻成八个人物：关系效果由命盘实时合成，不预烘焙成海量生日图片。 */
+.bazi-chart-cast { margin-top: 18px; }
+.bazi-chart-cast > .bazi-cast-heading { margin-top: 0; }
+.bazi-ensemble {
+  position: relative; height: 270px; margin-top: 10px; overflow: hidden; border: .7px solid rgba(201,162,39,.18); border-radius: 15px 15px 5px 5px;
+  background: linear-gradient(180deg, #121719, #080b0c 73%); isolation: isolate;
+}
+.bazi-ensemble-sky {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse at 50% 82%, rgba(var(--arch-rgb,201,162,39),.2), transparent 40%),
+    linear-gradient(110deg, transparent 15%, rgba(255,255,255,.025) 16%, transparent 17% 42%, rgba(255,255,255,.018) 43%, transparent 44%),
+    repeating-linear-gradient(90deg, transparent 0 47px, rgba(201,162,39,.025) 48px, transparent 49px 88px);
+}
+.bazi-ensemble-ground { position: absolute; z-index: 4; left: 4%; right: 4%; bottom: 3%; height: 21%; border-radius: 50%; background: radial-gradient(ellipse, rgba(var(--arch-rgb,201,162,39),.16), transparent 67%); filter: blur(7px); }
+.bazi-ensemble-lines { position: absolute; z-index: 1; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.bazi-ensemble-lines line { vector-effect: non-scaling-stroke; stroke: rgba(225,211,176,.24); stroke-width: .8; stroke-dasharray: 2 4; animation: ensembleLine 5s linear infinite; }
+.bazi-ensemble-lines line.is-output { stroke: rgba(217,122,55,.48); }
+.bazi-ensemble-lines line.is-source { stroke: rgba(73,138,186,.5); }
+.bazi-ensemble-lines line.is-control { stroke: rgba(185,162,90,.5); }
+.bazi-ensemble-lines line.is-pressure { stroke: rgba(190,82,64,.48); }
+.bazi-ensemble-lines line.is-combine { stroke: rgba(235,197,85,.8); stroke-width: 1.35; filter: drop-shadow(0 0 3px rgba(235,197,85,.7)); }
+.bazi-ensemble-lines line.is-clash { stroke: rgba(237,92,70,.8); stroke-width: 1.2; stroke-dasharray: 7 3; filter: drop-shadow(0 0 3px rgba(237,92,70,.55)); }
+.bazi-ensemble-person { position: absolute; z-index: var(--z); left: var(--x); top: var(--y); width: 20%; height: 73%; margin: 0; transform: scale(var(--scale)); transform-origin: 50% 100%; }
+.bazi-ensemble-person img { width: 100%; height: 100%; object-fit: contain; object-position: 50% 100%; filter: saturate(.75) brightness(.72) drop-shadow(0 10px 9px rgba(0,0,0,.7)); }
+.bazi-ensemble-person figcaption { position: absolute; left: 50%; bottom: -1px; transform: translateX(-50%); padding: 2px 5px; border: .7px solid rgba(225,211,176,.2); border-radius: 99px; background: rgba(5,8,9,.78); color: rgba(239,232,213,.66); font-size: 7px; white-space: nowrap; }
+.bazi-ensemble-person.is-self { filter: drop-shadow(0 0 9px rgba(201,162,39,.4)); }
+.bazi-ensemble-person.is-self img { filter: saturate(.95) brightness(.94) drop-shadow(0 12px 12px rgba(0,0,0,.75)); }
+.bazi-ensemble-person.is-self figcaption { border-color: var(--gold); color: var(--gold-soft); font-size: 8px; }
+@keyframes ensembleLine { to { stroke-dashoffset: -24; } }
+.bazi-chart-stage {
+  position: relative; margin-top: 7px; padding: 12px; overflow: hidden; border: .7px solid rgba(201,162,39,.18); border-radius: 5px 5px 15px 15px;
+  background: radial-gradient(circle at 50% 52%, rgba(var(--arch-rgb, 201,162,39),.13), transparent 35%), rgba(5,8,10,.4);
+}
+.bazi-chart-field {
+  position: absolute; inset: 12% 5%; opacity: .28; pointer-events: none;
+  background: conic-gradient(from 45deg at 50% 50%, transparent, rgba(var(--arch-rgb,201,162,39),.24), transparent 22%, rgba(255,255,255,.08), transparent 45%);
+  filter: blur(12px); animation: chartFieldTurn 22s linear infinite;
+}
+.bazi-chart-grid { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 8px; }
+.bazi-chart-person {
+  position: relative; min-width: 0; padding: 0; overflow: hidden; border: .7px solid color-mix(in srgb, var(--person-color) 44%, transparent); border-radius: 11px;
+  background: #0b0f11; color: inherit; text-align: left; cursor: pointer; isolation: isolate;
+}
+.bazi-chart-position { display: block; position: absolute; z-index: 4; top: 7px; left: 8px; color: rgba(245,238,221,.76); font-size: 8px; letter-spacing: .05em; text-shadow: 0 1px 5px #000; }
+.bazi-chart-portrait { display: block; position: relative; height: 132px; overflow: hidden; }
+.bazi-chart-portrait::after { content: ''; position: absolute; z-index: 2; inset: 0; background: linear-gradient(180deg, transparent 60%, #0b0f11 99%); }
+.bazi-chart-portrait::before {
+  content: ''; position: absolute; z-index: 0; inset: 18% 8% 3%; border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--person-color) 24%, transparent), transparent 67%);
+  filter: blur(7px);
+}
+.bazi-chart-portrait img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: contain; object-position: 50% 100%; filter: saturate(.82) brightness(.82) drop-shadow(0 8px 8px rgba(0,0,0,.55)); transition: transform .35s var(--ease), filter .35s; }
+.bazi-chart-person:hover .bazi-chart-portrait img, .bazi-chart-person:focus-visible .bazi-chart-portrait img { transform: scale(1.045); filter: saturate(.98) brightness(.92); }
+.bazi-chart-portrait i { position: absolute; z-index: 0; inset: 0; opacity: .52; pointer-events: none; }
+.bazi-chart-name { display: block; position: relative; z-index: 3; min-height: 54px; padding: 3px 8px 9px; }
+.bazi-chart-name b { display: block; overflow: hidden; color: var(--paper); font: 500 12px/1.35 serif; text-overflow: ellipsis; white-space: nowrap; }
+.bazi-chart-name small { display: block; margin-top: 4px; overflow: hidden; color: rgba(239,232,213,.52); font-size: 8px; line-height: 1.35; text-overflow: ellipsis; white-space: nowrap; }
+.bazi-chart-person > em { position: absolute; z-index: 5; top: 25px; right: 6px; padding: 3px 5px; border: .7px solid currentColor; border-radius: 99px; background: rgba(4,7,8,.7); color: #e9ca71; font: 600 8px/1 inherit; }
+.bazi-chart-person.is-self { border-color: var(--gold); box-shadow: inset 0 0 0 1px rgba(201,162,39,.22), 0 0 18px rgba(201,162,39,.14); }
+.bazi-chart-person.is-self .bazi-chart-portrait i { background: radial-gradient(circle at 50% 50%, transparent 20%, rgba(201,162,39,.16) 45%, transparent 70%); animation: chartSelfPulse 2.8s ease-in-out infinite; }
+.bazi-chart-person.is-peer:not(.is-self) .bazi-chart-portrait i { box-shadow: inset 0 0 18px color-mix(in srgb, var(--person-color) 35%, transparent); animation: chartPeerBreathe 3.8s ease-in-out infinite; }
+.bazi-chart-person.is-output .bazi-chart-portrait i { background: linear-gradient(125deg, transparent 25%, color-mix(in srgb, var(--person-color) 38%, transparent) 49%, transparent 52%); background-size: 230% 100%; animation: chartFlowOut 3.2s ease-in-out infinite; }
+.bazi-chart-person.is-source .bazi-chart-portrait i { background: linear-gradient(0deg, color-mix(in srgb, var(--person-color) 38%, transparent), transparent 58%); animation: chartRise 3s ease-in-out infinite; }
+.bazi-chart-person.is-control .bazi-chart-portrait i { inset: 12px; border: 1px solid color-mix(in srgb, var(--person-color) 50%, transparent); border-radius: 50%; animation: chartRing 3.6s ease-in-out infinite; }
+.bazi-chart-person.is-pressure .bazi-chart-portrait i { background: repeating-linear-gradient(135deg, transparent 0 18px, color-mix(in srgb, var(--person-color) 24%, transparent) 20px, transparent 22px 38px); animation: chartPressure 5s linear infinite; }
+.bazi-chart-person.is-combine::after { content: ''; position: absolute; z-index: 2; inset: 0; border-radius: inherit; box-shadow: inset 0 0 22px rgba(225,193,100,.2); animation: chartCombine 2.6s ease-in-out infinite; pointer-events: none; }
+.bazi-chart-person.is-clash::before { content: ''; position: absolute; z-index: 2; top: -18%; left: 50%; width: 1px; height: 78%; opacity: .46; background: rgba(238,102,78,.7); box-shadow: 0 0 10px rgba(238,102,78,.55); transform: rotate(36deg); animation: chartClash 2.2s ease-in-out infinite; pointer-events: none; }
+@keyframes chartFieldTurn { to { transform: rotate(1turn) scale(1.08); } }
+@keyframes chartSelfPulse { 50% { opacity: .42; transform: scale(.88); } }
+@keyframes chartPeerBreathe { 50% { opacity: .45; box-shadow: inset 0 0 28px color-mix(in srgb, var(--person-color) 50%, transparent); } }
+@keyframes chartFlowOut { 50%,100% { background-position: -130% 0; } }
+@keyframes chartRise { 50% { opacity: .46; transform: translateY(-7px); } }
+@keyframes chartRing { 50% { opacity: .35; transform: scale(.82); } }
+@keyframes chartPressure { to { background-position: 54px 0; } }
+@keyframes chartCombine { 50% { opacity: .4; } }
+@keyframes chartClash { 50% { opacity: .28; transform: rotate(36deg) scaleY(.72); } }
+@media (prefers-reduced-motion: reduce) {
+  .bazi-chart-field, .bazi-chart-portrait i, .bazi-chart-person::before, .bazi-chart-person::after, .bazi-ensemble-lines line { animation: none !important; }
+}
+@media (max-width: 410px) {
+  .bazi-ensemble { height: 235px; }
+  .bazi-chart-stage { padding: 8px; }
+  .bazi-chart-grid { gap: 6px; }
+  .bazi-chart-portrait { height: 112px; }
+  .bazi-chart-position { font-size: 7px; }
+  .bazi-chart-name { min-height: 51px; padding-inline: 6px; }
+  .bazi-chart-name b { font-size: 11px; }
+}
 
 .character-relations-card h3 { margin: 8px 0 5px; color: var(--paper); font-size: 20px; line-height: 1.4; }
 .character-relations-card > .dim { margin: 0; font-size: 12px; line-height: 1.65; }
@@ -3163,6 +3264,16 @@ body.changming-open { overflow: hidden; }
 .cm-story-line.is-now::before { background: linear-gradient(var(--cm-secondary), transparent); }
 .cm-story-line span { color: #d9bd63; font-size: 10px; letter-spacing: .14em; }
 .cm-story-line p { margin: 7px 0 0; color: rgba(239,232,213,.86); font-size: 14px; line-height: 1.8; }
+.cm-reader-story {
+  position: relative; margin-left: 39px; padding: 22px 24px; overflow: hidden;
+  border: .7px solid rgba(235,222,194,.14); border-radius: 14px;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--cm-character) 10%, transparent), rgba(255,255,255,.016) 58%);
+}
+.cm-reader-story::before {
+  content: ''; position: absolute; left: 0; top: 19px; bottom: 19px; width: 2px;
+  background: var(--cm-character); box-shadow: 0 0 16px color-mix(in srgb, var(--cm-character) 40%, transparent);
+}
+.cm-reader-story p { margin: 0; color: rgba(239,232,213,.9); font-size: 15px; line-height: 1.95; }
 .cm-fire-cycle { margin: 28px 0 0 39px; overflow: hidden; border: .7px solid rgba(235,222,194,.15); border-radius: 14px; background: #0d1012; }
 .cm-fire-cycle img { display: block; width: 100%; aspect-ratio: 16/9; object-fit: cover; filter: saturate(.82) brightness(.84); }
 .cm-fire-cycle figcaption { display: flex; align-items: baseline; gap: 13px; padding: 14px 16px; }
@@ -3252,7 +3363,7 @@ body.changming-open { overflow: hidden; }
   .cm-tags { margin-top: 11px; }
   .cm-scroll-cue { bottom: 10px; opacity: .72; }
   .cm-section { width: calc(100% - 30px); padding: 60px 0; }
-  .cm-section-lead, .cm-cast-intro, .cm-balance-bars, .cm-story-line, .cm-fire-cycle, .cm-relation-tabs, .cm-relation-panel, .cm-cast-rail, .cm-theme-picker { margin-left: 0; }
+  .cm-section-lead, .cm-cast-intro, .cm-balance-bars, .cm-story-line, .cm-reader-story, .cm-fire-cycle, .cm-relation-tabs, .cm-relation-panel, .cm-cast-rail, .cm-theme-picker { margin-left: 0; }
   .cm-relation-scene { height: 260px; }
   .cm-relation-people { gap: 7px; padding: 18px 10px 0; }
   .cm-relation-person { flex-basis: 38%; }

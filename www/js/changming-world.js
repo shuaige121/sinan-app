@@ -222,15 +222,10 @@
           ? text('这是你的日主', 'Your Day Master')
           : (isGuide && !state.guideBalanced
             ? text(`你盘里较少的${item.element} · ${state.guideStems.join('、')}一起出现`, `Lower ${ELEMENT_EN[item.element]} · both stems appear together`)
-            : text('正在看他和其他人的关系', 'Viewing this character’s connections'))));
+            : text('正在看这个人物与其他人的关系', 'Viewing this character’s connections'))));
     const themeAction = isTheme
-      ? `<button type="button" class="cm-theme-button is-current" data-cm-theme-reset>${text('现在默认显示他', 'Theme follows Day Master')}</button>`
+      ? `<button type="button" class="cm-theme-button is-current" data-cm-theme-reset>${text('当前默认人物', 'Current theme character')}</button>`
       : `<button type="button" class="cm-theme-button" data-cm-theme="${esc(state.activeStem)}">${text(`以后默认显示${state.activeStem}`, `Set ${state.activeStem} as theme`)}</button>`;
-    const fireCycle = item.element === '火' ? `<figure class="cm-fire-cycle">
-      <img src="img/ten-archetypes/human/v8/scenes/fire-cycle-v1.webp" alt="${esc(text('忘归向外展开晨光，西窗在明暗交界护住火种', 'Wanggui opens into daylight while Xichuang protects the ember at its edge'))}" loading="lazy" decoding="async">
-      <figcaption><b>${text('凤凰与卵', 'Phoenix and Egg')}</b><span>${text('同一股火，一边向外给予，一边把未来收拢；院外晨光正在展开，掌心微光仍未熄灭。', 'One fire gives outward while the other encloses the future; dawn opens outside while the ember remains lit within her hands.')}</span></figcaption>
-    </figure>` : '';
-
     root.style.setProperty('--cm-primary', primaryHex);
     root.style.setProperty('--cm-secondary', secondaryHex);
     root.style.setProperty('--cm-character', ELEMENT_HEX[item.element] || primaryHex);
@@ -259,15 +254,12 @@
       </section>
 
       <section class="cm-section cm-biography">
-        <div class="cm-section-head"><span>02</span><div><small>${text('人物志', 'CHARACTER RECORD')}</small><h2>${esc(state.activeStem + '·' + name)}</h2></div></div>
-        <div class="cm-story-line is-scar"><span>${text('心里过不去的一件事', 'Never said out loud')}</span><p>${esc(itemText(item, 'scar'))}</p></div>
-        <div class="cm-story-line is-highlight"><span>${text('做得最漂亮的一次', 'Got it right')}</span><p>${esc(itemText(item, 'highlight'))}</p></div>
-        <div class="cm-story-line is-now"><span>${text('现在还没有答案', 'No answer yet')}</span><p>${esc(itemText(item, 'ongoing'))}</p></div>
-        ${fireCycle}
+        <div class="cm-section-head"><span>02</span><div><small>${text('写给你', 'FOR YOU')}</small><h2>${esc(itemText(item, 'readerTitle'))}</h2></div></div>
+        <article class="cm-reader-story"><p>${esc(itemText(item, 'readerStory'))}</p></article>
       </section>
 
       <section class="cm-section cm-relations" id="cm-relations-browser">
-        <div class="cm-section-head"><span>03</span><div><small>${text('十个人的关系', 'THE TEN')}</small><h2>${text('点开任意一个人，看他和谁互相影响', 'Open anyone and see who affects whom')}</h2></div></div>
+        <div class="cm-section-head"><span>03</span><div><small>${text('十个人的关系', 'THE TEN')}</small><h2>${text('点开任意一个人，看彼此如何影响', 'Open anyone and see who affects whom')}</h2></div></div>
         <div class="cm-cast-rail is-relations">${castMarkup(state.activeStem)}</div>
         <div class="cm-relation-tabs" role="tablist">${relationCards.map((card, index) => `<button type="button" role="tab" aria-selected="${index === 0}" class="${index === 0 ? 'is-active' : ''}" data-cm-rel="${index}">${esc(card.label)}</button>`).join('')}</div>
         <div id="cm-relation-panel" class="cm-relation-panel" role="tabpanel" aria-live="polite"></div>
@@ -297,7 +289,7 @@
     else if (keepScrollTop != null) { content.scrollTop = keepScrollTop; keepScrollTop = null; }
   }
 
-  function open(stem, view) {
+  function open(stem, view, targetStem) {
     if (!root || !content) return;
     const loaded = readChart();
     state.input = loaded.input;
@@ -311,6 +303,11 @@
     state.returnFocus = document.activeElement;
     resetScrollOnNextRender = true;   // 只有真的「进入」这一层才回到首屏
     render(stem || state.themeStem || state.dayMasterStem || state.guideStems[0] || '甲');
+    if (targetStem && targetStem !== state.activeStem) {
+      const targetIndex = Characters.relationCards(state.activeStem, en() ? 'en' : 'zh')
+        .findIndex(card => (card.relatedStems || []).includes(targetStem));
+      if (targetIndex >= 0) renderRelation(targetIndex);
+    }
     root.hidden = false;
     root.setAttribute('aria-hidden', 'false');
     document.body.classList.add('changming-open');
@@ -352,7 +349,11 @@
       const trigger = event.target.closest && event.target.closest('[data-changming-open]');
       if (trigger) {
         event.preventDefault();
-        open(trigger.getAttribute('data-stem') || undefined, trigger.getAttribute('data-cm-view') || undefined);
+        open(
+          trigger.getAttribute('data-stem') || undefined,
+          trigger.getAttribute('data-cm-view') || undefined,
+          trigger.getAttribute('data-cm-target') || undefined
+        );
         return;
       }
       const relation = event.target.closest && event.target.closest('[data-cm-rel]');

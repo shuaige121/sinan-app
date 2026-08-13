@@ -70,3 +70,4 @@ tmp/
 
 # ingest 运行痕迹，不入库
 www/dian/tools/.last-fetch.json
+.playwright-cli/
