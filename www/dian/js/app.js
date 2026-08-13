@@ -230,10 +230,24 @@ function applyBookTheme(book) {
   else root.style.removeProperty('--reader-bg');
   root.dataset.bookCategory = book.category || '';
 }
+// 220 本书共用 12 张门类插画，最多一张被 38 本共用，书架看下来像同一张图印了几十遍。
+// 逐本出图是美术工作；在那之前，按书 id 稳定取一个取景偏移，让每本显示插画的不同区域——
+// 不动颜色（古画调色容易失真），只改构图，卡片之间就有了辨识度。
+function coverFraming(book) {
+  if (!book || BOOK_COVERS_V2.has(book.id)) return '';   // 有定制封面的不动
+  let h = 2166136261;
+  const id = String(book.id || '');
+  for (let i = 0; i < id.length; i++) h = Math.imul(h ^ id.charCodeAt(i), 16777619);
+  h = Math.abs(h);
+  const x = 18 + (h % 65);                   // 18%~82% 横向取景
+  const y = 14 + ((h >>> 7) % 60);           // 14%~74% 纵向取景
+  const z = 1.06 + ((h >>> 13) % 22) / 100;  // 1.06~1.28 轻微放大，避免露出边缘
+  return `object-position:${x}% ${y}%;transform:scale(${z.toFixed(2)});`;
+}
 function bookCoverHtml(book, cls = '', options = {}) {
   const showCaption = options.caption !== false;
   return `<figure class="book-cover ${cls}" style="${bookThemeStyle(book)}">
-    <img src="${bookCover(book)}" alt="${esc(book.title)}封面插画" width="800" height="1200" loading="lazy" decoding="async">
+    <img src="${bookCover(book)}" alt="${esc(book.title)}封面插画" width="800" height="1200" loading="lazy" decoding="async" style="${coverFraming(book)}">
     ${showCaption ? `<span class="book-cover-shade" aria-hidden="true"></span>
     <figcaption><span class="book-cover-cat">${esc((State.registry.categories || []).find(c => c.id === book.category)?.label || '')}</span><b>${esc(book.title)}</b><small>${esc([book.dynasty, book.author].filter(Boolean).join(' · '))}</small></figcaption>` : ''}
   </figure>`;
