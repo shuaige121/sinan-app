@@ -7687,7 +7687,7 @@
         : (en ? `${relation.plain} · traditional term: ${relation.term}` : `${relation.plain}（传统称${relation.term}）`);
       return `<button type="button" class="bazi-chart-person is-${escapeHtml(relation.key || 'peer')}${slot.isSelf ? ' is-self' : ''}${relation.combine ? ' is-combine' : ''}${relation.clash ? ' is-clash' : ''}" data-changming-open data-stem="${escapeHtml(selfStem)}"${slot.isSelf ? '' : ` data-cm-view="relations" data-cm-target="${escapeHtml(slot.stem)}"`} style="--person-color:${escapeHtml(C.EL_HEX[person.element] || '#c9a227')}">
         <span class="bazi-chart-position">${escapeHtml(slotLabel)}</span>
-        <span class="bazi-chart-portrait"><i aria-hidden="true"></i><img src="${escapeHtml(person.heroScene || person.background)}" alt="${escapeHtml(slot.stem + '·' + characterText(person, 'name', en))}" loading="lazy" decoding="async" style="--scene-focus:${escapeHtml(person.heroFocus || '50% 50%')}"></span>
+        <span class="bazi-chart-portrait"><i aria-hidden="true"></i><img src="${escapeHtml(person.heroScene || person.background)}" alt="${escapeHtml(slot.stem + '·' + characterText(person, 'name', en))}" loading="eager" decoding="async" style="--scene-focus:${escapeHtml(person.heroFocus || '50% 50%')}"></span>
         <span class="bazi-chart-name"><b>${escapeHtml(slot.stem + '·' + characterText(person, 'name', en))}</b><small>${escapeHtml(relationLabel)}</small></span>
         ${special ? `<em>${escapeHtml(special)}</em>` : ''}
       </button>`;
@@ -7707,7 +7707,7 @@
       if (!person) return '';
       const point = ensemblePoints[slot.index];
       return `<figure class="bazi-ensemble-person${slot.isSelf ? ' is-self' : ''}" style="--x:${point[0]}%;--y:${point[1]}%;--scale:${point[2]};--z:${point[3]}">
-        <img src="${escapeHtml(person.heroScene || person.background)}" alt="" loading="lazy" decoding="async" style="--scene-focus:${escapeHtml(person.heroFocus || '50% 50%')}">
+        <img src="${escapeHtml(person.heroScene || person.background)}" alt="" loading="eager" decoding="async"${slot.isSelf ? ' fetchpriority="high"' : ''} style="--scene-focus:${escapeHtml(person.heroFocus || '50% 50%')}">
         <figcaption>${escapeHtml(slot.isSelf ? (en ? 'YOU' : '你') : slot.position)}</figcaption>
       </figure>`;
     }).join('');
@@ -7740,6 +7740,7 @@
         <p class="bazi-cast-how">${en ? 'Each pillar has a visible stem and a branch. A branch card uses its main hidden stem; for example, 戌 uses 戊. This is only a character mapping, not an extra person added to the chart.' : '年、月、日、时各有一个天干和一个地支。天干直接对应人物；地支用它的“主气藏干”对应人物，例如戌的主气是戊，所以显示戊。这里只是把八个位置翻成人物，不会凭空多算一个人。'}</p>
         <div class="bazi-ensemble" aria-hidden="true">
           <span class="bazi-ensemble-sky"></span>
+          <span class="bazi-ensemble-title">${en ? 'EIGHT POSITIONS · ONE SCENE' : '八个位置 · 同场显现'}</span>
           <svg class="bazi-ensemble-lines" viewBox="0 0 100 100" preserveAspectRatio="none">${ensembleLines}</svg>
           ${ensemblePeople}
           <span class="bazi-ensemble-ground"></span>

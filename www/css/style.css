@@ -993,16 +993,18 @@ input[type=radio], input[type=checkbox] { accent-color: var(--gold); }
 .bazi-chart-cast { margin-top: 18px; }
 .bazi-chart-cast > .bazi-cast-heading { margin-top: 0; }
 .bazi-ensemble {
-  position: relative; height: 270px; margin-top: 10px; overflow: hidden; border: .7px solid rgba(201,162,39,.18); border-radius: 15px 15px 5px 5px;
-  background: linear-gradient(180deg, #121719, #080b0c 73%); isolation: isolate;
+  position: relative; height: 292px; margin-top: 10px; overflow: hidden; border: .7px solid rgba(201,162,39,.26); border-radius: 15px 15px 5px 5px;
+  background: linear-gradient(180deg, #182023, #080b0c 76%); isolation: isolate;
 }
 .bazi-ensemble-sky {
   position: absolute; inset: 0; z-index: 0;
   background:
-    radial-gradient(ellipse at 50% 82%, rgba(var(--arch-rgb,201,162,39),.2), transparent 40%),
-    linear-gradient(110deg, transparent 15%, rgba(255,255,255,.025) 16%, transparent 17% 42%, rgba(255,255,255,.018) 43%, transparent 44%),
+    radial-gradient(ellipse at 50% 78%, rgba(var(--arch-rgb,201,162,39),.3), transparent 44%),
+    radial-gradient(circle at 50% 12%, rgba(236,224,188,.1), transparent 28%),
+    linear-gradient(110deg, transparent 15%, rgba(255,255,255,.045) 16%, transparent 17% 42%, rgba(255,255,255,.034) 43%, transparent 44%),
     repeating-linear-gradient(90deg, transparent 0 47px, rgba(201,162,39,.025) 48px, transparent 49px 88px);
 }
+.bazi-ensemble-title { position: absolute; z-index: 8; top: 10px; left: 12px; color: rgba(239,232,213,.76); font-size: 8px; letter-spacing: .18em; text-shadow: 0 1px 5px #000; }
 .bazi-ensemble-ground { position: absolute; z-index: 4; left: 4%; right: 4%; bottom: 3%; height: 21%; border-radius: 50%; background: radial-gradient(ellipse, rgba(var(--arch-rgb,201,162,39),.16), transparent 67%); filter: blur(7px); }
 .bazi-ensemble-lines { position: absolute; z-index: 1; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .bazi-ensemble-lines line { vector-effect: non-scaling-stroke; stroke: rgba(225,211,176,.24); stroke-width: .8; stroke-dasharray: 2 4; animation: ensembleLine 5s linear infinite; }
@@ -1012,12 +1014,13 @@ input[type=radio], input[type=checkbox] { accent-color: var(--gold); }
 .bazi-ensemble-lines line.is-pressure { stroke: rgba(190,82,64,.48); }
 .bazi-ensemble-lines line.is-combine { stroke: rgba(235,197,85,.8); stroke-width: 1.35; filter: drop-shadow(0 0 3px rgba(235,197,85,.7)); }
 .bazi-ensemble-lines line.is-clash { stroke: rgba(237,92,70,.8); stroke-width: 1.2; stroke-dasharray: 7 3; filter: drop-shadow(0 0 3px rgba(237,92,70,.55)); }
-.bazi-ensemble-person { position: absolute; z-index: var(--z); left: var(--x); top: var(--y); width: 20%; height: 73%; margin: 0; transform: scale(var(--scale)); transform-origin: 50% 100%; }
-.bazi-ensemble-person { overflow: hidden; border: .7px solid rgba(225,211,176,.16); border-radius: 42% 42% 10px 10px; background: #0b0f11; box-shadow: 0 12px 14px rgba(0,0,0,.46); }
-.bazi-ensemble-person img { width: 100%; height: 100%; object-fit: cover; object-position: var(--scene-focus, 50% 50%); filter: saturate(.74) brightness(.66); }
-.bazi-ensemble-person figcaption { position: absolute; left: 50%; bottom: -1px; transform: translateX(-50%); padding: 2px 5px; border: .7px solid rgba(225,211,176,.2); border-radius: 99px; background: rgba(5,8,9,.78); color: rgba(239,232,213,.66); font-size: 7px; white-space: nowrap; }
+.bazi-ensemble-person { position: absolute; z-index: var(--z); left: var(--x); top: var(--y); width: 21%; height: 76%; margin: 0; transform: scale(var(--scale)); transform-origin: 50% 100%; }
+.bazi-ensemble-person { overflow: hidden; border: .7px solid rgba(225,211,176,.28); border-radius: 34px 34px 11px 11px; background: #101719; box-shadow: 0 14px 22px rgba(0,0,0,.64), inset 0 0 22px rgba(var(--arch-rgb,201,162,39),.08); }
+.bazi-ensemble-person::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(4,7,8,.74) 94%); pointer-events: none; }
+.bazi-ensemble-person img { width: 100%; height: 100%; object-fit: cover; object-position: var(--scene-focus, 50% 50%); filter: saturate(.9) brightness(.88) contrast(1.04); }
+.bazi-ensemble-person figcaption { position: absolute; z-index: 2; left: 50%; bottom: 5px; transform: translateX(-50%); padding: 3px 6px; border: .7px solid rgba(225,211,176,.32); border-radius: 99px; background: rgba(5,8,9,.9); color: rgba(239,232,213,.82); font-size: 7px; white-space: nowrap; }
 .bazi-ensemble-person.is-self { filter: drop-shadow(0 0 9px rgba(201,162,39,.4)); }
-.bazi-ensemble-person.is-self img { filter: saturate(.94) brightness(.9); }
+.bazi-ensemble-person.is-self img { filter: saturate(1) brightness(1.04) contrast(1.05); }
 .bazi-ensemble-person.is-self figcaption { border-color: var(--gold); color: var(--gold-soft); font-size: 8px; }
 @keyframes ensembleLine { to { stroke-dashoffset: -24; } }
 .bazi-chart-stage {
@@ -1071,7 +1074,7 @@ input[type=radio], input[type=checkbox] { accent-color: var(--gold); }
   .bazi-chart-field, .bazi-chart-portrait i, .bazi-chart-person::before, .bazi-chart-person::after, .bazi-ensemble-lines line { animation: none !important; }
 }
 @media (max-width: 410px) {
-  .bazi-ensemble { height: 235px; }
+  .bazi-ensemble { height: 258px; }
   .bazi-chart-stage { padding: 8px; }
   .bazi-chart-grid { gap: 6px; }
   .bazi-chart-portrait { height: 112px; }
