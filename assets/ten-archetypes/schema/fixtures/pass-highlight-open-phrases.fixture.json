@@ -1,0 +1,15 @@
+{
+  "$fixture": "sinan/redline-fixture@1",
+  "description": "开口、公开、开始、切开是明确非命中词，不能误报专属「开」。",
+  "expectedOutcome": "pass",
+  "base": "valid-character.json",
+  "onlyRules": [
+    "CM-RL-007"
+  ],
+  "mutations": [
+    {
+      "path": "/canon/irreplaceableHighlightZh",
+      "value": "开口说明后公开标准，从切开处开始校线。"
+    }
+  ]
+}

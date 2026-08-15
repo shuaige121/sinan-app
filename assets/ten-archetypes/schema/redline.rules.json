@@ -1,0 +1,322 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dao.leonardchow.work/schema/redline.rules.json",
+  "schemaVersion": "sinan/redlines@1",
+  "title": "常明城人物红线 · 可执行规则",
+  "sourcePaths": {
+    "manifest": "../characters/manifest.json",
+    "registry": "../../../www/dian/data/registry.json",
+    "textsDir": "../../../www/dian/data/texts",
+    "annotatedDir": "../../../www/dian/data/annotated"
+  },
+  "factionCatalog": {
+    "builtIns": [
+      {
+        "id": "mingli-zong",
+        "labelZh": "命理宗"
+      },
+      {
+        "id": "xingshi-pai",
+        "labelZh": "形势派"
+      },
+      {
+        "id": "liqi-pai",
+        "labelZh": "理气派"
+      },
+      {
+        "id": "yijia",
+        "labelZh": "医家"
+      },
+      {
+        "id": "daomen-lvling",
+        "labelZh": "道门律令"
+      },
+      {
+        "id": "jingyi-guanxue",
+        "labelZh": "经义官学"
+      }
+    ],
+    "extensible": true,
+    "idPattern": "^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$"
+  },
+  "canonical": {
+    "stemOrder": [
+      "jia",
+      "yi",
+      "bing",
+      "ding",
+      "wu",
+      "ji",
+      "geng",
+      "xin",
+      "ren",
+      "gui"
+    ],
+    "stems": {
+      "jia": {
+        "stem": "甲",
+        "pinyin": "jia",
+        "polarity": "阳"
+      },
+      "yi": {
+        "stem": "乙",
+        "pinyin": "yi",
+        "polarity": "阴"
+      },
+      "bing": {
+        "stem": "丙",
+        "pinyin": "bing",
+        "polarity": "阳"
+      },
+      "ding": {
+        "stem": "丁",
+        "pinyin": "ding",
+        "polarity": "阴"
+      },
+      "wu": {
+        "stem": "戊",
+        "pinyin": "wu",
+        "polarity": "阳"
+      },
+      "ji": {
+        "stem": "己",
+        "pinyin": "ji",
+        "polarity": "阴"
+      },
+      "geng": {
+        "stem": "庚",
+        "pinyin": "geng",
+        "polarity": "阳"
+      },
+      "xin": {
+        "stem": "辛",
+        "pinyin": "xin",
+        "polarity": "阴"
+      },
+      "ren": {
+        "stem": "壬",
+        "pinyin": "ren",
+        "polarity": "阳"
+      },
+      "gui": {
+        "stem": "癸",
+        "pinyin": "gui",
+        "polarity": "阴"
+      }
+    },
+    "elementGeneration": {
+      "木": "火",
+      "火": "土",
+      "土": "金",
+      "金": "水",
+      "水": "木"
+    },
+    "elementControl": {
+      "木": "土",
+      "土": "水",
+      "水": "火",
+      "火": "金",
+      "金": "木"
+    },
+    "combinePairs": [
+      {
+        "members": [
+          "jia",
+          "ji"
+        ],
+        "resultElement": "土"
+      },
+      {
+        "members": [
+          "yi",
+          "geng"
+        ],
+        "resultElement": "金"
+      },
+      {
+        "members": [
+          "bing",
+          "xin"
+        ],
+        "resultElement": "水"
+      },
+      {
+        "members": [
+          "ding",
+          "ren"
+        ],
+        "resultElement": "木"
+      },
+      {
+        "members": [
+          "wu",
+          "gui"
+        ],
+        "resultElement": "火"
+      }
+    ],
+    "clashPairs": [
+      [
+        "jia",
+        "geng"
+      ],
+      [
+        "yi",
+        "xin"
+      ],
+      [
+        "bing",
+        "ren"
+      ],
+      [
+        "ding",
+        "gui"
+      ]
+    ],
+    "tenGodAlgorithm": {
+      "sameElement": {
+        "samePolarity": "比肩",
+        "oppositePolarity": "劫财"
+      },
+      "selfGeneratesTarget": {
+        "samePolarity": "食神",
+        "oppositePolarity": "伤官"
+      },
+      "targetGeneratesSelf": {
+        "samePolarity": "偏印",
+        "oppositePolarity": "正印"
+      },
+      "selfControlsTarget": {
+        "samePolarity": "偏财",
+        "oppositePolarity": "正财"
+      },
+      "targetControlsSelf": {
+        "samePolarity": "七杀",
+        "oppositePolarity": "正官"
+      }
+    },
+    "exclusiveHighlightActions": {
+      "shou": {
+        "verbZh": "守",
+        "ownerId": "ding",
+        "reviewPatterns": [
+          "守(?:住|着|護|护|候|到|在)"
+        ]
+      },
+      "hua": {
+        "verbZh": "画",
+        "ownerId": "yi",
+        "reviewPatterns": [
+          "画(?:出|下|成|一|這|这|那|新|回)"
+        ]
+      },
+      "luo": {
+        "verbZh": "落",
+        "ownerId": "geng",
+        "reviewPatterns": [
+          "落(?:下|刀|手)",
+          "下刀"
+        ]
+      },
+      "kai": {
+        "verbZh": "开",
+        "ownerId": "wu",
+        "reviewPatterns": [
+          "(?:亲手)?开(?:门|闸|閘)",
+          "打开[^，。；！？]{0,8}(?:门|闸|閘)"
+        ],
+        "explicitNonMatches": [
+          "开口",
+          "公開",
+          "公开",
+          "开始",
+          "開始",
+          "切开",
+          "切開"
+        ]
+      }
+    }
+  },
+  "rules": [
+    {
+      "id": "CM-RL-001",
+      "name": "十干身份与 manifest 锁定",
+      "severity": "error",
+      "appliesTo": "heavenly-stem",
+      "enforcement": "从 sourcePaths.manifest 实时读取 id/gan/name/element；id、天干、姓名、五行逐值相等，拼音和阴阳按 stem 基础表核对。姓名不在 rules 中复制一份。",
+      "source": "CONFLICTS.md §已通过的机械校验：名字 10/10 在 线上 / manifest.json / CHARACTER.md 三处一致。",
+      "fixtures": [
+        "fixtures/fail-manifest-name.fixture.json"
+      ]
+    },
+    {
+      "id": "CM-RL-002",
+      "name": "十干关系拓扑锁定",
+      "severity": "error",
+      "appliesTo": "heavenly-stem",
+      "enforcement": "用 manifest 的五行、stem 阴阳表、elementGeneration/elementControl、combinePairs/clashPairs 实时推导 peer/generates/generatedBy/controls/controlledBy/combines/clashes，并按 stemOrder 精确比较。",
+      "source": "CONFLICTS.md §已通过的机械校验：关系拓扑文字 10/10 与五行生克合冲推导一致，戊己无天干四冲。",
+      "fixtures": [
+        "fixtures/fail-stem-topology.fixture.json"
+      ]
+    },
+    {
+      "id": "CM-RL-003",
+      "name": "合冲十神双向视角",
+      "severity": "error",
+      "appliesTo": "heavenly-stem",
+      "enforcement": "根据谁生谁、谁制谁和阴阳同异逐边推导；tenGodFromSelf 永远表示当前 character 视角，tenGodFromTarget 表示对方视角。",
+      "source": "CONFLICTS.md §已通过的机械校验：五合与四冲双向十神 18/18 自洽。",
+      "fixtures": [
+        "fixtures/fail-ten-god.fixture.json"
+      ]
+    },
+    {
+      "id": "CM-RL-004",
+      "name": "自述句不超过 30 字",
+      "severity": "error",
+      "appliesTo": "all-characters",
+      "enforcement": "对 profile.selfStatementZh 用 Array.from 计 Unicode code point，标点、空格都计数，最大 30。",
+      "source": "CONFLICTS.md §已通过的机械校验；worldbook/SCHEMA.json person_fields.praised：含标点不超过 30 字。",
+      "fixtures": [
+        "fixtures/fail-self-statement.fixture.json"
+      ]
+    },
+    {
+      "id": "CM-RL-005",
+      "name": "阴阳不得机械映射视觉性别",
+      "severity": "error",
+      "appliesTo": "complete-heavenly-stem-cast",
+      "enforcement": "只在同批输入恰好覆盖十干时判定。若五阳全部 masculine 且五阴全部 feminine，或五阳全部 feminine 且五阴全部 masculine，则失败；任一 androgynous/nonbinary/unspecified 或任一组内部打散即不触发。本判据只抓可证明的完整机械二分，不推断单个角色。",
+      "source": "worldbook forbid.redlines 第 1 条；CONFLICTS.md C-15。",
+      "fixtures": [
+        "fixtures/fail-yinyang-gender.fixture.json"
+      ]
+    },
+    {
+      "id": "CM-RL-006",
+      "name": "古籍引文可追溯且逐字命中",
+      "severity": "error",
+      "appliesTo": "all-citations",
+      "enforcement": "实时读取 registry.json；bookId 必须存在。再读取 texts/<bookId>.json，chapterId 必须存在，quoteOrig 必须是该章 fragments.text 顺序拼接后的逐字子串，不做繁简、标点、空白或 Unicode 归一化。deepLink 必须等于规范深链。若给 annotatedSentenceIds，则还要命中 annotated 文件中的同章句号。",
+      "source": "典籍阁 registry meta.notice：须从权威全文站实际抓取，不凭记忆默写；COPY.json classics._rule：繁体原文不改字。",
+      "fixtures": [
+        "fixtures/fail-classic-book.fixture.json",
+        "fixtures/fail-classic-quote.fixture.json",
+        "fixtures/fail-classic-deeplink.fixture.json"
+      ]
+    },
+    {
+      "id": "CM-RL-007",
+      "name": "canon 专属高光动作不得越界",
+      "severity": "error+review",
+      "appliesTo": "all-characters",
+      "enforcement": "hard check：canon.signatureActionKey 的 shou/hua/luo/kai 只能分别由 ding/yi/geng/wu 声明。review check：只扫描 canon.irreplaceableHighlightZh，命中窄正则时给 REVIEW，不扫描 bio/对白/普通正文；开口/公开/开始/切开不匹配。REVIEW 默认不改变退出码，--strict-review 时按失败处理。",
+      "source": "CONFLICTS.md §已通过的机械校验：守=丁、画=乙、落=庚、开=戊；6 条开均为开口/公开/开始/切开误报。",
+      "fixtures": [
+        "fixtures/fail-highlight-action.fixture.json",
+        "fixtures/pass-highlight-open-phrases.fixture.json"
+      ]
+    }
+  ]
+}

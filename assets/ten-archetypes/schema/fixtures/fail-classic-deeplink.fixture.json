@@ -1,0 +1,21 @@
+{
+  "$fixture": "sinan/redline-fixture@1",
+  "description": "引文虽真但深链章节写错，也必须失败。",
+  "base": "valid-character.json",
+  "onlyRules": [
+    "CM-RL-006"
+  ],
+  "mutations": [
+    {
+      "path": "/classics/0/deepLink",
+      "value": "https://dao.leonardchow.work/dian/#/read/ditiansui/ch01"
+    }
+  ],
+  "expect": [
+    {
+      "ruleId": "CM-RL-006",
+      "severity": "error",
+      "messageIncludes": "规范深链"
+    }
+  ]
+}

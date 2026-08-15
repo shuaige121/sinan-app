@@ -83,8 +83,40 @@
     return cycle;
   }
 
+  // 开屏只使用无需术数背景也能独立读懂的短句，并同步给出现代汉语解释。
+  // 大型原句池仍保留给典籍检索，不再把生僻残句随机推到首次使用者面前。
+  const OPENING_PLAIN = {
+    '上善若水，水善利万物而不争': '最好的善意像水：帮助万物，却不急着争先。',
+    '人法地，地法天，天法道，道法自然': '做事可以向自然学习，顺着事物本来的规律。',
+    '知人者智，自知者明': '了解别人是聪明，真正了解自己才是清醒。',
+    '致虚极，守静笃': '把杂念放下，让自己真正安静下来。',
+    '祸兮福之所倚，福兮祸之所伏': '顺境和逆境会互相转化，不必只看眼前。',
+    '大直若屈，大巧若拙，大辩若讷': '真正有本事的人，往往不急着显得聪明。',
+    '飘风不终朝，骤雨不终日': '再猛烈的风雨也不会一直持续。',
+    '天行健，君子以自强不息': '天地不停运行，人也可以持续成长。',
+    '地势坤，君子以厚德载物': '像大地一样宽厚，才能承接更多人和事。',
+    '穷则变，变则通，通则久': '走到尽头时要敢于改变，改变才可能走通。',
+    '一阴一阳之谓道': '相反的力量彼此配合，世界才会继续变化。',
+    '君子藏器于身，待时而动': '先把能力准备好，机会来时再行动。',
+    '积善之家，必有余庆': '长期善待别人，好的影响也会留给家人。',
+    '仰以观于天文，俯以察于地理': '既看大的规律，也观察脚下的真实环境。',
+    '乐天知命，故不忧': '理解自己的处境，能少一些没有必要的焦虑。',
+    '同声相应，同气相求': '相似的人和事，往往更容易彼此吸引。',
+    '智者乐水，仁者乐山': '聪明的人欣赏水的变化，宽厚的人欣赏山的安定。',
+    '君子坦荡荡，小人长戚戚': '心里坦荡的人更从容，反复算计的人更容易焦虑。',
+    '天地与我并生，而万物与我为一': '把自己放回天地万物之中，许多执念会变小。'
+  };
+
   function initOpening() {
-    const q = C.selectOpeningQuote();
+    let q = C.selectOpeningQuote();
+    if (!OPENING_PLAIN[q.t]) {
+      const accessible = (window.OPENING_QUOTES || []).filter(item => OPENING_PLAIN[item.t]);
+      if (accessible.length) {
+        const now = new Date();
+        const dayKey = Math.floor(new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() / 86400000);
+        q = accessible[((dayKey % accessible.length) + accessible.length) % accessible.length];
+      }
+    }
     const total = buildGlowQuote($('opening-quote'), q.t, null, openingGlowCycle());
     const author = $('opening-author');
     author.textContent = `—— ${q.a}${q.s}`;
@@ -114,18 +146,17 @@
       author.appendChild(document.createTextNode(' '));
       author.appendChild(chip);
     }
-    // 选句依据行（仅个性化生效且所选句 el∈喜用时）：今日为阁下选『X』性句 · 今人方法
+    // 白话解释始终跟在原句下；是否按命盘选中只作为无术语的小补充。
     const why = $('opening-why');
     if (why) {
       let fav = null;
       try { const r = localStorage.getItem('bazi-fav'); if (r) { const p = JSON.parse(r); if (p && Array.isArray(p.favorable)) fav = p; } } catch (e) {}
       if (fav && q.el && fav.favorable.indexOf(q.el) >= 0) {
-        const cls = WX_CLASS[q.el] || '';
-        why.innerHTML = `今日为阁下选<span class="${cls}">『${q.el}』</span>性句 · 今人方法`;
+        why.textContent = `白话：${OPENING_PLAIN[q.t]} 这句也呼应了你命盘中相对需要的五行。`;
         why.dataset.on = '1';
       } else {
-        why.textContent = '';
-        why.dataset.on = '';
+        why.textContent = `白话：${OPENING_PLAIN[q.t] || '这是一句古籍原文，进入后可以查看出处和上下文。'}`;
+        why.dataset.on = '1';
       }
     }
     setTimeout(() => {
@@ -238,7 +269,7 @@
     h += '<div class="term-plain">' + (en ? '<span class="term-lang">Chinese explanation · </span>' : '') + escapeHtml(g.plain) + '</div>';
     if (g.more) h += '<div class="term-more">' + escapeHtml(g.more) + '</div>';
     h += '</div>';
-    h += '<div class="term-foot"><span class="term-editor">' + (en ? 'Modern editorial paraphrase' : '今人整理') + '</span>'
+    h += '<div class="term-foot"><span class="term-editor">' + (en ? 'Plain-language note' : '白话说明') + '</span>'
       + '<a class="term-go" href="#" target="_blank" rel="noopener" hidden>' + (en ? 'See in the Library ›' : '详见典籍阁 ›') + '</a></div>';
     _termBody.innerHTML = h;
     // 详见典籍阁：仅术语有 book 键时出；href 走同源 /dian（dev 回落线上 daos），book 级深链恒可达 → 杜绝死链。
@@ -254,6 +285,21 @@
     requestAnimationFrame(() => _termBd.classList.add('shown'));
     document.addEventListener('keydown', termOnKey);
   }
+  // 图片占位微光需要真实的加载状态才能停下来。全局委托：任何带占位样式的 <img>
+  // 加载完成或失败都打上标记，CSS 据此撤掉动画与底色。
+  (function wireImageLoadState() {
+    const SEL = '.bazi-cast-card img, .cm-relation-person img, .cm-relation-story img, .cm-cast-person img, img.character-story-person, img.bazi-persona-art, .relation-story-scene img';
+    const mark = (img, cls) => { if (img && img.matches && img.matches(SEL)) img.classList.add(cls); };
+    document.addEventListener('load', e => mark(e.target, 'is-loaded'), true);
+    document.addEventListener('error', e => mark(e.target, 'is-error'), true);
+    // 已在缓存里、事件早于监听的，补一轮
+    const sweep = () => document.querySelectorAll(SEL).forEach(img => {
+      if (img.complete) img.classList.add(img.naturalWidth ? 'is-loaded' : 'is-error');
+    });
+    document.addEventListener('DOMContentLoaded', sweep);
+    setInterval(sweep, 1200);
+  })();
+
   // 事件委托（capture 相：先于挂点容器自身 click，如时卦折叠钮 —— stopPropagation 免其连带触发）
   function handleTermChip(e) {
     const chip = e.target.closest && e.target.closest('.term-chip[data-term]');
@@ -734,7 +780,7 @@
       // 未排盘：一行 CTA（样式借堪舆页 compass-cta），点击切「命」页
       host.innerHTML =
         '<div class="today-cta" role="button" tabindex="0">'
-        + (en ? "Cast your chart, and this panel shows each day's fit with your natal profile → Cast chart" : '排八字后，此处每日展示与阁下命格的契合 → 去排盘')
+        + (en ? "Add your birth date and time to see the parts of today that relate to you → Add birth details" : '填写出生日期和时间后，这里会显示今天与你有关的五行、方向和人物 → 去填写')
         + '</div>';
       const cta = host.querySelector('.today-cta');
       const go = () => switchTab('bazi');
@@ -747,20 +793,25 @@
     const dayGZ = (a.ganZhiText.split(' ')[2] || '').replace('日', ''); // 「甲子」
     const dGan = dayGZ[0], dGanEl = C.GAN_EL[dGan] || '';
     let dVerdict, dCls;
-    if (bazi.favorable.indexOf(dGanEl) >= 0) { dVerdict = en ? 'matches your favorable elements' : '得阁下喜用'; dCls = 'kw-yi'; }
-    else if (bazi.unfavorable.indexOf(dGanEl) >= 0) { dVerdict = en ? 'clashes with your unfavorable elements' : '犯阁下忌神'; dCls = 'kw-ji'; }
-    else { dVerdict = en ? 'neutral to your favorable/unfavorable elements' : '于阁下喜忌俱平'; dCls = 'dim'; }
+    if (bazi.favorable.indexOf(dGanEl) >= 0) { dVerdict = en ? 'is one of the phases that better balances your chart' : '更贴合你这张盘需要的五行'; dCls = 'kw-yi'; }
+    else if (bazi.unfavorable.indexOf(dGanEl) >= 0) { dVerdict = en ? 'adds more of a phase already strong in your chart' : '会增加你盘里本来就偏多的五行'; dCls = 'kw-ji'; }
+    else { dVerdict = en ? 'has no strong tilt in your chart' : '与你的五行没有明显偏向'; dCls = 'dim'; }
     const elCls = WX_CLASS[dGanEl] ? ` class="${WX_CLASS[dGanEl]}"` : '';
     // B2 流日十神：今日日干对阁下日主的十神（ChartFacts.shiShen·今人按五行阴阳推，非典据；无 cite-map 子平键，
     //   宁标「今人整理」不挂 dead chip → 铁律「删优于编」）。
     let tenShenLine = '';
     if (window.ChartFacts && typeof ChartFacts.shiShen === 'function' && dGan && bazi.dm) {
       const tg = ChartFacts.shiShen(bazi.dm, dGan);
+      const tenShenPlain = {
+        比肩: '和你相似', 劫财: '和你并肩也会竞争', 食神: '由你表达与创造', 伤官: '由你突破与表达',
+        偏财: '是你能调动的机会型资源', 正财: '是你能掌握的稳定资源', 七杀: '会给你压力并推动行动', 正官: '会带来规则与责任',
+        偏印: '会支持你的直觉与非传统学习', 正印: '会支持你的学习与积累'
+      };
       if (tg) tenShenLine = en
         ? `<p class="tp-line tp-full tp-tenshen">Today's <b${elCls}>${escapeHtml(dGan)} ${escapeHtml(elEN(dGanEl))}</b> is your <b>${renderTerm(tg, termDispEN(tg))}</b>.`
           + `<span class="tp-tag">${renderTerm('十神')} · ${escapeHtml(tt('common.modern_synthesis'))}</span></p>`
-        : `<p class="tp-line tp-full tp-tenshen">今日<b${elCls}>${escapeHtml(dGan)}${escapeHtml(dGanEl)}</b>，为阁下之<b>${renderTerm(tg)}</b>。`
-          + `<span class="tp-tag">${renderTerm('十神')}·今人整理</span></p>`;
+        : `<p class="tp-line tp-full tp-tenshen">今天的<b${elCls}>${escapeHtml(dGan)}${escapeHtml(dGanEl)}</b>${escapeHtml(tenShenPlain[tg] || '会与你发生一种关系')}。`
+          + `<span class="tp-tag">传统分类：${renderTerm(tg)} · 不是好坏评价</span></p>`;
     }
     // B5 本命日：今日干支 == 阁下日柱干支（60 日一遇，古称伏吟）。伏吟一词无语料可锚 → 今人整理，不挂 chip。
     const userDayGZ = bazi.pillars && bazi.pillars[2] ? bazi.pillars[2].gz : '';
@@ -771,7 +822,7 @@
     const fuyinLine = isBenming
       ? (en
         ? `<p class="tp-line tp-full tp-fuyin">Today's stem-branch matches your Day Pillar (<b>${escapeHtml(userDayGZ)}</b>) — traditionally <b>${renderTerm('伏吟', '伏吟 fúyín')}</b>.<span class="tp-tag">${escapeHtml(tt('common.modern_synthesis'))}</span></p>`
-        : `<p class="tp-line tp-full tp-fuyin">今日干支与阁下日柱相同（<b>${escapeHtml(userDayGZ)}</b>），古称<b>${renderTerm('伏吟')}</b>。<span class="tp-tag">今人整理</span></p>`)
+        : `<p class="tp-line tp-full tp-fuyin">今天与出生日使用同一组干支（<b>${escapeHtml(userDayGZ)}</b>）。<span class="tp-tag">传统称${renderTerm('伏吟')} · 只说明重复关系</span></p>`)
       : '';
     // b. 今日吉方（八宅生气/天医）
     const dirOf = star => {
@@ -786,13 +837,13 @@
     const sxAnimal = bazi.shengXiao, tsZhi = ly.zhi.name;
     const tsZhiEN = BRANCH_PY[tsZhi] ? `${tsZhi} ${cap1(BRANCH_PY[tsZhi])}` : tsZhi;
     if (uIdx === yIdx) {
-      sxLine = `阁下属${bazi.shengXiao}，与今年太岁同支（${ly.zhi.name}），古称「值太岁」（本命年）。《协纪辨方书》谓值年之支宜静守、宜顺时调摄。`;
+      sxLine = `你属${bazi.shengXiao}，与今年的地支同为${ly.zhi.name}，也就是本命年。传统说法提醒这一年做决定时多留余地。`;
       if (en) sxLineHtml = `You are born in the year of the ${sxEN(sxAnimal)} (${escapeHtml(sxAnimal)}); your branch coincides with this year's ${renderTerm('太岁', '太岁 Tàisuì')} branch (${escapeHtml(tsZhiEN)}) — the natal-branch year (本命年). The 《协纪辨方书》 counsels a settled, seasonally attuned year.`;
     } else if (uIdx >= 0 && (uIdx + 6) % 12 === yIdx) {
-      sxLine = `阁下属${bazi.shengXiao}，与今年太岁（${ly.zhi.name}）相对为「冲太岁」。古法以安分守常、多加调摄为宜。`;
+      sxLine = `你属${bazi.shengXiao}，与今年的${ly.zhi.name}支正好相对。传统称“冲太岁”，只表示两支相对，不代表一定会发生坏事。`;
       if (en) sxLineHtml = `You are born in the year of the ${sxEN(sxAnimal)} (${escapeHtml(sxAnimal)}); your branch opposes this year's ${renderTerm('太岁', '太岁 Tàisuì')} (${escapeHtml(tsZhiEN)}) — traditionally a clash with 太岁. Classical counsel is to keep to routine and take care.`;
     } else {
-      sxLine = `阁下属${bazi.shengXiao}，与今年太岁（${ly.zhi.name}）无直接刑冲，古称「不犯」。`;
+      sxLine = `你属${bazi.shengXiao}，与今年的${ly.zhi.name}支没有直接相冲。`;
       if (en) sxLineHtml = `You are born in the year of the ${sxEN(sxAnimal)} (${escapeHtml(sxAnimal)}); it has no direct clash or punishment with this year's ${renderTerm('太岁', '太岁 Tàisuì')} (${escapeHtml(tsZhiEN)}) — traditionally unafflicted.`;
     }
     // 紧凑双列排布：日干喜忌 / 今日吉方 并列成两栏，生肖太岁一句沉底占满宽；chips 缩小一号（.tp-tag）
@@ -813,10 +864,10 @@
       host.innerHTML =
         '<div class="card tp-card">'
         + '<div class="tp-title"><span class="seal">今日</span><b class="gold">今日与你</b>' + benmingTag
-        + `<span class="dim">${renderTerm('命卦')}${escapeHtml(bz.mingGua)}（${escapeHtml(bz.groupName)}）· ${renderTerm('日主')}${escapeHtml(bazi.dm)}${escapeHtml(bazi.dmEl)}</span></div>`
+        + `<span class="dim">按你保存的出生资料 · 核心五行${escapeHtml(bazi.dm)}${escapeHtml(bazi.dmEl)}</span></div>`
         + '<div class="tp-grid">'
-        + `<p class="tp-line tp-col">今日<b${elCls}>${escapeHtml(dGan)}${dGanEl}</b>，<b class="${dCls}">${dVerdict}</b>。<span class="tp-tag">今人方法</span></p>`
-        + `<p class="tp-line tp-col">吉方：${renderTerm('生气')}<b class="kw-yi">${dirOf('生气')}</b>·${renderTerm('天医')}<b class="kw-yi">${dirOf('天医')}</b><span class="tp-tag cite-chip" data-cite="bazhai-dayouniange" role="button" tabindex="0">《八宅明镜》游年八星</span></p>`
+        + `<p class="tp-line tp-col">今天是<b${elCls}>${escapeHtml(dGan)}${dGanEl}</b>日，<b class="${dCls}">${dVerdict}</b>。<span class="tp-tag">传统五行算法</span></p>`
+        + `<p class="tp-line tp-col">按传统八宅法，今天可优先看<b class="kw-yi">${dirOf('生气')}</b>和<b class="kw-yi">${dirOf('天医')}</b>两个方向。<span class="tp-tag cite-chip" data-cite="bazhai-dayouniange" role="button" tabindex="0">查看《八宅明镜》依据</span></p>`
         + `<p class="tp-line tp-full">${escapeHtml(sxLine)}<span class="tp-tag cite-chip" data-cite="xinji-bianfang" role="button" tabindex="0">《钦定协纪辨方书》口径</span></p>`
         + tenShenLine
         + fuyinLine
@@ -855,6 +906,8 @@
     host.innerHTML =
       '<div class="tl-head"><span class="seal">流年</span>'
       + `<span class="tl-year">${ly.yearGanZhi}年</span></div>`
+      + '<p class="ly-plain">如果你今天不装修、动土或搬动大型设施，可以略过本段；有施工计划时，再查看传统说法提醒避开的方向。</p>'
+      + '<details class="ly-technical"><summary>查看传统方位图与出处</summary>'
       + grid
       + '<p class="ly-section-title">太岁与岁破</p>'
       + '<div class="ly-item ly-taisui"><span>🟡</span><span>'
@@ -874,7 +927,8 @@
           + `<b>五黄在${ly.wuhuang.gong}宫·${ly.wuhuang.dir}</b><br>`
           + '<span style="font-size:11px;color:var(--paper-dim)">此方年内宜静，修造/安床宜避；45°八宫精度</span></span></div>'
           + `<p class="ly-src">年紫白：${C.LY_STAR_NAMES[ly.nianCenter]}入中顺飞</p>`
-        : '');
+        : '')
+      + '</details>';
   }
 
   // ===== 节气临界卡 =====
@@ -1156,6 +1210,14 @@
     const posName = (d.pos >= 0 ? ZHIXING_ORDER[d.pos] : '') || d.zhiXing;
     let h = `<div class="yj-dv-head"><b class="${isJi ? 'kw-ji' : 'kw-yi'}">「${escapeHtml(term)}」</b>`
       + `<span class="dim"> · 今日所${isJi ? '忌' : '宜'}之一，溯其历理</span></div>`;
+    // 先回答「这个词是什么意思」，再讲它从哪条历理推来。
+    // 此前直接从值神/建除讲起，等于用五个新词解释一个旧词——词库里明明有现成的白话。
+    const entry = window.PLAIN_GLOSSARY && window.PLAIN_GLOSSARY[term];
+    if (entry && entry.plain) {
+      h += `<div class="yj-dv-row is-plain"><span class="yj-dv-tag">这是什么</span><span class="yj-dv-body">`
+        + `${escapeHtml(entry.plain)}${entry.more ? ` <span class="dim">${escapeHtml(entry.more)}</span>` : ''}</span></div>`;
+    }
+    h += '<details class="yj-dv-method"><summary>查看这条宜忌的历法依据</summary>';
     h += `<div class="yj-dv-row"><span class="yj-dv-tag">${renderTerm('值神')}</span><span class="yj-dv-body">`
       + `今日值神 <b>${renderTerm(d.zhiShen)}</b>${d.zhiShenType ? `（<b>${renderTerm(d.zhiShenType)}</b>日）` : ''}。`
       + `十二值神逐日轮值，古历据以别宜忌之纲。${chip}</span></div>`;
@@ -1164,9 +1226,9 @@
     if (d.monthZhi && d.dayZhi && d.pos >= 0) {
       h += `<div class="yj-dv-row"><span class="yj-dv-tag">月令</span><span class="yj-dv-body">`
         + `月建 <b>${escapeHtml(d.monthZhi)}</b>、日支 <b>${escapeHtml(d.dayZhi)}</b>，自「建」顺数第 <b>${d.pos + 1}</b> 位得「<b>${escapeHtml(posName)}</b>」。`
-        + `${d.rel ? `<span class="dim"> ${escapeHtml(d.rel)}·今人整理</span>` : ''}${chip}</span></div>`;
+        + `${d.rel ? `<span class="dim"> ${escapeHtml(d.rel)}（传统地支关系）</span>` : ''}${chip}</span></div>`;
     }
-    h += `<p class="yj-dv-foot">推导依据为传统历法通则（今人实现），具体取舍诸历有异。</p>`;
+    h += `<p class="yj-dv-foot">这些是传统历法的分类方法，不是现实结果的保证。</p></details>`;
     panel.innerHTML = h;
   }
   // 手风琴开合（同时只开一项）：委托挂在黄历卡上，一次性；点同项收起，点异项换内容。
@@ -1235,8 +1297,11 @@
     const h = a.hexagram;
     $('hex-name').textContent = h.name;
     $('hex-sub').textContent = `${C.TRIGRAMS[h.upper].symbol}${h.upper}上 ${C.TRIGRAMS[h.lower].symbol}${h.lower}下 · ${h.moving}爻动`;
-    $('hex-meaning').innerHTML = colorizeKeywords(h.meaning); // 时卦断语行着色
-    if ($('hex-zhigua')) $('hex-zhigua').innerHTML = h.changedName ? colorizeKeywords(`动变→之卦：${h.changedName}·${h.changedMeaning}`, { gua: [h.changedName] }) : '';
+    const hexPlain = window.HEXAGRAM_PLAIN && window.HEXAGRAM_PLAIN[h.name];
+    $('hex-meaning').innerHTML = colorizeKeywords(hexPlain ? `现在的提醒：${hexPlain}` : `现在的提醒：${h.meaning}`); // 先给普通人结论
+    if ($('hex-zhigua')) $('hex-zhigua').innerHTML = h.changedName
+      ? colorizeKeywords(`变化后的卦是${h.changedName}：${h.changedMeaning}（传统称“之卦”）`, { gua: [h.changedName] })
+      : '';
     const hexEl = $('hex-lines');
     hexEl.innerHTML = '';
     for (let i = 5; i >= 0; i--) { // 视图自上而下=六爻自上而下
@@ -1280,10 +1345,10 @@
       }
       return t;
     }
-    let t = `晨起检点历书，今日${gz}。`;
+    let t = `今天是${gz}。`;
     t += a.jieQiToday
-      ? `恰逢「${a.jieQiToday}」交节，天地气机一转，宜顺时调摄。`
-      : `时下「${a.currentJieQi}」气中，${a.nextJieQiDate}交「${a.nextJieQi}」，作息且随之调。`;
+      ? `今天进入「${a.jieQiToday}」节气，留意天气与作息变化。`
+      : `现在处于「${a.currentJieQi}」，${a.nextJieQiDate}进入「${a.nextJieQi}」。`;
     return t;
   }
   // EN 导读结构行：干支 + 节气 + top 宜忌（数据 token 保留汉字，英文框架，走术语体例）
@@ -1427,8 +1492,8 @@
       } else {
         nextEl.innerHTML = best
           ? `下一喜用时段：${SHICHEN_RANGES[best.i][0]}时 ${SHICHEN_RANGES[best.i][2]}–${SHICHEN_RANGES[best.i][3]} · ${best.el}`
-            + '<span class="ch-hours-note">今人方法</span>'
-          : '今日无喜用时段<span class="ch-hours-note">今人方法</span>';
+            + '<span class="ch-hours-note">按你的五行对照</span>'
+          : '今天没有特别贴合的时段<span class="ch-hours-note">按你的五行对照</span>';
       }
     }
   }
@@ -1463,8 +1528,12 @@
         return true;
       }
     }
+    // 极昼/极夜（或算不出）时不要把整块 UI 藏掉：那会让用户以为自己点坏了。
+    // 留在原地，按钮换成一句能解释也能再点的话。
     clockSunTimes = null;
-    clockArcState = 'off';
+    clockArcState = 'prompt';
+    const btn = $('ch-locate');
+    if (btn) btn.textContent = tt('clock.no_sun_times');
     return false;
   }
 
@@ -1546,7 +1615,9 @@
     const timeEl = $('ch-time');
     if (!timeEl) return;                                 // 无 hero（防御）
     // 跨零点：已定位则用缓存坐标重算当日日出日落，避免弧陈旧
-    if (clockGeo && clockArcState === 'located' && clockSunDay !== now.toDateString()) {
+    // 处于 prompt（极昼/极夜或取位失败）时也要跨日重算：否则高纬地区进入重新有日出日落的
+    // 日期后，仍会一直显示极昼文案，直到用户主动再点一次。
+    if (clockGeo && (clockArcState === 'located' || clockArcState === 'prompt') && clockSunDay !== now.toDateString()) {
       applyGeo(clockGeo.lat, clockGeo.lng, now);
     }
     timeEl.textContent = fmtHM(now);
@@ -1562,7 +1633,7 @@
     const hexBtn = $('ch-hexline'), hexTxt = $('ch-hexline-txt');
     if (hexTxt) {
       hexTxt.innerHTML = hexName
-        ? renderTerm('时卦', isEN() ? 'Hour hexagram' : '时卦') + ' · ' + escapeHtml(hexName)
+        ? escapeHtml(isEN() ? 'Hour hexagram' : '时卦') + ' · ' + escapeHtml(hexName)
         : '';
     }
     if (hexBtn) hexBtn.hidden = !hexName;
@@ -1627,13 +1698,16 @@
     navigator.geolocation.getCurrentPosition(
       pos => {
         saveGeo(pos.coords.latitude, pos.coords.longitude);
-        applyGeo(pos.coords.latitude, pos.coords.longitude);
-        if (btn) { btn.disabled = false; btn.textContent = tt('clock.locate'); }
+        // 极昼/极夜时 applyGeo 会返回 false 并写好说明，别再无条件改回默认文案。
+        const hasSunTimes = applyGeo(pos.coords.latitude, pos.coords.longitude);
+        if (btn) { btn.disabled = false; btn.textContent = tt(hasSunTimes ? 'clock.locate' : 'clock.no_sun_times'); }
         renderClock();
       },
-      () => {                                            // 拒绝/失败：隐藏日照，仅钟+双历（无解释文案）
-        clockArcState = 'off';
-        if (btn) { btn.disabled = false; btn.textContent = tt('clock.locate'); }
+      () => {
+        // 此前这里把整块日照 UI 隐藏掉（clockArcState='off'），刷新也回不来，
+        // 用户以为自己把界面点坏了。改成留在原地、说明原因、可以再点一次。
+        clockArcState = 'prompt';
+        if (btn) { btn.disabled = false; btn.textContent = tt('clock.locate_retry'); }
         renderClock();
       },
       { enableHighAccuracy: false, timeout: 8000, maximumAge: 864e5 }
@@ -1651,7 +1725,9 @@
       clockArcState = 'off';                             // 判定前不显弧/按钮，避免闪
       navigator.permissions.query({ name: 'geolocation' }).then(st => {
         if (st.state === 'granted') locateForClock(true);         // 已授权：静默取位
-        else if (st.state === 'denied') { clockArcState = 'off'; renderClock(); } // 已拒：优雅降级
+        // 已拒也留着按钮：用户可能是误点，或者后来在系统设置里放开了。
+        // 原来判 denied 就永久 off，等于这个功能对他消失了且无从恢复。
+        else if (st.state === 'denied') { clockArcState = 'prompt'; if (btn) btn.textContent = tt('clock.locate_retry'); renderClock(); }
         else { clockArcState = 'prompt'; renderClock(); }         // 未决：显示点亮按钮
       }).catch(() => { clockArcState = 'prompt'; renderClock(); });
     } else {
@@ -2115,9 +2191,27 @@
   window._recomputeKanyuTopOffset = recomputeKanyuTopOffset;   // 供 initKanyu 内底图切换/定尺后调用
 
   function updateCompassCard() {
-    const d = C.norm(heading);
+    // 锁盘（户型对齐/定盘）后实际参与计算的是 lockedHeading，卡面必须读同一个值，
+    // 否则会出现「卡面显示手机朝向、玄空按锁定角度算」这种自相矛盾。
+    const d = C.norm(lockedHeading !== null ? lockedHeading : heading);
     const r = C.directionReading(d);
+    // 定盘冻结的可能正是那个从没量过的 0°，所以 locked 不能算「测过」。
+    const measured = headingSource === 'sensor';
+    const page = $('page-kanyu');
+    if (page) page.classList.toggle('heading-unmeasured', !measured);
     $('compass-face').textContent = tt('kanyu.facing_read', { deg: Math.round(d * 10) / 10, name: r.facing.name, trigram: r.trigram });
+    // 没量到就当场说清楚，别把默认值伪装成读数。
+    let flag = document.getElementById('compass-unmeasured');
+    if (!measured) {
+      if (!flag) {
+        flag = document.createElement('span');
+        flag.id = 'compass-unmeasured';
+        flag.className = 'compass-unmeasured';
+        $('kanyu-read-main').appendChild(flag);
+      }
+      flag.textContent = tt(headingSource === 'manual' ? 'kanyu.heading_manual' : 'kanyu.unmeasured');
+      flag.hidden = false;
+    } else if (flag) { flag.hidden = true; }
     $('compass-sub').textContent = tt('kanyu.wuxing_read', { el: r.facing.el, zuoxiang: r.zuoXiang });
     $('compass-sub').style.color = C.EL_HEX[r.facing.el];
     // 实时契合：双声部并列——八宅（键命卦·游年八星）+ 子平（键日主·喜用神）
@@ -2188,7 +2282,7 @@
     const enK = isEN();
     return `<span class="voice"><span class="voice-tag">八宅</span>${renderTerm(star)}${enK ? ' sector' : '方'}<span class="voice-cite cite-chip" data-cite="bazhai-dayouniange" role="button" tabindex="0">《八宅明镜》</span></span>`
       + `<span class="voice-dot">·</span>`
-      + `<span class="voice"><span class="voice-tag">子平</span>${zipingVerdict(fit, el)}<span class="voice-cite">${enK ? escapeHtml(tt('common.modern_method')) : '今人方法'}</span></span>`;
+      + `<span class="voice"><span class="voice-tag">子平</span>${zipingVerdict(fit, el)}<span class="voice-cite">${escapeHtml(tt('common.modern_method'))}</span></span>`;
   }
   // EN-only 子平短语（五行译英，纯英文，供 EN 引文卡结构行用）
   function zipingVerdictEN(fit, el) {
@@ -2300,12 +2394,12 @@
     if (!state) { badge.hidden = true; block.hidden = true; if (share) share.hidden = true; _lastProofPayload = null; return; }
     const el = r.facing.el, mtn = r.facing.name;
     if (state === 'good') {
-      badge.hidden = false; badge.className = 'bzq-triple-badge good'; badge.textContent = '三证俱吉';
+      badge.hidden = false; badge.className = 'bzq-triple-badge good'; badge.textContent = '三项都较合适';
       block.hidden = false; block.className = 'bzq-triple good';
       block.innerHTML =
-        tripleLine('游年『' + star + '』· 属四吉', '《八宅明镜》游年', 'bazhai-dayouniange')
-        + tripleLine('此向属' + el + ' · 正合喜用', '今人方法 · 喜用', null)
-        + tripleLine(mtn + '山 · 今岁未犯太岁·岁破·三煞', '《钦定协纪辨方书》流年', 'xinji-bianfang');
+        tripleLine('游年『' + star + '』属于传统四吉星', '《八宅明镜》游年', 'bazhai-dayouniange')
+        + tripleLine('这个方向属' + el + '，与你较贴合', '按你的五行对照', null)
+        + tripleLine(mtn + '山不在今年传统忌向之中', '《钦定协纪辨方书》流年', 'xinji-bianfang');
       // 三证时刻卡分享 payload（与上三行同源；卡内三行各署出处书名）
       const tri = C.TRIGRAMS[r.trigram] || {};
       _lastProofPayload = {
@@ -2313,21 +2407,21 @@
         trigram: r.trigram, trigramSymbol: tri.symbol || '', trigramDir: tri.dir || '',
         deg: r.deg, zuoXiang: r.zuoXiang,
         rows: [
-          { text: '游年『' + star + '』· 属四吉', src: '《八宅明镜》游年' },
-          { text: '此向属' + el + ' · 正合喜用', src: '今人方法·喜用' },
-          { text: mtn + '山 · 今岁未犯太岁·岁破·三煞', src: '《钦定协纪辨方书》流年' }
+          { text: '游年『' + star + '』属于传统四吉星', src: '《八宅明镜》游年' },
+          { text: '这个方向属' + el + '，与你较贴合', src: '按你的五行对照' },
+          { text: mtn + '山不在今年传统忌向之中', src: '《钦定协纪辨方书》流年' }
         ]
       };
       if (share) share.hidden = false;
     } else {
       if (share) share.hidden = true; _lastProofPayload = null;   // 非俱吉：不提供三证卡分享
       const role = tripleYearRole(mtn) || '流年凶方';
-      badge.hidden = false; badge.className = 'bzq-triple-badge calm'; badge.textContent = '宜伏敛';
+      badge.hidden = false; badge.className = 'bzq-triple-badge calm'; badge.textContent = '建议谨慎参考';
       block.hidden = false; block.className = 'bzq-triple calm';
       block.innerHTML =
-        tripleLine('游年『' + star + '』· 属四凶，宜伏', '《八宅明镜》游年', 'bazhai-dayouniange')
-        + tripleLine('此向属' + el + ' · 落于忌神', '今人方法 · 喜用', null)
-        + tripleLine(mtn + '山 · 值今岁' + role + '，此向宜守静、动土安床宜暂避', '《钦定协纪辨方书》流年', 'xinji-bianfang');
+        tripleLine('游年『' + star + '』属于传统四凶星，不宜优先', '《八宅明镜》游年', 'bazhai-dayouniange')
+        + tripleLine('这个方向属' + el + '，与你较不贴合', '按你的五行对照', null)
+        + tripleLine(mtn + '山今年属于' + role + '；按传统说法，动土或安床可先考虑别的方向', '《钦定协纪辨方书》流年', 'xinji-bianfang');
     }
   }
 
@@ -2358,15 +2452,15 @@
       const en = isEN();
       if (conc) conc.textContent = en
         ? `日主 ${data.bazi.dm} ${elEN(data.bazi.dmEl)} · ${data.bazi.isStrong ? 'strong' : 'weak'} · this facing ${zipingVerdictEN(fit, r.facing.el)}`
-        : `日主${data.bazi.dm}${data.bazi.dmEl}·${data.bazi.isStrong ? '身强' : '身弱'} · 此向${zipingVerdict(fit, r.facing.el)}`;
+        : `你的核心五行是${data.bazi.dm}${data.bazi.dmEl}，整体力量${data.bazi.isStrong ? '偏强' : '偏弱'} · 这个方向${zipingVerdict(fit, r.facing.el)}`;
       if (yifu) yifu.hidden = true;
-      $('bzq-orig').textContent = en ? 'Modern method · favorable-element selection' : '今人方法：喜用取用';
+      $('bzq-orig').textContent = en ? 'Modern Five-Phase comparison' : '按你的五行对照';
       $('bzq-bai').textContent = en
         ? `Favorable elements ${elsEN(data.bazi.favorable)}; unfavorable ${elsEN(data.bazi.unfavorable)}. This facing is ${elEN(r.facing.el)} — ${fit === '合喜用' ? 'matches your favorable elements; suited as a desk-facing here, drawing on its color to reinforce' : fit === '犯忌神' ? 'falls on an unfavorable element; better avoided — choose a favorable sector instead' : 'neutral to both favorable and unfavorable elements'}.`
-        : `以日主强弱定喜用神：喜用${data.bazi.favorable.join('、')}，忌${data.bazi.unfavorable.join('、')}。此向五行属${r.facing.el}——${fit === '合喜用' ? '正合喜用，此向宜作书桌坐向、取其色以补益' : fit === '犯忌神' ? '落于忌神，补益宜避此向、另择喜用方' : '喜用忌神俱不涉，气性平'}。`;
+        : `按这张命盘的五行结构，较贴合的是${data.bazi.favorable.join('、')}，较不贴合的是${data.bazi.unfavorable.join('、')}。这个方向属${r.facing.el}——${fit === '合喜用' ? '与你较贴合，可优先比较' : fit === '犯忌神' ? '与你较不贴合，可再看看其他方向' : '没有明显的贴合或不贴合'}。`;
       $('bzq-note').textContent = '';
       $('bzq-cite').textContent = '';
-      $('bzq-school').textContent = en ? 'Modern method · favorable elements' : '今人方法 · 喜用取用';
+      $('bzq-school').textContent = en ? 'Modern Five-Phase comparison' : '按你的五行对照';
       if (ctxLink) ctxLink.style.display = 'none';
       if (dian) dian.style.display = 'none';
       if (slot) slot.classList.add('open');
@@ -3056,7 +3150,7 @@
     });
     const cite = en
       ? ' <span class="dz-cite cite-chip" role="button" tabindex="0">(modern synthesis · after 《渊海子平》)</span>'
-      : '（今人整理·据<span class="dz-cite cite-chip" role="button" tabindex="0">《渊海子平》</span>口径）';
+      : '（按<span class="dz-cite cite-chip" role="button" tabindex="0">《渊海子平》</span>中的传统地支关系对照）';
     note.innerHTML = (en ? 'Today ' : '今日') + parts.join(en ? '; ' : '、') + cite;
     note.style.display = 'block';
     wireDizhiCite(note);
@@ -3127,11 +3221,11 @@
   // 依据行：只用 cite-map 已有键（找不到键者退纯文本·不新造引用·删优于编）
   function dialBackHtml() {
     const rows = [
-      ['二十四山向环', '罗盘定向通则', null, '今人整理'],
+      ['二十四山向环', '罗盘定向说明', null, ''],
       ['游年八星环', '《八宅明镜》', 'bazhai-dayouniange', ''],
       ['流年方位弧', '《协纪辨方书》卷三', 'xinji-bianfang', ''],
-      ['宜忌 · 吉神体系', '《协纪辨方书》', 'xinji-bianfang', '今人实现'],
-      ['时辰 · 月建游标', '干支纪时 · 历法通则', null, '今人整理'],
+      ['宜忌 · 吉神体系', '《协纪辨方书》', 'xinji-bianfang', '现代页面呈现'],
+      ['时辰 · 月建游标', '传统干支纪时', null, ''],
     ];
     let h = '<button class="db-close" type="button" aria-label="翻回盘面">✕</button>';
     h += '<div class="db-seal">盘背铭文</div><div class="db-sub">各环所据文献</div><div class="db-list">';
@@ -3571,6 +3665,10 @@
   // 用户无感知。桌面端等 2.5s 收不到任何方向事件，才静默亮出模拟滑杆。
   let sensorAttached = false;
   let lastSensorTs = 0;
+  // 朝向是不是真的量出来的。没有传感器时 heading 恒为 0，若不区分，
+  // 「面向 0°」会被当作实测值一路推出「五鬼方 · 大凶」——用户拿到的是一个从未测量过的结论。
+  let headingSource = 'none';   // 'sensor' 实测 | 'manual' 用户手动设定 | 'none' 从未测过
+  let lastManualTs = 0;         // 刚手动拖过滑杆的时刻：这段时间内不让传感器抢回控制权
   function startSensor() {
     if (sensorAttached) return;
     sensorAttached = true;
@@ -3582,6 +3680,12 @@
       else if (e.absolute && typeof e.alpha === 'number') raw = C.norm(360 - e.alpha);        // Android 绝对方位
       if (raw !== null) {
         lastSensorTs = Date.now();
+        // 锁盘时 setHeading 会拒绝这个值，那就不能声称「实测」——
+        // 否则标记来自一个根本没被采用的读数。
+        if (lockedHeading === null) {
+          if (headingSource === 'manual' && Date.now() - lastManualTs < 10000) return; // 刚手动调过就先听用户的
+          headingSource = 'sensor';
+        }
         $('sim-row').classList.remove('shown');
         setHeading(raw);
       }
@@ -3622,21 +3726,34 @@
     }
     // 模拟朝向滑杆（无传感器时浮现）
     $('compass-slider').addEventListener('input', e => {
-      sensorOn = false;
-      if (lockedHeading !== null) { lockedHeading = null; $('btn-lock').textContent = '定盘'; $('btn-lock').classList.remove('locked'); $('lock-panel').classList.remove('shown'); if (compassFx) compassFx.setLocked(false); } // 拖滑杆即释盘，按钮态同步，别留「释盘」假象
+      headingSource = 'manual';   // 用户手动设定的方向：是输入，但不是实测
+      lastManualTs = Date.now();
+      // 不再永久关掉传感器：此前拖一次滑杆之后，即使指南针后来才就绪，
+      // 事件也全被丢弃且没有明显的恢复入口。改为「有真实读数就自动接管」。
+      sensorOn = true;
+      if (lockedHeading !== null) { lockedHeading = null; $('btn-lock').textContent = tt('kanyu.btn_lock'); $('btn-lock').classList.remove('locked'); $('lock-panel').classList.remove('shown'); if (compassFx) compassFx.setLocked(false); } // 拖滑杆即释盘，按钮态同步，别留锁定假象
       setHeading(parseFloat(e.target.value));
     });
     // 定盘 / 释盘：真冻结朝向 + 描金静止针 + 延伸读数
     $('btn-lock').addEventListener('click', () => {
       if (lockedHeading === null) {
+        if (headingSource !== 'sensor') {
+          toast('当前是练习方向，不能生成真实方位结果。请允许手机罗盘后再锁定。', 3200);
+          $('sim-row').classList.add('shown');
+          return;
+        }
         lockedHeading = heading; sensorOn = false;
-        $('btn-lock').textContent = '释盘'; $('btn-lock').classList.add('locked');
+        $('btn-lock').textContent = tt('kanyu.btn_unlock'); $('btn-lock').classList.add('locked');
         if (compassFx) compassFx.setLocked(true);
         const r = C.directionReading(C.norm(heading));
-        $('lock-zuoxiang').textContent = r.zuoXiang;
+        $('lock-zuoxiang').textContent = `实测朝向：面向${r.facing.name}（${Math.round(C.norm(heading) * 10) / 10}°）`;
         const t = C.TRIGRAMS[r.trigram];
-        $('lock-sub').textContent = `${t.symbol} ${r.trigram}宫 · 五行属${r.facing.el}`;
+        $('lock-sub').textContent = `坐向结论：${r.zuoXiang}`;
         $('lock-sub').style.color = C.EL_HEX[r.facing.el];
+        const lockPlain = $('lock-plain');
+        if (lockPlain) lockPlain.textContent = `这是手机罗盘取得的实测方向。先记住“${r.zuoXiang}”即可；九宫数字和${t.symbol}${r.trigram}宫等传统推导已收在下方。`;
+        const lockTechnical = $('lock-technical');
+        if (lockTechnical) lockTechnical.open = false;
         $('lock-panel').classList.add('shown');
         // 玄空飞星九宫格：以当前朝向为向首，计算九运三盘（Phase 7）
         try {
@@ -3647,7 +3764,7 @@
         drawLuopan();
       } else {
         lockedHeading = null; sensorOn = true; lastRaw = null;
-        $('btn-lock').textContent = '定盘'; $('btn-lock').classList.remove('locked');
+        $('btn-lock').textContent = tt('kanyu.btn_lock'); $('btn-lock').classList.remove('locked');
         $('lock-panel').classList.remove('shown');
         if (compassFx) compassFx.setLocked(false);
       }
@@ -3666,6 +3783,25 @@
       $('page-kanyu').classList.toggle('yz-open', open); // 底部阳宅横条展开时隐朝向模拟条（避免底部三条相叠）
       // 进勘察模式（展开阳宅工具栏）：水墨底自动切卫星供勘察（见 initKanyu 内 _kanyuEnsureTileForSurvey）
       if (open && window._kanyuEnsureTileForSurvey) window._kanyuEnsureTileForSurvey();
+      // 没定位就直说：屏幕上这片屋顶不是用户家的。此前会在一片陌生城区航拍上
+      // 照样摆床摆灶出吉凶断语，用户完全看不出这份结论建在别人的房子上。
+      const pk = $('page-kanyu');
+      if (pk) pk.classList.toggle('geo-unknown', open && !window._kanyuGeoFixed);
+      if (open && !window._kanyuGeoFixed) {
+        let warn = document.getElementById('yz-geo-warn');
+        if (!warn) {
+          warn = document.createElement('p');
+          warn.id = 'yz-geo-warn';
+          warn.className = 'yz-geo-warn';
+          const tb = $('yangzhai-toolbar');
+          if (tb) tb.insertBefore(warn, tb.firstChild);
+        }
+        warn.textContent = tt('kanyu.geo_unknown');
+        warn.hidden = false;
+      } else {
+        const warn = document.getElementById('yz-geo-warn');
+        if (warn) warn.hidden = true;
+      }
     });
     $('kanyu-expand').addEventListener('click', () => {
       $('kanyu-read').classList.toggle('expanded'); // 详读展开：#kanyu-top 统一滚动，无需再重定位原句卡
@@ -3701,7 +3837,7 @@
     paintLayerSeg();
     // 两法异说小浮层：宅法键命卦、命法键日主，所据之「命」不同（今人整理，非古籍仲裁）
     const divBtn = $('fit-diverge-btn'), divPop = $('fit-diverge-pop');
-    if (divPop) divPop.textContent = '宅法（八宅）以命卦定八方吉凶，命法（子平）以日主强弱定喜用五行；两者所据之「命」不同——一为命卦（生年所属），一为日主（生日之天干）。故同一方位可一法断凶、一法断得用，各有典据，不相为裁。（今人整理，非古籍仲裁）';
+    if (divPop) divPop.textContent = '八宅法按出生年份得到“命卦”，子平法按生日天干与整张命盘判断五行。两种方法看的不是同一件事，所以同一方向可能得到不同结果；这里并列展示，方便你分别查看依据。';
     if (divBtn && divPop) divBtn.addEventListener('click', () => {
       const open = divPop.hidden;
       divPop.hidden = !open;
@@ -4433,7 +4569,7 @@
           h += `</div>`;
         }
       } else {
-        h += `<p class="dim" style="font-size:12px;margin-bottom:10px">排八字后，此处实时显示此位与阁下命卦的吉凶断语（<span class="cite-chip" data-cite="bazhai-dayouniange" role="button" tabindex="0">《八宅明镜》游年八星法</span>）</p>`;
+        h += `<p class="dim" style="font-size:12px;margin-bottom:10px">排八字后，这里会说明这个方向与你命盘的传统关系（<span class="cite-chip" data-cite="bazhai-dayouniange" role="button" tabindex="0">查看《八宅明镜》依据</span>）</p>`;
       }
 
       // 玄空飞星方位判断（Phase 7）：以定盘朝向为宅向，标注该位置的山星/向星旺衰
@@ -4678,7 +4814,7 @@
       if (!navigator.geolocation) { shaCt.innerHTML = '<p style="color:var(--cinnabar)">此设备不支持 GPS 定位</p>'; return; }
       navigator.geolocation.getCurrentPosition(
         p => run(p.coords.latitude, p.coords.longitude),
-        () => { shaCt.innerHTML = '<p style="color:var(--cinnabar)">定位失败：请先点「回我」授权位置权限</p>'; }
+        () => { shaCt.innerHTML = '<p style="color:var(--cinnabar)">定位失败：请先点“回到当前位置”并允许位置权限</p>'; }
       );
     });
     const shaPClose = $('sha-panel-close');
@@ -4763,7 +4899,7 @@
           if (roads.length === 0 && bldgs.length === 0) {
             swCt.innerHTML = '<div style="padding:14px;text-align:center">'
               + '<p style="color:var(--cinnabar);margin-bottom:8px">⚠️ 当地 OSM 数据稀疏，砂法/水法检测不可用</p>'
-              + '<p class="dim" style="font-size:11px">说明：OSM 中国建筑数据覆盖有限（约16%城市人口），该区域可能无数据</p></div>';
+              + '<p class="dim" style="font-size:11px">这片区域的地图资料不足，暂时无法判断。</p></div>';
             return;
           }
           swCt.innerHTML = '<p class="dim" style="text-align:center;padding:14px">🗺 正在采样地形高程…</p>';
@@ -4797,7 +4933,7 @@
       } else if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           p => runAnalysis(p.coords.latitude, p.coords.longitude),
-          () => { swCt.innerHTML = '<p style="color:var(--cinnabar);padding:10px">定位失败：请先点「回我」授权位置权限</p>'; }
+          () => { swCt.innerHTML = '<p style="color:var(--cinnabar);padding:10px">定位失败：请先点“回到当前位置”并允许位置权限</p>'; }
         );
       } else {
         swCt.innerHTML = '<p style="color:var(--cinnabar);padding:10px">此设备不支持 GPS 定位</p>';
@@ -6030,8 +6166,7 @@
         }
       } catch (e5) { /* 飞星计算失败静默省略 */ }
 
-      h += '<p class="dim" style="font-size:10px;margin-top:8px">'
-        + '标记在户型图画布上（户型图坐标）· 解锁户型时清除 · 可拖移重定位</p>';
+      h += '<p class="dim" style="font-size:10px;margin-top:8px">可拖动标记；解锁户型后标记会清除。</p>';
 
       panelCt.innerHTML = h;
       panel.classList.add('shown');
@@ -6185,7 +6320,7 @@
             // v2-P6: noData flag → OSM 该区域无道路/建筑数据（区别于"有数据但无形煞"）
             if (sha.noData) {
               h2 += '<div class="sha-item sha-weak">⚠️ 当地 OSM 数据稀疏，形煞检测不可用'
-                + '<br><span style="font-size:10px">说明：OSM 中国建筑数据覆盖有限（约16%城市人口），该区域可能无数据</span></div>';
+                + '<br><span style="font-size:10px">这片区域的地图资料不足，暂时无法判断。</span></div>';
             } else {
               h2 += '<div class="sha-item sha-clear">✦ 200m 半径内未检测到明显形煞</div>';
             }
@@ -6200,7 +6335,7 @@
               h2 += '</div>';
             });
           }
-          h2 += '<p class="dim" style="font-size:10px;margin-top:8px">⚠️ = 现代形煞名称（20世纪香港/台湾命名，无明清典籍直接依据）；其余标有古籍出处。<br>判据：道路/建筑几何关系；OSM 数据 © OpenStreetMap (ODbL)</p>';
+          h2 += '<p class="dim" style="font-size:10px;margin-top:8px">带 ⚠️ 的名称来自近现代说法，古籍里没有同名条目。判断依据是周边道路与建筑位置。</p>';
           shaCt2.innerHTML = h2;
         }
         // v2-P11: 形煞向格叠色 — 将检测结果同步到户型画布
@@ -6216,7 +6351,7 @@
           shaCt2.innerHTML = '<p class="dim" style="text-align:center;padding:10px">'
             + 'OSM 数据获取失败（当前网络可能无法访问地图数据服务，浏览器端可重试）<br>'
             + (e.message || '') + '<br>'
-            + '<span style="font-size:10px">说明：OSM 中国建筑数据覆盖有限（约16%城市人口），该区域可能无数据</span></p>';
+            + '<span style="font-size:10px">这片区域的地图资料不足，也可能是网络暂时不可用。</span></p>';
         }
         toast(tt('toast.sha_query_fail'));
       }
@@ -6272,33 +6407,81 @@
     try { savedInput = JSON.parse(localStorage.getItem('bazi-input') || 'null'); }
     catch (e) { localStorage.removeItem('bazi-input'); }
     const birthSegments = [
-      { el: $('bazi-year'), size: 4, min: 1600, max: new Date().getFullYear() },
-      { el: $('bazi-month'), size: 2, min: 1, max: 12 },
-      { el: $('bazi-day'), size: 2, min: 1, max: 31 },
-      { el: $('bazi-hour'), size: 2, min: 0, max: 23 },
-      { el: $('bazi-minute'), size: 2, min: 0, max: 59 }
+      { el: $('bazi-year'), size: 4, min: 1600, max: new Date().getFullYear(), label: '年份', labelEn: 'year' },
+      { el: $('bazi-month'), size: 2, min: 1, max: 12, label: '月份', labelEn: 'month' },
+      { el: $('bazi-day'), size: 2, min: 1, max: 31, label: '日期', labelEn: 'day' },
+      { el: $('bazi-hour'), size: 2, min: 0, max: 23, label: '小时', labelEn: 'hour' },
+      { el: $('bazi-minute'), size: 2, min: 0, max: 59, label: '分钟', labelEn: 'minute', optional: true }
     ];
+    // 说清楚哪一格错了。此前跨格非法日期（如 2 月 30 日）只是让「排盘」变灰，
+    // 五格全满、无一格标红、提示语一字不变——用户只能对着死按钮反复戳。
+    // 必须按 id 取：表单里还有一个「高级·真太阳时」折叠区内的 .form-hint，
+    // querySelector 会先抓到那个（默认折叠、offsetParent 为 null），提示就写进了看不见的地方。
+    const hintEl = document.getElementById('bazi-form-hint');
+    const HINT_DEFAULT = hintEl ? hintEl.textContent : '';
+    let lastProblem = null; // { index, message }
+    function setHint(message, isError) {
+      if (!hintEl) return;
+      hintEl.textContent = message || HINT_DEFAULT;
+      hintEl.classList.toggle('is-error', !!isError);
+      // aria-disabled 只解决了鼠标/触摸的反馈；屏幕阅读器要靠 aria-live 才听得到缺什么。
+      hintEl.setAttribute('role', isError ? 'alert' : 'status');
+    }
+    function daysInMonth(y, m) { return new Date(y, m, 0).getDate(); }
     function syncBirthDateTime(markInvalid) {
       const values = birthSegments.map(part => part.el.value);
+      // 分钟可留空：时辰的分界都在整点，分钟只在开「真太阳时」时才影响结果。
+      if (!values[4]) values[4] = '00';
       const complete = values.every((value, index) => value.length === birthSegments[index].size);
-      let valid = complete && birthSegments.every((part, index) => {
-        const value = +values[index];
-        return value >= part.min && value <= part.max;
+      let problem = null;
+      birthSegments.forEach((part, index) => {
+        if (problem) return;
+        const raw = values[index];
+        if (!raw || raw.length !== part.size) return;
+        const value = +raw;
+        if (value < part.min || value > part.max) {
+          problem = { index, message: isEN()
+            ? `${part.labelEn} must be between ${part.min} and ${part.max}; you entered ${value}`
+            : `${part.label}要在 ${part.min}–${part.max} 之间，现在填的是 ${value}` };
+        }
       });
+      let valid = complete && !problem;
       if (valid) {
         const y = +values[0], m = +values[1], d = +values[2], h = +values[3], minute = +values[4];
         const check = new Date(y, m - 1, d, h, minute);
         valid = check.getFullYear() === y && check.getMonth() === m - 1 && check.getDate() === d
           && check.getHours() === h && check.getMinutes() === minute;
+        if (valid && check.getTime() > Date.now()) {
+          // 还没到的时刻不能排盘：原校验只卡年份 ≤ 今年，于是今年更晚的日期照样放行，
+          // 等于给一个还没出生的人出命盘。
+          valid = false;
+          problem = { index: 0, message: isEN()
+            ? 'That moment has not happened yet — check the birth date'
+            : '这个时刻还没到，确认一下出生日期' };
+        }
+        if (!valid && !problem) {
+          // 单格都合法但组合起来不存在这一天：点名到「日」，并说出这个月到底几天。
+          problem = { index: 2, message: isEN()
+            ? `${m}/${y} has only ${daysInMonth(y, m)} days — there is no day ${d}`
+            : `${y} 年 ${m} 月只有 ${daysInMonth(y, m)} 天，没有 ${d} 日` };
+        }
       }
+      lastProblem = problem || (complete ? null : { index: values.findIndex((v, i) => v.length !== birthSegments[i].size), message: null });
       $('bazi-datetime').value = valid
         ? `${values[0]}-${values[1]}-${values[2]}T${values[3]}:${values[4]}`
         : '';
-      if (markInvalid) birthSegments.forEach((part, index) => {
-        const value = part.el.value;
-        const numeric = +value;
-        part.el.classList.toggle('is-invalid', !!value && (value.length !== part.size || numeric < part.min || numeric > part.max));
+      birthSegments.forEach((part, index) => {
+        // 必填格空着也要标出来：粘贴纯日期后小时是空的，只提示不标红，
+        // 辅助技术就听不到错误落在哪个字段。
+        const emptyRequired = markInvalid && !part.optional && !part.el.value;
+        const shouldMark = problem ? problem.index === index
+          : (markInvalid && ((!!part.el.value && part.el.value.length !== part.size) || emptyRequired));
+        part.el.classList.toggle('is-invalid', !!shouldMark);
+        part.el.setAttribute('aria-invalid', shouldMark ? 'true' : 'false');
+        if (shouldMark) part.el.setAttribute('aria-describedby', 'bazi-form-hint');
+        else part.el.removeAttribute('aria-describedby');
       });
+      setHint(problem ? problem.message : null, !!problem);
       updatePaipanState();
       return valid;
     }
@@ -6331,89 +6514,374 @@
       });
     });
     $('bazi-datetime-segments').addEventListener('paste', event => {
-      const digits = (event.clipboardData && event.clipboardData.getData('text') || '').replace(/\D/g, '');
+      const raw = (event.clipboardData && event.clipboardData.getData('text') || '');
+      const digits = raw.replace(/\D/g, '');
       if (digits.length < 8) return;
       event.preventDefault();
-      const chunks = [digits.slice(0, 4), digits.slice(4, 6), digits.slice(6, 8), digits.slice(8, 10) || '00', digits.slice(10, 12) || '00'];
+      // 先按结构解析，别按固定位置硬切：'1990-02-03 8:30' 去掉符号后是 19900203830，
+      // 定位切片会得到 hour=83、minute=0。
+      const structured = /^\s*(\d{4})\D+(\d{1,2})\D+(\d{1,2})(?:\D+(\d{1,2})(?:\D+(\d{1,2}))?)?/.exec(raw);
+      // 只粘了日期就别替他把时辰补成午夜：那等于凭空替用户断言「子时出生」。
+      // 分钟可以留空（时辰分界在整点），小时不行。
+      const pad2 = v => (v == null || v === '') ? '' : String(v).padStart(2, '0');
+      let chunks, hasHour;
+      if (structured) {
+        hasHour = structured[4] != null;
+        chunks = [structured[1], pad2(structured[2]), pad2(structured[3]), pad2(structured[4]), pad2(structured[5])];
+      } else {
+        hasHour = digits.length >= 10;
+        chunks = [digits.slice(0, 4), digits.slice(4, 6), digits.slice(6, 8),
+          hasHour ? digits.slice(8, 10) : '', digits.slice(10, 12) || ''];
+      }
       birthSegments.forEach((part, index) => { part.el.value = chunks[index]; part.el.classList.remove('is-invalid'); });
       syncBirthDateTime(true);
-      birthSegments[Math.min(4, Math.floor(Math.min(digits.length, 12) / 2))].el.focus();
+      if (!hasHour) {
+        // focus() 会同步触发上一格的 blur → syncBirthDateTime(true) → setHint 复位，
+        // 所以提示必须放在 focus 之后，否则这句话活不过一帧。
+        birthSegments[3].el.focus();
+        setHint(isEN() ? 'Date filled in — still need the hour of birth' : '日期已填好，还差出生的「小时」', true);
+      } else {
+        birthSegments[Math.min(4, Math.floor(Math.min(digits.length, 12) / 2))].el.focus();
+      }
     });
 
-    const countrySel = $('bazi-country'), citySel = $('bazi-city');
-    const birthPlaces = Array.isArray(window.SinanBirthPlaces) ? window.SinanBirthPlaces : [];
-    const placeLabel = item => isEN() ? item.en : item.zh;
-    function fillBirthCountries(selected) {
-      countrySel.innerHTML = `<option value="">${isEN() ? 'Select country / region' : '选择国家/地区'}</option>`;
-      birthPlaces.forEach(country => countrySel.add(new Option(placeLabel(country), country.code)));
-      if (selected && birthPlaces.some(country => country.code === selected)) countrySel.value = selected;
+    const countrySel = $('bazi-country'), regionSel = $('bazi-region'), citySel = $('bazi-city');
+    const countryInput = $('bazi-country-search'), regionInput = $('bazi-region-search'), cityInput = $('bazi-city-search');
+    const countryList = $('bazi-country-options'), regionList = $('bazi-region-options'), cityList = $('bazi-city-options');
+    const birthPlaceApi = window.SinanBirthPlaces;
+    let birthCountries = [], activeBirthCountry = null, birthPlaceToken = 0;
+    const usStateCodes = new Set('AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY DC'.split(' '));
+    const legacyCnCities = {
+      beijing: '北京市', shanghai: '上海市', guangzhou: '广州市', shenzhen: '深圳市', chengdu: '成都市',
+      chongqing: '重庆市', hangzhou: '杭州市', nanjing: '南京市', wuhan: '武汉市', xian: '西安市',
+      tianjin: '天津市', shenyang: '沈阳市', harbin: '哈尔滨市', qingdao: '青岛市', xiamen: '厦门市',
+      fuzhou: '福州市', kunming: '昆明市', changsha: '长沙市', zhengzhou: '郑州市', urumqi: '乌鲁木齐市', lhasa: '拉萨市'
+    };
+    const normalizePlaceKey = value => String(value || '').toLowerCase().normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9\u3400-\u9fff]+/g, '');
+    const setPlacePlaceholder = (select, text, disabled = true) => {
+      select.innerHTML = '';
+      select.add(new Option(text, ''));
+      select.disabled = disabled;
+    };
+    const countryLabel = country => isEN() ? country[1] : (country[2] || country[1]);
+    const regionLabel = region => isEN() ? region[1] : (region[2] || region[1]);
+    const cityLabel = city => isEN() ? city[1] : (city[2] || city[1]);
+    const cityInputLabel = (city, cities) => {
+      const base = cityLabel(city);
+      const duplicates = (cities || []).filter(item => cityLabel(item) === base).length;
+      if (duplicates < 2) return base;
+      const qualifier = isEN() ? (city[2] || city[0]) : (city[1] || city[0]);
+      return `${base}（${qualifier}）`;
+    };
+    const regionsForCountry = country => {
+      const regions = (country && country.s) || [];
+      return country && country.c === 'US' ? regions.filter(region => usStateCodes.has(region[0])) : regions;
+    };
+    const matchesPlace = (value, row) => {
+      const key = normalizePlaceKey(value);
+      const combinedZhEn = `${row[2] || row[1]}（${row[1] || row[0]}）`;
+      const combinedEnZh = `${row[1] || row[2]} (${row[2] || row[0]})`;
+      return key && [row[0], row[1], row[2], combinedZhEn, combinedEnZh].some(part => normalizePlaceKey(part) === key);
+    };
+    const fillPlaceList = (list, rows, labelFn) => {
+      list.innerHTML = '';
+      rows.forEach(row => {
+        const option = document.createElement('option');
+        option.value = labelFn(row);
+        if (!isEN() && row[1] && row[1] !== option.value) option.label = row[1];
+        list.appendChild(option);
+      });
+    };
+    const setSearchState = (input, value, placeholder, disabled) => {
+      input.value = value || '';
+      input.placeholder = placeholder;
+      input.disabled = !!disabled;
+    };
+    function clearBirthRegions() {
+      activeBirthCountry = null;
+      setPlacePlaceholder(regionSel, isEN() ? 'Select state / province' : '选择州/省');
+      setPlacePlaceholder(citySel, isEN() ? 'Select city' : '选择城市');
+      regionList.innerHTML = '';
+      cityList.innerHTML = '';
+      setSearchState(regionInput, '', isEN() ? 'Choose country / region first' : '先选国家/地区', true);
+      setSearchState(cityInput, '', isEN() ? 'Choose state / province first' : '先选省份/州', true);
     }
-    function fillBirthCities(countryCode, selected) {
-      const country = birthPlaces.find(item => item.code === countryCode);
-      citySel.innerHTML = `<option value="">${isEN() ? 'Select city' : '选择城市'}</option>`;
-      citySel.disabled = !country;
-      if (!country) return;
-      country.cities.forEach(city => citySel.add(new Option(isEN() ? city[2] : city[1], city[0])));
-      if (selected && country.cities.some(city => city[0] === selected)) citySel.value = selected;
+    async function fillBirthCountries(selected) {
+      setPlacePlaceholder(countrySel, isEN() ? 'Loading countries…' : '正在加载国家…');
+      try {
+        birthCountries = birthPlaceApi && birthPlaceApi.loadCountries ? await birthPlaceApi.loadCountries() : [];
+        countrySel.innerHTML = `<option value="">${isEN() ? 'Select country / region' : '选择国家/地区'}</option>`;
+        const priority = new Map(['CN', 'HK', 'MO', 'TW', 'SG', 'MY', 'US', 'CA', 'GB', 'AU'].map((code, index) => [code, index]));
+        const sorted = birthCountries.slice().sort((a, b) => {
+          const pa = priority.has(a[0]) ? priority.get(a[0]) : 999;
+          const pb = priority.has(b[0]) ? priority.get(b[0]) : 999;
+          return pa - pb || countryLabel(a).localeCompare(countryLabel(b), isEN() ? 'en' : 'zh-CN');
+        });
+        sorted.forEach(country => countrySel.add(new Option(countryLabel(country), country[0])));
+        fillPlaceList(countryList, sorted, countryLabel);
+        countrySel.disabled = false;
+        countryInput.disabled = false;
+        countryInput.placeholder = isEN() ? 'Search country / region' : '搜索国家/地区';
+        const chosen = selected && birthCountries.find(country => country[0] === selected);
+        if (chosen) {
+          countrySel.value = chosen[0];
+          countryInput.value = countryLabel(chosen);
+        }
+      } catch (error) {
+        setPlacePlaceholder(countrySel, isEN() ? 'Failed to load · tap to retry' : '加载失败 · 点此重试', false);
+        console.warn('Birth place countries failed to load', error);
+      }
+    }
+    function findSavedBirthPlace(country, regionCode, cityCode) {
+      if (!country) return null;
+      const migratedCity = country.c === 'CN' && legacyCnCities[cityCode] ? legacyCnCities[cityCode] : cityCode;
+      const targetCity = normalizePlaceKey(migratedCity);
+      const targetRegion = normalizePlaceKey(regionCode);
+      for (const region of regionsForCountry(country)) {
+        if (targetRegion && ![region[0], region[1], region[2]].some(value => normalizePlaceKey(value) === targetRegion)) continue;
+        const city = (region[3] || []).find(item => [item[0], item[1], item[2]].some(value => normalizePlaceKey(value) === targetCity));
+        if (city) return { region, city };
+        if (targetRegion && !targetCity) return { region, city: null };
+      }
+      if (targetCity) {
+        for (const region of regionsForCountry(country)) {
+          const city = (region[3] || []).find(item => [item[0], item[1], item[2]].some(value => normalizePlaceKey(value) === targetCity));
+          if (city) return { region, city };
+        }
+      }
+      return null;
+    }
+    function fillBirthCities(regionCode, selected) {
+      const region = activeBirthCountry && (activeBirthCountry.s || []).find(item => item[0] === regionCode);
+      setPlacePlaceholder(citySel, isEN() ? 'Select city' : '选择城市', !region);
+      cityList.innerHTML = '';
+      setSearchState(cityInput, '', isEN() ? 'Choose state / province first' : '先选省份/州', !region);
+      if (!region) return;
+      const cities = region[3] || [];
+      cities.forEach(city => citySel.add(new Option(cityLabel(city), city[0])));
+      fillPlaceList(cityList, cities, city => cityInputLabel(city, cities));
+      citySel.disabled = false;
+      const match = selected && (region[3] || []).find(city => [city[0], city[1], city[2]].some(value => normalizePlaceKey(value) === normalizePlaceKey(selected)));
+      if (match) {
+        citySel.value = match[0];
+        cityInput.value = cityInputLabel(match, cities);
+      }
+    }
+    async function fillBirthRegions(countryCode, selectedRegion, selectedCity) {
+      const token = ++birthPlaceToken;
+      clearBirthRegions();
+      if (!countryCode || !birthPlaceApi || !birthPlaceApi.loadCountry) return;
+      setPlacePlaceholder(regionSel, isEN() ? 'Loading states / provinces…' : '正在加载州/省…');
+      try {
+        const country = await birthPlaceApi.loadCountry(countryCode);
+        if (token !== birthPlaceToken || countrySel.value !== countryCode) return;
+        activeBirthCountry = country;
+        const saved = findSavedBirthPlace(country, selectedRegion, selectedCity);
+        const regions = regionsForCountry(country);
+        regionSel.innerHTML = `<option value="">${isEN() ? 'Select state / province' : '选择州/省'}</option>`;
+        regions.forEach(region => regionSel.add(new Option(regionLabel(region), region[0])));
+        fillPlaceList(regionList, regions, regionLabel);
+        regionSel.disabled = false;
+        setSearchState(regionInput, '', isEN() ? 'Search state / province' : '搜索省份/州', false);
+        if (saved) {
+          regionSel.value = saved.region[0];
+          regionInput.value = regionLabel(saved.region);
+          fillBirthCities(saved.region[0], saved.city && saved.city[0]);
+        } else if (regions.length === 1) {
+          regionSel.value = regions[0][0];
+          regionInput.value = regionLabel(regions[0]);
+          fillBirthCities(regions[0][0], selectedCity);
+        }
+      } catch (error) {
+        if (token !== birthPlaceToken) return;
+        setPlacePlaceholder(regionSel, isEN() ? 'Failed to load · select country again' : '加载失败 · 请重选国家', false);
+        console.warn('Birth place country failed to load', error);
+      }
     }
     function selectedBirthCity() {
-      const country = birthPlaces.find(item => item.code === countrySel.value);
-      return country && country.cities.find(city => city[0] === citySel.value);
+      const region = activeBirthCountry && (activeBirthCountry.s || []).find(item => item[0] === regionSel.value);
+      return region && (region[3] || []).find(city => city[0] === citySel.value);
     }
+    async function chooseBirthCountry(value) {
+      const country = birthCountries.find(row => matchesPlace(value, row));
+      if (!country) {
+        if (!String(value || '').trim()) {
+          countrySel.value = '';
+          clearBirthRegions();
+          $('bazi-lng').value = '';
+        }
+        return;
+      }
+      countryInput.value = countryLabel(country);
+      if (countrySel.value === country[0] && activeBirthCountry) return;
+      countrySel.value = country[0];
+      await fillBirthRegions(country[0], '', '');
+      $('bazi-lng').value = '';
+    }
+    function chooseBirthRegion(value) {
+      const region = regionsForCountry(activeBirthCountry).find(row => matchesPlace(value, row));
+      if (!region) {
+        if (!String(value || '').trim()) {
+          regionSel.value = '';
+          fillBirthCities('', '');
+          $('bazi-lng').value = '';
+        }
+        return;
+      }
+      regionInput.value = regionLabel(region);
+      regionSel.value = region[0];
+      fillBirthCities(region[0], '');
+      $('bazi-lng').value = '';
+    }
+    function chooseBirthCity(value) {
+      const region = activeBirthCountry && (activeBirthCountry.s || []).find(item => item[0] === regionSel.value);
+      const city = region && (region[3] || []).find(row => matchesPlace(value, row));
+      if (!city) {
+        if (!String(value || '').trim()) {
+          citySel.value = '';
+          $('bazi-lng').value = '';
+        }
+        return;
+      }
+      cityInput.value = cityInputLabel(city, region[3] || []);
+      citySel.value = city[0];
+      $('bazi-lng').value = Number(city[3]).toFixed(2);
+    }
+    clearBirthRegions();
     fillBirthCountries('');
-    fillBirthCities('', '');
-    countrySel.addEventListener('change', () => {
-      fillBirthCities(countrySel.value, '');
+    countryInput.addEventListener('change', () => chooseBirthCountry(countryInput.value));
+    regionInput.addEventListener('change', () => chooseBirthRegion(regionInput.value));
+    cityInput.addEventListener('change', () => chooseBirthCity(cityInput.value));
+    countryInput.addEventListener('input', () => {
+      if (!countryInput.value.trim()) chooseBirthCountry('');
+    });
+    regionInput.addEventListener('input', () => {
+      if (!regionInput.value.trim()) chooseBirthRegion('');
+    });
+    cityInput.addEventListener('input', () => {
+      if (!cityInput.value.trim()) chooseBirthCity('');
+    });
+    countrySel.addEventListener('change', async () => {
+      await fillBirthRegions(countrySel.value, '', '');
+      $('bazi-lng').value = '';
+    });
+    regionSel.addEventListener('change', () => {
+      fillBirthCities(regionSel.value, '');
       $('bazi-lng').value = '';
     });
     citySel.addEventListener('change', () => {
       const city = selectedBirthCity();
-      $('bazi-lng').value = city ? city[3].toFixed(1) : '';
+      $('bazi-lng').value = city ? Number(city[3]).toFixed(2) : '';
     });
-    // 排盘可用性：阳历模式须填生辰才放行（默认置空→灰态）；农历模式选择器恒有值，放行。
+    // 排盘可用性：两种模式都必须真的填过才放行。
+    // 此前农历模式的四个下拉被预填成 1995/6/15/午时，勾一下「农历」就能一个字不输地
+    // 排出别人的命盘——用户拿到的是一张完全不属于自己的盘，而且自己发现不了。
+    function lunarComplete() {
+      if (!($('lunar-year').value && $('lunar-month').value && $('lunar-day').value && $('lunar-shichen').value !== '')) return false;
+      // 农历路径也要挡未来时刻，否则换个 tab 就能绕过公历那边的校验，
+      // 照样给还没出生的人排盘。
+      return !lunarIsFuture();
+    }
+    function lunarIsFuture() {
+      try {
+        if (typeof window.Lunar === 'undefined') return false;
+        const i = parseInt($('lunar-shichen').value, 10);
+        const solar = window.Lunar.fromYmdHms(+$('lunar-year').value, +$('lunar-month').value, +$('lunar-day').value,
+          i === 0 ? 0 : i * 2, 0, 0).getSolar();
+        return new Date(solar.getYear(), solar.getMonth() - 1, solar.getDay(), solar.getHour() || 0).getTime() > Date.now();
+      } catch (e) { return false; }   // 换算不出来就不拦，避免误伤
+    }
     function updatePaipanState() {
       const lunarOn = $('bazi-islunar').checked;
-      $('btn-paipan').disabled = !(lunarOn || $('bazi-datetime').value);
+      const ready = lunarOn ? lunarComplete() : !!$('bazi-datetime').value;
+      const btn = $('btn-paipan');
+      // 故意不用 disabled：disabled 元素收不到 click，用户点了得不到任何反馈，
+      // 只会以为「这 App 坏了」。改用 aria-disabled，保留点击以便说明缺什么。
+      btn.disabled = false;
+      btn.setAttribute('aria-disabled', String(!ready));
+      btn.classList.toggle('is-disabled', !ready);
+    }
+    function explainWhyNotReady() {
+      if ($('bazi-islunar').checked) {
+        const missing = [[ySel, '年', 'year'], [mSel, '月', 'month'], [dSel, '日', 'day'], [scSel, '时辰', 'two-hour period']].find(pair => pair[0].value === '');
+        if (!missing && lunarIsFuture()) {
+          setHint(isEN() ? 'That moment has not happened yet — check the birth date' : '这个时刻还没到，确认一下出生日期', true);
+          return;
+        }
+        setHint(missing ? (isEN() ? `Still need the ${missing[2]}` : `还差「${missing[1]}」没选`) : null, !!missing);
+        if (missing) missing[0].focus();
+        return;
+      }
+      syncBirthDateTime(true);
+      if (!lastProblem) return;
+      const seg = birthSegments[lastProblem.index >= 0 ? lastProblem.index : 0];
+      if (!lastProblem.message && seg) setHint(isEN() ? `Still need the ${seg.labelEn}` : `还差「${seg.label}」没填完`, true);
+      if (seg && seg.el) { seg.el.focus(); if (seg.el.select) seg.el.select(); }
     }
     $('bazi-islunar').addEventListener('change', () => {
       const lunarOn = $('bazi-islunar').checked;
       $('bazi-solar-row').style.display = lunarOn ? 'none' : '';
       $('bazi-lunar-row').style.display = lunarOn ? '' : 'none';
+      if (lunarOn) prefillLunarFromSolar(); // 已填过阳历就真实换算带过去，别让人重填一遍
       updatePaipanState();
     });
     $('bazi-datetime').addEventListener('input', updatePaipanState);
     updatePaipanState();
     // 农历选择器填充
     const ySel = $('lunar-year'), mSel = $('lunar-month'), dSel = $('lunar-day'), scSel = $('lunar-shichen');
-    for (let y = 2026; y >= 1920; y--) ySel.add(new Option(y, y));
+    const thisYear = new Date().getFullYear();
+    ySel.add(new Option(isEN() ? 'Year' : '出生年', ''));
+    for (let y = thisYear; y >= 1920; y--) ySel.add(new Option(y, y));
     const LY = window.LunarYear, LM = window.LunarMonth;
     function fillDays(y, m) {
       const prev = dSel.value; dSel.innerHTML = '';
+      dSel.add(new Option(isEN() ? 'Day' : '日期', ''));
+      if (!y || !m) { dSel.value = ''; return; }
       let cnt = 30;
       try { if (LM) cnt = LM.fromYm(y, m).getDayCount(); } catch (e) { cnt = 30; } // 小月 29 天，不再多出不存在的三十
       for (let d = 1; d <= cnt; d++) dSel.add(new Option(d + '日', d));
-      if (+prev >= 1 && +prev <= cnt) dSel.value = prev;
+      dSel.value = (+prev >= 1 && +prev <= cnt) ? prev : '';
     }
     function fillMonths(y) {
       const prev = mSel.value; mSel.innerHTML = '';
+      mSel.add(new Option(isEN() ? 'Month' : '月份', ''));
+      if (!y) { mSel.value = ''; fillDays(0, 0); return; }
       let leap = 0;
       try { if (LY) leap = LY.fromYear(y).getLeapMonth(); } catch (e) { leap = 0; } // 0=无闰
       for (let m = 1; m <= 12; m++) {       // 正月..腊月，闰月（负数值）紧随其月之后
         mSel.add(new Option(m + '月', m));
         if (leap === m) mSel.add(new Option('闰' + m + '月', -m));
       }
-      if (Array.prototype.some.call(mSel.options, o => o.value === prev)) mSel.value = prev;
+      mSel.value = Array.prototype.some.call(mSel.options, o => o.value === prev) ? prev : '';
       fillDays(y, +mSel.value);
     }
-    ySel.addEventListener('change', () => fillMonths(+ySel.value));
-    mSel.addEventListener('change', () => fillDays(+ySel.value, +mSel.value));
     const sc = ['子时 23-01', '丑时 01-03', '寅时 03-05', '卯时 05-07', '辰时 07-09', '巳时 09-11', '午时 11-13', '未时 13-15', '申时 15-17', '酉时 17-19', '戌时 19-21', '亥时 21-23'];
+    scSel.add(new Option(isEN() ? 'Hour branch' : '时辰', ''));
     sc.forEach((s, i) => scSel.add(new Option(s, i)));
-    ySel.value = 1995; fillMonths(1995);
-    if (Array.prototype.some.call(mSel.options, o => +o.value === 6)) mSel.value = 6;
-    fillDays(1995, +mSel.value);
-    if (Array.prototype.some.call(dSel.options, o => +o.value === 15)) dSel.value = 15;
-    scSel.value = 6;
+    // 四个下拉一律空开局，任何一个没选都不放行——不预填任何人的生日。
+    ySel.value = ''; fillMonths(0); scSel.value = '';
+    [ySel, mSel, dSel, scSel].forEach(sel => sel.addEventListener('change', updatePaipanState));
+    ySel.addEventListener('change', () => { fillMonths(+ySel.value); updatePaipanState(); });
+    mSel.addEventListener('change', () => { fillDays(+ySel.value, +mSel.value); updatePaipanState(); });
+    // 勾「农历」时把已填的阳历真实换算过来，而不是丢给用户一组默认值。
+    function prefillLunarFromSolar() {
+      if (ySel.value) return;                      // 已经选过就别覆盖
+      const v = $('bazi-datetime').value;
+      if (!v || typeof window.Solar === 'undefined') return;
+      try {
+        const dt = new Date(v);
+        const l = window.Solar.fromYmdHms(dt.getFullYear(), dt.getMonth() + 1, dt.getDate(), dt.getHours(), dt.getMinutes(), 0).getLunar();
+        ySel.value = String(l.getYear());
+        fillMonths(l.getYear());
+        const lm = String(l.getMonth());           // 负数=闰月
+        if (Array.prototype.some.call(mSel.options, o => o.value === lm)) mSel.value = lm;
+        fillDays(l.getYear(), +mSel.value);
+        const ld = String(l.getDay());
+        if (Array.prototype.some.call(dSel.options, o => o.value === ld)) dSel.value = ld;
+        scSel.value = String(Math.floor(((dt.getHours() + 1) % 24) / 2)); // 子时含 23:00 与 00:00
+      } catch (e) { /* 换算不出来就保持空，绝不填默认值 */ }
+    }
 
     // 结果页可随时回来修改：旧盘在成功重排前继续保留，表单完整回填上次输入。
     function populateBaziForm(input) {
@@ -6436,8 +6904,7 @@
         setBirthSegments(input);
         const hasLng = typeof input.longitude === 'number' && isFinite(input.longitude);
         if ($('bazi-lng')) $('bazi-lng').value = hasLng ? input.longitude : '';
-        fillBirthCountries(input.country || '');
-        fillBirthCities(input.country || '', input.city || '');
+        fillBirthCountries(input.country || '').then(() => fillBirthRegions(input.country || '', input.region || '', input.city || ''));
         if ($('bazi-solar-toggle')) $('bazi-solar-toggle').checked = !!(input.solarTime && hasLng);
         const adv = $('bazi-solar-adv'); if (adv) adv.open = !!(input.solarTime || hasLng);
       }
@@ -6457,7 +6924,8 @@
         pos => {
           if ($('bazi-lng')) $('bazi-lng').value = Math.round(pos.coords.longitude * 100) / 100;
           countrySel.value = '';
-          fillBirthCities('', '');
+          countryInput.value = '';
+          clearBirthRegions();
           lngLocateBtn.disabled = false; lngLocateBtn.textContent = orig;
           const adv = $('bazi-solar-adv'); if (adv) adv.open = true;
         },
@@ -6485,6 +6953,12 @@
     });
 
     $('btn-paipan').addEventListener('click', (ev) => {
+      const paipanBtn = $('btn-paipan');
+      if (paipanBtn.getAttribute('aria-disabled') === 'true') {
+        explainWhyNotReady();
+        paipanBtn.classList.remove('shake'); void paipanBtn.offsetWidth; paipanBtn.classList.add('shake');
+        return;
+      }
       spawnRipple(ev);
       const gender = document.querySelector('input[name=gender]:checked').value;
       let input;
@@ -6503,6 +6977,7 @@
         input.longitude = isFinite(lng) ? lng : null;
         input.solarTime = !!(solarOn && input.longitude != null);
         input.country = countrySel.value || null;
+        input.region = regionSel.value || null;
         input.city = citySel.value || null;
       }
       localStorage.setItem('bazi-input', JSON.stringify(input));
@@ -6549,11 +7024,7 @@
   }
   function ruleWeight(r) { return Math.abs(r.polarity || 0) * (r.weight || 0); }
   function shortenText(s, n) { s = String(s == null ? '' : s); return s.length > n ? s.slice(0, n) + '…' : s; }
-  function polMark(p) {
-    const cls = POL_MARK[String(p)] || 'gjl-z';
-    const lab = POL_LABEL[String(p)] || '平';
-    return `<span class="gjl-pol ${cls}" title="衡：${lab}" aria-label="衡${lab}"></span>`;
-  }
+  function polMark() { return ''; }
   function friendlyConsequence(cls) {
     return (isEN() ? CONSEQ_FRIENDLY_EN : CONSEQ_FRIENDLY_ZH)[cls] || cls || (isEN() ? 'Other patterns' : '其他线索');
   }
@@ -6675,7 +7146,7 @@
       + '<div class="gjl-dp-seam" aria-hidden="true"><span class="gjl-dp-dui">对</span></div>'
       + dpLeaf(right)
       + '</div>'
-      + `<p class="gjl-dp-foot">${isEN() ? 'Both readings stand — recorded for reference, not weighed against each other (诸家异说, divergence among schools).' : '两说并存，存录备考，不计入衡（诸家异说）'}</p>`
+      + `<p class="gjl-dp-foot">${isEN() ? 'Both readings have sources. They are shown side by side without choosing a winner.' : '两种说法都有出处，这里并列展示，不判断哪一种更准。'}</p>`
       + '</div>';
   }
   function hasSentenceCite(r) {
@@ -6714,14 +7185,13 @@
       const remainingCount = natal.length - highlighted.size;
       let html = '<div class="gjl-head"><span class="seal">' + (enG ? 'For You' : '与你有关') + '</span>'
         + `<span class="gjl-sub">${enG ? 'How traditional readers might read your chart · every source remains traceable' : '你的命盘，古人会怎么看 · 每条都可追溯'}</span></div>`
-        + `<p class="gjl-intro">${enG ? '<b>Plain language first.</b> Source text stays folded until you want to inspect it.' : '<b>先说人话，再谈古籍。</b>以下是与你这张命盘直接对应的重点，原文默认收起。'}</p>`
+        + `<p class="gjl-intro">${enG ? '<b>Read the summary first.</b> Source text stays folded until you want to inspect it.' : '<b>先看结论，需要时再展开原文。</b>以下是与你这张命盘直接对应的重点。'}</p>`
         + '<div class="gjl-highlights">'
         + highlights.map(x => renderRuleItem(x.rule, x.cls)).join('')
         + '</div>';
       const hasLibrary = remainingCount > 0 || res.disputed.length > 0;
       if (hasLibrary) {
-        const total = remainingCount + res.disputed.length;
-        html += `<details class="gjl-library"><summary>${enG ? 'Continue to ' + total + ' source notes and divergent readings' : '继续查看其余 ' + total + ' 条典籍依据与异说'}</summary>`;
+        html += `<details class="gjl-library"><summary>${enG ? 'See more source notes and different readings' : '查看更多古籍说法与依据'}</summary>`;
         CONSEQ_ORDER.forEach(cls => {
           const arr = (groups[cls] || []).filter(r => !highlighted.has(r));
           if (!arr.length) return;
@@ -6743,14 +7213,13 @@
           pairHtml += renderDisputePair(ord[0], ord[1]);
         });
         html += `<details class="gjl-disputed"><summary>${enG ? 'Divergence among schools (' + res.disputed.length + ')' : '诸家异说（' + res.disputed.length + '）'}</summary>`
-          + `<p class="gjl-disputed-note">${enG ? 'Each of these readings has its own source; recorded for reference, not weighed in.' : '此数说各有所本，存录备考，不计入衡。'}</p>`
+          + `<p class="gjl-disputed-note">${enG ? 'Each reading has its own source. Use them as cultural references.' : '每种说法都有自己的出处，请把它们当作传统文化参考。'}</p>`
           + pairHtml
           + singles.map(r => renderRuleItem(r, (r.then && r.then.consequence_class) || '中性其他')).join('')
           + '</details>';
       }
       if (hasLibrary) html += '</details>';
-      const held = res.stats.held + res.stats.skippedRequires + res.stats.skippedCapability;
-      html += `<p class="gjl-foot">${enG ? 'A cultural interpretation, not a scientific diagnosis or a promise of outcomes. A further ' + held + ' rules did not take part because they require a compass bearing or await review.' : '传统文化视角，不是科学诊断，也不承诺现实结果。另有 ' + held + ' 条规则因需罗盘方位／待复核未参与。'}</p>`;
+      html += `<p class="gjl-foot">${enG ? 'A cultural interpretation, not a scientific diagnosis or a promise of outcomes.' : '这是传统文化视角，不是科学诊断，也不代表现实结果。'}</p>`;
       box.innerHTML = html;
       box.style.display = '';
     }).catch(() => { /* 静默降级：不显卡、不报错 */ });
@@ -6810,7 +7279,7 @@
     } else {
       dual.innerHTML = `<div><span class="bz-solar-tag">钟表时</span><span class="bz-solar-zhi">${escapeHtml(clockZhi)}时</span></div>`
         + `<div><span class="bz-solar-tag">真太阳时</span><span class="bz-solar-zhi">${escapeHtml(solarZhi)}时</span></div>`;
-      if (divPop) { divPop.textContent = '命理界排盘用时，钟表时与真太阳时（按经度、均时差校正的地方真太阳时）两派并存，各有师承。本 App 两法并列、以所选时刻排盘而不作裁决——今人整理。'; divPop.hidden = true; }
+      if (divPop) { divPop.textContent = '传统排盘对使用钟表时间还是真太阳时有不同做法。这里把两种结果都列出来，并始终按你选定的时间生成命盘。'; divPop.hidden = true; }
       if (divBtn) { divBtn.hidden = false; divBtn.setAttribute('aria-expanded', 'false'); }
     }
   }
@@ -6862,21 +7331,21 @@
         + '</div>';
       return;
     }
-    let sentence = `阁下降生于<b>${escapeHtml(yearGZ)}年${escapeHtml(monthCn)}月${escapeHtml(dayCn)}${escapeHtml(timeZhi)}时</b>。`;
-    if (yi.length) sentence += `是日宜<b class="kw-yi">${escapeHtml(yi.join('·'))}</b>`;
-    if (hex && hex.name) sentence += `${yi.length ? '，' : '是日'}时卦<b class="gold">${escapeHtml(hex.name)}</b>`;
+    let sentence = `你出生在<b>${escapeHtml(yearGZ)}年${escapeHtml(monthCn)}月${escapeHtml(dayCn)}${escapeHtml(timeZhi)}时</b>。`;
+    if (yi.length) sentence += `当天黄历记的“宜”有<b class="kw-yi">${escapeHtml(yi.join('·'))}</b>`;
+    if (hex && hex.name) sentence += `${yi.length ? '，' : '当时'}按时间排出的卦是<b class="gold">${escapeHtml(hex.name)}</b>`;
     sentence += '。';
-    const jieqiPos = alm.jieQiToday ? `是日交「${alm.jieQiToday}」` : `时在「${alm.currentJieQi}」气中`;
+    const jieqiPos = alm.jieQiToday ? `当天进入「${alm.jieQiToday}」` : `当时正值「${alm.currentJieQi}」节气区间`;
     let meta = `<span class="bday-k">节气</span>${escapeHtml(jieqiPos)}`;
     if (ji.length) meta += ` <span class="bday-k" style="margin-left:12px">忌</span><span class="kw-ji">${escapeHtml(ji.join('·'))}</span>`;
     host.innerHTML =
       '<div class="card bday-card">'
-      + '<div class="bday-head"><span class="seal">生辰</span><b class="gold">降生之日</b>'
+      + '<div class="bday-head"><span class="seal">生辰</span><b class="gold">出生当天</b>'
       + `<span class="dim">${escapeHtml(alm.solarText)}</span></div>`
       + `<p class="bday-phrase">${sentence}</p>`
       + `<p class="bday-meta">${meta}</p>`
-      + '<div class="bday-foot"><span>宜忌本乎黄历<span class="cite-chip" data-cite="xinji-bianfang" role="button" tabindex="0" style="margin:0 3px">《协纪辨方书》</span>体系 · 时卦梅花易数（今人方法）</span>'
-      + '<span class="bday-share">长按截图 · 可赠友人</span></div>'
+      + '<div class="bday-foot"><span>黄历项参考<span class="cite-chip" data-cite="xinji-bianfang" role="button" tabindex="0" style="margin:0 3px">《协纪辨方书》</span>；卦象由出生时间排出，仅作传统文化参考</span>'
+      + '<span class="bday-share">长按可保存这张卡</span></div>'
       + '</div>';
   }
 
@@ -7083,6 +7552,15 @@
   // 只挂八字结果页；堪舆页继续保持罗盘/地图工具界面。人格名与文案为现代文化创作，非科学诊断。
 
   const CharacterSystem = window.SinanCharacters || null;
+  let currentCharacterChart = null;
+
+  function selectedThemeStem() {
+    if (!CharacterSystem) return null;
+    try {
+      const stem = localStorage.getItem('changming-theme-stem');
+      return CharacterSystem.get(stem) ? stem : null;
+    } catch (e) { return null; }
+  }
 
   function characterText(item, key, en) {
     if (!item || !CharacterSystem) return '';
@@ -7108,47 +7586,182 @@
 
   function renderBaziArchetype(c) {
     const host = $('bazi-archetype');
-    const a = c && CharacterSystem && CharacterSystem.get(c.dm);
-    if (!host || !a) { if (host) host.hidden = true; return; }
+    const guide = c && CharacterSystem && CharacterSystem.guideFor(c);
+    const selfStem = c && c.dm;
+    const self = selfStem && CharacterSystem && CharacterSystem.get(selfStem);
+    const themeStem = selectedThemeStem();
+    const displayStem = themeStem || (!guide.balanced && guide.pair && guide.pair[0]) || selfStem;
+    const a = displayStem && CharacterSystem && CharacterSystem.get(displayStem);
+    if (!host || !self || !a || !guide) { if (host) host.hidden = true; return; }
     const en = isEN();
-    const element = en ? elEN(c.dmEl) : c.dmEl;
+    const element = en ? elEN(a.element) : a.element;
     const polarity = en ? (a.yang ? 'Yang' : 'Yin') : (a.yang ? '阳' : '阴');
-    const stem = en ? `${cap1(STEM_PY[c.dm] || c.dm)} ${element}` : `${c.dm}${c.dmEl}`;
+    const stem = en ? `${cap1(STEM_PY[displayStem] || displayStem)} ${element}` : `${displayStem}${a.element}`;
     const name = characterText(a, 'name', en);
     const role = characterText(a, 'role', en);
     const tags = en ? a.tagsEn : a.tagsZh;
     const desc = characterText(a, 'desc', en);
-    const kicker = en ? 'CHANGMING CAST · YOUR CHARACTER' : '常明城十干 · 你的角色';
-    const basis = en
-      ? `Derived from Day Master ${c.dm} (${polarity} ${element}). Yin and Yang are not gender. This is a cultural narrative, not a scientific personality diagnosis.`
-      : `由日主${c.dm}${c.dmEl}（${polarity}${c.dmEl}）推演。阴阳不是性别；这是传统文化叙事，并非科学人格诊断。`;
-    const alt = en ? `${stem}, ${name}, ${role}` : `${stem}·${name}·${role}人物立绘`;
-    const pending = en ? 'Character PNG reserved' : '人物 PNG 待导入';
-    const archHex = C.EL_HEX[c.dmEl] || '#c9a227';
+    const pairZh = (guide.pair && guide.pair.length ? guide.pair : [selfStem]);
+    const pairEn = pairZh.map(s => cap1(STEM_PY[s] || s));
+    const chartCast = CharacterSystem.chartCast ? CharacterSystem.chartCast(c, en ? 'en' : 'zh') : [];
+    const distinctChartPeople = new Set(chartCast.map(slot => slot.stem)).size;
+    const relationCards = CharacterSystem.relationCards(selfStem, en ? 'en' : 'zh');
+    const kicker = themeStem
+      ? (en ? 'YOUR THEME CHARACTER' : '你设置的主题人物')
+      : (guide.balanced ? (en ? 'START WITH YOUR DAY MASTER' : '先从你的日主开始') : (en ? 'START WITH WHAT IS LOWER' : '先看你相对较少的五行'));
+    const worldIntro = en
+      ? `We made one fictional character for each heavenly stem. This is a story, not a prediction.`
+      : '十个天干各有一个虚构人物。这里讲人物故事，不作吉凶判断。';
+    const plain = themeStem
+      ? (en
+        ? `${cap1(STEM_PY[displayStem] || displayStem)} is your chosen theme character. Your Day Master remains ${cap1(STEM_PY[selfStem] || selfStem)}.`
+        : `你选了${displayStem}·${name}作为常用人物；你的日主仍是${selfStem}。`)
+      : (guide.balanced
+        ? (en
+          ? `Your five phases are evenly spread, so the story begins with Day Master ${cap1(STEM_PY[selfStem] || selfStem)}.`
+          : `你的五行分布接近，所以先从日主${selfStem}认识这个人物世界。`)
+        : (en
+          ? `Your Day Master is ${cap1(STEM_PY[selfStem] || selfStem)}. ${elEN(guide.element)} is relatively lower, so ${pairEn.join(' and ')} both appear below; this hero starts with the Yang face.`
+          : `你的日主是${selfStem}；五行里${guide.element}相对少，所以属${guide.element}的${pairZh.join('、')}都会出现。主图先从${displayStem}开始，不表示只缺${displayStem}。`));
+    const basis = guide.balanced
+      ? (en
+        ? 'The five phases are close, so no single phase is shown as the lower pair.'
+        : '五行分布接近，所以没有单独推荐哪一行。')
+      : (en
+        ? `${elEN(guide.element)} is relatively lower, so both ${pairEn.join(' and ')} appear: the Yang and Yin faces of the same phase.`
+        : `你的五行里${guide.element}相对少，所以同时推荐${pairZh.join('、')}；他们分别代表阳${guide.element}和阴${guide.element}。`);
+    const alt = en ? `${stem}, ${name}, ${role}, in Changming City` : `${stem}·${name}·${role}在常明城中的完整场景`;
+    const archHex = C.EL_HEX[a.element] || '#c9a227';
     const archNum = parseInt(archHex.slice(1), 16);
+    const sceneCard = ({ kind, label, title, note, asset, openStem, targetStem, focus }) => asset ? `<button type="button" class="bazi-cast-card is-${kind}" data-changming-open data-stem="${escapeHtml(openStem || selfStem)}"${targetStem ? ` data-cm-view="relations" data-cm-target="${escapeHtml(targetStem)}"` : ''}>
+      <img src="${escapeHtml(asset)}" alt="${escapeHtml(title)}" loading="lazy" decoding="async" style="--scene-focus:${escapeHtml(focus || '50% 50%')}">
+      <span class="bazi-cast-shade" aria-hidden="true"></span>
+      <span class="bazi-cast-copy"><small>${escapeHtml(label)}</small><b>${escapeHtml(title)}</b><em>${escapeHtml(note)}</em></span>
+    </button>` : '';
+    const relationPlain = {
+      peer: en ? 'similar to you' : '和你相似',
+      output: en ? 'moved by you' : '被你带动',
+      source: en ? 'supports you' : '托住你',
+      control: en ? 'handled by you' : '由你掌握',
+      pressure: en ? 'pushes you' : '推动你'
+    };
+    const selfReasons = [en ? 'WHO YOU ARE · DAY MASTER' : `你是谁 · 日主${selfStem}`];
+    if (!guide.balanced && pairZh.includes(selfStem)) selfReasons.push(en ? `LOWER ${elEN(guide.element)}` : `${guide.element}相对少`);
+    const castCards = [sceneCard({
+      kind: 'self', label: selfReasons.join(' · '), title: `${selfStem}·${characterText(self, 'name', en)}`,
+      note: en ? 'Open your character story' : '从这个人物认识你出生当天的天干',
+      asset: self.heroScene || self.background, openStem: selfStem, focus: self.heroFocus
+    }), ...relationCards.map(card => {
+      const targetStem = card.relatedStems[0];
+      const target = CharacterSystem.get(targetStem);
+      if (!target) return '';
+      const reasons = [];
+      if (!guide.balanced && pairZh.includes(targetStem)) {
+        const side = en ? (target.yang ? 'Yang' : 'Yin') : (target.yang ? '阳' : '阴');
+        reasons.push(en ? `LOWER ${elEN(guide.element)} · ${side}` : `${guide.element}相对少 · ${side}${guide.element}`);
+      }
+      reasons.push(relationPlain[card.relationKey] || card.plain);
+      if (card.kind === 'combine') reasons.push(en ? 'also combines' : '同时相合');
+      if (card.kind === 'clash') reasons.push(en ? 'also clashes' : '同时相冲');
+      return sceneCard({
+        kind: card.kind, label: reasons.join(' · '),
+        title: `${targetStem}·${characterText(target, 'name', en)}`,
+        note: card.title || (en ? `Open the story between ${selfStem} and ${targetStem}` : `看${selfStem}和${targetStem}共同经历的故事`),
+        asset: card.scene || target.heroScene || target.background,
+        openStem: selfStem, targetStem, focus: card.scene ? '50% 50%' : target.heroFocus
+      });
+    })].filter(Boolean).join('');
+    const chartCastMarkup = chartCast.map(slot => {
+      const person = CharacterSystem.get(slot.stem);
+      if (!person) return '';
+      const relation = slot.relation || {};
+      const special = [
+        relation.combine ? (en ? 'They also combine' : `你与${slot.stem}同时相合`) : '',
+        relation.clash ? (en ? 'They also clash' : `你与${slot.stem}同时相冲`) : ''
+      ].filter(Boolean).join(' · ');
+      const slotLabel = slot.part === 'zhi'
+        ? (en ? `${slot.position} · ${slot.source}'s main hidden stem is ${slot.stem}` : `${slot.position} · ${slot.source}的主气是${slot.stem}`)
+        : `${slot.position} · ${slot.source}`;
+      const relationLabel = slot.isSelf
+        ? (en ? 'YOU · DAY MASTER' : '这是你 · 日主')
+        : (en ? `${relation.plain} · traditional term: ${relation.term}` : `${relation.plain}（传统称${relation.term}）`);
+      return `<button type="button" class="bazi-chart-person is-${escapeHtml(relation.key || 'peer')}${slot.isSelf ? ' is-self' : ''}${relation.combine ? ' is-combine' : ''}${relation.clash ? ' is-clash' : ''}" data-changming-open data-stem="${escapeHtml(selfStem)}"${slot.isSelf ? '' : ` data-cm-view="relations" data-cm-target="${escapeHtml(slot.stem)}"`} style="--person-color:${escapeHtml(C.EL_HEX[person.element] || '#c9a227')}">
+        <span class="bazi-chart-position">${escapeHtml(slotLabel)}</span>
+        <span class="bazi-chart-portrait"><i aria-hidden="true"></i><img src="${escapeHtml(person.heroScene || person.background)}" alt="${escapeHtml(slot.stem + '·' + characterText(person, 'name', en))}" loading="eager" decoding="async" style="--scene-focus:${escapeHtml(person.heroFocus || '50% 50%')}"></span>
+        <span class="bazi-chart-name"><b>${escapeHtml(slot.stem + '·' + characterText(person, 'name', en))}</b><small>${escapeHtml(relationLabel)}</small></span>
+        ${special ? `<em>${escapeHtml(special)}</em>` : ''}
+      </button>`;
+    }).join('');
+    const ensemblePoints = [
+      [8, 37, .78, 1], [20, 6, .7, 1], [33, 27, .79, 2], [45, 2, .69, 1],
+      [45, 35, 1.02, 5], [61, 25, .81, 3], [75, 5, .7, 1], [86, 36, .79, 2]
+    ];
+    const selfPoint = ensemblePoints[4];
+    const ensembleLines = chartCast.filter(slot => !slot.isSelf).map(slot => {
+      const point = ensemblePoints[slot.index];
+      const relation = slot.relation || {};
+      return `<line x1="${selfPoint[0] + 6}" y1="${selfPoint[1] + 30}" x2="${point[0] + 6}" y2="${point[1] + 24}" class="is-${escapeHtml(relation.key || 'peer')}${relation.combine ? ' is-combine' : ''}${relation.clash ? ' is-clash' : ''}"></line>`;
+    }).join('');
+    const ensemblePeople = chartCast.map(slot => {
+      const person = CharacterSystem.get(slot.stem);
+      if (!person) return '';
+      const point = ensemblePoints[slot.index];
+      return `<figure class="bazi-ensemble-person${slot.isSelf ? ' is-self' : ''}" style="--x:${point[0]}%;--y:${point[1]}%;--scale:${point[2]};--z:${point[3]}">
+        <img src="${escapeHtml(person.heroScene || person.background)}" alt="" loading="eager" decoding="async"${slot.isSelf ? ' fetchpriority="high"' : ''} style="--scene-focus:${escapeHtml(person.heroFocus || '50% 50%')}">
+        <figcaption>${escapeHtml(slot.isSelf ? (en ? 'YOU' : '你') : slot.position)}</figcaption>
+      </figure>`;
+    }).join('');
     host.style.setProperty('--arch-color', archHex);
     host.style.setProperty('--arch-rgb', `${(archNum >> 16) & 255}, ${(archNum >> 8) & 255}, ${archNum & 255}`);
-    host.dataset.stem = c.dm;
+    host.dataset.stem = displayStem;
     host.classList.remove('awaken', 'image-missing', 'asset-ready');
     host.innerHTML = `
-      <span class="bazi-arch-kicker">${escapeHtml(kicker)}</span>
-      <div class="bazi-arch-stage">
-        <span class="bazi-arch-orbit o1" aria-hidden="true"></span>
-        <span class="bazi-arch-orbit o2" aria-hidden="true"></span>
-        <div class="bazi-arch-fallback" aria-hidden="true">
-          <span class="bazi-arch-human"><i></i><i></i></span>
-          <b>${escapeHtml(c.dm)}</b><small>${escapeHtml(pending)}</small>
-        </div>
-        <img class="bazi-arch-image" src="${escapeHtml(a.asset)}" alt="${escapeHtml(alt)}" decoding="async">
-      </div>
-      <div class="bazi-arch-copy">
+      <p class="bazi-persona-intro">${escapeHtml(worldIntro)}</p>
+      <article class="bazi-persona-hero">
+        <img class="bazi-persona-art" src="${escapeHtml(a.heroScene || a.background)}" alt="${escapeHtml(alt)}" decoding="async" style="--scene-focus:${escapeHtml(a.heroFocus || '50% 50%')}">
+        <span class="bazi-persona-shade" aria-hidden="true"></span>
+        <div class="bazi-arch-copy">
+        <span class="bazi-arch-kicker">${escapeHtml(kicker)}</span>
         <h2 class="bazi-arch-title"><b>${escapeHtml(stem)}</b><small>${escapeHtml(polarity + ' ' + element + ' · ' + name + ' · ' + role)}</small></h2>
         <div class="bazi-arch-tags">${tags.map(tag => `<span>${escapeHtml(tag)}</span>`).join('')}</div>
+        <p class="bazi-arch-plain">${escapeHtml(plain)}</p>
         <p class="bazi-arch-desc">${escapeHtml(desc)}</p>
-        <p class="bazi-arch-basis">${escapeHtml(basis)}</p>
-      </div>`;
+        <button type="button" class="bazi-arch-enter" data-changming-open data-stem="${escapeHtml(displayStem)}"><span>${en ? `Read ${cap1(STEM_PY[displayStem] || displayStem)}'s story` : `看${displayStem}的故事`}</span><b aria-hidden="true">↗</b></button>
+        <div class="bazi-theme-actions">
+          ${themeStem
+            ? `<button type="button" class="bazi-theme-button" data-bazi-theme-reset>${en ? 'Use the chart default again' : '恢复命盘默认人物'}</button>`
+            : `<button type="button" class="bazi-theme-button" data-bazi-theme-set="${escapeHtml(displayStem)}">${en ? `Set ${displayStem} as my theme` : `把${displayStem}设为我的主题人物`}</button>`}
+          <button type="button" class="bazi-theme-button" data-changming-open data-stem="${escapeHtml(displayStem)}" data-cm-view="relations">${en ? 'Choose any of the ten' : '从十个人里选择其他主题'}</button>
+        </div>
+        </div>
+      </article>
+      <section class="bazi-chart-cast" aria-label="${en ? 'The eight chart positions shown as characters' : '八个命盘位置对应的人物'}">
+        <div class="bazi-cast-heading"><span>${en ? `YOUR EIGHT CHART POSITIONS · ${distinctChartPeople} DISTINCT CHARACTERS` : `你的八个命盘位置 · ${distinctChartPeople}位不同人物`}</span><p>${en ? 'These are eight positions, not necessarily eight different people. A repeated character stays visible in every position where it appears.' : '这是八个位置，不一定是八个不同人物。同一个人物出现多次，代表它在不同位置重复出现。'}</p></div>
+        <p class="bazi-cast-how">${en ? 'Each pillar has a visible stem and a branch. A branch card uses its main hidden stem; for example, 戌 uses 戊. This is only a character mapping, not an extra person added to the chart.' : '年、月、日、时各有一个天干和一个地支。天干直接对应人物；地支用它的“主气藏干”对应人物，例如戌的主气是戊，所以显示戊。这里只是把八个位置翻成人物，不会凭空多算一个人。'}</p>
+        <div class="bazi-ensemble" aria-hidden="true">
+          <span class="bazi-ensemble-sky"></span>
+          <span class="bazi-ensemble-title">${en ? 'EIGHT POSITIONS · ONE SCENE' : '八个位置 · 同场显现'}</span>
+          <svg class="bazi-ensemble-lines" viewBox="0 0 100 100" preserveAspectRatio="none">${ensembleLines}</svg>
+          ${ensemblePeople}
+          <span class="bazi-ensemble-ground"></span>
+        </div>
+        <div class="bazi-chart-stage"><span class="bazi-chart-field" aria-hidden="true"></span><div class="bazi-chart-grid">${chartCastMarkup}</div></div>
+      </section>
+      <div class="bazi-cast-heading"><span>${en ? 'ALL TEN CHARACTERS' : '你、较少的五行与全部关系'}</span><p>${en ? 'One card for you and one for each of the other nine. No person repeats: lower phases, support, output, pressure, control, combine and clash are merged into that person’s reason line.' : '共十张：你自己一张，另外九人各一张，不重复。同一个人如果同时代表“较少的五行”、相生、相制、相合或相冲，会合并写在同一张卡上。'}</p></div>
+      <div class="bazi-cast-grid">${castCards}</div>
+      <p class="bazi-arch-basis is-visible">${escapeHtml(basis)}</p>`;
     host.hidden = false;
-    setCharacterImageState(host.querySelector('.bazi-arch-image'), host);
+    const themeSet = host.querySelector('[data-bazi-theme-set]');
+    if (themeSet) themeSet.addEventListener('click', () => {
+      try { localStorage.setItem('changming-theme-stem', themeSet.dataset.baziThemeSet); } catch (e) {}
+      document.dispatchEvent(new CustomEvent('changming-theme-change', { detail: { stem: themeSet.dataset.baziThemeSet } }));
+    });
+    const themeReset = host.querySelector('[data-bazi-theme-reset]');
+    if (themeReset) themeReset.addEventListener('click', () => {
+      try { localStorage.removeItem('changming-theme-stem'); } catch (e) {}
+      document.dispatchEvent(new CustomEvent('changming-theme-change', { detail: { stem: null } }));
+    });
+    setCharacterImageState(host.querySelector('.bazi-persona-art'), host);
     requestAnimationFrame(() => {
       void host.offsetWidth;
       host.classList.add('awaken');
@@ -7157,14 +7770,22 @@
 
   function renderTodayCharacterStory(c) {
     const host = $('today-character-story');
-    const a = c && CharacterSystem && CharacterSystem.get(c.dm);
+    const guide = c && CharacterSystem && CharacterSystem.guideFor(c);
+    const themeStem = selectedThemeStem();
+    const guideStem = c && (themeStem || (guide && !guide.balanced && guide.pair && guide.pair[0]) || c.dm);
+    const a = guideStem && CharacterSystem && CharacterSystem.get(guideStem);
     if (!host || !a) { if (host) host.hidden = true; return; }
     const en = isEN();
-    const label = en ? 'CHARACTER STORY · IN PROGRESS' : '人物小传 · 正在发生';
-    const headings = en
-      ? ['The unspoken wound', 'An irreplaceable moment', 'Still unfolding']
-      : ['没有说出口的事', '不可替代的高光', '仍在发生'];
-    const storyAsset = a.poses && a.poses.story ? a.poses.story : a.asset;
+    const isTheme = !!themeStem;
+    const isLower = !isTheme && guide && !guide.balanced && guideStem !== c.dm;
+    const label = isTheme
+      ? (en ? `YOUR THEME · DAY MASTER ${cap1(STEM_PY[c.dm] || c.dm)}` : `你常看的角色 · 日主仍是${c.dm}`)
+      : (isLower
+        ? (en ? `LOWER ${elEN(guide.element)} · DAY MASTER ${cap1(STEM_PY[c.dm] || c.dm)}` : `${guide.element}相对少 · 日主仍是${c.dm}`)
+        : (en ? 'YOUR DAY MASTER · A LIFE IN PROGRESS' : '你的日主 · 人物小传'));
+    const readerTitle = characterText(a, 'readerTitle', en);
+    const readerStory = characterText(a, 'readerStory', en);
+    const storyAsset = a.heroScene || a.background;
     const storyAlt = en
       ? `${characterText(a, 'name', true)} character-story pose`
       : `${characterText(a, 'name', false)}人物志动作`;
@@ -7177,19 +7798,19 @@
     host.innerHTML = `<div class="card character-story-card">
       <div class="character-story-head">
         <span class="seal">${escapeHtml(label)}</span>
-        <h3><b>${escapeHtml(c.dm + '·' + characterText(a, 'name', en))}</b><small>${escapeHtml(characterText(a, 'role', en))}</small></h3>
+        <h3><b>${escapeHtml(guideStem + '·' + characterText(a, 'name', en))}</b><small>${escapeHtml(characterText(a, 'role', en))}</small></h3>
       </div>
-      <div class="character-story-visual">
-        <img src="${escapeHtml(storyAsset)}" alt="${escapeHtml(storyAlt)}" loading="lazy" decoding="async">
+      <div class="character-story-visual is-full-scene">
+        <img class="character-story-person" src="${escapeHtml(storyAsset)}" alt="${escapeHtml(storyAlt)}" loading="lazy" decoding="async" style="--scene-focus:${escapeHtml(a.heroFocus || '50% 50%')}">
       </div>
-      <div class="character-story-grid">
-        <article class="character-story-beat is-scar"><span>${escapeHtml(headings[0])}</span><p>${escapeHtml(characterText(a, 'scar', en))}</p></article>
-        <article class="character-story-beat is-highlight"><span>${escapeHtml(headings[1])}</span><p>${escapeHtml(characterText(a, 'highlight', en))}</p></article>
-        <article class="character-story-beat is-open"><span>${escapeHtml(headings[2])}</span><p>${escapeHtml(characterText(a, 'ongoing', en))}</p></article>
-      </div>
+      <article class="character-reader-story">
+        <h4>${escapeHtml(readerTitle)}</h4>
+        <p>${escapeHtml(readerStory)}</p>
+      </article>
+      <button type="button" class="character-world-link" data-changming-open data-stem="${escapeHtml(guideStem)}"><span>${en ? `See ${cap1(STEM_PY[guideStem] || guideStem)} in Changming` : `看${guideStem}在常明城里的故事`}</span><b aria-hidden="true">↗</b></button>
       ${comicMarkup}
     </div>`;
-    const storyImage = host.querySelector('.character-story-visual img');
+    const storyImage = host.querySelector('.character-story-person');
     const imageMissing = () => host.classList.add('story-image-missing');
     host.classList.remove('story-image-missing');
     if (storyImage.complete) { if (!storyImage.naturalWidth) imageMissing(); }
@@ -7204,13 +7825,14 @@
     const cards = c && CharacterSystem ? CharacterSystem.relationCards(c.dm, isEN() ? 'en' : 'zh') : [];
     if (!host || !cards.length) { if (host) host.hidden = true; return; }
     const en = isEN();
-    const title = en ? 'Relationships derived from the five-phase structure' : '关系由五行结构推出';
+    const title = en ? 'Stories between you and the other nine' : '你与另外九人的故事';
     const sub = en
-      ? 'Choose kin, generation, control, combination, or clash to see the exact heavenly stems involved. This describes direction, not fortune.'
-      : '选择同类、生、制、合、冲，查看与你发生作用的具体天干；只说明关系方向，不作吉凶判断。';
+      ? 'Every relation is a shared event between two or three characters. Open one to see how they change each other.'
+      : '点一个关系，看他们共同经历的故事。';
     host.innerHTML = `<div class="card character-relations-card">
-      <span class="seal">${en ? 'FIVE-PHASE RELATION MAP' : '五行关系图谱'}</span>
+      <span class="seal">${en ? 'CHARACTER STORIES' : '人物关系'}</span>
       <h3>${escapeHtml(title)}</h3><p class="dim">${escapeHtml(sub)}</p>
+      <button type="button" class="character-world-link is-compact relation-city-entry" data-changming-open data-stem="${escapeHtml(c.dm)}" data-cm-view="relations"><span>${en ? 'Choose any two of the ten characters' : '从十个人里任选两人看关系'}</span><b aria-hidden="true">↗</b></button>
       <div class="character-relation-tabs" role="tablist">${cards.map((card, index) => `<button type="button" role="tab" aria-selected="${index === 0}" class="${index === 0 ? 'active' : ''}" data-index="${index}">${escapeHtml(card.label)}</button>`).join('')}</div>
       <div class="character-relation-panel" role="tabpanel" aria-live="polite"></div>
     </div>`;
@@ -7221,17 +7843,26 @@
       const people = sceneStems.map((stem, index) => {
         const person = CharacterSystem.get(stem);
         if (!person) return '';
-        const asset = index === 0 ? person.asset : ((person.poses && person.poses.open) || person.asset);
+        const asset = person.heroScene || person.background;
         const name = `${stem}·${characterText(person, 'name', en)}`;
         return `<figure class="relation-character${index === 0 ? ' is-self' : ''}" data-stem="${escapeHtml(stem)}">
-          <img src="${escapeHtml(asset)}" alt="${escapeHtml(name)}" loading="lazy" decoding="async">
+          <img src="${escapeHtml(asset)}" alt="${escapeHtml(name)}" loading="lazy" decoding="async" style="--scene-focus:${escapeHtml(person.heroFocus || '50% 50%')}">
           <figcaption>${index === 0 ? (en ? 'YOU · ' : '我 · ') : ''}${escapeHtml(name)}</figcaption>
         </figure>`;
       }).join('');
-      panel.innerHTML = `<div class="relation-character-scene" aria-label="${escapeHtml(sceneStems.join('、'))}">${people}</div>
-        <div class="relation-panel-meta"><span>${escapeHtml(card.term)}</span><b>${escapeHtml(card.related)}</b></div>
+      const visual = card.scene
+        ? `<figure class="relation-story-scene"><img src="${escapeHtml(card.scene)}" alt="${escapeHtml(card.title + ' · ' + sceneStems.join('、'))}" loading="lazy" decoding="async"></figure>`
+        : `<div class="relation-character-scene is-cinematic" aria-label="${escapeHtml(sceneStems.join('、'))}">${people}</div>`;
+      const narrative = card.title && card.story
+        ? `<div class="relation-story-copy"><b>${escapeHtml(card.title)}</b><p>${escapeHtml(card.story)}</p></div>`
+        : '';
+      const relatedLine = card.relatedDetails
+        ? card.relatedDetails.map(detail => `${detail.stem}·${detail.role}`).join(' · ')
+        : card.related;
+      panel.innerHTML = `${visual}${narrative}
         <p class="relation-plain">${escapeHtml(card.plain)}</p>
-        <small>${en ? 'Derived from the Day Master and five-phase generation, control, combination, and clash; not a fixed compatibility or fortune result.' : '依据日主与五行生克合冲关系显示；不等于现实人格配对，也不是吉凶结论。'}</small>`;
+        <div class="relation-panel-meta"><b>${escapeHtml(relatedLine)}</b><span>${en ? 'Traditional relation: ' : '传统关系名：'}${renderTerm(String(card.term).split('·')[0].trim(), card.term)}</span></div>
+        <button type="button" class="character-world-link is-compact" data-changming-open data-stem="${escapeHtml(c.dm)}" data-cm-view="relations" data-cm-target="${escapeHtml(card.relatedStems[0] || '')}"><span>${en ? `Open the story of ${c.dm} and ${card.relatedStems[0] || ''}` : `打开${c.dm}与${card.relatedStems[0] || ''}的完整故事`}</span><b aria-hidden="true">↗</b></button>`;
       panel.querySelectorAll('.relation-character img').forEach(image => {
         image.addEventListener('error', () => image.closest('.relation-character')?.classList.add('image-missing'), { once: true });
       });
@@ -7253,6 +7884,7 @@
   function renderBazi(input) {
     let c;
     try { c = C.computeBazi(input); } catch (e) { return; }
+    currentCharacterChart = c;
     $('bazi-form').style.display = 'none';
     const box = $('bazi-result');
     box.style.display = '';
@@ -7270,10 +7902,12 @@
       $('bazi-head').textContent = `${genderEN} · ${solarEchoEN}${lunEN} · ${sxEN(c.shengXiao)} (属${c.shengXiao})`;
     } else {
       const solarEcho = input.isLunar ? '' : `公历${input.year}-${pad(input.month)}-${pad(input.day)} ${pad(input.hour)}:${pad(input.minute || 0)} · `;
-      $('bazi-head').textContent = `${input.gender} · ${solarEcho}${c.lunarText} · 属${c.shengXiao}`;
+      // 「属马」被拦腰断行会在结果页第一行留下一个孤零零的「马」，用 nowrap 包住。
+      const genderZh = input.gender === '坤造' ? '女' : '男';
+      $('bazi-head').innerHTML = `${genderZh} · ${escapeHtml(solarEcho + c.lunarText)} · <span class="nowrap">生肖${escapeHtml(c.shengXiao)}</span>`;
     }
     renderSolarLine(input); // 真太阳时开启则双行呈现钟表时/真太阳时时辰（异说 chip 复用 diverge 浮层）
-    renderBaziArchetype(c); // 人物只在八字结果页觉醒；由日主十天干直接映射
+    renderBaziArchetype(c); // 八个字翻成八个人物；日干是「你」，地支按主气藏干翻牌
     // 四柱
     const pr = $('bazi-pillars');
     pr.innerHTML = '';
@@ -7284,7 +7918,7 @@
       card.innerHTML = `<small>${p.pos}</small>
         <b style="color:${C.EL_HEX[p.ganEl]};text-shadow:0 0 8px ${C.EL_HEX[p.ganEl]}66">${p.gan}</b>
         <b style="color:${C.EL_HEX[p.zhiEl]};text-shadow:0 0 8px ${C.EL_HEX[p.zhiEl]}66">${p.zhi}</b>
-        <small class="nayin">${renderTerm('纳音', p.naYin)}</small>`;
+        <small class="nayin">纳音：${renderTerm('纳音', p.naYin)}</small>`;
       pr.appendChild(card);
     });
     renderBirthdayCard(input, c);   // B1 生辰黄历回放卡（命盘卡之后）
@@ -7292,6 +7926,30 @@
     const bars = $('bazi-bars');
     bars.innerHTML = '';
     const max = Math.max(...C.ELEMENTS.map(e => c.scores[e]), 0.1);
+    // 原来这张卡的全部文字就是「木 1.8 火 3.0 …」：没有标题、没有单位、没有满分，
+    // 也没说数字大到底是好是坏。补一个标题 + 量纲 + 一句人话结论。
+    {
+      const total = C.ELEMENTS.reduce((s, e) => s + (c.scores[e] || 0), 0);
+      const sorted = C.ELEMENTS.slice().sort((a, b) => c.scores[b] - c.scores[a]);
+      // 并列要如实说「并列」，不能从排序结果里随便挑一个宣称最多/最少；
+      // 五行完全等量时更不能同时编出一个最多和一个最少。
+      const hiVal = c.scores[sorted[0]], loVal = c.scores[sorted[sorted.length - 1]];
+      const eps = 1e-9;
+      const tops = C.ELEMENTS.filter(e => Math.abs(c.scores[e] - hiVal) <= eps);
+      const bottoms = C.ELEMENTS.filter(e => Math.abs(c.scores[e] - loVal) <= eps);
+      const allEven = Math.abs(hiVal - loVal) <= eps;
+      const top = sorted[0], bottom = sorted[sorted.length - 1];
+      const head = document.createElement('div');
+      head.className = 'bazi-bars-head';
+      head.innerHTML = isEN()
+        ? `<b>Five phases in your chart</b><p>How much of each phase your eight characters add up to (total ${total.toFixed(1)}). Longer bar = more of it. Neither more nor less is “good”; balance is what the reading looks at.</p><p class="bazi-bars-lede">${allEven
+            ? `All five come out even, at ${hiVal.toFixed(1)} each.`
+            : `Most: <b style="color:${C.EL_HEX[top]}">${escapeHtml(tops.map(elEN).join(', '))} ${hiVal.toFixed(1)}</b> · Least: <b style="color:${C.EL_HEX[bottom]}">${escapeHtml(bottoms.map(elEN).join(', '))} ${loVal.toFixed(1)}</b>`}</p>`
+        : `<b>你八字里的五行</b><p>八个字和地支藏干会换算成相对权重，合计 ${total.toFixed(1)} 只用于比较，不是满分制。条越长表示这一行相对更多；多不等于好，少也不等于差。</p><p class="bazi-bars-lede">${allEven
+            ? `五行分得很匀，每一行都是 ${hiVal.toFixed(1)}。`
+            : `最多的是<b style="color:${C.EL_HEX[top]}">${escapeHtml(tops.join('、'))} ${hiVal.toFixed(1)}</b>，最少的是<b style="color:${C.EL_HEX[bottom]}">${escapeHtml(bottoms.join('、'))} ${loVal.toFixed(1)}</b>。`}</p>`;
+      bars.appendChild(head);
+    }
     C.ELEMENTS.forEach(e => {
       const row = document.createElement('div');
       row.className = 'bar-row';
@@ -7308,6 +7966,21 @@
     $('bazi-strength').innerHTML = isEN()
       ? `${renderTerm('日主')} ${escapeHtml(c.dm)} ${escapeHtml(elEN(c.dmEl))} · ${renderTerm('身强身弱', c.isStrong ? '身强 strong' : '身弱 weak')} · ${renderTerm('喜用')} ${escapeHtml(elsEN(c.favorable))}`
       : `${renderTerm('日主')}：${escapeHtml(c.dm)}${escapeHtml(c.dmEl)}·${renderTerm('身强身弱', c.isStrong ? '身强' : '身弱')} · ${renderTerm('喜用')}：${escapeHtml(c.favorable.join(' '))}`;
+    // 断语的第一行必须是能看懂的话：原来这张卡最上面是「日主：辛金·身弱 · 喜用：土 金」，
+    // 对第一次来的人来说全是生词。
+    {
+      // EN 模式下 renderVerdictEN 会自己生成一层「原文（中文）」折叠；
+      // 外层再折一次的话用户要展开两次才看得到原文。英文下把外层摊平。
+      const fold = $('bazi-master-fold');
+      if (fold) { fold.open = isEN(); fold.classList.toggle('is-flat', isEN()); }
+      const vp = $('bazi-verdict-plain');
+      if (vp) {
+        const favs = (c.favorable || []).join('、');
+        vp.textContent = isEN()
+          ? `In plain terms: your chart leans ${c.isStrong ? 'strong' : 'weak'} — the ${c.dmEl} you were born on has ${c.isStrong ? 'plenty of' : 'little'} support. Traditionally that means leaning on ${elsEN(c.favorable)}.`
+          : `先看最直接的意思：出生那天的「${c.dm}${c.dmEl}」在这八个字里${c.isStrong ? '得到的同类支持较多' : '得到的同类支持较少'}。传统说法会建议多借${favs}的力量；这只是文化解释，不是性格定论。`;
+      }
+    }
     try {
       const bz = C.computeBaZhai(input);
       const tri = C.TRIGRAMS[bz.mingGua];
@@ -7448,6 +8121,26 @@
     // 水墨态 chrome：隐藏缩放键/比例尺（对空底无意义），切瓦片层即恢复；地图拖动始终可用（只隐控件）
     function applyBasemapChrome(id) {
       mapContainer.classList.toggle('ink-basemap', id === 'ink');
+      // 水墨底刻意不加载任何瓦片（产品决策），但第一次来的人只会看到罗盘浮在噪点上，
+      // 以为地图挂了。挂一行说明并指向右上角的切换入口。
+      const top = document.getElementById('kanyu-top');
+      if (top) {
+        let note = document.getElementById('kanyu-ink-note');
+        if (id === 'ink') {
+          if (!note) {
+            note = document.createElement('p');
+            note.id = 'kanyu-ink-note';
+            note.className = 'kanyu-ink-note';
+            // 必须 prepend：#kanyu-top 有 max-height + overflow:auto（卡在罗盘上缘），
+            // append 到末尾会被整条裁掉——实测 note 顶边 253px、裁切线 222px，用户永远看不见。
+            top.insertBefore(note, top.firstChild);
+          }
+          note.textContent = tt('kanyu.ink_note');
+          note.hidden = false;
+        } else if (note) {
+          note.hidden = true;
+        }
+      }
       recomputeKanyuTopOffset(); // 水墨↔瓦片切换会增删缩放钮 → 重算顶偏移，保证 #kanyu-top 恒在角钮之下
     }
     // 程序化切底图：移除其余 base、挂目标、记 chrome + 持久化（瓦片类另记 kanyu-basemap-tile 供勘察联动）
@@ -7468,7 +8161,7 @@
     try { const s = localStorage.getItem('kanyu-basemap'); if (s && BASEMAPS[s]) savedBasemap = s; } catch (e) {}
     setBasemap(savedBasemap, false); // 恢复不回写（避免无谓 write）
     L.control.layers({
-      '水墨 · 空相': ink,
+      '只看罗盘（无地图）': ink,
       '卫星 · Esri': esri,
       '晕渲地势 · 显山形': relief,
       '墨色 · 暗地图': darkmap,
@@ -7476,6 +8169,21 @@
       'OneMap·日 (SG)': oneDay,
       'OneMap·夜 (SG)': oneNight,
     }, null, { position: 'topright', collapsed: true }).addTo(map);
+    // 图层控件展开时把读数卡的 pointer-events 关掉，否则它会吞掉下半截选项的点击。
+    (function wireLayerControl() {
+      const ctl = map.getContainer().querySelector('.leaflet-control-layers');
+      if (!ctl) return;
+      const toggle = ctl.querySelector('.leaflet-control-layers-toggle');
+      if (toggle) {
+        toggle.setAttribute('aria-label', '切换底图');
+        toggle.setAttribute('title', '切换底图');
+      }
+      const sync = () => document.getElementById('page-kanyu')
+        .classList.toggle('layers-open', ctl.classList.contains('leaflet-control-layers-expanded'));
+      ['mouseover', 'mouseout', 'click', 'touchstart', 'focusin', 'focusout'].forEach(t =>
+        ctl.addEventListener(t, () => requestAnimationFrame(sync), { passive: true }));
+      new MutationObserver(sync).observe(ctl, { attributes: true, attributeFilter: ['class'] });
+    })();
     // 用户在图层控件里切底图：Leaflet 仅在 UI 点击时 fire baselayerchange（程序切换不 fire）→ 持久化 + chrome
     map.on('baselayerchange', (e) => {
       const id = baseIdOf(e.layer) || 'ink';
@@ -7499,6 +8207,11 @@
     // 当前位置：蓝点 + 精度圈（WGS-84 直接落点，无需纠偏）
     let posDot = null, posRing = null;
     function showPosition(lat, lon, accuracy, recenter) {
+      window._kanyuGeoFixed = true;   // 真的拿到过一次定位
+      const pk = document.getElementById('page-kanyu');
+      if (pk) pk.classList.remove('geo-unknown');
+      const oldWarn = document.getElementById('yz-geo-warn');
+      if (oldWarn) oldWarn.hidden = true;   // 否则定位成功后警告还赖在那儿
       const ll = [lat, lon];
       if (posRing) { map.removeLayer(posRing); posRing = null; }
       if (posDot) { map.removeLayer(posDot); posDot = null; }
@@ -7533,7 +8246,7 @@
       if (!map.setBearing) { toast(tt('toast.rotate_unsupported')); return; }
       rotateWithHeading = !rotateWithHeading;
       rotBtn.classList.toggle('locked', rotateWithHeading);
-      rotBtn.textContent = rotateWithHeading ? '随身转' : '图北';
+      rotBtn.textContent = rotateWithHeading ? '地图随手机转' : tt('kanyu.btn_rotate');
       $('mapnorth-tick').style.display = rotateWithHeading ? 'none' : '';
       if (rotateWithHeading) { lastBearing = -999; applyBearing(heading); }
       else { map.setBearing(0); lastBearing = 0; } // 复位北上
@@ -7611,5 +8324,19 @@
     initClock();
     initBazi();
     wireShareCards();
+    document.addEventListener('changming-theme-change', () => {
+      let chart = currentCharacterChart;
+      if (!chart) {
+        try {
+          const input = JSON.parse(localStorage.getItem('bazi-input') || 'null');
+          if (input) chart = C.computeBazi(input);
+        } catch (e) { chart = null; }
+      }
+      if (chart) {
+        currentCharacterChart = chart;
+        renderBaziArchetype(chart);
+        renderTodayCharacterStory(chart);
+      }
+    });
   });
 })();

@@ -1,0 +1,21 @@
+{
+  "$fixture": "sinan/redline-fixture@1",
+  "description": "把甲的锁定姓名从广莫改成旧名，必须与实时 manifest 比对失败。",
+  "base": "valid-character.json",
+  "onlyRules": [
+    "CM-RL-001"
+  ],
+  "mutations": [
+    {
+      "path": "/identity/nameZh",
+      "value": "甲某"
+    }
+  ],
+  "expect": [
+    {
+      "ruleId": "CM-RL-001",
+      "severity": "error",
+      "messageIncludes": "manifest.name"
+    }
+  ]
+}
