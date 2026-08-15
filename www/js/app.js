@@ -83,8 +83,40 @@
     return cycle;
   }
 
+  // 开屏只使用无需术数背景也能独立读懂的短句，并同步给出现代汉语解释。
+  // 大型原句池仍保留给典籍检索，不再把生僻残句随机推到首次使用者面前。
+  const OPENING_PLAIN = {
+    '上善若水，水善利万物而不争': '最好的善意像水：帮助万物，却不急着争先。',
+    '人法地，地法天，天法道，道法自然': '做事可以向自然学习，顺着事物本来的规律。',
+    '知人者智，自知者明': '了解别人是聪明，真正了解自己才是清醒。',
+    '致虚极，守静笃': '把杂念放下，让自己真正安静下来。',
+    '祸兮福之所倚，福兮祸之所伏': '顺境和逆境会互相转化，不必只看眼前。',
+    '大直若屈，大巧若拙，大辩若讷': '真正有本事的人，往往不急着显得聪明。',
+    '飘风不终朝，骤雨不终日': '再猛烈的风雨也不会一直持续。',
+    '天行健，君子以自强不息': '天地不停运行，人也可以持续成长。',
+    '地势坤，君子以厚德载物': '像大地一样宽厚，才能承接更多人和事。',
+    '穷则变，变则通，通则久': '走到尽头时要敢于改变，改变才可能走通。',
+    '一阴一阳之谓道': '相反的力量彼此配合，世界才会继续变化。',
+    '君子藏器于身，待时而动': '先把能力准备好，机会来时再行动。',
+    '积善之家，必有余庆': '长期善待别人，好的影响也会留给家人。',
+    '仰以观于天文，俯以察于地理': '既看大的规律，也观察脚下的真实环境。',
+    '乐天知命，故不忧': '理解自己的处境，能少一些没有必要的焦虑。',
+    '同声相应，同气相求': '相似的人和事，往往更容易彼此吸引。',
+    '智者乐水，仁者乐山': '聪明的人欣赏水的变化，宽厚的人欣赏山的安定。',
+    '君子坦荡荡，小人长戚戚': '心里坦荡的人更从容，反复算计的人更容易焦虑。',
+    '天地与我并生，而万物与我为一': '把自己放回天地万物之中，许多执念会变小。'
+  };
+
   function initOpening() {
-    const q = C.selectOpeningQuote();
+    let q = C.selectOpeningQuote();
+    if (!OPENING_PLAIN[q.t]) {
+      const accessible = (window.OPENING_QUOTES || []).filter(item => OPENING_PLAIN[item.t]);
+      if (accessible.length) {
+        const now = new Date();
+        const dayKey = Math.floor(new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() / 86400000);
+        q = accessible[((dayKey % accessible.length) + accessible.length) % accessible.length];
+      }
+    }
     const total = buildGlowQuote($('opening-quote'), q.t, null, openingGlowCycle());
     const author = $('opening-author');
     author.textContent = `—— ${q.a}${q.s}`;
@@ -114,18 +146,17 @@
       author.appendChild(document.createTextNode(' '));
       author.appendChild(chip);
     }
-    // 选句依据行（仅个性化生效且所选句 el∈喜用时）：今日为阁下选『X』性句 · 今人方法
+    // 白话解释始终跟在原句下；是否按命盘选中只作为无术语的小补充。
     const why = $('opening-why');
     if (why) {
       let fav = null;
       try { const r = localStorage.getItem('bazi-fav'); if (r) { const p = JSON.parse(r); if (p && Array.isArray(p.favorable)) fav = p; } } catch (e) {}
       if (fav && q.el && fav.favorable.indexOf(q.el) >= 0) {
-        const cls = WX_CLASS[q.el] || '';
-        why.innerHTML = `今日为阁下选<span class="${cls}">『${q.el}』</span>性句 · 今人方法`;
+        why.textContent = `白话：${OPENING_PLAIN[q.t]} 这句也呼应了你命盘中相对需要的五行。`;
         why.dataset.on = '1';
       } else {
-        why.textContent = '';
-        why.dataset.on = '';
+        why.textContent = `白话：${OPENING_PLAIN[q.t] || '这是一句古籍原文，进入后可以查看出处和上下文。'}`;
+        why.dataset.on = '1';
       }
     }
     setTimeout(() => {
@@ -238,7 +269,7 @@
     h += '<div class="term-plain">' + (en ? '<span class="term-lang">Chinese explanation · </span>' : '') + escapeHtml(g.plain) + '</div>';
     if (g.more) h += '<div class="term-more">' + escapeHtml(g.more) + '</div>';
     h += '</div>';
-    h += '<div class="term-foot"><span class="term-editor">' + (en ? 'Modern editorial paraphrase' : '今人整理') + '</span>'
+    h += '<div class="term-foot"><span class="term-editor">' + (en ? 'Plain-language note' : '白话说明') + '</span>'
       + '<a class="term-go" href="#" target="_blank" rel="noopener" hidden>' + (en ? 'See in the Library ›' : '详见典籍阁 ›') + '</a></div>';
     _termBody.innerHTML = h;
     // 详见典籍阁：仅术语有 book 键时出；href 走同源 /dian（dev 回落线上 daos），book 级深链恒可达 → 杜绝死链。
@@ -749,7 +780,7 @@
       // 未排盘：一行 CTA（样式借堪舆页 compass-cta），点击切「命」页
       host.innerHTML =
         '<div class="today-cta" role="button" tabindex="0">'
-        + (en ? "Cast your chart, and this panel shows each day's fit with your natal profile → Cast chart" : '排八字后，此处每日展示与阁下命格的契合 → 去排盘')
+        + (en ? "Add your birth date and time to see the parts of today that relate to you → Add birth details" : '填写出生日期和时间后，这里会显示今天与你有关的五行、方向和人物 → 去填写')
         + '</div>';
       const cta = host.querySelector('.today-cta');
       const go = () => switchTab('bazi');
@@ -762,20 +793,25 @@
     const dayGZ = (a.ganZhiText.split(' ')[2] || '').replace('日', ''); // 「甲子」
     const dGan = dayGZ[0], dGanEl = C.GAN_EL[dGan] || '';
     let dVerdict, dCls;
-    if (bazi.favorable.indexOf(dGanEl) >= 0) { dVerdict = en ? 'matches your favorable elements' : '得阁下喜用'; dCls = 'kw-yi'; }
-    else if (bazi.unfavorable.indexOf(dGanEl) >= 0) { dVerdict = en ? 'clashes with your unfavorable elements' : '犯阁下忌神'; dCls = 'kw-ji'; }
-    else { dVerdict = en ? 'neutral to your favorable/unfavorable elements' : '于阁下喜忌俱平'; dCls = 'dim'; }
+    if (bazi.favorable.indexOf(dGanEl) >= 0) { dVerdict = en ? 'is one of the phases that better balances your chart' : '更贴合你这张盘需要的五行'; dCls = 'kw-yi'; }
+    else if (bazi.unfavorable.indexOf(dGanEl) >= 0) { dVerdict = en ? 'adds more of a phase already strong in your chart' : '会增加你盘里本来就偏多的五行'; dCls = 'kw-ji'; }
+    else { dVerdict = en ? 'has no strong tilt in your chart' : '与你的五行没有明显偏向'; dCls = 'dim'; }
     const elCls = WX_CLASS[dGanEl] ? ` class="${WX_CLASS[dGanEl]}"` : '';
     // B2 流日十神：今日日干对阁下日主的十神（ChartFacts.shiShen·今人按五行阴阳推，非典据；无 cite-map 子平键，
     //   宁标「今人整理」不挂 dead chip → 铁律「删优于编」）。
     let tenShenLine = '';
     if (window.ChartFacts && typeof ChartFacts.shiShen === 'function' && dGan && bazi.dm) {
       const tg = ChartFacts.shiShen(bazi.dm, dGan);
+      const tenShenPlain = {
+        比肩: '和你相似', 劫财: '和你并肩也会竞争', 食神: '由你表达与创造', 伤官: '由你突破与表达',
+        偏财: '是你能调动的机会型资源', 正财: '是你能掌握的稳定资源', 七杀: '会给你压力并推动行动', 正官: '会带来规则与责任',
+        偏印: '会支持你的直觉与非传统学习', 正印: '会支持你的学习与积累'
+      };
       if (tg) tenShenLine = en
         ? `<p class="tp-line tp-full tp-tenshen">Today's <b${elCls}>${escapeHtml(dGan)} ${escapeHtml(elEN(dGanEl))}</b> is your <b>${renderTerm(tg, termDispEN(tg))}</b>.`
           + `<span class="tp-tag">${renderTerm('十神')} · ${escapeHtml(tt('common.modern_synthesis'))}</span></p>`
-        : `<p class="tp-line tp-full tp-tenshen">今日<b${elCls}>${escapeHtml(dGan)}${escapeHtml(dGanEl)}</b>，为阁下之<b>${renderTerm(tg)}</b>。`
-          + `<span class="tp-tag">${renderTerm('十神')}·今人整理</span></p>`;
+        : `<p class="tp-line tp-full tp-tenshen">今天的<b${elCls}>${escapeHtml(dGan)}${escapeHtml(dGanEl)}</b>${escapeHtml(tenShenPlain[tg] || '会与你发生一种关系')}。`
+          + `<span class="tp-tag">传统分类：${renderTerm(tg)} · 不是好坏评价</span></p>`;
     }
     // B5 本命日：今日干支 == 阁下日柱干支（60 日一遇，古称伏吟）。伏吟一词无语料可锚 → 今人整理，不挂 chip。
     const userDayGZ = bazi.pillars && bazi.pillars[2] ? bazi.pillars[2].gz : '';
@@ -786,7 +822,7 @@
     const fuyinLine = isBenming
       ? (en
         ? `<p class="tp-line tp-full tp-fuyin">Today's stem-branch matches your Day Pillar (<b>${escapeHtml(userDayGZ)}</b>) — traditionally <b>${renderTerm('伏吟', '伏吟 fúyín')}</b>.<span class="tp-tag">${escapeHtml(tt('common.modern_synthesis'))}</span></p>`
-        : `<p class="tp-line tp-full tp-fuyin">今日干支与阁下日柱相同（<b>${escapeHtml(userDayGZ)}</b>），古称<b>${renderTerm('伏吟')}</b>。<span class="tp-tag">今人整理</span></p>`)
+        : `<p class="tp-line tp-full tp-fuyin">今天与出生日使用同一组干支（<b>${escapeHtml(userDayGZ)}</b>）。<span class="tp-tag">传统称${renderTerm('伏吟')} · 只说明重复关系</span></p>`)
       : '';
     // b. 今日吉方（八宅生气/天医）
     const dirOf = star => {
@@ -801,13 +837,13 @@
     const sxAnimal = bazi.shengXiao, tsZhi = ly.zhi.name;
     const tsZhiEN = BRANCH_PY[tsZhi] ? `${tsZhi} ${cap1(BRANCH_PY[tsZhi])}` : tsZhi;
     if (uIdx === yIdx) {
-      sxLine = `阁下属${bazi.shengXiao}，与今年太岁同支（${ly.zhi.name}），古称「值太岁」（本命年）。《协纪辨方书》谓值年之支宜静守、宜顺时调摄。`;
+      sxLine = `你属${bazi.shengXiao}，与今年的地支同为${ly.zhi.name}，也就是本命年。传统说法提醒这一年做决定时多留余地。`;
       if (en) sxLineHtml = `You are born in the year of the ${sxEN(sxAnimal)} (${escapeHtml(sxAnimal)}); your branch coincides with this year's ${renderTerm('太岁', '太岁 Tàisuì')} branch (${escapeHtml(tsZhiEN)}) — the natal-branch year (本命年). The 《协纪辨方书》 counsels a settled, seasonally attuned year.`;
     } else if (uIdx >= 0 && (uIdx + 6) % 12 === yIdx) {
-      sxLine = `阁下属${bazi.shengXiao}，与今年太岁（${ly.zhi.name}）相对为「冲太岁」。古法以安分守常、多加调摄为宜。`;
+      sxLine = `你属${bazi.shengXiao}，与今年的${ly.zhi.name}支正好相对。传统称“冲太岁”，只表示两支相对，不代表一定会发生坏事。`;
       if (en) sxLineHtml = `You are born in the year of the ${sxEN(sxAnimal)} (${escapeHtml(sxAnimal)}); your branch opposes this year's ${renderTerm('太岁', '太岁 Tàisuì')} (${escapeHtml(tsZhiEN)}) — traditionally a clash with 太岁. Classical counsel is to keep to routine and take care.`;
     } else {
-      sxLine = `阁下属${bazi.shengXiao}，与今年太岁（${ly.zhi.name}）无直接刑冲，古称「不犯」。`;
+      sxLine = `你属${bazi.shengXiao}，与今年的${ly.zhi.name}支没有直接相冲。`;
       if (en) sxLineHtml = `You are born in the year of the ${sxEN(sxAnimal)} (${escapeHtml(sxAnimal)}); it has no direct clash or punishment with this year's ${renderTerm('太岁', '太岁 Tàisuì')} (${escapeHtml(tsZhiEN)}) — traditionally unafflicted.`;
     }
     // 紧凑双列排布：日干喜忌 / 今日吉方 并列成两栏，生肖太岁一句沉底占满宽；chips 缩小一号（.tp-tag）
@@ -828,10 +864,10 @@
       host.innerHTML =
         '<div class="card tp-card">'
         + '<div class="tp-title"><span class="seal">今日</span><b class="gold">今日与你</b>' + benmingTag
-        + `<span class="dim">${renderTerm('命卦')}${escapeHtml(bz.mingGua)}（${escapeHtml(bz.groupName)}）· ${renderTerm('日主')}${escapeHtml(bazi.dm)}${escapeHtml(bazi.dmEl)}</span></div>`
+        + `<span class="dim">按你保存的出生资料 · 核心五行${escapeHtml(bazi.dm)}${escapeHtml(bazi.dmEl)}</span></div>`
         + '<div class="tp-grid">'
-        + `<p class="tp-line tp-col">今日<b${elCls}>${escapeHtml(dGan)}${dGanEl}</b>，<b class="${dCls}">${dVerdict}</b>。<span class="tp-tag">今人方法</span></p>`
-        + `<p class="tp-line tp-col">吉方：${renderTerm('生气')}<b class="kw-yi">${dirOf('生气')}</b>·${renderTerm('天医')}<b class="kw-yi">${dirOf('天医')}</b><span class="tp-tag cite-chip" data-cite="bazhai-dayouniange" role="button" tabindex="0">《八宅明镜》游年八星</span></p>`
+        + `<p class="tp-line tp-col">今天是<b${elCls}>${escapeHtml(dGan)}${dGanEl}</b>日，<b class="${dCls}">${dVerdict}</b>。<span class="tp-tag">传统五行算法</span></p>`
+        + `<p class="tp-line tp-col">按传统八宅法，今天可优先看<b class="kw-yi">${dirOf('生气')}</b>和<b class="kw-yi">${dirOf('天医')}</b>两个方向。<span class="tp-tag cite-chip" data-cite="bazhai-dayouniange" role="button" tabindex="0">查看《八宅明镜》依据</span></p>`
         + `<p class="tp-line tp-full">${escapeHtml(sxLine)}<span class="tp-tag cite-chip" data-cite="xinji-bianfang" role="button" tabindex="0">《钦定协纪辨方书》口径</span></p>`
         + tenShenLine
         + fuyinLine
@@ -870,6 +906,8 @@
     host.innerHTML =
       '<div class="tl-head"><span class="seal">流年</span>'
       + `<span class="tl-year">${ly.yearGanZhi}年</span></div>`
+      + '<p class="ly-plain">如果你今天不装修、动土或搬动大型设施，可以略过本段；有施工计划时，再查看传统说法提醒避开的方向。</p>'
+      + '<details class="ly-technical"><summary>查看传统方位图与出处</summary>'
       + grid
       + '<p class="ly-section-title">太岁与岁破</p>'
       + '<div class="ly-item ly-taisui"><span>🟡</span><span>'
@@ -889,7 +927,8 @@
           + `<b>五黄在${ly.wuhuang.gong}宫·${ly.wuhuang.dir}</b><br>`
           + '<span style="font-size:11px;color:var(--paper-dim)">此方年内宜静，修造/安床宜避；45°八宫精度</span></span></div>'
           + `<p class="ly-src">年紫白：${C.LY_STAR_NAMES[ly.nianCenter]}入中顺飞</p>`
-        : '');
+        : '')
+      + '</details>';
   }
 
   // ===== 节气临界卡 =====
@@ -1178,6 +1217,7 @@
       h += `<div class="yj-dv-row is-plain"><span class="yj-dv-tag">这是什么</span><span class="yj-dv-body">`
         + `${escapeHtml(entry.plain)}${entry.more ? ` <span class="dim">${escapeHtml(entry.more)}</span>` : ''}</span></div>`;
     }
+    h += '<details class="yj-dv-method"><summary>查看这条宜忌的历法依据</summary>';
     h += `<div class="yj-dv-row"><span class="yj-dv-tag">${renderTerm('值神')}</span><span class="yj-dv-body">`
       + `今日值神 <b>${renderTerm(d.zhiShen)}</b>${d.zhiShenType ? `（<b>${renderTerm(d.zhiShenType)}</b>日）` : ''}。`
       + `十二值神逐日轮值，古历据以别宜忌之纲。${chip}</span></div>`;
@@ -1186,9 +1226,9 @@
     if (d.monthZhi && d.dayZhi && d.pos >= 0) {
       h += `<div class="yj-dv-row"><span class="yj-dv-tag">月令</span><span class="yj-dv-body">`
         + `月建 <b>${escapeHtml(d.monthZhi)}</b>、日支 <b>${escapeHtml(d.dayZhi)}</b>，自「建」顺数第 <b>${d.pos + 1}</b> 位得「<b>${escapeHtml(posName)}</b>」。`
-        + `${d.rel ? `<span class="dim"> ${escapeHtml(d.rel)}·今人整理</span>` : ''}${chip}</span></div>`;
+        + `${d.rel ? `<span class="dim"> ${escapeHtml(d.rel)}（传统地支关系）</span>` : ''}${chip}</span></div>`;
     }
-    h += `<p class="yj-dv-foot">推导依据为传统历法通则（今人实现），具体取舍诸历有异。</p>`;
+    h += `<p class="yj-dv-foot">这些是传统历法的分类方法，不是现实结果的保证。</p></details>`;
     panel.innerHTML = h;
   }
   // 手风琴开合（同时只开一项）：委托挂在黄历卡上，一次性；点同项收起，点异项换内容。
@@ -1257,8 +1297,11 @@
     const h = a.hexagram;
     $('hex-name').textContent = h.name;
     $('hex-sub').textContent = `${C.TRIGRAMS[h.upper].symbol}${h.upper}上 ${C.TRIGRAMS[h.lower].symbol}${h.lower}下 · ${h.moving}爻动`;
-    $('hex-meaning').innerHTML = colorizeKeywords(h.meaning); // 时卦断语行着色
-    if ($('hex-zhigua')) $('hex-zhigua').innerHTML = h.changedName ? colorizeKeywords(`动变→之卦：${h.changedName}·${h.changedMeaning}`, { gua: [h.changedName] }) : '';
+    const hexPlain = window.HEXAGRAM_PLAIN && window.HEXAGRAM_PLAIN[h.name];
+    $('hex-meaning').innerHTML = colorizeKeywords(hexPlain ? `现在的提醒：${hexPlain}` : `现在的提醒：${h.meaning}`); // 先给普通人结论
+    if ($('hex-zhigua')) $('hex-zhigua').innerHTML = h.changedName
+      ? colorizeKeywords(`变化后的卦是${h.changedName}：${h.changedMeaning}（传统称“之卦”）`, { gua: [h.changedName] })
+      : '';
     const hexEl = $('hex-lines');
     hexEl.innerHTML = '';
     for (let i = 5; i >= 0; i--) { // 视图自上而下=六爻自上而下
@@ -1302,10 +1345,10 @@
       }
       return t;
     }
-    let t = `晨起检点历书，今日${gz}。`;
+    let t = `今天是${gz}。`;
     t += a.jieQiToday
-      ? `恰逢「${a.jieQiToday}」交节，天地气机一转，宜顺时调摄。`
-      : `时下「${a.currentJieQi}」气中，${a.nextJieQiDate}交「${a.nextJieQi}」，作息且随之调。`;
+      ? `今天进入「${a.jieQiToday}」节气，留意天气与作息变化。`
+      : `现在处于「${a.currentJieQi}」，${a.nextJieQiDate}进入「${a.nextJieQi}」。`;
     return t;
   }
   // EN 导读结构行：干支 + 节气 + top 宜忌（数据 token 保留汉字，英文框架，走术语体例）
@@ -1449,8 +1492,8 @@
       } else {
         nextEl.innerHTML = best
           ? `下一喜用时段：${SHICHEN_RANGES[best.i][0]}时 ${SHICHEN_RANGES[best.i][2]}–${SHICHEN_RANGES[best.i][3]} · ${best.el}`
-            + '<span class="ch-hours-note">今人方法</span>'
-          : '今日无喜用时段<span class="ch-hours-note">今人方法</span>';
+            + '<span class="ch-hours-note">按你的五行对照</span>'
+          : '今天没有特别贴合的时段<span class="ch-hours-note">按你的五行对照</span>';
       }
     }
   }
@@ -1590,7 +1633,7 @@
     const hexBtn = $('ch-hexline'), hexTxt = $('ch-hexline-txt');
     if (hexTxt) {
       hexTxt.innerHTML = hexName
-        ? renderTerm('时卦', isEN() ? 'Hour hexagram' : '时卦') + ' · ' + escapeHtml(hexName)
+        ? escapeHtml(isEN() ? 'Hour hexagram' : '时卦') + ' · ' + escapeHtml(hexName)
         : '';
     }
     if (hexBtn) hexBtn.hidden = !hexName;
@@ -2239,7 +2282,7 @@
     const enK = isEN();
     return `<span class="voice"><span class="voice-tag">八宅</span>${renderTerm(star)}${enK ? ' sector' : '方'}<span class="voice-cite cite-chip" data-cite="bazhai-dayouniange" role="button" tabindex="0">《八宅明镜》</span></span>`
       + `<span class="voice-dot">·</span>`
-      + `<span class="voice"><span class="voice-tag">子平</span>${zipingVerdict(fit, el)}<span class="voice-cite">${enK ? escapeHtml(tt('common.modern_method')) : '今人方法'}</span></span>`;
+      + `<span class="voice"><span class="voice-tag">子平</span>${zipingVerdict(fit, el)}<span class="voice-cite">${escapeHtml(tt('common.modern_method'))}</span></span>`;
   }
   // EN-only 子平短语（五行译英，纯英文，供 EN 引文卡结构行用）
   function zipingVerdictEN(fit, el) {
@@ -2351,12 +2394,12 @@
     if (!state) { badge.hidden = true; block.hidden = true; if (share) share.hidden = true; _lastProofPayload = null; return; }
     const el = r.facing.el, mtn = r.facing.name;
     if (state === 'good') {
-      badge.hidden = false; badge.className = 'bzq-triple-badge good'; badge.textContent = '三证俱吉';
+      badge.hidden = false; badge.className = 'bzq-triple-badge good'; badge.textContent = '三项都较合适';
       block.hidden = false; block.className = 'bzq-triple good';
       block.innerHTML =
-        tripleLine('游年『' + star + '』· 属四吉', '《八宅明镜》游年', 'bazhai-dayouniange')
-        + tripleLine('此向属' + el + ' · 正合喜用', '今人方法 · 喜用', null)
-        + tripleLine(mtn + '山 · 今岁未犯太岁·岁破·三煞', '《钦定协纪辨方书》流年', 'xinji-bianfang');
+        tripleLine('游年『' + star + '』属于传统四吉星', '《八宅明镜》游年', 'bazhai-dayouniange')
+        + tripleLine('这个方向属' + el + '，与你较贴合', '按你的五行对照', null)
+        + tripleLine(mtn + '山不在今年传统忌向之中', '《钦定协纪辨方书》流年', 'xinji-bianfang');
       // 三证时刻卡分享 payload（与上三行同源；卡内三行各署出处书名）
       const tri = C.TRIGRAMS[r.trigram] || {};
       _lastProofPayload = {
@@ -2364,21 +2407,21 @@
         trigram: r.trigram, trigramSymbol: tri.symbol || '', trigramDir: tri.dir || '',
         deg: r.deg, zuoXiang: r.zuoXiang,
         rows: [
-          { text: '游年『' + star + '』· 属四吉', src: '《八宅明镜》游年' },
-          { text: '此向属' + el + ' · 正合喜用', src: '今人方法·喜用' },
-          { text: mtn + '山 · 今岁未犯太岁·岁破·三煞', src: '《钦定协纪辨方书》流年' }
+          { text: '游年『' + star + '』属于传统四吉星', src: '《八宅明镜》游年' },
+          { text: '这个方向属' + el + '，与你较贴合', src: '按你的五行对照' },
+          { text: mtn + '山不在今年传统忌向之中', src: '《钦定协纪辨方书》流年' }
         ]
       };
       if (share) share.hidden = false;
     } else {
       if (share) share.hidden = true; _lastProofPayload = null;   // 非俱吉：不提供三证卡分享
       const role = tripleYearRole(mtn) || '流年凶方';
-      badge.hidden = false; badge.className = 'bzq-triple-badge calm'; badge.textContent = '宜伏敛';
+      badge.hidden = false; badge.className = 'bzq-triple-badge calm'; badge.textContent = '建议谨慎参考';
       block.hidden = false; block.className = 'bzq-triple calm';
       block.innerHTML =
-        tripleLine('游年『' + star + '』· 属四凶，宜伏', '《八宅明镜》游年', 'bazhai-dayouniange')
-        + tripleLine('此向属' + el + ' · 落于忌神', '今人方法 · 喜用', null)
-        + tripleLine(mtn + '山 · 值今岁' + role + '，此向宜守静、动土安床宜暂避', '《钦定协纪辨方书》流年', 'xinji-bianfang');
+        tripleLine('游年『' + star + '』属于传统四凶星，不宜优先', '《八宅明镜》游年', 'bazhai-dayouniange')
+        + tripleLine('这个方向属' + el + '，与你较不贴合', '按你的五行对照', null)
+        + tripleLine(mtn + '山今年属于' + role + '；按传统说法，动土或安床可先考虑别的方向', '《钦定协纪辨方书》流年', 'xinji-bianfang');
     }
   }
 
@@ -2409,15 +2452,15 @@
       const en = isEN();
       if (conc) conc.textContent = en
         ? `日主 ${data.bazi.dm} ${elEN(data.bazi.dmEl)} · ${data.bazi.isStrong ? 'strong' : 'weak'} · this facing ${zipingVerdictEN(fit, r.facing.el)}`
-        : `日主${data.bazi.dm}${data.bazi.dmEl}·${data.bazi.isStrong ? '身强' : '身弱'} · 此向${zipingVerdict(fit, r.facing.el)}`;
+        : `你的核心五行是${data.bazi.dm}${data.bazi.dmEl}，整体力量${data.bazi.isStrong ? '偏强' : '偏弱'} · 这个方向${zipingVerdict(fit, r.facing.el)}`;
       if (yifu) yifu.hidden = true;
-      $('bzq-orig').textContent = en ? 'Modern method · favorable-element selection' : '今人方法：喜用取用';
+      $('bzq-orig').textContent = en ? 'Modern Five-Phase comparison' : '按你的五行对照';
       $('bzq-bai').textContent = en
         ? `Favorable elements ${elsEN(data.bazi.favorable)}; unfavorable ${elsEN(data.bazi.unfavorable)}. This facing is ${elEN(r.facing.el)} — ${fit === '合喜用' ? 'matches your favorable elements; suited as a desk-facing here, drawing on its color to reinforce' : fit === '犯忌神' ? 'falls on an unfavorable element; better avoided — choose a favorable sector instead' : 'neutral to both favorable and unfavorable elements'}.`
-        : `以日主强弱定喜用神：喜用${data.bazi.favorable.join('、')}，忌${data.bazi.unfavorable.join('、')}。此向五行属${r.facing.el}——${fit === '合喜用' ? '正合喜用，此向宜作书桌坐向、取其色以补益' : fit === '犯忌神' ? '落于忌神，补益宜避此向、另择喜用方' : '喜用忌神俱不涉，气性平'}。`;
+        : `按这张命盘的五行结构，较贴合的是${data.bazi.favorable.join('、')}，较不贴合的是${data.bazi.unfavorable.join('、')}。这个方向属${r.facing.el}——${fit === '合喜用' ? '与你较贴合，可优先比较' : fit === '犯忌神' ? '与你较不贴合，可再看看其他方向' : '没有明显的贴合或不贴合'}。`;
       $('bzq-note').textContent = '';
       $('bzq-cite').textContent = '';
-      $('bzq-school').textContent = en ? 'Modern method · favorable elements' : '今人方法 · 喜用取用';
+      $('bzq-school').textContent = en ? 'Modern Five-Phase comparison' : '按你的五行对照';
       if (ctxLink) ctxLink.style.display = 'none';
       if (dian) dian.style.display = 'none';
       if (slot) slot.classList.add('open');
@@ -3107,7 +3150,7 @@
     });
     const cite = en
       ? ' <span class="dz-cite cite-chip" role="button" tabindex="0">(modern synthesis · after 《渊海子平》)</span>'
-      : '（今人整理·据<span class="dz-cite cite-chip" role="button" tabindex="0">《渊海子平》</span>口径）';
+      : '（按<span class="dz-cite cite-chip" role="button" tabindex="0">《渊海子平》</span>中的传统地支关系对照）';
     note.innerHTML = (en ? 'Today ' : '今日') + parts.join(en ? '; ' : '、') + cite;
     note.style.display = 'block';
     wireDizhiCite(note);
@@ -3178,11 +3221,11 @@
   // 依据行：只用 cite-map 已有键（找不到键者退纯文本·不新造引用·删优于编）
   function dialBackHtml() {
     const rows = [
-      ['二十四山向环', '罗盘定向通则', null, '今人整理'],
+      ['二十四山向环', '罗盘定向说明', null, ''],
       ['游年八星环', '《八宅明镜》', 'bazhai-dayouniange', ''],
       ['流年方位弧', '《协纪辨方书》卷三', 'xinji-bianfang', ''],
-      ['宜忌 · 吉神体系', '《协纪辨方书》', 'xinji-bianfang', '今人实现'],
-      ['时辰 · 月建游标', '干支纪时 · 历法通则', null, '今人整理'],
+      ['宜忌 · 吉神体系', '《协纪辨方书》', 'xinji-bianfang', '现代页面呈现'],
+      ['时辰 · 月建游标', '传统干支纪时', null, ''],
     ];
     let h = '<button class="db-close" type="button" aria-label="翻回盘面">✕</button>';
     h += '<div class="db-seal">盘背铭文</div><div class="db-sub">各环所据文献</div><div class="db-list">';
@@ -3688,20 +3731,29 @@
       // 不再永久关掉传感器：此前拖一次滑杆之后，即使指南针后来才就绪，
       // 事件也全被丢弃且没有明显的恢复入口。改为「有真实读数就自动接管」。
       sensorOn = true;
-      if (lockedHeading !== null) { lockedHeading = null; $('btn-lock').textContent = '定盘'; $('btn-lock').classList.remove('locked'); $('lock-panel').classList.remove('shown'); if (compassFx) compassFx.setLocked(false); } // 拖滑杆即释盘，按钮态同步，别留「释盘」假象
+      if (lockedHeading !== null) { lockedHeading = null; $('btn-lock').textContent = tt('kanyu.btn_lock'); $('btn-lock').classList.remove('locked'); $('lock-panel').classList.remove('shown'); if (compassFx) compassFx.setLocked(false); } // 拖滑杆即释盘，按钮态同步，别留锁定假象
       setHeading(parseFloat(e.target.value));
     });
     // 定盘 / 释盘：真冻结朝向 + 描金静止针 + 延伸读数
     $('btn-lock').addEventListener('click', () => {
       if (lockedHeading === null) {
+        if (headingSource !== 'sensor') {
+          toast('当前是练习方向，不能生成真实方位结果。请允许手机罗盘后再锁定。', 3200);
+          $('sim-row').classList.add('shown');
+          return;
+        }
         lockedHeading = heading; sensorOn = false;
-        $('btn-lock').textContent = '释盘'; $('btn-lock').classList.add('locked');
+        $('btn-lock').textContent = tt('kanyu.btn_unlock'); $('btn-lock').classList.add('locked');
         if (compassFx) compassFx.setLocked(true);
         const r = C.directionReading(C.norm(heading));
-        $('lock-zuoxiang').textContent = r.zuoXiang;
+        $('lock-zuoxiang').textContent = `实测朝向：面向${r.facing.name}（${Math.round(C.norm(heading) * 10) / 10}°）`;
         const t = C.TRIGRAMS[r.trigram];
-        $('lock-sub').textContent = `${t.symbol} ${r.trigram}宫 · 五行属${r.facing.el}`;
+        $('lock-sub').textContent = `坐向结论：${r.zuoXiang}`;
         $('lock-sub').style.color = C.EL_HEX[r.facing.el];
+        const lockPlain = $('lock-plain');
+        if (lockPlain) lockPlain.textContent = `这是手机罗盘取得的实测方向。先记住“${r.zuoXiang}”即可；九宫数字和${t.symbol}${r.trigram}宫等传统推导已收在下方。`;
+        const lockTechnical = $('lock-technical');
+        if (lockTechnical) lockTechnical.open = false;
         $('lock-panel').classList.add('shown');
         // 玄空飞星九宫格：以当前朝向为向首，计算九运三盘（Phase 7）
         try {
@@ -3712,7 +3764,7 @@
         drawLuopan();
       } else {
         lockedHeading = null; sensorOn = true; lastRaw = null;
-        $('btn-lock').textContent = '定盘'; $('btn-lock').classList.remove('locked');
+        $('btn-lock').textContent = tt('kanyu.btn_lock'); $('btn-lock').classList.remove('locked');
         $('lock-panel').classList.remove('shown');
         if (compassFx) compassFx.setLocked(false);
       }
@@ -3785,7 +3837,7 @@
     paintLayerSeg();
     // 两法异说小浮层：宅法键命卦、命法键日主，所据之「命」不同（今人整理，非古籍仲裁）
     const divBtn = $('fit-diverge-btn'), divPop = $('fit-diverge-pop');
-    if (divPop) divPop.textContent = '宅法（八宅）以命卦定八方吉凶，命法（子平）以日主强弱定喜用五行；两者所据之「命」不同——一为命卦（生年所属），一为日主（生日之天干）。故同一方位可一法断凶、一法断得用，各有典据，不相为裁。（今人整理，非古籍仲裁）';
+    if (divPop) divPop.textContent = '八宅法按出生年份得到“命卦”，子平法按生日天干与整张命盘判断五行。两种方法看的不是同一件事，所以同一方向可能得到不同结果；这里并列展示，方便你分别查看依据。';
     if (divBtn && divPop) divBtn.addEventListener('click', () => {
       const open = divPop.hidden;
       divPop.hidden = !open;
@@ -4517,7 +4569,7 @@
           h += `</div>`;
         }
       } else {
-        h += `<p class="dim" style="font-size:12px;margin-bottom:10px">排八字后，此处实时显示此位与阁下命卦的吉凶断语（<span class="cite-chip" data-cite="bazhai-dayouniange" role="button" tabindex="0">《八宅明镜》游年八星法</span>）</p>`;
+        h += `<p class="dim" style="font-size:12px;margin-bottom:10px">排八字后，这里会说明这个方向与你命盘的传统关系（<span class="cite-chip" data-cite="bazhai-dayouniange" role="button" tabindex="0">查看《八宅明镜》依据</span>）</p>`;
       }
 
       // 玄空飞星方位判断（Phase 7）：以定盘朝向为宅向，标注该位置的山星/向星旺衰
@@ -4762,7 +4814,7 @@
       if (!navigator.geolocation) { shaCt.innerHTML = '<p style="color:var(--cinnabar)">此设备不支持 GPS 定位</p>'; return; }
       navigator.geolocation.getCurrentPosition(
         p => run(p.coords.latitude, p.coords.longitude),
-        () => { shaCt.innerHTML = '<p style="color:var(--cinnabar)">定位失败：请先点「回我」授权位置权限</p>'; }
+        () => { shaCt.innerHTML = '<p style="color:var(--cinnabar)">定位失败：请先点“回到当前位置”并允许位置权限</p>'; }
       );
     });
     const shaPClose = $('sha-panel-close');
@@ -4881,7 +4933,7 @@
       } else if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           p => runAnalysis(p.coords.latitude, p.coords.longitude),
-          () => { swCt.innerHTML = '<p style="color:var(--cinnabar);padding:10px">定位失败：请先点「回我」授权位置权限</p>'; }
+          () => { swCt.innerHTML = '<p style="color:var(--cinnabar);padding:10px">定位失败：请先点“回到当前位置”并允许位置权限</p>'; }
         );
       } else {
         swCt.innerHTML = '<p style="color:var(--cinnabar);padding:10px">此设备不支持 GPS 定位</p>';
@@ -6494,8 +6546,11 @@
     });
 
     const countrySel = $('bazi-country'), regionSel = $('bazi-region'), citySel = $('bazi-city');
+    const countryInput = $('bazi-country-search'), regionInput = $('bazi-region-search'), cityInput = $('bazi-city-search');
+    const countryList = $('bazi-country-options'), regionList = $('bazi-region-options'), cityList = $('bazi-city-options');
     const birthPlaceApi = window.SinanBirthPlaces;
     let birthCountries = [], activeBirthCountry = null, birthPlaceToken = 0;
+    const usStateCodes = new Set('AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY DC'.split(' '));
     const legacyCnCities = {
       beijing: '北京市', shanghai: '上海市', guangzhou: '广州市', shenzhen: '深圳市', chengdu: '成都市',
       chongqing: '重庆市', hangzhou: '杭州市', nanjing: '南京市', wuhan: '武汉市', xian: '西安市',
@@ -6510,18 +6565,47 @@
       select.disabled = disabled;
     };
     const countryLabel = country => isEN() ? country[1] : (country[2] || country[1]);
-    const regionLabel = region => {
-      const name = isEN() ? region[1] : (region[2] || region[1]);
-      return `${name} · ${region[3].length}${isEN() ? ' cities' : ' 城市'}`;
+    const regionLabel = region => isEN() ? region[1] : (region[2] || region[1]);
+    const cityLabel = city => isEN() ? city[1] : (city[2] || city[1]);
+    const cityInputLabel = (city, cities) => {
+      const base = cityLabel(city);
+      const duplicates = (cities || []).filter(item => cityLabel(item) === base).length;
+      if (duplicates < 2) return base;
+      const qualifier = isEN() ? (city[2] || city[0]) : (city[1] || city[0]);
+      return `${base}（${qualifier}）`;
     };
-    const cityLabel = city => {
-      if (isEN() || countrySel.value === 'CN' || city[1] === city[2]) return isEN() ? city[1] : city[2];
-      return `${city[2]} · ${city[1]}`;
+    const regionsForCountry = country => {
+      const regions = (country && country.s) || [];
+      return country && country.c === 'US' ? regions.filter(region => usStateCodes.has(region[0])) : regions;
+    };
+    const matchesPlace = (value, row) => {
+      const key = normalizePlaceKey(value);
+      const combinedZhEn = `${row[2] || row[1]}（${row[1] || row[0]}）`;
+      const combinedEnZh = `${row[1] || row[2]} (${row[2] || row[0]})`;
+      return key && [row[0], row[1], row[2], combinedZhEn, combinedEnZh].some(part => normalizePlaceKey(part) === key);
+    };
+    const fillPlaceList = (list, rows, labelFn) => {
+      list.innerHTML = '';
+      rows.forEach(row => {
+        const option = document.createElement('option');
+        option.value = labelFn(row);
+        if (!isEN() && row[1] && row[1] !== option.value) option.label = row[1];
+        list.appendChild(option);
+      });
+    };
+    const setSearchState = (input, value, placeholder, disabled) => {
+      input.value = value || '';
+      input.placeholder = placeholder;
+      input.disabled = !!disabled;
     };
     function clearBirthRegions() {
       activeBirthCountry = null;
       setPlacePlaceholder(regionSel, isEN() ? 'Select state / province' : '选择州/省');
       setPlacePlaceholder(citySel, isEN() ? 'Select city' : '选择城市');
+      regionList.innerHTML = '';
+      cityList.innerHTML = '';
+      setSearchState(regionInput, '', isEN() ? 'Choose country / region first' : '先选国家/地区', true);
+      setSearchState(cityInput, '', isEN() ? 'Choose state / province first' : '先选省份/州', true);
     }
     async function fillBirthCountries(selected) {
       setPlacePlaceholder(countrySel, isEN() ? 'Loading countries…' : '正在加载国家…');
@@ -6535,8 +6619,15 @@
           return pa - pb || countryLabel(a).localeCompare(countryLabel(b), isEN() ? 'en' : 'zh-CN');
         });
         sorted.forEach(country => countrySel.add(new Option(countryLabel(country), country[0])));
+        fillPlaceList(countryList, sorted, countryLabel);
         countrySel.disabled = false;
-        if (selected && birthCountries.some(country => country[0] === selected)) countrySel.value = selected;
+        countryInput.disabled = false;
+        countryInput.placeholder = isEN() ? 'Search country / region' : '搜索国家/地区';
+        const chosen = selected && birthCountries.find(country => country[0] === selected);
+        if (chosen) {
+          countrySel.value = chosen[0];
+          countryInput.value = countryLabel(chosen);
+        }
       } catch (error) {
         setPlacePlaceholder(countrySel, isEN() ? 'Failed to load · tap to retry' : '加载失败 · 点此重试', false);
         console.warn('Birth place countries failed to load', error);
@@ -6547,14 +6638,14 @@
       const migratedCity = country.c === 'CN' && legacyCnCities[cityCode] ? legacyCnCities[cityCode] : cityCode;
       const targetCity = normalizePlaceKey(migratedCity);
       const targetRegion = normalizePlaceKey(regionCode);
-      for (const region of country.s || []) {
+      for (const region of regionsForCountry(country)) {
         if (targetRegion && ![region[0], region[1], region[2]].some(value => normalizePlaceKey(value) === targetRegion)) continue;
         const city = (region[3] || []).find(item => [item[0], item[1], item[2]].some(value => normalizePlaceKey(value) === targetCity));
         if (city) return { region, city };
         if (targetRegion && !targetCity) return { region, city: null };
       }
       if (targetCity) {
-        for (const region of country.s || []) {
+        for (const region of regionsForCountry(country)) {
           const city = (region[3] || []).find(item => [item[0], item[1], item[2]].some(value => normalizePlaceKey(value) === targetCity));
           if (city) return { region, city };
         }
@@ -6564,11 +6655,18 @@
     function fillBirthCities(regionCode, selected) {
       const region = activeBirthCountry && (activeBirthCountry.s || []).find(item => item[0] === regionCode);
       setPlacePlaceholder(citySel, isEN() ? 'Select city' : '选择城市', !region);
+      cityList.innerHTML = '';
+      setSearchState(cityInput, '', isEN() ? 'Choose state / province first' : '先选省份/州', !region);
       if (!region) return;
-      (region[3] || []).forEach(city => citySel.add(new Option(cityLabel(city), city[0])));
+      const cities = region[3] || [];
+      cities.forEach(city => citySel.add(new Option(cityLabel(city), city[0])));
+      fillPlaceList(cityList, cities, city => cityInputLabel(city, cities));
       citySel.disabled = false;
       const match = selected && (region[3] || []).find(city => [city[0], city[1], city[2]].some(value => normalizePlaceKey(value) === normalizePlaceKey(selected)));
-      if (match) citySel.value = match[0];
+      if (match) {
+        citySel.value = match[0];
+        cityInput.value = cityInputLabel(match, cities);
+      }
     }
     async function fillBirthRegions(countryCode, selectedRegion, selectedCity) {
       const token = ++birthPlaceToken;
@@ -6580,15 +6678,20 @@
         if (token !== birthPlaceToken || countrySel.value !== countryCode) return;
         activeBirthCountry = country;
         const saved = findSavedBirthPlace(country, selectedRegion, selectedCity);
+        const regions = regionsForCountry(country);
         regionSel.innerHTML = `<option value="">${isEN() ? 'Select state / province' : '选择州/省'}</option>`;
-        (country.s || []).forEach(region => regionSel.add(new Option(regionLabel(region), region[0])));
+        regions.forEach(region => regionSel.add(new Option(regionLabel(region), region[0])));
+        fillPlaceList(regionList, regions, regionLabel);
         regionSel.disabled = false;
+        setSearchState(regionInput, '', isEN() ? 'Search state / province' : '搜索省份/州', false);
         if (saved) {
           regionSel.value = saved.region[0];
+          regionInput.value = regionLabel(saved.region);
           fillBirthCities(saved.region[0], saved.city && saved.city[0]);
-        } else if ((country.s || []).length === 1) {
-          regionSel.value = country.s[0][0];
-          fillBirthCities(country.s[0][0], selectedCity);
+        } else if (regions.length === 1) {
+          regionSel.value = regions[0][0];
+          regionInput.value = regionLabel(regions[0]);
+          fillBirthCities(regions[0][0], selectedCity);
         }
       } catch (error) {
         if (token !== birthPlaceToken) return;
@@ -6600,8 +6703,65 @@
       const region = activeBirthCountry && (activeBirthCountry.s || []).find(item => item[0] === regionSel.value);
       return region && (region[3] || []).find(city => city[0] === citySel.value);
     }
+    async function chooseBirthCountry(value) {
+      const country = birthCountries.find(row => matchesPlace(value, row));
+      if (!country) {
+        if (!String(value || '').trim()) {
+          countrySel.value = '';
+          clearBirthRegions();
+          $('bazi-lng').value = '';
+        }
+        return;
+      }
+      countryInput.value = countryLabel(country);
+      if (countrySel.value === country[0] && activeBirthCountry) return;
+      countrySel.value = country[0];
+      await fillBirthRegions(country[0], '', '');
+      $('bazi-lng').value = '';
+    }
+    function chooseBirthRegion(value) {
+      const region = regionsForCountry(activeBirthCountry).find(row => matchesPlace(value, row));
+      if (!region) {
+        if (!String(value || '').trim()) {
+          regionSel.value = '';
+          fillBirthCities('', '');
+          $('bazi-lng').value = '';
+        }
+        return;
+      }
+      regionInput.value = regionLabel(region);
+      regionSel.value = region[0];
+      fillBirthCities(region[0], '');
+      $('bazi-lng').value = '';
+    }
+    function chooseBirthCity(value) {
+      const region = activeBirthCountry && (activeBirthCountry.s || []).find(item => item[0] === regionSel.value);
+      const city = region && (region[3] || []).find(row => matchesPlace(value, row));
+      if (!city) {
+        if (!String(value || '').trim()) {
+          citySel.value = '';
+          $('bazi-lng').value = '';
+        }
+        return;
+      }
+      cityInput.value = cityInputLabel(city, region[3] || []);
+      citySel.value = city[0];
+      $('bazi-lng').value = Number(city[3]).toFixed(2);
+    }
     clearBirthRegions();
     fillBirthCountries('');
+    countryInput.addEventListener('change', () => chooseBirthCountry(countryInput.value));
+    regionInput.addEventListener('change', () => chooseBirthRegion(regionInput.value));
+    cityInput.addEventListener('change', () => chooseBirthCity(cityInput.value));
+    countryInput.addEventListener('input', () => {
+      if (!countryInput.value.trim()) chooseBirthCountry('');
+    });
+    regionInput.addEventListener('input', () => {
+      if (!regionInput.value.trim()) chooseBirthRegion('');
+    });
+    cityInput.addEventListener('input', () => {
+      if (!cityInput.value.trim()) chooseBirthCity('');
+    });
     countrySel.addEventListener('change', async () => {
       await fillBirthRegions(countrySel.value, '', '');
       $('bazi-lng').value = '';
@@ -6764,6 +6924,7 @@
         pos => {
           if ($('bazi-lng')) $('bazi-lng').value = Math.round(pos.coords.longitude * 100) / 100;
           countrySel.value = '';
+          countryInput.value = '';
           clearBirthRegions();
           lngLocateBtn.disabled = false; lngLocateBtn.textContent = orig;
           const adv = $('bazi-solar-adv'); if (adv) adv.open = true;
@@ -6863,11 +7024,7 @@
   }
   function ruleWeight(r) { return Math.abs(r.polarity || 0) * (r.weight || 0); }
   function shortenText(s, n) { s = String(s == null ? '' : s); return s.length > n ? s.slice(0, n) + '…' : s; }
-  function polMark(p) {
-    const cls = POL_MARK[String(p)] || 'gjl-z';
-    const lab = POL_LABEL[String(p)] || '平';
-    return `<span class="gjl-pol ${cls}" title="衡：${lab}" aria-label="衡${lab}"></span>`;
-  }
+  function polMark() { return ''; }
   function friendlyConsequence(cls) {
     return (isEN() ? CONSEQ_FRIENDLY_EN : CONSEQ_FRIENDLY_ZH)[cls] || cls || (isEN() ? 'Other patterns' : '其他线索');
   }
@@ -6989,7 +7146,7 @@
       + '<div class="gjl-dp-seam" aria-hidden="true"><span class="gjl-dp-dui">对</span></div>'
       + dpLeaf(right)
       + '</div>'
-      + `<p class="gjl-dp-foot">${isEN() ? 'Both readings stand — recorded for reference, not weighed against each other (诸家异说, divergence among schools).' : '两说并存，存录备考，不计入衡（诸家异说）'}</p>`
+      + `<p class="gjl-dp-foot">${isEN() ? 'Both readings have sources. They are shown side by side without choosing a winner.' : '两种说法都有出处，这里并列展示，不判断哪一种更准。'}</p>`
       + '</div>';
   }
   function hasSentenceCite(r) {
@@ -7028,14 +7185,13 @@
       const remainingCount = natal.length - highlighted.size;
       let html = '<div class="gjl-head"><span class="seal">' + (enG ? 'For You' : '与你有关') + '</span>'
         + `<span class="gjl-sub">${enG ? 'How traditional readers might read your chart · every source remains traceable' : '你的命盘，古人会怎么看 · 每条都可追溯'}</span></div>`
-        + `<p class="gjl-intro">${enG ? '<b>Plain language first.</b> Source text stays folded until you want to inspect it.' : '<b>先说人话，再谈古籍。</b>以下是与你这张命盘直接对应的重点，原文默认收起。'}</p>`
+        + `<p class="gjl-intro">${enG ? '<b>Read the summary first.</b> Source text stays folded until you want to inspect it.' : '<b>先看结论，需要时再展开原文。</b>以下是与你这张命盘直接对应的重点。'}</p>`
         + '<div class="gjl-highlights">'
         + highlights.map(x => renderRuleItem(x.rule, x.cls)).join('')
         + '</div>';
       const hasLibrary = remainingCount > 0 || res.disputed.length > 0;
       if (hasLibrary) {
-        const total = remainingCount + res.disputed.length;
-        html += `<details class="gjl-library"><summary>${enG ? 'Continue to ' + total + ' source notes and divergent readings' : '继续查看其余 ' + total + ' 条典籍依据与异说'}</summary>`;
+        html += `<details class="gjl-library"><summary>${enG ? 'See more source notes and different readings' : '查看更多古籍说法与依据'}</summary>`;
         CONSEQ_ORDER.forEach(cls => {
           const arr = (groups[cls] || []).filter(r => !highlighted.has(r));
           if (!arr.length) return;
@@ -7057,14 +7213,13 @@
           pairHtml += renderDisputePair(ord[0], ord[1]);
         });
         html += `<details class="gjl-disputed"><summary>${enG ? 'Divergence among schools (' + res.disputed.length + ')' : '诸家异说（' + res.disputed.length + '）'}</summary>`
-          + `<p class="gjl-disputed-note">${enG ? 'Each of these readings has its own source; recorded for reference, not weighed in.' : '此数说各有所本，存录备考，不计入衡。'}</p>`
+          + `<p class="gjl-disputed-note">${enG ? 'Each reading has its own source. Use them as cultural references.' : '每种说法都有自己的出处，请把它们当作传统文化参考。'}</p>`
           + pairHtml
           + singles.map(r => renderRuleItem(r, (r.then && r.then.consequence_class) || '中性其他')).join('')
           + '</details>';
       }
       if (hasLibrary) html += '</details>';
-      const held = res.stats.held + res.stats.skippedRequires + res.stats.skippedCapability;
-      html += `<p class="gjl-foot">${enG ? 'A cultural interpretation, not a scientific diagnosis or a promise of outcomes. Another ' + held + ' rules were not used here — they either need a compass bearing or are still being checked against their sources.' : '传统文化视角，不是科学诊断，也不承诺现实结果。另有 ' + held + ' 条规则这次没用上——它们要么需要罗盘方位，要么还在核对古籍出处。'}</p>`;
+      html += `<p class="gjl-foot">${enG ? 'A cultural interpretation, not a scientific diagnosis or a promise of outcomes.' : '这是传统文化视角，不是科学诊断，也不代表现实结果。'}</p>`;
       box.innerHTML = html;
       box.style.display = '';
     }).catch(() => { /* 静默降级：不显卡、不报错 */ });
@@ -7124,7 +7279,7 @@
     } else {
       dual.innerHTML = `<div><span class="bz-solar-tag">钟表时</span><span class="bz-solar-zhi">${escapeHtml(clockZhi)}时</span></div>`
         + `<div><span class="bz-solar-tag">真太阳时</span><span class="bz-solar-zhi">${escapeHtml(solarZhi)}时</span></div>`;
-      if (divPop) { divPop.textContent = '命理界排盘用时，钟表时与真太阳时（按经度、均时差校正的地方真太阳时）两派并存，各有师承。本 App 两法并列、以所选时刻排盘而不作裁决——今人整理。'; divPop.hidden = true; }
+      if (divPop) { divPop.textContent = '传统排盘对使用钟表时间还是真太阳时有不同做法。这里把两种结果都列出来，并始终按你选定的时间生成命盘。'; divPop.hidden = true; }
       if (divBtn) { divBtn.hidden = false; divBtn.setAttribute('aria-expanded', 'false'); }
     }
   }
@@ -7176,21 +7331,21 @@
         + '</div>';
       return;
     }
-    let sentence = `阁下降生于<b>${escapeHtml(yearGZ)}年${escapeHtml(monthCn)}月${escapeHtml(dayCn)}${escapeHtml(timeZhi)}时</b>。`;
-    if (yi.length) sentence += `是日宜<b class="kw-yi">${escapeHtml(yi.join('·'))}</b>`;
-    if (hex && hex.name) sentence += `${yi.length ? '，' : '是日'}时卦<b class="gold">${escapeHtml(hex.name)}</b>`;
+    let sentence = `你出生在<b>${escapeHtml(yearGZ)}年${escapeHtml(monthCn)}月${escapeHtml(dayCn)}${escapeHtml(timeZhi)}时</b>。`;
+    if (yi.length) sentence += `当天黄历记的“宜”有<b class="kw-yi">${escapeHtml(yi.join('·'))}</b>`;
+    if (hex && hex.name) sentence += `${yi.length ? '，' : '当时'}按时间排出的卦是<b class="gold">${escapeHtml(hex.name)}</b>`;
     sentence += '。';
-    const jieqiPos = alm.jieQiToday ? `是日交「${alm.jieQiToday}」` : `时在「${alm.currentJieQi}」气中`;
+    const jieqiPos = alm.jieQiToday ? `当天进入「${alm.jieQiToday}」` : `当时正值「${alm.currentJieQi}」节气区间`;
     let meta = `<span class="bday-k">节气</span>${escapeHtml(jieqiPos)}`;
     if (ji.length) meta += ` <span class="bday-k" style="margin-left:12px">忌</span><span class="kw-ji">${escapeHtml(ji.join('·'))}</span>`;
     host.innerHTML =
       '<div class="card bday-card">'
-      + '<div class="bday-head"><span class="seal">生辰</span><b class="gold">降生之日</b>'
+      + '<div class="bday-head"><span class="seal">生辰</span><b class="gold">出生当天</b>'
       + `<span class="dim">${escapeHtml(alm.solarText)}</span></div>`
       + `<p class="bday-phrase">${sentence}</p>`
       + `<p class="bday-meta">${meta}</p>`
-      + '<div class="bday-foot"><span>宜忌本乎黄历<span class="cite-chip" data-cite="xinji-bianfang" role="button" tabindex="0" style="margin:0 3px">《协纪辨方书》</span>体系 · 时卦梅花易数（今人方法）</span>'
-      + '<span class="bday-share">长按截图 · 可赠友人</span></div>'
+      + '<div class="bday-foot"><span>黄历项参考<span class="cite-chip" data-cite="xinji-bianfang" role="button" tabindex="0" style="margin:0 3px">《协纪辨方书》</span>；卦象由出生时间排出，仅作传统文化参考</span>'
+      + '<span class="bday-share">长按可保存这张卡</span></div>'
       + '</div>';
   }
 
@@ -7435,7 +7590,7 @@
     const selfStem = c && c.dm;
     const self = selfStem && CharacterSystem && CharacterSystem.get(selfStem);
     const themeStem = selectedThemeStem();
-    const displayStem = themeStem || selfStem;
+    const displayStem = themeStem || (!guide.balanced && guide.pair && guide.pair[0]) || selfStem;
     const a = displayStem && CharacterSystem && CharacterSystem.get(displayStem);
     if (!host || !self || !a || !guide) { if (host) host.hidden = true; return; }
     const en = isEN();
@@ -7449,11 +7604,11 @@
     const pairZh = (guide.pair && guide.pair.length ? guide.pair : [selfStem]);
     const pairEn = pairZh.map(s => cap1(STEM_PY[s] || s));
     const chartCast = CharacterSystem.chartCast ? CharacterSystem.chartCast(c, en ? 'en' : 'zh') : [];
+    const distinctChartPeople = new Set(chartCast.map(slot => slot.stem)).size;
     const relationCards = CharacterSystem.relationCards(selfStem, en ? 'en' : 'zh');
-    const outputCards = relationCards.filter(card => card.relationKey === 'output');
-    const combine = relationCards.find(card => card.kind === 'combine');
-    const clash = relationCards.find(card => card.kind === 'clash');
-    const kicker = en ? 'YOUR CHARACTER' : '你的天干人物';
+    const kicker = themeStem
+      ? (en ? 'YOUR THEME CHARACTER' : '你设置的主题人物')
+      : (guide.balanced ? (en ? 'START WITH YOUR DAY MASTER' : '先从你的日主开始') : (en ? 'START WITH WHAT IS LOWER' : '先看你相对较少的五行'));
     const worldIntro = en
       ? `We made one fictional character for each heavenly stem. This is a story, not a prediction.`
       : '十个天干各有一个虚构人物。这里讲人物故事，不作吉凶判断。';
@@ -7461,9 +7616,13 @@
       ? (en
         ? `${cap1(STEM_PY[displayStem] || displayStem)} is your chosen theme character. Your Day Master remains ${cap1(STEM_PY[selfStem] || selfStem)}.`
         : `你选了${displayStem}·${name}作为常用人物；你的日主仍是${selfStem}。`)
-      : (en
-        ? `Your story begins with Day Master ${cap1(STEM_PY[selfStem] || selfStem)}.`
-        : `你的日主是${selfStem}，先从${selfStem}认识这个人物世界。`);
+      : (guide.balanced
+        ? (en
+          ? `Your five phases are evenly spread, so the story begins with Day Master ${cap1(STEM_PY[selfStem] || selfStem)}.`
+          : `你的五行分布接近，所以先从日主${selfStem}认识这个人物世界。`)
+        : (en
+          ? `Your Day Master is ${cap1(STEM_PY[selfStem] || selfStem)}. ${elEN(guide.element)} is relatively lower, so ${pairEn.join(' and ')} both appear below; this hero starts with the Yang face.`
+          : `你的日主是${selfStem}；五行里${guide.element}相对少，所以属${guide.element}的${pairZh.join('、')}都会出现。主图先从${displayStem}开始，不表示只缺${displayStem}。`));
     const basis = guide.balanced
       ? (en
         ? 'The five phases are close, so no single phase is shown as the lower pair.'
@@ -7479,79 +7638,56 @@
       <span class="bazi-cast-shade" aria-hidden="true"></span>
       <span class="bazi-cast-copy"><small>${escapeHtml(label)}</small><b>${escapeHtml(title)}</b><em>${escapeHtml(note)}</em></span>
     </button>` : '';
-    const guideCards = guide.balanced
-      ? [sceneCard({
-        kind: 'weak',
-        label: en ? 'EVENLY SPREAD' : '五行分布接近',
-        title: en ? 'Start with your Day Master' : `先看${selfStem}`,
-        note: en ? 'No single phase stands out as lowest' : '没有哪一行明显更少',
-        asset: self.heroScene,
-        openStem: selfStem,
-        focus: self.heroFocus
-      })]
-      : pairZh.map(relatedStem => {
-        const person = CharacterSystem.get(relatedStem);
-        if (!person) return '';
-        const personName = characterText(person, 'name', en);
-        const personRole = characterText(person, 'role', en);
-        const side = en ? (person.yang ? 'Yang' : 'Yin') : (person.yang ? '阳' : '阴');
-        return sceneCard({
-          kind: 'weak',
-          label: en ? `LOWER ${elEN(guide.element)} · ${side}` : `${guide.element}相对少 · ${side}${guide.element}`,
-          title: `${relatedStem}·${personName}`,
-          note: personRole,
-          asset: person.heroScene || person.background,
-          openStem: relatedStem,
-          focus: person.heroFocus
-        });
+    const relationPlain = {
+      peer: en ? 'similar to you' : '和你相似',
+      output: en ? 'moved by you' : '被你带动',
+      source: en ? 'supports you' : '托住你',
+      control: en ? 'handled by you' : '由你掌握',
+      pressure: en ? 'pushes you' : '推动你'
+    };
+    const selfReasons = [en ? 'WHO YOU ARE · DAY MASTER' : `你是谁 · 日主${selfStem}`];
+    if (!guide.balanced && pairZh.includes(selfStem)) selfReasons.push(en ? `LOWER ${elEN(guide.element)}` : `${guide.element}相对少`);
+    const castCards = [sceneCard({
+      kind: 'self', label: selfReasons.join(' · '), title: `${selfStem}·${characterText(self, 'name', en)}`,
+      note: en ? 'Open your character story' : '从这个人物认识你出生当天的天干',
+      asset: self.heroScene || self.background, openStem: selfStem, focus: self.heroFocus
+    }), ...relationCards.map(card => {
+      const targetStem = card.relatedStems[0];
+      const target = CharacterSystem.get(targetStem);
+      if (!target) return '';
+      const reasons = [];
+      if (!guide.balanced && pairZh.includes(targetStem)) {
+        const side = en ? (target.yang ? 'Yang' : 'Yin') : (target.yang ? '阳' : '阴');
+        reasons.push(en ? `LOWER ${elEN(guide.element)} · ${side}` : `${guide.element}相对少 · ${side}${guide.element}`);
+      }
+      reasons.push(relationPlain[card.relationKey] || card.plain);
+      if (card.kind === 'combine') reasons.push(en ? 'also combines' : '同时相合');
+      if (card.kind === 'clash') reasons.push(en ? 'also clashes' : '同时相冲');
+      return sceneCard({
+        kind: card.kind, label: reasons.join(' · '),
+        title: `${targetStem}·${characterText(target, 'name', en)}`,
+        note: card.title || (en ? `Open the story between ${selfStem} and ${targetStem}` : `看${selfStem}和${targetStem}共同经历的故事`),
+        asset: card.scene || target.heroScene || target.background,
+        openStem: selfStem, targetStem, focus: card.scene ? '50% 50%' : target.heroFocus
       });
-    const combinePerson = combine && CharacterSystem.get(combine.relatedStems[0]);
-    const clashPerson = clash && CharacterSystem.get(clash.relatedStems[0]);
-    const castCards = [
-      ...guideCards,
-      ...outputCards.map(output => {
-        const targetStem = output.relatedStems[0];
-        const target = CharacterSystem.get(targetStem);
-        if (!target) return '';
-        return sceneCard({
-          kind: 'output',
-          label: en ? `YOU MOVE · ${output.term}` : `你会带动 · ${output.term}`,
-          title: `${targetStem}·${characterText(target, 'name', en)}`,
-          note: output.title || (en ? 'Open this relationship' : '打开这段关系'),
-          asset: output.scene || target.heroScene || target.background,
-          openStem: selfStem,
-          targetStem,
-          focus: output.scene ? '50% 50%' : target.heroFocus
-        });
-      }),
-      combine && combinePerson && sceneCard({
-        kind: 'combine', label: combine.label, title: `${combine.related} · ${combine.title}`,
-        note: en ? 'Two people create a third state' : '看两个人合作后会发生什么',
-        asset: combine.scene || combinePerson.heroScene, openStem: selfStem, targetStem: combine.relatedStems[0], focus: combine.scene ? '50% 50%' : combinePerson.heroFocus
-      }),
-      clash && clashPerson && sceneCard({
-        kind: 'clash', label: clash.label, title: `${clash.related} · ${clash.title}`,
-        note: en ? 'A face-off without a villain' : '看两个人正面交锋',
-        asset: clash.scene || clashPerson.heroScene, openStem: selfStem, targetStem: clash.relatedStems[0], focus: clash.scene ? '50% 50%' : clashPerson.heroFocus
-      })
-    ].filter(Boolean).join('');
+    })].filter(Boolean).join('');
     const chartCastMarkup = chartCast.map(slot => {
       const person = CharacterSystem.get(slot.stem);
       if (!person) return '';
       const relation = slot.relation || {};
       const special = [
-        relation.combine ? (en ? 'Combine' : '合') : '',
-        relation.clash ? (en ? 'Clash' : '冲') : ''
+        relation.combine ? (en ? 'They also combine' : `你与${slot.stem}同时相合`) : '',
+        relation.clash ? (en ? 'They also clash' : `你与${slot.stem}同时相冲`) : ''
       ].filter(Boolean).join(' · ');
       const slotLabel = slot.part === 'zhi'
-        ? `${slot.position} · ${slot.source}→${slot.stem}`
+        ? (en ? `${slot.position} · ${slot.source}'s main hidden stem is ${slot.stem}` : `${slot.position} · ${slot.source}的主气是${slot.stem}`)
         : `${slot.position} · ${slot.source}`;
       const relationLabel = slot.isSelf
-        ? (en ? 'YOU · DAY MASTER' : '你 · 日主')
-        : [relation.term, relation.plain].filter(Boolean).join(en ? ' · ' : ' · ');
+        ? (en ? 'YOU · DAY MASTER' : '这是你 · 日主')
+        : (en ? `${relation.plain} · traditional term: ${relation.term}` : `${relation.plain}（传统称${relation.term}）`);
       return `<button type="button" class="bazi-chart-person is-${escapeHtml(relation.key || 'peer')}${slot.isSelf ? ' is-self' : ''}${relation.combine ? ' is-combine' : ''}${relation.clash ? ' is-clash' : ''}" data-changming-open data-stem="${escapeHtml(selfStem)}"${slot.isSelf ? '' : ` data-cm-view="relations" data-cm-target="${escapeHtml(slot.stem)}"`} style="--person-color:${escapeHtml(C.EL_HEX[person.element] || '#c9a227')}">
         <span class="bazi-chart-position">${escapeHtml(slotLabel)}</span>
-        <span class="bazi-chart-portrait"><i aria-hidden="true"></i><img src="${escapeHtml(person.fullBody || person.portrait || person.asset)}" alt="${escapeHtml(slot.stem + '·' + characterText(person, 'name', en))}" loading="lazy" decoding="async"></span>
+        <span class="bazi-chart-portrait"><i aria-hidden="true"></i><img src="${escapeHtml(person.heroScene || person.background)}" alt="${escapeHtml(slot.stem + '·' + characterText(person, 'name', en))}" loading="lazy" decoding="async" style="--scene-focus:${escapeHtml(person.heroFocus || '50% 50%')}"></span>
         <span class="bazi-chart-name"><b>${escapeHtml(slot.stem + '·' + characterText(person, 'name', en))}</b><small>${escapeHtml(relationLabel)}</small></span>
         ${special ? `<em>${escapeHtml(special)}</em>` : ''}
       </button>`;
@@ -7571,7 +7707,7 @@
       if (!person) return '';
       const point = ensemblePoints[slot.index];
       return `<figure class="bazi-ensemble-person${slot.isSelf ? ' is-self' : ''}" style="--x:${point[0]}%;--y:${point[1]}%;--scale:${point[2]};--z:${point[3]}">
-        <img src="${escapeHtml(person.fullBody || person.portrait || person.asset)}" alt="" loading="lazy" decoding="async">
+        <img src="${escapeHtml(person.heroScene || person.background)}" alt="" loading="lazy" decoding="async" style="--scene-focus:${escapeHtml(person.heroFocus || '50% 50%')}">
         <figcaption>${escapeHtml(slot.isSelf ? (en ? 'YOU' : '你') : slot.position)}</figcaption>
       </figure>`;
     }).join('');
@@ -7591,10 +7727,17 @@
         <p class="bazi-arch-plain">${escapeHtml(plain)}</p>
         <p class="bazi-arch-desc">${escapeHtml(desc)}</p>
         <button type="button" class="bazi-arch-enter" data-changming-open data-stem="${escapeHtml(displayStem)}"><span>${en ? `Read ${cap1(STEM_PY[displayStem] || displayStem)}'s story` : `看${displayStem}的故事`}</span><b aria-hidden="true">↗</b></button>
+        <div class="bazi-theme-actions">
+          ${themeStem
+            ? `<button type="button" class="bazi-theme-button" data-bazi-theme-reset>${en ? 'Use the chart default again' : '恢复命盘默认人物'}</button>`
+            : `<button type="button" class="bazi-theme-button" data-bazi-theme-set="${escapeHtml(displayStem)}">${en ? `Set ${displayStem} as my theme` : `把${displayStem}设为我的主题人物`}</button>`}
+          <button type="button" class="bazi-theme-button" data-changming-open data-stem="${escapeHtml(displayStem)}" data-cm-view="relations">${en ? 'Choose any of the ten' : '从十个人里选择其他主题'}</button>
+        </div>
         </div>
       </article>
-      <section class="bazi-chart-cast" aria-label="${en ? 'The eight characters as eight people' : '八个字对应的八个人'}">
-        <div class="bazi-cast-heading"><span>${en ? 'YOUR EIGHT-CHARACTER CAST' : '你的八个人物阵'}</span><p>${en ? 'Year, month, day and hour each bring two people into the same scene. Repeated characters keep their original positions.' : '年、月、日、时，各有两个人物。同一个人重复出现，也会留在原来的位置。'}</p></div>
+      <section class="bazi-chart-cast" aria-label="${en ? 'The eight chart positions shown as characters' : '八个命盘位置对应的人物'}">
+        <div class="bazi-cast-heading"><span>${en ? `YOUR EIGHT CHART POSITIONS · ${distinctChartPeople} DISTINCT CHARACTERS` : `你的八个命盘位置 · ${distinctChartPeople}位不同人物`}</span><p>${en ? 'These are eight positions, not necessarily eight different people. A repeated character stays visible in every position where it appears.' : '这是八个位置，不一定是八个不同人物。同一个人物出现多次，代表它在不同位置重复出现。'}</p></div>
+        <p class="bazi-cast-how">${en ? 'Each pillar has a visible stem and a branch. A branch card uses its main hidden stem; for example, 戌 uses 戊. This is only a character mapping, not an extra person added to the chart.' : '年、月、日、时各有一个天干和一个地支。天干直接对应人物；地支用它的“主气藏干”对应人物，例如戌的主气是戊，所以显示戊。这里只是把八个位置翻成人物，不会凭空多算一个人。'}</p>
         <div class="bazi-ensemble" aria-hidden="true">
           <span class="bazi-ensemble-sky"></span>
           <svg class="bazi-ensemble-lines" viewBox="0 0 100 100" preserveAspectRatio="none">${ensembleLines}</svg>
@@ -7602,12 +7745,21 @@
           <span class="bazi-ensemble-ground"></span>
         </div>
         <div class="bazi-chart-stage"><span class="bazi-chart-field" aria-hidden="true"></span><div class="bazi-chart-grid">${chartCastMarkup}</div></div>
-        <details class="bazi-arch-basis"><summary>${en ? 'How are the eight people chosen?' : '这八个人怎么来的？'}</summary><p>${en ? 'Year, month, day and hour each contain a stem and a branch. Stems map directly; branches use the first hidden stem returned by the same chart engine. The day stem is marked as you, and every other card shows its relation to it.' : '年、月、日、时各有一个天干和一个地支。天干直接对应人物；地支使用同一排盘引擎返回的第一主气藏干。日干标作“你”，另外七张显示它与日干的关系。'}</p></details>
       </section>
-      <div class="bazi-cast-heading"><span>${en ? 'RELATED CHARACTERS' : '和你有关的人物'}</span><p>${en ? 'See who your chart points to and what happens between them.' : '看你的五行还会带出哪些人物，以及他们之间会发生什么。'}</p></div>
+      <div class="bazi-cast-heading"><span>${en ? 'ALL TEN CHARACTERS' : '你、较少的五行与全部关系'}</span><p>${en ? 'One card for you and one for each of the other nine. No person repeats: lower phases, support, output, pressure, control, combine and clash are merged into that person’s reason line.' : '共十张：你自己一张，另外九人各一张，不重复。同一个人如果同时代表“较少的五行”、相生、相制、相合或相冲，会合并写在同一张卡上。'}</p></div>
       <div class="bazi-cast-grid">${castCards}</div>
-      <details class="bazi-arch-basis"><summary>${en ? 'Why this recommendation?' : '为什么推荐他们？'}</summary><p>${escapeHtml(basis)}</p></details>`;
+      <p class="bazi-arch-basis is-visible">${escapeHtml(basis)}</p>`;
     host.hidden = false;
+    const themeSet = host.querySelector('[data-bazi-theme-set]');
+    if (themeSet) themeSet.addEventListener('click', () => {
+      try { localStorage.setItem('changming-theme-stem', themeSet.dataset.baziThemeSet); } catch (e) {}
+      document.dispatchEvent(new CustomEvent('changming-theme-change', { detail: { stem: themeSet.dataset.baziThemeSet } }));
+    });
+    const themeReset = host.querySelector('[data-bazi-theme-reset]');
+    if (themeReset) themeReset.addEventListener('click', () => {
+      try { localStorage.removeItem('changming-theme-stem'); } catch (e) {}
+      document.dispatchEvent(new CustomEvent('changming-theme-change', { detail: { stem: null } }));
+    });
     setCharacterImageState(host.querySelector('.bazi-persona-art'), host);
     requestAnimationFrame(() => {
       void host.offsetWidth;
@@ -7617,14 +7769,19 @@
 
   function renderTodayCharacterStory(c) {
     const host = $('today-character-story');
-    const guideStem = c && (selectedThemeStem() || c.dm);
+    const guide = c && CharacterSystem && CharacterSystem.guideFor(c);
+    const themeStem = selectedThemeStem();
+    const guideStem = c && (themeStem || (guide && !guide.balanced && guide.pair && guide.pair[0]) || c.dm);
     const a = guideStem && CharacterSystem && CharacterSystem.get(guideStem);
     if (!host || !a) { if (host) host.hidden = true; return; }
     const en = isEN();
-    const isTheme = guideStem !== c.dm;
+    const isTheme = !!themeStem;
+    const isLower = !isTheme && guide && !guide.balanced && guideStem !== c.dm;
     const label = isTheme
       ? (en ? `YOUR THEME · DAY MASTER ${cap1(STEM_PY[c.dm] || c.dm)}` : `你常看的角色 · 日主仍是${c.dm}`)
-      : (en ? 'YOUR DAY MASTER · A LIFE IN PROGRESS' : '你的日主 · 人物小传');
+      : (isLower
+        ? (en ? `LOWER ${elEN(guide.element)} · DAY MASTER ${cap1(STEM_PY[c.dm] || c.dm)}` : `${guide.element}相对少 · 日主仍是${c.dm}`)
+        : (en ? 'YOUR DAY MASTER · A LIFE IN PROGRESS' : '你的日主 · 人物小传'));
     const readerTitle = characterText(a, 'readerTitle', en);
     const readerStory = characterText(a, 'readerStory', en);
     const storyAsset = a.heroScene || a.background;
@@ -7674,7 +7831,7 @@
     host.innerHTML = `<div class="card character-relations-card">
       <span class="seal">${en ? 'CHARACTER STORIES' : '人物关系'}</span>
       <h3>${escapeHtml(title)}</h3><p class="dim">${escapeHtml(sub)}</p>
-      <button type="button" class="character-world-link is-compact relation-city-entry" data-changming-open data-stem="${escapeHtml(c.dm)}" data-cm-view="relations"><span>${en ? 'See every character pairing' : '看任意人物之间的关系'}</span><b aria-hidden="true">↗</b></button>
+      <button type="button" class="character-world-link is-compact relation-city-entry" data-changming-open data-stem="${escapeHtml(c.dm)}" data-cm-view="relations"><span>${en ? 'Choose any two of the ten characters' : '从十个人里任选两人看关系'}</span><b aria-hidden="true">↗</b></button>
       <div class="character-relation-tabs" role="tablist">${cards.map((card, index) => `<button type="button" role="tab" aria-selected="${index === 0}" class="${index === 0 ? 'active' : ''}" data-index="${index}">${escapeHtml(card.label)}</button>`).join('')}</div>
       <div class="character-relation-panel" role="tabpanel" aria-live="polite"></div>
     </div>`;
@@ -7702,9 +7859,9 @@
         ? card.relatedDetails.map(detail => `${detail.stem}·${detail.role}`).join(' · ')
         : card.related;
       panel.innerHTML = `${visual}${narrative}
-        <div class="relation-panel-meta"><span>${renderTerm(String(card.term).split('·')[0].trim(), card.term)}</span><b>${escapeHtml(relatedLine)}</b></div>
         <p class="relation-plain">${escapeHtml(card.plain)}</p>
-        <button type="button" class="character-world-link is-compact" data-changming-open data-stem="${escapeHtml(c.dm)}" data-cm-view="relations" data-cm-target="${escapeHtml(card.relatedStems[0] || '')}"><span>${en ? 'Read this relation in Changming' : '进入常明城看这段关系'}</span><b aria-hidden="true">↗</b></button>`;
+        <div class="relation-panel-meta"><b>${escapeHtml(relatedLine)}</b><span>${en ? 'Traditional relation: ' : '传统关系名：'}${renderTerm(String(card.term).split('·')[0].trim(), card.term)}</span></div>
+        <button type="button" class="character-world-link is-compact" data-changming-open data-stem="${escapeHtml(c.dm)}" data-cm-view="relations" data-cm-target="${escapeHtml(card.relatedStems[0] || '')}"><span>${en ? `Open the story of ${c.dm} and ${card.relatedStems[0] || ''}` : `打开${c.dm}与${card.relatedStems[0] || ''}的完整故事`}</span><b aria-hidden="true">↗</b></button>`;
       panel.querySelectorAll('.relation-character img').forEach(image => {
         image.addEventListener('error', () => image.closest('.relation-character')?.classList.add('image-missing'), { once: true });
       });
@@ -7745,7 +7902,8 @@
     } else {
       const solarEcho = input.isLunar ? '' : `公历${input.year}-${pad(input.month)}-${pad(input.day)} ${pad(input.hour)}:${pad(input.minute || 0)} · `;
       // 「属马」被拦腰断行会在结果页第一行留下一个孤零零的「马」，用 nowrap 包住。
-      $('bazi-head').innerHTML = `${escapeHtml(input.gender)} · ${escapeHtml(solarEcho + c.lunarText)} · <span class="nowrap">属${escapeHtml(c.shengXiao)}</span>`;
+      const genderZh = input.gender === '坤造' ? '女' : '男';
+      $('bazi-head').innerHTML = `${genderZh} · ${escapeHtml(solarEcho + c.lunarText)} · <span class="nowrap">生肖${escapeHtml(c.shengXiao)}</span>`;
     }
     renderSolarLine(input); // 真太阳时开启则双行呈现钟表时/真太阳时时辰（异说 chip 复用 diverge 浮层）
     renderBaziArchetype(c); // 八个字翻成八个人物；日干是「你」，地支按主气藏干翻牌
@@ -7759,7 +7917,7 @@
       card.innerHTML = `<small>${p.pos}</small>
         <b style="color:${C.EL_HEX[p.ganEl]};text-shadow:0 0 8px ${C.EL_HEX[p.ganEl]}66">${p.gan}</b>
         <b style="color:${C.EL_HEX[p.zhiEl]};text-shadow:0 0 8px ${C.EL_HEX[p.zhiEl]}66">${p.zhi}</b>
-        <small class="nayin">${renderTerm('纳音', p.naYin)}</small>`;
+        <small class="nayin">纳音：${renderTerm('纳音', p.naYin)}</small>`;
       pr.appendChild(card);
     });
     renderBirthdayCard(input, c);   // B1 生辰黄历回放卡（命盘卡之后）
@@ -7786,7 +7944,7 @@
         ? `<b>Five phases in your chart</b><p>How much of each phase your eight characters add up to (total ${total.toFixed(1)}). Longer bar = more of it. Neither more nor less is “good”; balance is what the reading looks at.</p><p class="bazi-bars-lede">${allEven
             ? `All five come out even, at ${hiVal.toFixed(1)} each.`
             : `Most: <b style="color:${C.EL_HEX[top]}">${escapeHtml(tops.map(elEN).join(', '))} ${hiVal.toFixed(1)}</b> · Least: <b style="color:${C.EL_HEX[bottom]}">${escapeHtml(bottoms.map(elEN).join(', '))} ${loVal.toFixed(1)}</b>`}</p>`
-        : `<b>你八字里的五行</b><p>八个字折算下来，每一行各占多少（合计 ${total.toFixed(1)} 分）。条越长这一行越多。多不等于好、少也不等于差，看的是均不均。</p><p class="bazi-bars-lede">${allEven
+        : `<b>你八字里的五行</b><p>八个字和地支藏干会换算成相对权重，合计 ${total.toFixed(1)} 只用于比较，不是满分制。条越长表示这一行相对更多；多不等于好，少也不等于差。</p><p class="bazi-bars-lede">${allEven
             ? `五行分得很匀，每一行都是 ${hiVal.toFixed(1)}。`
             : `最多的是<b style="color:${C.EL_HEX[top]}">${escapeHtml(tops.join('、'))} ${hiVal.toFixed(1)}</b>，最少的是<b style="color:${C.EL_HEX[bottom]}">${escapeHtml(bottoms.join('、'))} ${loVal.toFixed(1)}</b>。`}</p>`;
       bars.appendChild(head);
@@ -7819,7 +7977,7 @@
         const favs = (c.favorable || []).join('、');
         vp.textContent = isEN()
           ? `In plain terms: your chart leans ${c.isStrong ? 'strong' : 'weak'} — the ${c.dmEl} you were born on has ${c.isStrong ? 'plenty of' : 'little'} support. Traditionally that means leaning on ${elsEN(c.favorable)}.`
-          : `说人话：你这张盘偏${c.isStrong ? '强' : '弱'}——出生那天的「${c.dm}${c.dmEl}」${c.isStrong ? '帮手多' : '帮手少'}。传统上说这种盘要多借${favs}的力。`;
+          : `先看最直接的意思：出生那天的「${c.dm}${c.dmEl}」在这八个字里${c.isStrong ? '得到的同类支持较多' : '得到的同类支持较少'}。传统说法会建议多借${favs}的力量；这只是文化解释，不是性格定论。`;
       }
     }
     try {
@@ -8002,7 +8160,7 @@
     try { const s = localStorage.getItem('kanyu-basemap'); if (s && BASEMAPS[s]) savedBasemap = s; } catch (e) {}
     setBasemap(savedBasemap, false); // 恢复不回写（避免无谓 write）
     L.control.layers({
-      '水墨 · 空相': ink,
+      '只看罗盘（无地图）': ink,
       '卫星 · Esri': esri,
       '晕渲地势 · 显山形': relief,
       '墨色 · 暗地图': darkmap,
@@ -8087,7 +8245,7 @@
       if (!map.setBearing) { toast(tt('toast.rotate_unsupported')); return; }
       rotateWithHeading = !rotateWithHeading;
       rotBtn.classList.toggle('locked', rotateWithHeading);
-      rotBtn.textContent = rotateWithHeading ? '随身转' : '图北';
+      rotBtn.textContent = rotateWithHeading ? '地图随手机转' : tt('kanyu.btn_rotate');
       $('mapnorth-tick').style.display = rotateWithHeading ? 'none' : '';
       if (rotateWithHeading) { lastBearing = -999; applyBearing(heading); }
       else { map.setBearing(0); lastBearing = 0; } // 复位北上

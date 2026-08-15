@@ -20,7 +20,7 @@
 
   // ===== i18n：卡面固定文案（数据 token·干支/宜忌项/卦名 等仍走中文，符合宪法 §2） =====
   var ZH = {
-    'share.btn': '分享',
+    'share.btn': '生成分享图',
     'share.seal': '分享',
     'share.save': '保存图片',
     'share.saved': '已保存 {name}',

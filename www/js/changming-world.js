@@ -74,8 +74,9 @@
     const total = ELEMENTS.reduce((sum, el) => sum + Math.max(0, Number(raw[el]) || 0), 0) || 5;
     const rows = ELEMENTS.map(el => ({ el, score: Number(raw[el]) || 0, pct: Math.max(0, Number(raw[el]) || 0) / total }));
     const ranked = rows.slice().sort((a, b) => b.pct - a.pct);
+    const lower = rows.slice().sort((a, b) => a.pct - b.pct);
     const spread = ranked[0].pct - ranked[ranked.length - 1].pct;
-    return { rows, ranked, balanced: spread <= 0.03 };
+    return { rows, ranked, lower, balanced: spread <= 0.03 };
   }
 
   function seedOf(stem, profile) {
@@ -170,8 +171,8 @@
     return `${visual}
     <div class="cm-relation-copy">
       ${narrative}
-      <div><span>${termChip(card.term)}</span><b>${esc(card.related)}</b></div>
       <p>${esc(card.plain)}</p>
+      <div><b>${esc(card.related)}</b><span>${text('传统关系名：', 'Traditional relation: ')}${termChip(card.term)}</span></div>
     </div>`;
   }
 
@@ -196,8 +197,8 @@
     state.activeStem = Characters.get(stem) ? stem : (state.dayMasterStem || '甲');
     state.relationIndex = 0;
     const profile = scoreProfile(state.chart);
-    const primary = profile.ranked[0].el;
-    const secondary = profile.ranked[1].el;
+    const primary = profile.balanced ? profile.ranked[0].el : profile.lower[0].el;
+    const secondary = profile.balanced ? profile.ranked[1].el : profile.lower[1].el;
     const primaryHex = ELEMENT_HEX[primary];
     const secondaryHex = ELEMENT_HEX[secondary];
     const isDayMaster = !!state.dayMasterStem && state.activeStem === state.dayMasterStem;
@@ -208,9 +209,10 @@
     const role = itemText(item, 'role');
     const tags = en() ? item.tagsEn : item.tagsZh;
     const relationCards = Characters.relationCards(state.activeStem, en() ? 'en' : 'zh');
+    const groupStory = typeof Characters.groupStories === 'function' ? Characters.groupStories(en() ? 'en' : 'zh')[0] : null;
     const balanceLead = profile.balanced
       ? text('你的五行分布接近。', 'Your five phases are evenly matched.')
-      : text(`你的五行里${primary}和${secondary}相对多。`, `Your chart has the most ${ELEMENT_EN[primary]} and ${ELEMENT_EN[secondary]}.`);
+      : text(`你的五行里${primary}相对最少，所以先用${state.guideStems.join('、')}带你进入人物世界；${secondary}是第二少。`, `${ELEMENT_EN[primary]} is relatively lowest, so ${state.guideStems.join(' / ')} lead you into this world; ${ELEMENT_EN[secondary]} is next.`);
     const sourceLine = state.chart
       ? text('这些比例来自你排的盘。', 'These proportions come from the chart you cast.')
       : text('你还没排过盘，先按五行等量显示。', 'You have not cast a chart yet, so all five are shown equal.');
@@ -260,13 +262,18 @@
 
       <section class="cm-section cm-relations" id="cm-relations-browser">
         <div class="cm-section-head"><span>03</span><div><small>${text('十个人的关系', 'THE TEN')}</small><h2>${text('点开任意一个人，看彼此如何影响', 'Open anyone and see who affects whom')}</h2></div></div>
+        <p class="cm-cast-intro">${text('十个人两两组合一共45对；这里每一对都有独立故事图。先点人物，再点下面的另一个人，就能查看任何一对。', 'Ten characters make 45 unique pairs. Every pair has its own story image: choose a character, then choose the other person below.')}</p>
         <div class="cm-cast-rail is-relations">${castMarkup(state.activeStem)}</div>
         <div class="cm-relation-tabs" role="tablist">${relationCards.map((card, index) => `<button type="button" role="tab" aria-selected="${index === 0}" class="${index === 0 ? 'is-active' : ''}" data-cm-rel="${index}">${esc(card.label)}</button>`).join('')}</div>
         <div id="cm-relation-panel" class="cm-relation-panel" role="tabpanel" aria-live="polite"></div>
       </section>
 
       <section class="cm-section cm-cast">
-        <div class="cm-section-head"><span>04</span><div><small>${text('默认人物', 'THEME CHARACTER')}</small><h2>${text('以后先显示谁？', 'Pick one to stay with you across Sinan')}</h2></div></div>
+        ${groupStory ? `<div class="cm-group-story">
+          <div class="cm-section-head"><span>04</span><div><small>${text('三人同框', 'THREE TOGETHER')}</small><h2>${text('同一件事里，三个人怎样一起起作用', 'Three different roles inside one shared event')}</h2></div></div>
+          <figure><img src="${esc(groupStory.scene)}" alt="${esc(groupStory.people + ' · ' + groupStory.title)}" loading="lazy" decoding="async"><figcaption><b>${esc(groupStory.title)}</b><p>${esc(groupStory.story)}</p><small>${esc(groupStory.people)}</small></figcaption></figure>
+        </div>` : ''}
+        <div class="cm-section-head cm-theme-head"><span>${groupStory ? '05' : '04'}</span><div><small>${text('默认人物', 'THEME CHARACTER')}</small><h2>${text('以后先显示谁？', 'Pick one to stay with you across Sinan')}</h2></div></div>
         <p class="cm-cast-intro">${text('设好后，首页和常明城会先显示这个人。不会改变你的命盘。', 'Your theme appears first across Sinan. It does not change your chart.')}</p>
         <div class="cm-theme-picker"><b>${esc(state.activeStem + '·' + name)}</b>${themeAction}</div>
       </section>`;
@@ -274,10 +281,10 @@
     const mineButton = root.querySelector('#cm-mine');
     if (mineButton) {
       mineButton.hidden = !state.dayMasterStem || isDayMaster;
-      mineButton.textContent = text('回到我的日主', 'Back to my Day Master');
+      mineButton.textContent = text('我的日主', 'My Day Master');
     }
     const relationsButton = root.querySelector('#cm-relations');
-    if (relationsButton) relationsButton.textContent = text('十个人的关系', 'The ten');
+    if (relationsButton) relationsButton.textContent = text('人物关系', 'Relations');
     const brand = root.querySelector('.cm-brand');
     if (brand) brand.innerHTML = `<b>常明城</b><small>${text('十干人物志', 'TEN-STEM CHRONICLES')}</small>`;
     const back = root.querySelector('.cm-back span');
@@ -302,7 +309,7 @@
     state.guideBalanced = !!guide.balanced; // 五行等量时没有「最少」，文案不能照说
     state.returnFocus = document.activeElement;
     resetScrollOnNextRender = true;   // 只有真的「进入」这一层才回到首屏
-    render(stem || state.themeStem || state.dayMasterStem || state.guideStems[0] || '甲');
+    render(stem || state.themeStem || state.guideStems[0] || state.dayMasterStem || '甲');
     if (targetStem && targetStem !== state.activeStem) {
       const targetIndex = Characters.relationCards(state.activeStem, en() ? 'en' : 'zh')
         .findIndex(card => (card.relatedStems || []).includes(targetStem));

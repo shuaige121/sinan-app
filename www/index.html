@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
-<link rel="stylesheet" href="css/style.css?v=20260814b">
+<link rel="stylesheet" href="css/style.css?v=20260815a">
 </head>
 <body>
 
@@ -34,8 +34,8 @@
   <div id="opening-quote"></div>
   <div id="opening-author"></div>
   <div id="opening-why" class="opening-why"></div>
-  <div id="opening-sub" class="opening-sub" data-i18n="opening.sub">历 · 堪 · 命</div>
-  <div id="opening-hint" data-i18n="opening.hint">轻 触 入 境</div>
+  <div id="opening-sub" class="opening-sub" data-i18n="opening.sub">看今日 · 测方位 · 读自己</div>
+  <div id="opening-hint" data-i18n="opening.hint">点一下开始使用</div>
   <button type="button" id="lang-toggle-opening" class="lang-toggle" aria-label="Language / 语言">EN</button>
 </div>
 <template id="opening-template">
@@ -46,8 +46,8 @@
   <div class="opening-brand">司南</div>
   <div class="oq"></div>
   <div class="oa"></div>
-  <div class="opening-sub">历 · 堪 · 命</div>
-  <div class="oh">轻 触 入 境</div>
+  <div class="opening-sub">看今日 · 测方位 · 读自己</div>
+  <div class="oh">点一下开始使用</div>
 </template>
 
 <!-- 今日 -->
@@ -86,8 +86,8 @@
         <div class="hex-lines" id="hex-lines"></div>
         <div class="hex-body">
           <span class="seal" data-i18n="today.hex_seal">时卦</span><b id="hex-name" style="font-size:19px"></b>
-          <p class="dim" style="margin:5px 0" id="hex-sub"></p>
           <p class="gold" id="hex-meaning"></p>
+          <p class="dim" style="margin:5px 0" id="hex-sub"></p>
           <p class="dim" style="margin:4px 0;font-size:12px" id="hex-zhigua"></p>
         </div>
       </div>
@@ -101,7 +101,7 @@
   </div>
   <div class="card" id="today-almanac-card">
     <!-- 分享小钮（角落）：生成今日黄历卡（canvas 本地渲染·不出网），app.js 挂 share-card.js -->
-    <button type="button" class="share-corner-btn" id="share-almanac-btn" data-i18n="share.btn" data-i18n-aria="share.share_almanac_aria" aria-label="分享今日黄历卡">分享</button>
+    <button type="button" class="share-corner-btn" id="share-almanac-btn" data-i18n="share.btn" data-i18n-aria="share.share_almanac_aria" aria-label="生成今日黄历分享图">生成分享图</button>
     <span class="seal" data-i18n="today.almanac_seal">黄历</span><span class="gold" id="today-ganzhi"></span>
     <span class="dim" id="today-shengxiao" style="float:right"></span>
     <p class="dim" style="margin-top:9px" id="today-jieqi"></p>
@@ -112,7 +112,7 @@
     <!-- C1 宜忌探源：点宜/忌项手风琴展开值神·建除·月令推导层（app.js renderToday 填充·同时只开一项） -->
     <div class="yj-derive" id="yj-derive" hidden></div>
     <!-- C3 个性化金点角注：排盘后·宜列有金点项时显示 -->
-    <div class="yj-goldnote" id="yj-goldnote" hidden data-i18n="today.goldnote">金点＝与阁下喜用相合（今人方法）</div>
+    <div class="yj-goldnote" id="yj-goldnote" hidden data-i18n="today.goldnote">金色圆点表示：这件事与你命盘中较需要的五行相合</div>
     <!-- 导读（原「晨语」卡收纳于此）：晨语与黄历宜忌/时卦断语重复（审计指出），压成两行小字；
          打字机 + 关键字着色沿用（见 app.js daoduText / typewriter）。 -->
     <div class="daodu"><span class="daodu-label" data-i18n="today.daodu_label">导读</span><span class="daodu-text" id="today-master"></span></div>
@@ -170,6 +170,7 @@
       <div id="fit-diverge-pop" class="diverge-pop" hidden></div>
     </div>
     <div id="kanyu-read-more">
+      <p class="dial-plain-legend"><b>盘面怎么看：</b>“建”是修建方位标记；“本命”来自你的命盘；“贵、财、喜、福”是传统方位标签。它们只供查方向，不代表事情一定发生。</p>
       <div id="compass-wuxing" style="display:none;gap:10px;flex-wrap:wrap;font-size:13px"></div>
       <!-- 盘面本命标注图层三态：关/八宅/喜用（仅排盘后可见，默认八宅）。图例文案由 app.js 按图层填。 -->
       <div id="bz-layer-row" style="display:none" role="group" aria-label="盘面染色图层" data-i18n-aria="kanyu.layer_group_aria">
@@ -182,15 +183,15 @@
       </div>
       <p id="bz-layer-legend" class="dim" style="display:none;font-size:11px;margin:0 0 4px;line-height:1.6"></p>
       <p id="wx-glow-legend" class="dim" style="display:none;font-size:11px;margin:0 0 4px;line-height:1.6" data-i18n="kanyu.glow_legend">盘缘八方微光 · 五行微光·随命盘分值 · 金针·时辰位</p>
-      <label id="kanyu-tianshi-label" style="display:flex;align-items:center;gap:6px;font-size:12px;margin:7px 0" data-i18n-node="kanyu.tianshi_label"><input type="checkbox" id="kanyu-tianshi"> 纳今日天时（黄历干支·时卦五行）一并测算</label>
+      <label id="kanyu-tianshi-label" style="display:flex;align-items:center;gap:6px;font-size:12px;margin:7px 0" data-i18n-node="kanyu.tianshi_label"><input type="checkbox" id="kanyu-tianshi"> 把今天的日期和时段也算进去</label>
       <p id="kanyu-tianshi-line" class="dim" style="font-size:11px;margin:0 0 4px"></p>
       <!-- 盘缘小件（吉神一组开关 + 日出日落方位注 + 棘轮触觉开关）。皆随堪舆页常驻·排盘/定位优雅显隐。 -->
       <div id="dial-marks-ctrl" style="margin:5px 0 2px">
-        <label id="kanyu-jishen-label" style="display:flex;align-items:center;gap:6px;font-size:12px;margin:3px 0"><input type="checkbox" id="kanyu-jishen" checked> 今日吉神方位<span class="cite-chip" data-cite="xinji-bianfang" role="button" tabindex="0">《协纪辨方书》</span>体系（今人实现）</label>
+        <label id="kanyu-jishen-label" style="display:flex;align-items:center;gap:6px;font-size:12px;margin:3px 0"><input type="checkbox" id="kanyu-jishen" checked> 在盘边标出今天的传统有利方位<span class="cite-chip" data-cite="xinji-bianfang" role="button" tabindex="0">出处</span></label>
         <p id="dm-sun-note" class="dim" style="display:none;font-size:11px;margin:1px 0 3px"></p>
         <!-- 地支时空棋盘·当下三支关系（app.js 填双语文案；无关系优雅隐藏；出处 chip 走书级《渊海子平》） -->
         <p id="dz-relate-note" class="dim" style="display:none;font-size:11px;margin:1px 0 3px"></p>
-        <label id="kanyu-ratchet-label" style="display:flex;align-items:center;gap:6px;font-size:12px;margin:3px 0" data-i18n-node="kanyu.ratchet_label"><input type="checkbox" id="kanyu-ratchet"> 罗盘棘轮触感（过二十四山界轻震）</label>
+        <label id="kanyu-ratchet-label" style="display:flex;align-items:center;gap:6px;font-size:12px;margin:3px 0" data-i18n-node="kanyu.ratchet_label"><input type="checkbox" id="kanyu-ratchet"> 跨过一个方位分界时轻震</label>
       </div>
       <p id="kanyu-pos"><span id="compass-pos"></span></p>
       <p class="disclaimer" style="margin-top:6px"></p>
@@ -235,11 +236,11 @@
   <div id="kanyu-ctrl">
     <span class="dial-ico" data-i18n="kanyu.dial_ico">◐盘</span>
     <input type="range" id="hud-opacity" min="15" max="95" value="80" aria-label="罗盘透明度" data-i18n-aria="kanyu.opacity_aria">
-    <button class="ctrl-btn" id="btn-lock" data-i18n="kanyu.btn_lock">定盘</button>
-    <button class="ctrl-btn" id="btn-rotate" data-i18n="kanyu.btn_rotate">图北</button>
-    <button class="ctrl-btn" id="btn-home" data-i18n="kanyu.btn_home">回我</button>
-    <button class="ctrl-btn" id="btn-yangzhai" data-i18n="kanyu.btn_yangzhai">阳宅</button>
-    <button class="ctrl-btn" id="btn-collapse" data-i18n="kanyu.btn_collapse">收</button>
+    <button class="ctrl-btn" id="btn-lock" data-i18n="kanyu.btn_lock">锁定实测方向</button>
+    <button class="ctrl-btn" id="btn-rotate" data-i18n="kanyu.btn_rotate">地图朝北</button>
+    <button class="ctrl-btn" id="btn-home" data-i18n="kanyu.btn_home">回到当前位置</button>
+    <button class="ctrl-btn" id="btn-yangzhai" data-i18n="kanyu.btn_yangzhai">分析房屋</button>
+    <button class="ctrl-btn" id="btn-collapse" data-i18n="kanyu.btn_collapse">收起工具</button>
     <button class="ctrl-btn" id="btn-calibrate" style="display:none" data-i18n="kanyu.btn_calibrate">校准罗盘</button>
   </div>
   <!-- 阳宅加点工具栏（Phase 2） -->
@@ -354,9 +355,12 @@
 </div>
 <div id="lock-panel">
   <button class="panel-close" id="lock-close">✕</button>
-  <span class="seal" data-i18n="lock.seal">定盘</span>
+  <span class="seal" data-i18n="lock.seal">实测方向结果</span>
   <div id="lock-zuoxiang"></div>
   <p id="lock-sub" style="text-align:center;font-size:14px"></p>
+  <p id="lock-plain" class="lock-plain"></p>
+  <details id="lock-technical" class="lock-technical">
+    <summary>查看专业推导和九宫图</summary>
   <div id="lock-xk"></div>
   <!-- v2-P27: 玄空当运速览卡（design-target §01·底部当运面板·当运之星/方位/时间）-->
   <div id="lock-xk-yun" style="display:none;"></div>
@@ -377,6 +381,7 @@
   </div>
   <!-- v2-P26: 八宅速览卡（design-target §02·底部生气/天医/五鬼位）-->
   <div id="lock-bz-summary" style="display:none;"></div>
+  </details>
   <p class="master-text" id="lock-reading" style="margin-top:12px"></p>
 </div>
 <!-- 阳宅加点（Phase 2）：床/门/灶/窗 可拖拽 + 旋转朝向 -->
@@ -513,14 +518,14 @@
 
 <!-- 八字 -->
 <section class="page" id="page-bazi">
-  <h1 class="page-title" data-i18n="bazi.page_title">命 盘 推 演</h1>
+  <h1 class="page-title" data-i18n="bazi.page_title">我的八字</h1>
   <div class="card" id="bazi-form">
     <!-- 向人索要出生时间之前先说清楚：拿它做什么、存在哪里。此前这句隐私承诺
          被写在 #bazi-result 里，只有已经交出生辰的人才看得到，等于没说。 -->
-    <p class="form-lede" data-i18n="bazi.form_lede">填出生时刻，排出你的八字四柱。生辰只在这台设备上计算，不上传、不联网，随时可在结果页「焚毁此盘」删掉。</p>
+    <p class="form-lede" data-i18n="bazi.form_lede">填写出生日期和时间，看看八个字对应的五行结构与人物关系。资料只在这台设备上计算和保存，不会上传。</p>
     <div class="form-row seg-row" id="gender-seg">
-      <label class="seg-pill"><input type="radio" name="gender" value="乾造" checked><span data-i18n="bazi.gender_male">乾造 · 男</span></label>
-      <label class="seg-pill"><input type="radio" name="gender" value="坤造"><span data-i18n="bazi.gender_female">坤造 · 女</span></label>
+      <label class="seg-pill"><input type="radio" name="gender" value="乾造" checked><span data-i18n="bazi.gender_male">男（传统称乾造）</span></label>
+      <label class="seg-pill"><input type="radio" name="gender" value="坤造"><span data-i18n="bazi.gender_female">女（传统称坤造）</span></label>
     </div>
     <div class="form-row">
       <label style="font-size:14px" data-i18n-node="bazi.lunar_checkbox"><input type="checkbox" id="bazi-islunar"> 我记的是农历生日</label>
@@ -536,19 +541,19 @@
       </div>
       <input type="hidden" id="bazi-datetime">
       <details class="bz-adv" id="bazi-solar-adv">
-        <summary data-i18n="bazi.adv_summary">高级 · 真太阳时</summary>
+        <summary data-i18n="bazi.adv_summary">按出生地校正时间（选填）</summary>
         <div class="bz-adv-body">
-          <label class="bz-adv-toggle" data-i18n-node="bazi.solar_toggle"><input type="checkbox" id="bazi-solar-toggle"> 用真太阳时排盘<span class="dim" data-i18n="bazi.solar_toggle_hint">（默认关＝钟表时）</span></label>
+          <label class="bz-adv-toggle" data-i18n-node="bazi.solar_toggle"><input type="checkbox" id="bazi-solar-toggle"> 按出生地校正太阳时间<span class="dim" data-i18n="bazi.solar_toggle_hint">（不确定就保持关闭）</span></label>
           <div class="bz-place-row">
-            <select id="bazi-country" aria-label="出生国家或地区"><option value="">选择国家/地区</option></select>
-            <select id="bazi-region" aria-label="出生州或省" disabled><option value="">选择州/省</option></select>
-            <select id="bazi-city" aria-label="出生城市" disabled><option value="">选择城市</option></select>
+            <label class="bz-place-field"><span data-i18n="bazi.country_label">1 · 国家/地区</span><input type="search" id="bazi-country-search" list="bazi-country-options" autocomplete="off" placeholder="搜索国家/地区" data-i18n-ph="bazi.country_ph"><datalist id="bazi-country-options"></datalist><select id="bazi-country" aria-label="出生国家或地区" hidden><option value="">选择国家/地区</option></select></label>
+            <label class="bz-place-field"><span data-i18n="bazi.region_label">2 · 省份/州</span><input type="search" id="bazi-region-search" list="bazi-region-options" autocomplete="off" placeholder="先选国家/地区" data-i18n-ph="bazi.region_ph" disabled><datalist id="bazi-region-options"></datalist><select id="bazi-region" aria-label="出生州或省" hidden disabled><option value="">选择州/省</option></select></label>
+            <label class="bz-place-field"><span data-i18n="bazi.city_label">3 · 城市</span><input type="search" id="bazi-city-search" list="bazi-city-options" autocomplete="off" placeholder="先选省份/州" data-i18n-ph="bazi.city_ph" disabled><datalist id="bazi-city-options"></datalist><select id="bazi-city" aria-label="出生城市" hidden disabled><option value="">选择城市</option></select></label>
           </div>
           <div class="bz-lng-row">
             <input type="number" id="bazi-lng" step="0.1" min="-180" max="180" inputmode="decimal" placeholder="城市经度自动填入（可精确修改）">
             <button type="button" id="bazi-lng-locate" class="bz-lng-locate" data-i18n="bazi.lng_locate">用当前定位填入</button>
           </div>
-          <p class="form-hint" data-i18n="bazi.solar_formula_hint">真太阳时＝钟表时 ＋（12:00 − 当日太阳上中天时刻）。按本设备时区解释所填时间，不还原历史时区/夏令时差异。</p>
+          <p class="form-hint" data-i18n="bazi.solar_formula_hint">只有开启上面的校正时才需要选择出生地。系统会按当地经度调整时间；很早的历史时区与夏令时可能仍有误差。</p>
         </div>
       </details>
     </div>
@@ -562,7 +567,7 @@
     <!-- 提示语必须放在两种模式之外：原来它在 #bazi-solar-row 里，勾「农历」时整行被隐藏，
          于是农历模式下的「还差年没选」写进了看不见的地方。 -->
     <p class="form-hint" id="bazi-form-hint" aria-live="polite" data-i18n="bazi.solar_hint">按 24 小时制填，下午 2 点写 14。分钟不确定可以留空——时辰的分界都在整点。</p>
-    <button class="btn-gold" id="btn-paipan" aria-describedby="bazi-form-hint" style="width:100%" data-i18n="bazi.btn_paipan">排　盘</button>
+    <button class="btn-gold" id="btn-paipan" aria-describedby="bazi-form-hint" style="width:100%" data-i18n="bazi.btn_paipan">生成我的八字</button>
   </div>
   <div id="bazi-result" style="display:none">
     <div class="bazi-result-actions">
@@ -576,6 +581,7 @@
       <div id="bazi-solar-diverge-pop" class="diverge-pop" hidden></div>
     </div>
     <div class="card" id="bazi-pillars-card">
+      <p class="bazi-pillars-note"><b>上面的字</b>参与五行统计；每柱下方的“纳音”是传统诗意分类，例如“霹雳火”，不是又多算了一份火。</p>
       <div id="bazi-pillars"></div>
     </div>
     <!-- B1 生辰黄历回放卡（排盘后·命盘卡之后填充）：出生当日 干支/宜忌/时卦/节气，lunar-js 回算。未排盘为空。 -->
@@ -584,9 +590,13 @@
     <!-- 断语紧跟五行条：用户交出了精确到分钟的出生时间，第一屏就该给他能看懂的结论，
          而不是先走 1700px 的虚构人物插画。文言原文折叠在「看古文原句」里。 -->
     <div class="card">
-      <span class="seal" data-i18n="bazi.verdict_seal">断语</span><span class="gold" id="bazi-strength" style="font-size:14px"></span>
+      <span class="seal" data-i18n="bazi.verdict_seal">先看结论</span>
       <p class="bazi-verdict-plain" id="bazi-verdict-plain"></p>
-      <p class="dim" id="bazi-minggua" style="font-size:13px;margin:7px 0 0"></p>
+      <details class="bazi-master-fold">
+        <summary>查看日主、强弱、喜用与命卦</summary>
+        <p class="gold" id="bazi-strength" style="font-size:14px"></p>
+        <p class="dim" id="bazi-minggua" style="font-size:13px;margin:7px 0 0"></p>
+      </details>
       <details class="bazi-master-fold" id="bazi-master-fold">
         <summary data-i18n="bazi.see_classical">看古文原句</summary>
         <p class="master-text" id="bazi-master" style="margin-top:9px"></p>
@@ -600,11 +610,11 @@
     <!-- AI 深度解盘（试验）：藏在 localStorage ff-ai='1' 之后，由 ai-reading.js 按旗标渲染；旗标未开则零痕迹 -->
     <div id="bazi-ai" style="display:none"></div>
     <div class="card">
-      <span class="seal" data-i18n="bazi.goals_seal">所求</span><span class="dim" data-i18n="bazi.goals_prompt">阁下此来，所求为何？</span>
+      <span class="seal" data-i18n="bazi.goals_seal">我想了解</span><span class="dim" data-i18n="bazi.goals_prompt">你最想先看哪一方面？</span>
       <div id="bazi-goals"></div>
       <p class="master-text" id="goal-advice" style="margin-top:10px;display:none"></p>
     </div>
-    <button class="burn" id="btn-burn" data-i18n="bazi.btn_burn">🔥 焚毁此盘（删除本机档案）</button>
+    <button class="burn" id="btn-burn" data-i18n="bazi.btn_burn">删除这份本机八字资料</button>
   </div>
   <p class="disclaimer"></p>
 </section>
@@ -614,9 +624,9 @@
      localStorage['dian-base'] 可覆写）。同源时出处 chip「入阁阅读」/原句卡「读上下文」改为切本 tab + 带 hash 深链。 -->
 <section class="page" id="page-shuge">
   <div class="shuge-wrap">
-    <iframe id="shuge-frame" class="shuge-frame" title="司南 · 典籍阁" hidden data-i18n-title="shuge.frame_title"></iframe>
+    <iframe id="shuge-frame" class="shuge-frame" title="司南 · 古籍" hidden data-i18n-title="shuge.frame_title"></iframe>
     <div class="shuge-skel" id="shuge-skel" aria-hidden="true">
-      <div class="shuge-skel-title" data-i18n="shuge.skel_title">司南 · 典籍阁</div>
+      <div class="shuge-skel-title" data-i18n="shuge.skel_title">正在打开古籍</div>
       <div class="shuge-skel-dots"><span></span><span></span><span></span></div>
     </div>
   </div>
@@ -639,9 +649,9 @@
 <!-- 底部导航 -->
 <nav class="tabbar">
   <button data-tab="today" class="active" data-i18n-node="tab.today"><span>历</span>今日</button>
-  <button data-tab="kanyu" data-i18n-node="tab.kanyu"><span>堪</span>堪舆</button>
-  <button data-tab="bazi" data-i18n-node="tab.bazi"><span>命</span>八字</button>
-  <button data-tab="shuge" data-i18n-node="tab.shuge"><span>书</span>典籍阁</button>
+  <button data-tab="kanyu" data-i18n-node="tab.kanyu"><span>向</span>罗盘</button>
+  <button data-tab="bazi" data-i18n-node="tab.bazi"><span>我</span>我的八字</button>
+  <button data-tab="shuge" data-i18n-node="tab.shuge"><span>书</span>古籍</button>
 </nav>
 
 <!-- 黄历 ICS 日历导出（底部抽屉，复用 #fp-wizard 抽屉体系）— 由 js/ics-export.js 驱动 -->
@@ -724,7 +734,7 @@
 <script src="https://cdn.jsdelivr.net/npm/lunar-javascript@1.7.7/lunar.js" integrity="sha384-CkiJVUh8zHLFNZYeiszeRw7KEWYDIf1yIZ+jVnZt+omUzQLv2ilCE94w1VItn8uH" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/leaflet-rotate@0.2.8/dist/leaflet-rotate.js" integrity="sha384-MtIdllebpZyms2pw9K3YJl8BEqrKNQCdSFAySjeglab6z2PkeFdF4Lb9cDsnxQuG" crossorigin="anonymous"></script>
-<script src="js/i18n/zh.js?v=20260813f"></script>
+<script src="js/i18n/zh.js?v=20260815a"></script>
 <script src="js/i18n/en.js?v=20260813f"></script>
 <script src="js/i18n.js?v=20260706a"></script>
 <script src="js/vendor/suncalc.js?v=20260703a"></script>
@@ -733,19 +743,19 @@
 <script src="js/cite-popover.js?v=20260703a"></script>
 <script src="js/plain-glossary.js?v=20260813f"></script>
 <script src="js/quotes-opening.js?v=20260703a"></script>
-<script src="js/core.js?v=20260813f"></script>
+<script src="js/core.js?v=20260815a"></script>
 <script src="js/chartfacts.js?v=20260705a"></script>
 <script src="js/rulekit.js?v=20260705a"></script>
-<script src="js/personal-calendar.js?v=20260813f"></script>
+<script src="js/personal-calendar.js?v=20260815a"></script>
 <script src="js/xingsha.js?v=20260703a"></script>
 <script src="js/sandwater.js?v=20260703a"></script>
 <script src="js/floorplan.js?v=20260703a"></script>
 <script src="js/ai-reading.js?v=20260706a"></script>
 <script src="js/share-card.js?v=20260707a"></script>
 <script src="js/birth-places.js?v=20260812a"></script>
-<script src="js/character-manifest.js?v=20260814b"></script>
-<script src="js/changming-world.js?v=20260814b"></script>
-<script src="js/app.js?v=20260814b"></script>
+<script src="js/character-manifest.js?v=20260815a"></script>
+<script src="js/changming-world.js?v=20260815a"></script>
+<script src="js/app.js?v=20260815a"></script>
 <script src="js/qa-engine.js?v=20260706a"></script>
 <script src="js/ics-export.js?v=20260703a"></script>
 </body>

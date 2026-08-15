@@ -12,6 +12,7 @@ const root = path.resolve(scriptDir, '..');
 const registry = JSON.parse(readFileSync(path.join(root, 'www/dian/data/registry.json'), 'utf8'));
 const outputDir = path.join(root, 'www/dian/img/covers/books-generated');
 const svgDir = path.join(tmpdir(), 'sinan-dian-cover-svg');
+const cjkFont = '/System/Library/Fonts/Supplemental/Songti.ttc';
 mkdirSync(outputDir, { recursive: true });
 mkdirSync(svgDir, { recursive: true });
 
@@ -132,41 +133,105 @@ function manuscript(b, c) {
 
 const motifs = { stars, terrain, botanical, hexagram, house, figure, calendar, alchemy, cloud, mirror, strategy, turtle, manuscript };
 
+const categoryLabels = Object.fromEntries((registry.categories || []).map(category => [category.id, category.label]));
+
+function titleMarkup(book, b, variant, paper, lineColor) {
+  const chars = Array.from(String(book.title || book.id).replace(/[《》〈〉\s·：:（）()—]/g, ''));
+  const font = 'Songti SC';
+  if (variant < 2) {
+    const perColumn = chars.length > 12 ? 8 : 7;
+    const columns = Math.ceil(chars.length / perColumn);
+    const fontSize = columns > 2 ? 50 : chars.length > 8 ? 58 : 74;
+    const step = fontSize * 1.12;
+    const baseX = variant === 0 ? 676 : 124;
+    const direction = variant === 0 ? -1 : 1;
+    const pieces = chars.map((char, index) => {
+      const column = Math.floor(index / perColumn);
+      const row = index % perColumn;
+      const x = baseX + direction * column * (fontSize + 24);
+      const y = 250 + row * step;
+      return `<text x="${x}" y="${y}" text-anchor="middle" font-family="${font}" font-size="${fontSize}" font-weight="600" fill="${paper}">${esc(char)}</text>`;
+    }).join('');
+    const ruleX = baseX + direction * (columns * (fontSize + 24) - 12);
+    return `<g>${pieces}${line(ruleX, 178, ruleX, Math.min(1035, 270 + (Math.min(chars.length, perColumn) - 1) * step), lineColor, 3, .58)}</g>`;
+  }
+  const maxPerLine = chars.length <= 6 ? chars.length : (chars.length <= 12 ? Math.ceil(chars.length / 2) : Math.ceil(chars.length / 3));
+  const rows = [];
+  for (let i = 0; i < chars.length; i += maxPerLine) rows.push(chars.slice(i, i + maxPerLine).join(''));
+  const fontSize = chars.length <= 6 ? 92 : chars.length <= 12 ? 66 : 50;
+  const startY = variant === 2 ? 220 : 735 - (rows.length - 1) * 42;
+  return `<g>${rows.map((row, index) => `<text x="400" y="${startY + index * (fontSize + 24)}" text-anchor="middle" font-family="${font}" font-size="${fontSize}" font-weight="600" letter-spacing="8" fill="${paper}">${esc(row)}</text>`).join('')}</g>`;
+}
+
+function signatureGeometry(b, accent, paper) {
+  const variant = (b[27] + b[30]) % 8;
+  const x = n(b, 20, 150, 650);
+  const y = n(b, 21, 260, 920);
+  const rot = n(b, 22, -28, 28);
+  const shapes = [
+    `<path d="M -80 ${y + 170} L ${x} ${y - 220} L 880 ${y - 40}" fill="none" stroke="${paper}" stroke-width="38" stroke-opacity=".055"/>`,
+    `<ellipse cx="${x}" cy="${y}" rx="${n(b, 18, 180, 360)}" ry="${n(b, 19, 90, 250)}" fill="none" stroke="${paper}" stroke-width="26" stroke-opacity=".06" transform="rotate(${rot} ${x} ${y})"/>`,
+    `<rect x="${x - 190}" y="${y - 190}" width="380" height="380" fill="none" stroke="${paper}" stroke-width="30" stroke-opacity=".05" transform="rotate(${rot} ${x} ${y})"/>`,
+    `<path d="M ${x - 310} ${y + 190} Q ${x} ${y - 280}, ${x + 330} ${y + 150}" fill="none" stroke="${paper}" stroke-width="34" stroke-opacity=".06"/>`,
+    `<path d="M ${x} ${y - 330} L ${x + 280} ${y + 230} L ${x - 290} ${y + 130} Z" fill="${accent}" fill-opacity=".12" stroke="${paper}" stroke-width="9" stroke-opacity=".05"/>`,
+    `<g transform="rotate(${rot} ${x} ${y})">${Array.from({ length: 5 }, (_, i) => `<line x1="${x - 300}" y1="${y - 170 + i * 85}" x2="${x + 300 - i * 38}" y2="${y - 170 + i * 85}" stroke="${paper}" stroke-width="${i === b[17] % 5 ? 22 : 7}" stroke-opacity="${i === b[17] % 5 ? '.07' : '.035'}"/>`).join('')}</g>`,
+    `<path d="M ${x - 320} ${y - 40} C ${x - 80} ${y - 260}, ${x + 80} ${y + 260}, ${x + 320} ${y + 20}" fill="none" stroke="${paper}" stroke-width="42" stroke-opacity=".055"/>`,
+    `<rect x="${x - 95}" y="0" width="190" height="1200" fill="${paper}" fill-opacity=".035" transform="rotate(${rot} ${x} 600)"/>`,
+  ];
+  return shapes[variant];
+}
+
 function svgFor(book, index) {
   const b = hashBytes(`${book.id}|${book.title}|${book.author || ''}`);
   const [dark, accent, lineColor, paper] = palettes[book.category] || palettes.jingyi;
   const type = motifType(book.title, book.category);
-  const variant = b[1] % 4;
-  const colorField = variant === 0
-    ? `<circle cx="${n(b,28,180,620)}" cy="${n(b,29,250,900)}" r="${n(b,30,230,430)}" fill="${accent}" fill-opacity=".24"/>`
+  // hash 决定细节，书目序号再错开四种主版式，避免同类相邻书偶然落进完全相同的骨架。
+  const variant = (b[1] + index) % 4;
+  const cleanTitle = Array.from(String(book.title || book.id).replace(/[《》〈〉\s·：:（）()—]/g, ''));
+  const focal = cleanTitle[b[2] % Math.max(1, cleanTitle.length)] || '典';
+  const focalX = variant === 0 ? 245 : variant === 1 ? 565 : 400;
+  const focalY = variant === 2 ? 810 : variant === 3 ? 410 : 650;
+  const motifTransform = variant === 0
+    ? 'translate(-95 260) scale(.70)'
     : variant === 1
-      ? `<path d="M ${n(b,28,-180,120)} 1200 L ${n(b,29,340,620)} 0 L ${n(b,30,560,900)} 0 L ${n(b,31,170,470)} 1200 Z" fill="${accent}" fill-opacity=".2"/>`
+      ? 'translate(345 270) scale(.66)'
       : variant === 2
-        ? `<rect x="${n(b,28,80,470)}" y="0" width="${n(b,29,130,310)}" height="1200" fill="${accent}" fill-opacity=".2"/>`
-        : `<path d="M 0 ${n(b,28,160,520)} Q ${n(b,29,280,520)} ${n(b,30,20,320)}, 800 ${n(b,31,240,720)} L 800 0 L 0 0 Z" fill="${accent}" fill-opacity=".24"/>`;
-  const border = variant === 0
-    ? `<rect x="46" y="42" width="708" height="1116" fill="none" stroke="${lineColor}" stroke-width="3" stroke-opacity=".42"/><rect x="72" y="68" width="656" height="1064" fill="none" stroke="${paper}" stroke-width="1" stroke-opacity=".18"/>`
+        ? 'translate(115 380) scale(.72)'
+        : 'translate(105 -90) scale(.73)';
+  const titleShade = variant === 0
+    ? '<rect x="470" y="0" width="330" height="1200" fill="#050707" fill-opacity=".48"/>'
     : variant === 1
-      ? `<rect x="0" y="0" width="48" height="1200" fill="${accent}" fill-opacity=".9"/><line x1="79" y1="45" x2="79" y2="1155" stroke="${lineColor}" stroke-width="3" stroke-opacity=".5"/>`
+      ? '<rect x="0" y="0" width="330" height="1200" fill="#050707" fill-opacity=".48"/>'
       : variant === 2
-        ? `<path d="M 35 115 L 35 35 L 115 35 M 685 35 L 765 35 L 765 115 M 35 1085 L 35 1165 L 115 1165 M 685 1165 L 765 1165 L 765 1085" fill="none" stroke="${lineColor}" stroke-width="5" stroke-opacity=".55"/>`
-        : `<rect x="0" y="0" width="800" height="32" fill="${accent}" fill-opacity=".82"/><rect x="0" y="1168" width="800" height="32" fill="${lineColor}" fill-opacity=".55"/>`;
-  const rotate = n(b, 22, -5, 5);
+        ? '<rect x="0" y="0" width="800" height="430" fill="#050707" fill-opacity=".42"/>'
+        : '<rect x="0" y="590" width="800" height="610" fill="#050707" fill-opacity=".44"/>';
+  const sealX = variant === 1 ? 676 : 94;
+  const sealY = variant === 2 ? 1050 : 105;
+  const categoryLabel = categoryLabels[book.category] || '古籍';
+  const accentBlock = variant === 0
+    ? `<circle cx="235" cy="640" r="${n(b, 28, 260, 380)}" fill="${accent}" fill-opacity=".34"/>`
+    : variant === 1
+      ? `<rect x="365" y="0" width="435" height="1200" fill="${accent}" fill-opacity=".28"/>`
+      : variant === 2
+        ? `<path d="M 0 0 H 800 V ${n(b, 29, 360, 590)} L 0 ${n(b, 30, 570, 820)} Z" fill="${accent}" fill-opacity=".34"/>`
+        : `<circle cx="400" cy="300" r="${n(b, 31, 300, 470)}" fill="${accent}" fill-opacity=".31"/>`;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1200" viewBox="0 0 800 1200">
     <defs>
-      <radialGradient id="bg" cx="${n(b,23,20,80)}%" cy="${n(b,24,20,80)}%" r="90%"><stop offset="0" stop-color="${accent}" stop-opacity=".72"/><stop offset=".58" stop-color="${dark}"/><stop offset="1" stop-color="#090b0a"/></radialGradient>
+      <radialGradient id="bg" cx="${n(b,23,20,80)}%" cy="${n(b,24,20,80)}%" r="95%"><stop offset="0" stop-color="${accent}" stop-opacity=".72"/><stop offset=".62" stop-color="${dark}"/><stop offset="1" stop-color="#090b0a"/></radialGradient>
       <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".52" numOctaves="3" seed="${b[25]}"/><feColorMatrix type="saturate" values="0"/></filter>
     </defs>
     <rect width="800" height="1200" fill="url(#bg)"/>
-    ${colorField}
-    <rect width="800" height="1200" filter="url(#grain)" opacity=".09"/>
-    <g transform="rotate(${rotate} 400 600)">${motifs[type](b, lineColor)}</g>
-    <rect x="0" y="0" width="800" height="1200" fill="none" stroke="#050706" stroke-width="28" stroke-opacity=".7"/>
-    ${border}
-    <g fill="${paper}" fill-opacity=".48">
-      ${Array.from({ length: 3 + b[26] % 5 }, (_, i) => `<rect x="${94 + i * 24}" y="92" width="${10 + b[i] % 9}" height="4"/>`).join('')}
-      ${Array.from({ length: 4 + b[27] % 7 }, (_, i) => `<rect x="${94 + i * 22}" y="1110" width="${9 + b[i + 8] % 10}" height="4"/>`).join('')}
-    </g>
+    ${accentBlock}
+    ${signatureGeometry(b, accent, paper)}
+    <text x="${focalX}" y="${focalY}" text-anchor="middle" font-family="Songti SC" font-size="430" font-weight="700" fill="${paper}" fill-opacity=".075">${esc(focal)}</text>
+    <g transform="${motifTransform}" opacity=".33">${motifs[type](b, lineColor)}</g>
+    ${titleShade}
+    <rect width="800" height="1200" filter="url(#grain)" opacity=".035"/>
+    ${titleMarkup(book, b, variant, paper, lineColor)}
+    <rect x="${sealX}" y="${sealY}" width="54" height="54" rx="3" fill="#9f3025" fill-opacity=".94" stroke="${paper}" stroke-width="2" stroke-opacity=".58"/>
+    <text x="${sealX + 27}" y="${sealY + 35}" text-anchor="middle" font-family="STKaiti" font-size="23" fill="#f2dfbd">典籍</text>
+    <text x="${variant === 1 ? 748 : 54}" y="1140" text-anchor="${variant === 1 ? 'end' : 'start'}" font-family="Songti SC" font-size="23" letter-spacing="5" fill="${paper}" fill-opacity=".58">${esc(categoryLabel)}</text>
+    <rect x="24" y="24" width="752" height="1152" fill="none" stroke="${lineColor}" stroke-width="2" stroke-opacity=".34"/>
   </svg>`;
 }
 
@@ -176,7 +241,7 @@ registry.books.forEach((book, index) => {
   const svgPath = path.join(svgDir, `${book.id}.svg`);
   const out = path.join(outputDir, `${book.id}.webp`);
   writeFileSync(svgPath, svgFor(book, index));
-  execFileSync('magick', [svgPath, '-colorspace', 'sRGB', '-quality', '84', out], { stdio: 'inherit' });
+  execFileSync('magick', ['-font', cjkFont, svgPath, '-colorspace', 'sRGB', '-quality', '84', out], { stdio: 'inherit' });
   built += 1;
 });
 

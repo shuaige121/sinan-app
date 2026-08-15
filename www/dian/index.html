@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <meta name="description" content="司南·典籍阁 — 司南应用引用古籍原文汇编，手机电子书格式">
+  <meta name="description" content="司南·古籍 — 阅读古籍原文、白话解释与出处">
   <meta name="theme-color" content="#8b5e3c">
-  <title>司南·典籍阁</title>
+  <title>司南·古籍</title>
 
   <link rel="manifest" href="./manifest.json">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
 
-  <link rel="stylesheet" href="./css/style.css?v=20260813h">
+  <link rel="stylesheet" href="./css/style.css?v=20260815a">
 
   <!-- Noto Serif SC 宋体（Google Fonts CDN，网络可用时加载，无网退回系统宋体） -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,14 +19,14 @@
 </head>
 <body>
   <header class="site-header">
-    <span class="logo" onclick="navigate('#/')" data-i18n="dj.header.logo">司南·典籍阁</span>
-    <span class="subtitle" data-i18n="dj.header.subtitle">古籍电子书·逐句译注</span>
+    <span class="logo" onclick="navigate('#/')" data-i18n="dj.header.logo">司南·古籍</span>
+    <span class="subtitle" data-i18n="dj.header.subtitle">读原文，也看白话解释</span>
     <button class="header-btn lang-toggle" data-i18n-aria="dj.lang.toggleAria" aria-label="切换语言"></button>
     <button class="header-btn" id="theme-btn" onclick="toggleTheme()">🌙 夜间</button>
   </header>
 
   <div id="app">
-    <div class="reader-skeleton" data-i18n="dj.reader.loading">典籍载入中…</div>
+    <div class="reader-skeleton" data-i18n="dj.reader.loading">正在打开书架…</div>
   </div>
   <noscript><div class="empty-state" data-i18n="dj.noscript">本站需启用 JavaScript 方可阅读。</div></noscript>
 
@@ -35,7 +35,7 @@
   <script src="./js/i18n/zh.js?v=20260716"></script>
   <script src="./js/i18n/en.js?v=20260716"></script>
   <script src="./js/i18n.js?v=20260716"></script>
-  <script src="./js/app.js?v=20260813h"></script>
+  <script src="./js/app.js?v=20260815a"></script>
   <script>
     // 初始化主题按钮文字（i18n 化：EN 模式经 I18N.t 取英文，无 I18N 时回落中文母本）
     document.addEventListener('DOMContentLoaded', () => {

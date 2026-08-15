@@ -126,6 +126,20 @@
     壬癸: V10_ROOT + 'relations/ren-gui-v1.webp'
   });
 
+  // 三人同框不是把三张立绘并排摆放，而是让三个人在同一件事里承担不同作用。
+  // 先保留一张经过人物身份与黑发检查的样板；后续可按同一数据协议继续扩充。
+  const GROUP_STORIES = Object.freeze([
+    Object.freeze({
+      key: 'jia-yi-gui',
+      stems: Object.freeze(['甲', '乙', '癸']),
+      scene: V10_ROOT + 'groups/jia-yi-gui-v1.webp',
+      titleZh: '雨后，把桥重新接起来',
+      titleEn: 'Rebuilding the Bridge After Rain',
+      storyZh: '暴雨压断了桥边的旧木。甲抬起最重的一端，乙把藤蔓编进裂缝，癸将雨水引向新根。三个人做的是同一件事，却没有谁能替代另外两个人。',
+      storyEn: 'A storm breaks the old timber by the bridge. Jia lifts the heaviest end, Yi weaves vines through the crack, and Gui guides rainwater to the new roots. They solve one problem in three different, irreplaceable ways.'
+    })
+  ]);
+
   // 45 对人物各有一个共同事件；从 A 看 B 与从 B 看 A 共用画面，但关系称谓按观看方向计算。
   const PAIR_STORIES = Object.freeze({
     甲乙: { titleZh: '雨停后的温室', titleEn: 'The Greenhouse After Rain', storyZh: '旧梁在风雨里倾斜，甲撑住承重的一端，乙从裂缝里引出一条新路。一个让结构不倒，一个让结构不必只剩原来的走法。', storyEn: 'A storm bends the old greenhouse frame. Jia holds the load while Yi guides a new route through the crack—one keeps the structure standing, the other keeps it from having only one way forward.' },
@@ -163,8 +177,8 @@
     戊辛: { titleZh: '地基上的一条线', titleEn: 'One Line Across the Foundation', storyZh: '戊确认地面足以承重，辛却沿石缝拉出一条细线，指出重量将会偏向哪边。墙没有推倒，只在真正动工前挪了半步。', storyEn: 'Wu confirms the ground can carry the load; Xin traces one seam showing where it will lean. The wall is not demolished, only moved half a step before construction begins.' },
     戊壬: { titleZh: '给洪水一条路', titleEn: 'Give the Flood a Route', storyZh: '壬带来的水已经高过旧堤，戊没有继续加墙，而是关掉废口、打开新渠。水被迫改变形状，也因此没有变成灾难。', storyEn: 'Ren’s water rises over the old dike. Wu stops adding walls, closes the dead mouth and opens a new channel. The current changes shape and avoids becoming disaster.' },
     戊癸: { titleZh: '山缝里的热', titleEn: 'Warmth in the Mountain Crack', storyZh: '癸进入戊不愿承认的裂缝，深处却升起稳定的暖气。戊没有把缝填平，癸也不能再假装自己从未来过。', storyEn: 'Gui enters a crack Wu refuses to acknowledge, and steady warmth rises from within. Wu leaves it open; Gui can no longer pretend not to have been there.' },
-    己庚: { titleZh: '必须清空的一辆车', titleEn: 'The Cart That Must Be Emptied', storyZh: '己把无人认领的东西装满整辆车，仍想再找一个地方收下；庚拔掉固定绳，只留下真正有人会回来取的三件。空出来的位置终于能救人。', storyEn: 'Ji fills a cart with unclaimed things and still searches for more room. Geng cuts the tie-down and keeps only three someone will return for. The cleared space can finally carry people.' },
-    己辛: { titleZh: '一千粒种子里', titleEn: 'Among a Thousand Seeds', storyZh: '己愿意让每一粒种子都有土，辛却挑出已经受潮的那一小把。舍弃没有否定照料，反而让剩下的真正能够发芽。', storyEn: 'Ji wants soil for every seed; Xin removes the small handful already spoiled by damp. Discarding does not undo care—it gives the rest a real chance to grow.' },
+    己庚: { titleZh: '车上最后留下三件东西', titleEn: 'The Three Things Left on the Cart', storyZh: '己把无人认领的东西装满整辆车，仍想再找一个地方收下；庚拔掉固定绳，只留下真正有人会回来取的三件。空出来的位置终于能救人。', storyEn: 'Ji fills a cart with unclaimed things and still searches for more room. Geng cuts the tie-down and keeps only three someone will return for. The cleared space can finally carry people.' },
+    己辛: { titleZh: '受潮的种子要先挑出来', titleEn: 'The Damp Seeds Must Be Removed First', storyZh: '己愿意让每一粒种子都有土，辛却挑出已经受潮的那一小把。舍弃没有否定照料，反而让剩下的真正能够发芽。', storyEn: 'Ji wants soil for every seed; Xin removes the small handful already spoiled by damp. Discarding does not undo care—it gives the rest a real chance to grow.' },
     己壬: { titleZh: '让水在这里慢下来', titleEn: 'Let the Water Slow Here', storyZh: '壬带着急流穿过低地，己没有筑墙，只铺开一片能够吸水的湿地。水仍然向前，却第一次在伤到人之前慢了下来。', storyEn: 'Ren brings a fast current through the low ground. Ji builds no wall, only a wetland wide enough to receive it. The water continues, but slows before it can hurt anyone.' },
     己癸: { titleZh: '土记得每一滴雨', titleEn: 'Soil Remembers Every Drop', storyZh: '癸一滴滴标出雨从哪里来，己用不同深浅的土层留下它们经过的痕迹。下一场雨尚未来，排水的路线已经从旧痕里长出来。', storyEn: 'Gui marks where each drop arrives; Ji preserves its path in layers of soil. Before the next rain comes, a drainage route has already grown from the old traces.' },
     庚辛: { titleZh: '今天必须交付', titleEn: 'It Must Ship Today', storyZh: '庚怕来不及，辛怕不够好。船离港前，庚定下最后期限，辛只保留决定安全的三项校准；成品带着细小划痕，却真的驶了出去。', storyEn: 'Geng fears being late; Xin fears falling short. Before the ship leaves, Geng sets the final hour and Xin keeps only three safety-critical checks. The work carries a small scratch, but it sails.' },
@@ -502,8 +516,8 @@
         label: `${other}·${otherName}`,
         term: [relation.term].concat(special).join(' · '),
         plain: en
-          ? `${other} ${relation.plain}${special.length ? `; this pair also carries ${special.join(' and ').toLowerCase()}` : ''}.`
-          : `${other}在这段关系里${relation.plain}${special.length ? `，同时有${special.join('、')}` : ''}。`,
+          ? `${other} ${relation.plain}${relation.combine ? '; you also combine' : ''}${relation.clash ? '; you also clash' : ''}. This describes direction, not good or bad.`
+          : `${other}在这段关系里${relation.plain}${relation.combine ? '；你们同时相合' : ''}${relation.clash ? '；你们同时相冲' : ''}。这里只描述关系方向，不代表吉凶。`,
         title: textOf(story, 'title', lang),
         story: textOf(story, 'story', lang),
         scene: PAIR_SCENES[pairKey(stem, other)] || '',
@@ -511,6 +525,17 @@
         related: namesFor([other], lang)
       };
     });
+  }
+
+  function groupStories(lang) {
+    return GROUP_STORIES.map(group => Object.freeze({
+      key: group.key,
+      stems: group.stems.slice(),
+      scene: group.scene,
+      title: textOf(group, 'title', lang),
+      story: textOf(group, 'story', lang),
+      people: namesFor(group.stems, lang)
+    }));
   }
 
   global.SinanCharacters = Object.freeze({
@@ -522,6 +547,7 @@
     guideFor,
     text: textOf,
     relationCards,
+    groupStories,
     relationBetween,
     chartCast,
     namesFor,

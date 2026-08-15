@@ -19,7 +19,7 @@
   "bencao": 232418,
   "bushi": 2357936,
   "daozang": 3376369,
-  "jingyi": 7539799,
+  "jingyi": 7535264,
   "kanyu": 2172075,
   "liqi": 3221159,
   "mingli": 3753910,
@@ -30,7 +30,7 @@
   "zhexue": 7545248
  },
  "titleIndex": "_titles.json",
- "titleBytes": 604498,
- "entries": 4237,
+ "titleBytes": 604363,
+ "entries": 4236,
  "builtBy": "tools/ingest.py index"
 }

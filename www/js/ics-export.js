@@ -23,6 +23,22 @@
     ['子', 23], ['丑', 1], ['寅', 3], ['卯', 5], ['辰', 7], ['巳', 9],
     ['午', 11], ['未', 13], ['申', 15], ['酉', 17], ['戌', 19], ['亥', 21],
   ];
+  // 黄历原词需要保留，但选择器与日程标题先显示今天仍在使用的行为名称。
+  const MODERN_CATEGORY = {
+    嫁娶: '结婚办喜事', 纳采: '提亲', 订盟: '订婚', 纳婿: '办婚事', 冠笄: '成人礼', 会亲友: '见亲友', 进人口: '添丁或接纳家庭成员',
+    开市: '开业', 交易: '做买卖', 纳财: '收款进账', 立券: '签合同', 出货财: '出货或付款', 开仓: '开仓', 置产: '买房置业',
+    出行: '出门远行', 移徙: '搬家', 入宅: '入住新居', 归宁: '回娘家探亲',
+    修造: '装修施工', 动土: '开工动土', 破土: '墓地动土', 上梁: '安装屋梁', 竖柱: '立柱', 安门: '安装门',
+    祭祀: '祭拜', 祈福: '祈福', 求嗣: '求子', 开光: '举行开光仪式', 斋醮: '举行道教仪式', 安香: '安置香火',
+    行丧: '办理丧事', 安葬: '安葬', 修坟: '修整坟墓', 立碑: '立碑',
+    安床: '安置床铺', 理发: '理发', 沐浴: '洗浴', 裁衣: '做衣服', 入学: '入学', 习艺: '学习技艺',
+    栽种: '种植', 纳畜: '添置牲畜', 牧养: '饲养牲畜', 捕捉: '捕捉', 取渔: '捕鱼',
+    作灶: '安装炉灶', 出火: '移动香火', 拆卸: '拆除', 伐木: '砍伐树木', 针灸: '针灸', 挂匾: '悬挂牌匾'
+  };
+  function displayCategory(cat) {
+    const modern = MODERN_CATEGORY[cat];
+    return modern ? modern + '（' + cat + '）' : cat;
+  }
   // 读排盘喜用五行（今人方法：DaoCore.computeBazi 以日主强弱定）；未排盘返回 null。
   function getFavorable() {
     try {
@@ -79,7 +95,7 @@
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'ics-chip ics-chip-' + kind;
-    btn.textContent = L(kind === 'yi' ? 'common.yi_label' : 'common.ji_label') + cat;
+    btn.textContent = L(kind === 'yi' ? 'common.yi_label' : 'common.ji_label') + displayCategory(cat);
     btn.setAttribute('aria-pressed', 'false');
     btn.addEventListener('click', () => {
       const on = btn.classList.toggle('on');
@@ -174,7 +190,7 @@
 
   function makeEvent(kind, cat, d, dtstamp) {
     const prefix = kind === 'yi' ? '宜' : '忌';        // 忌类中性写法（无恐吓词）
-    const summary = prefix + cat + ' · ' + d.label;
+    const summary = prefix + displayCategory(cat) + ' · ' + d.label;
     const desc = '宜：' + (d.yi.join('、') || '——') + '\n忌：' + (d.ji.join('、') || '——');
     const uid = d.ymd + '-' + kind + '-' + hash36(cat) + '@sinan-huangli';
     return [
@@ -215,7 +231,7 @@
           'DTSTART:' + localStamp(start),
           'DTEND:' + localStamp(end),
           'SUMMARY:' + escText(summary),
-          'DESCRIPTION:' + escText('喜用五行：' + el + '（今人方法：以日主强弱定喜用神）'),
+          'DESCRIPTION:' + escText('这个时段属' + el + '，按你的命盘五行结构较为贴合。'),
           'TRANSP:TRANSPARENT',
           'END:VEVENT'
         );
@@ -233,7 +249,7 @@
       d.ji.forEach(cat => { if (selJi.has(cat)) events.push(...makeEvent('ji', cat, d, dtstamp)); });
     });
     if (selXy) events.push(...buildXiyong(dtstamp));   // 喜用时段（带时刻·未来 30 天）
-    const picks = [...[...selYi].map(c => '宜' + c), ...[...selJi].map(c => '忌' + c)];
+    const picks = [...[...selYi].map(c => '宜' + displayCategory(c)), ...[...selJi].map(c => '忌' + displayCategory(c))];
     if (selXy) picks.push('喜用时段');
     const calName = '司南黄历 · ' + picks.join('、');
     const lines = [

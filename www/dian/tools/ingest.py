@@ -171,6 +171,26 @@ class _Extract(HTMLParser):
             return
         if self.skip_depth:
             return
+        # Parsoid renders some traditional/variant characters as an empty span whose
+        # visible character lives only in data-mw-variant, for example:
+        #   <span typeof="mw:LanguageVariant"
+        #         data-mw-variant='{"disabled":{"t":"无"}}'></span>
+        # Reading only handle_data() silently turned 「无咎」 into 「咎」 and removed
+        # several 「乾」 characters from 周易. Restore the visible fallback here.
+        if 'mw:LanguageVariant' in (a.get('typeof') or ''):
+            try:
+                variants = json.loads(a.get('data-mw-variant') or '{}')
+                choices = ('disabled', 'zh-hant', 'tw', 'hk', 'zh', 'zh-hans')
+                value = next((variants[k].get('t', '') for k in choices
+                              if isinstance(variants.get(k), dict)
+                              and variants[k].get('t')), '')
+                if not value:
+                    value = next((v.get('t', '') for v in variants.values()
+                                  if isinstance(v, dict) and v.get('t')), '')
+                if value:
+                    self.buf.append(value)
+            except (TypeError, ValueError):
+                pass
         if tag in ('p', 'li', 'dd', 'dt', 'td', 'th', 'h2', 'h3', 'h4'):
             self._flush()
             if tag in ('h2', 'h3', 'h4'):
@@ -449,7 +469,56 @@ def _trim(spec, chapters):
     return chapters
 
 
+def _clean_source_chrome(spec, chapters):
+    """Remove navigation and catalogue fragments accidentally scraped as book text.
+
+    The Wikisource root page for 周易 is a historical overview, not the first chapter.
+    Individual hexagram pages also expose previous/next navigation as ordinary text.
+    Keep this rule in the ingest path so a future refresh cannot reintroduce the broken
+    `履 小畜◄` / `大有 同人◄` directory seen in production.
+    """
+    if spec.get('id') != 'zhouyi':
+        return chapters
+    out = []
+    for c in chapters:
+        label = (c.get('label') or '').strip()
+        if label == '周易':
+            continue
+        cleaned = []
+        leading = True
+        for f in c.get('fragments', []):
+            text = (f.get('text') or '').strip()
+            compact = re.sub(r'\s+', '', text)
+            if not text:
+                continue
+            # Previous/next controls can appear before or between the first two
+            # text fragments, so remove these controls regardless of position.
+            if '◄' in text or text.startswith('►'):
+                continue
+            if leading:
+                source_chrome = (
+                    compact in {'周易', '周易' + label}
+                    or text == label
+                    or text == '易經：'
+                    or text.startswith('参阅维基百科中的：')
+                    or re.fullmatch(r'周易第[一二三四五六七八九十百零〇兩两]+卦', compact)
+                    or re.fullmatch(r'[乾坤震巽坎離艮兌]*下[乾坤震巽坎離艮兌]*上', compact)
+                )
+                if source_chrome:
+                    continue
+                leading = False
+                # Some Wikisource heading markup drops the first hexagram name
+                # from the first sentence (for example "：元亨" on the 乾 page).
+                if text.startswith('：'):
+                    f = {**f, 'text': label + text}
+            cleaned.append(f)
+        c['fragments'] = cleaned
+        out.append(c)
+    return out
+
+
 def _assemble(spec, chapters, skipped, source_url, source_name, source_cc, fetch_note):
+    chapters = _clean_source_chrome(spec, chapters)
     chapters = _trim(spec, chapters)
     chapters = _carry_annotations(spec, chapters)
     chapters = _preserve(spec, chapters)
@@ -803,6 +872,19 @@ def check():
         joined = ''.join(f.get('text', '') for c in chs for f in c.get('fragments', []))
         real = cjk_count(joined)
 
+        # Parsoid regression guard: these characters are stored in empty
+        # mw:LanguageVariant spans. Losing them still leaves plausible-looking prose,
+        # so generic word-count checks cannot catch the corruption.
+        if b['id'] == 'zhouyi':
+            required = (
+                '九三：君子終日乾乾，夕惕若；厲，无咎。',
+                '九四：或躍在淵，无咎。',
+                '君子行此四德者，故曰：「乾，元、亨、利、貞。」',
+            )
+            for phrase in required:
+                if phrase not in joined:
+                    errs.append(f'zhouyi: 关键原文缺失或损坏：{phrase}')
+
         # ③ 汉字占比：抓进来的是古文还是网页残渣。
         # 「字数太少」不是好判据——《青囊奥语》460 字、《清静经》612 字本来就这么短，
         # 而《鲁班经》9912 字符里只有 943 个汉字（其余是 <meta> 和脚本）才是真故障。
@@ -965,7 +1047,11 @@ def verify_book(bid, samples=3):
         if st != 200:
             results.append({'chapter': c['label'], 'ok': False, 'reason': f'源站 HTTP {st}'})
             continue
-        src = re.sub(r'\s+', '', re.sub(r'<[^>]+>', '', h))
+        # Use the same Parsoid-aware extractor as ingestion. Stripping tags with a
+        # regex drops characters stored in mw:LanguageVariant metadata and makes a
+        # correct library copy look absent from the source page.
+        source_paras, _ = html_to_paras(h)
+        src = re.sub(r'\s+', '', ''.join(source_paras))
         frag = c['fragments'][0]['text']
         probe = re.sub(r'\s+', '', frag)[:30]
         results.append({'chapter': c['label'], 'ok': probe in src,
