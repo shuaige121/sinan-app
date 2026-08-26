@@ -1,0 +1,90 @@
+name: corpus-check
+
+# 司南·典籍阁 语料闸门。
+# www/dian/tools/check.sh 的注释里一直写着「CI（.github/workflows/corpus-check.yml）调此脚本」，
+# 但这个文件在 2026-08-12 之前并不存在 —— 闸门只在本地手跑，等于空转。
+# 实证：补 CI 当天本地首跑就抓到两处真问题：
+#   ① shanhaijing 语义 manifest 漂移（08-11 加书未 rehash，check.sh 已红却无人知）
+#   ② search-index.json 与 texts/ 不同步（缺 36 条 / 过期 432 条，搜索搜不到新章节）
+# 因此这个 workflow 不是形式主义。改动 www/dian/** 必须过它。
+
+on:
+  push:
+    branches: ['**']
+    paths:
+      - 'www/dian/**'
+      - '.github/workflows/corpus-check.yml'
+  pull_request:
+    paths:
+      - 'www/dian/**'
+      - '.github/workflows/corpus-check.yml'
+  workflow_dispatch:
+
+jobs:
+  corpus:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # 依赖自检：宁可这里红，也不要因为解释器/文件缺失而「跳过检查然后绿」。
+      # 见 CLAUDE.md「CI 首日必抓白捡：缺依赖就 exit(0) 假绿」。
+      - name: 依赖与文件自检
+        run: |
+          set -euo pipefail
+          python3 -VV
+          for f in www/dian/tools/check.sh \
+                   www/dian/tools/ingest.py \
+                   www/dian/tools/i18n/provenance_tool.py \
+                   www/dian/tools/i18n/translate_tool.py \
+                   www/dian/data/registry.json \
+                   www/dian/data/search-index.json; do
+            test -f "$f" || { echo "::error::缺文件 $f —— 闸门无法运行，判失败而非跳过"; exit 1; }
+          done
+          echo "✓ 闸门所需文件齐备"
+
+      # ① 结构一致性：registry ↔ texts/ ↔ search-index 三者必须自洽
+      - name: 语料结构一致性（ingest.py check）
+        run: python3 www/dian/tools/ingest.py check
+
+      # ② 原文溯源 + 译文结构 + 术语表（既有闸门，含 514 条规则 quote⊆orig）
+      - name: 原文溯源与译文闸门（check.sh）
+        run: bash www/dian/tools/check.sh
+
+      # ③ 闸门自证：故意弄坏一份语料，闸门必须变红。
+      #    长期 0 命中的规则等于没有规则 —— 每次 CI 都实证它会拦。
+      - name: 闸门自证（故障注入必须被拦下）
+        run: |
+          set -uo pipefail
+          python3 - <<'PY'
+          import json
+          p = 'www/dian/data/annotated/zangshu.json'
+          d = json.load(open(p))
+          d['chapters'][0]['sentences'][0]['orig'] += '【CI故障注入】'
+          json.dump(d, open(p, 'w'), ensure_ascii=False, indent=1)
+          PY
+          if bash www/dian/tools/check.sh > /tmp/inject.log 2>&1; then
+            echo "::error::故障注入后闸门仍然全绿 —— 闸门是空转的，必须修"
+            cat /tmp/inject.log
+            git checkout -- www/dian/data/annotated/zangshu.json
+            exit 1
+          fi
+          grep -q 'zangshu.json 语义 hash 漂移' /tmp/inject.log || {
+            echo "::error::闸门虽红，但红的不是注入的那一处，判据失效"; cat /tmp/inject.log; exit 1; }
+          git checkout -- www/dian/data/annotated/zangshu.json
+          echo "✓ 闸门确实会拦（zangshu 语义 hash 漂移被抓到）"
+
+      - name: 恢复后必须复绿
+        run: |
+          set -euo pipefail
+          git diff --exit-code -- www/dian/ || { echo "::error::故障注入未完全恢复"; exit 1; }
+          bash www/dian/tools/check.sh
+          echo "✓ 闸门自证闭环：注入→红→恢复→绿"
+
+      - name: 藏书体检报告（advisory，不阻断）
+        if: always()
+        run: python3 www/dian/tools/ingest.py audit || true

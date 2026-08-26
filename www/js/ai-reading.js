@@ -351,7 +351,7 @@
     else if (hits.length) { legalR = '[R:' + hits[0].id + ']'; }
     var p0 = en
       ? 'This chart shows a clear day-master configuration. The rule engine flags a classical reading here ' + (legalR || legalS) + ', which describes a structural tendency ' + legalS + ' — read descriptively, not as a prediction.'
-      : '此盘日主格局清晰。规则引擎在此处命中一条古籍论断 ' + (legalR || legalS) + '，其描述的是一种结构性倾向 ' + legalS + '——请作描述性理解，而非预言。';
+      : '这张命盘可以对应到一条古籍说法 ' + (legalR || legalS) + '。它描述的是传统结构上的倾向 ' + legalS + '，不代表对现实的预言。';
     var p1 = en
       ? 'A neighboring passage would sit around here ' + '[S:ditiansui/ch99/999]' + ', but that pointer does not resolve against the local corpus, so it is shown as unverified.'
       : '相邻章节本应对应此处 ' + '[S:ditiansui/ch99/999]' + '，但该指针无法在本地语料中解析，故标为未核实。';

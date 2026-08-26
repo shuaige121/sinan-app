@@ -1,0 +1,21 @@
+{
+  "$fixture": "sinan/redline-fixture@1",
+  "description": "自述句故意写到 30 字以上，标点也计数。",
+  "base": "valid-character.json",
+  "onlyRules": [
+    "CM-RL-004"
+  ],
+  "mutations": [
+    {
+      "path": "/profile/selfStatementZh",
+      "value": "我是那个无论发生什么都会立刻站出来，把所有问题全部扛到自己肩上的人。"
+    }
+  ],
+  "expect": [
+    {
+      "ruleId": "CM-RL-004",
+      "severity": "error",
+      "messageIncludes": "上限 30 字"
+    }
+  ]
+}

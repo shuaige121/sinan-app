@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "sinan/character@2",
+  "id": "example.xingshi-xunlong",
+  "kind": "faction-character",
+  "identity": {
+    "nameZh": "未定名寻龙人（示例）",
+    "elementAffinities": [
+      "土",
+      "水"
+    ]
+  },
+  "affiliations": [
+    {
+      "factionId": "xingshi-pai",
+      "labelSnapshotZh": "形势派",
+      "branchId": "xunlong",
+      "role": "primary",
+      "status": "proposed"
+    }
+  ],
+  "factionRole": {
+    "scale": "clan",
+    "claimZh": "人会被所处地形长期塑造。",
+    "methodZh": "沿完整山脉与水界实地查验气脉。",
+    "effectiveDomainZh": "识别地形约束、旧根与水路造成的共同风险。",
+    "blindSpotZh": "完整踏查耗时过长，难以应对迫近的时间锁。",
+    "internalTensionZh": "寻龙者要求走完整条脉，点穴者主张在眼前下断。"
+  },
+  "profile": {
+    "roleZh": "寻龙者示例",
+    "epithetZh": "走脉的人",
+    "selfStatementZh": "我是那个要把整条山脉走完，才肯下结论的人。",
+    "summaryZh": "以实地形势而非生辰作为首要因果尺度。",
+    "tagsZh": [
+      "地形",
+      "踏查",
+      "水界"
+    ],
+    "giftZh": "长期尺度与实地证据",
+    "shadowZh": "把延迟决断当成避免草率的唯一办法。",
+    "scarZh": "尚未锁定；示例字段",
+    "unfinishedZh": "尚未锁定；示例字段"
+  },
+  "visualLock": {
+    "presentation": {
+      "genderPresentation": "unspecified",
+      "ageBand": "older-adult",
+      "isDerivedFromPolarity": false
+    },
+    "silhouetteZh": "长途步行形成的稳定重心。",
+    "lockedTraitsZh": [
+      "衣物必须显示长期户外踏查的实际磨损"
+    ],
+    "wardrobeZh": "非古装法师袍；使用适合山地长途行走的分层衣物。",
+    "palette": [
+      {
+        "nameZh": "岩灰",
+        "hex": "#64635E",
+        "usageZh": "外层衣物"
+      }
+    ],
+    "props": {
+      "requiredZh": [],
+      "allowedZh": [
+        "非神异化的踏查记录"
+      ],
+      "forbiddenZh": [
+        "悬浮罗盘",
+        "法术光效"
+      ]
+    },
+    "prompt": {
+      "positiveEn": [
+        "field surveyor",
+        "weathered layered walking clothes",
+        "grounded documentary character design"
+      ],
+      "negativeEn": [
+        "fantasy wizard robe",
+        "magic glow",
+        "floating compass"
+      ]
+    }
+  },
+  "voice": {
+    "summaryZh": "先报告走过的地段与缺口，再说明为什么尚不能下断。",
+    "sentenceLength": "long",
+    "directness": "mixed",
+    "questionFrequency": "occasional",
+    "preferredPatternsZh": [
+      "先列实地证据，再给暂定结论"
+    ],
+    "avoidPatternsZh": [
+      "脱离地形只谈吉凶"
+    ],
+    "sampleLinesZh": [
+      "这段水界我走过，山脉上游还没有。",
+      "穴在眼前，不等于脉只到眼前。"
+    ]
+  },
+  "canon": {
+    "status": "proposal",
+    "factsZh": [
+      "本文件只用于证明 faction-character 分支可消费，不建立正式角色 canon。"
+    ],
+    "prohibitionsZh": [
+      "不得把示例姓名或视觉当成定稿。",
+      "不得把形势派写成唯一正确答案。"
+    ],
+    "irreplaceableHighlightZh": "示例高光未锁定；暂以完成整条脉的实地证据链占位。",
+    "signatureActionKey": "other",
+    "signatureActionPhraseZh": "走完整条脉",
+    "unresolvedZh": "何时证据已经足够，仍需人工决定。"
+  },
+  "relations": {
+    "worldEdges": [
+      {
+        "id": "xingshi-vs-mingli-causality",
+        "target": {
+          "kind": "faction",
+          "id": "mingli-zong"
+        },
+        "domain": "methodology",
+        "stance": "opposed",
+        "direction": "mutual",
+        "summaryZh": "形势派以地塑造人为因果方向，命理宗以人带命入地为因果方向。",
+        "status": "proposal",
+        "evidence": {
+          "canonRefs": [
+            "FACTIONS-DRAFT-v0.md §3.1"
+          ],
+          "classicCitationIds": [
+            "xingshi-zangshu-shengqi"
+          ]
+        }
+      }
+    ],
+    "interpretations": []
+  },
+  "classics": [
+    {
+      "citationId": "xingshi-zangshu-shengqi",
+      "bookId": "zangshu",
+      "chapterId": "ch01",
+      "quoteOrig": "葬者乘生氣也。",
+      "deepLink": "https://dao.leonardchow.work/dian/#/read/zangshu/ch01",
+      "use": "faction-method",
+      "interpretationZh": "用于形势派方法论示例，不直接推出具体人物行为。"
+    }
+  ],
+  "review": {
+    "status": "unreviewed",
+    "conflictIds": [],
+    "notesZh": [
+      "示例人物，不是定稿角色。"
+    ]
+  },
+  "provenance": {
+    "status": "draft",
+    "sourceFiles": [
+      {
+        "path": "assets/ten-archetypes/FACTIONS-DRAFT-v0.md §3.1",
+        "role": "faction-draft"
+      }
+    ]
+  }
+}

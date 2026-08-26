@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "style_reference": "../concepts/changming-character-v8-face-study-a.png",
+  "master_contact_sheet": "../concepts/changming-character-v8-face-study-h-modular-cast.png",
+  "grid": {
+    "width": 1463,
+    "height": 1075,
+    "rows": 2,
+    "columns": 5,
+    "top_order": ["jia", "bing", "wu", "geng", "ren"],
+    "bottom_order": ["yi", "ding", "ji", "xin", "gui"]
+  },
+  "characters": [
+    {"id":"jia","gan":"甲","name":"广莫","element":"木","visual_presentation":"adult woman","age_years":30,"height_cm":178,"weight_kg":65,"build":"tall, upright, stable shoulders","folder":"01-jia-wood-guangmo","portrait":"portrait-v2.png","full_body":"full-body-v2.png","story_background":"story-background-v1.png","base_prompt":"BASE-PROMPT.md","grid":{"row":0,"column":0,"x":0,"y":0,"width":293,"height":537}},
+    {"id":"yi","gan":"乙","name":"南枝","element":"木","visual_presentation":"adult man","age_years":27,"height_cm":176,"weight_kg":72,"build":"lean but grounded, flexible, agile","folder":"02-yi-wood-nanzhi","portrait":"portrait-v2.png","full_body":"full-body-v2.png","story_background":"story-background-v1.png","base_prompt":"BASE-PROMPT.md","grid":{"row":1,"column":0,"x":0,"y":537,"width":293,"height":538}},
+    {"id":"bing","gan":"丙","name":"忘归","element":"火","visual_presentation":"adult man","age_years":29,"height_cm":181,"weight_kg":78,"build":"healthy, open chest and shoulders","folder":"03-bing-fire-wanggui","portrait":"portrait-v2.png","full_body":"full-body-v2.png","story_background":"story-background-v2.png","base_prompt":"BASE-PROMPT.md","grid":{"row":0,"column":1,"x":293,"y":0,"width":292,"height":537}},
+    {"id":"ding","gan":"丁","name":"西窗","element":"火","visual_presentation":"adult woman","age_years":26,"height_cm":166,"weight_kg":54,"build":"slender, contained, slightly closed posture","folder":"04-ding-fire-xichuang","portrait":"portrait-v3.png","full_body":"full-body-v3.png","story_background":"story-background-v2.png","base_prompt":"BASE-PROMPT.md","grid":{"row":1,"column":1,"x":293,"y":537,"width":292,"height":538}},
+    {"id":"wu","gan":"戊","name":"不周","element":"土","visual_presentation":"adult woman","age_years":33,"height_cm":175,"weight_kg":68,"build":"solid frame, broad stable shoulders","folder":"05-wu-earth-buzhou","portrait":"portrait-v8h.png","full_body":"full-body-v1.png","story_background":"story-background-v1.png","base_prompt":"BASE-PROMPT.md","grid":{"row":0,"column":2,"x":585,"y":0,"width":293,"height":537}},
+    {"id":"ji","gan":"己","name":"沃野","element":"土","visual_presentation":"adult man","age_years":34,"height_cm":190,"weight_kg":98,"build":"broadest in cast, naturally sturdy, realistic work strength","folder":"06-ji-earth-woye","portrait":"portrait-v2.png","full_body":"full-body-v2.png","story_background":"story-background-v1.png","base_prompt":"BASE-PROMPT.md","grid":{"row":1,"column":2,"x":585,"y":537,"width":293,"height":538}},
+    {"id":"geng","gan":"庚","name":"运斤","element":"金","visual_presentation":"adult man","age_years":31,"height_cm":185,"weight_kg":84,"build":"dense athletic build, sharp shoulders","folder":"07-geng-metal-yunjin","portrait":"portrait-v8h.png","full_body":"full-body-v1.png","story_background":"story-background-v1.png","base_prompt":"BASE-PROMPT.md","grid":{"row":0,"column":3,"x":878,"y":0,"width":292,"height":537}},
+    {"id":"xin","gan":"辛","name":"瑾瑜","element":"金","visual_presentation":"adult woman","age_years":32,"height_cm":176,"weight_kg":64,"build":"lean, precise, tightly conditioned","folder":"08-xin-metal-jinyu","portrait":"portrait-v8h.png","full_body":"full-body-v1.png","story_background":"story-background-v1.png","base_prompt":"BASE-PROMPT.md","grid":{"row":1,"column":3,"x":878,"y":537,"width":292,"height":538}},
+    {"id":"ren","gan":"壬","name":"既望","element":"水","visual_presentation":"adult man","age_years":32,"height_cm":188,"weight_kg":78,"build":"tall, long-limbed, loose and mobile","folder":"09-ren-water-jiwang","portrait":"portrait-v8h.png","full_body":"full-body-v1.png","story_background":"story-background-v2.png","base_prompt":"BASE-PROMPT.md","grid":{"row":0,"column":4,"x":1170,"y":0,"width":293,"height":537}},
+    {"id":"gui","gan":"癸","name":"雪泥","element":"水","visual_presentation":"adult woman","age_years":25,"height_cm":163,"weight_kg":50,"build":"slender, light, delicate but healthy","folder":"10-gui-water-xueni","portrait":"portrait-v2.png","full_body":"full-body-v2.png","story_background":"story-background-v2.png","base_prompt":"BASE-PROMPT.md","grid":{"row":1,"column":4,"x":1170,"y":537,"width":293,"height":538}}
+  ]
+}

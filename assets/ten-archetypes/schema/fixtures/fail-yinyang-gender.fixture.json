@@ -1,0 +1,106 @@
+{
+  "$fixture": "sinan/redline-fixture@1",
+  "description": "完整十干故意机械排列为阳全 masculine、阴全 feminine。",
+  "onlyRules": [
+    "CM-RL-005"
+  ],
+  "characters": [
+    {
+      "id": "jia",
+      "kind": "heavenly-stem",
+      "visualLock": {
+        "presentation": {
+          "genderPresentation": "masculine"
+        }
+      }
+    },
+    {
+      "id": "yi",
+      "kind": "heavenly-stem",
+      "visualLock": {
+        "presentation": {
+          "genderPresentation": "feminine"
+        }
+      }
+    },
+    {
+      "id": "bing",
+      "kind": "heavenly-stem",
+      "visualLock": {
+        "presentation": {
+          "genderPresentation": "masculine"
+        }
+      }
+    },
+    {
+      "id": "ding",
+      "kind": "heavenly-stem",
+      "visualLock": {
+        "presentation": {
+          "genderPresentation": "feminine"
+        }
+      }
+    },
+    {
+      "id": "wu",
+      "kind": "heavenly-stem",
+      "visualLock": {
+        "presentation": {
+          "genderPresentation": "masculine"
+        }
+      }
+    },
+    {
+      "id": "ji",
+      "kind": "heavenly-stem",
+      "visualLock": {
+        "presentation": {
+          "genderPresentation": "feminine"
+        }
+      }
+    },
+    {
+      "id": "geng",
+      "kind": "heavenly-stem",
+      "visualLock": {
+        "presentation": {
+          "genderPresentation": "masculine"
+        }
+      }
+    },
+    {
+      "id": "xin",
+      "kind": "heavenly-stem",
+      "visualLock": {
+        "presentation": {
+          "genderPresentation": "feminine"
+        }
+      }
+    },
+    {
+      "id": "ren",
+      "kind": "heavenly-stem",
+      "visualLock": {
+        "presentation": {
+          "genderPresentation": "masculine"
+        }
+      }
+    },
+    {
+      "id": "gui",
+      "kind": "heavenly-stem",
+      "visualLock": {
+        "presentation": {
+          "genderPresentation": "feminine"
+        }
+      }
+    }
+  ],
+  "expect": [
+    {
+      "ruleId": "CM-RL-005",
+      "severity": "error",
+      "messageIncludes": "五阳全部 masculine、五阴全部 feminine"
+    }
+  ]
+}

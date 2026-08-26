@@ -9,9 +9,9 @@
 (function (g) {
   g.I18N_ZH = Object.assign(g.I18N_ZH || {}, {
     // 站头 / 外壳
-    'dj.header.logo': '司南·典籍阁',
-    'dj.header.subtitle': '古籍电子书·逐句译注',
-    'dj.reader.loading': '典籍载入中…',
+    'dj.header.logo': '司南·古籍',
+    'dj.header.subtitle': '读原文，也看白话解释',
+    'dj.reader.loading': '正在打开书架…',
     'dj.noscript': '本站需启用 JavaScript 方可阅读。',
     // 主题切换按钮（标签显目标主题）
     'dj.theme.toNight': '🌙 夜间',

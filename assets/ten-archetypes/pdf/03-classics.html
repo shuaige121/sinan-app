@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<title>常明城外 · 取材地图</title>
+<link rel="stylesheet" href="_base.css">
+</head><body>
+
+<!-- ══ P1 封面 ══ -->
+<section class="page cover">
+  <img class="hero" src="assets/hero-classics.png" alt="">
+  <div class="veil"></div>
+  <div class="veil-b"></div>
+  <div class="capsule">
+    <div class="kicker">常 明 城 世 界 观 · 取 材 卷</div>
+    <h1>取材地图</h1>
+    <div class="sub">四十六部书里，哪些真的能引。<br>核心纪律：只引标了「已核」的原文。</div>
+  </div>
+  <div class="meta">
+    <div>司南 · 典籍阁引用索引<br>v1 · 2026-08-11 实测</div>
+    <img class="emblem" src="assets/emblem.png" alt="">
+  </div>
+</section>
+
+<!-- ══ P2 度量口径 ══ -->
+<section class="page">
+  <img class="ornament" src="assets/ornament.png" alt="">
+  <div>
+    <h2><span class="n">壹</span>「字数」有三种，只有一种能用</h2>
+    <p class="lead">这一节是全卷最重要的一页。用错口径，会把一整条派系线写到分场才发现<strong>一句原文都引不出来</strong>。</p>
+    <table>
+      <tr><th style="width:52mm">口径</th><th>问题</th></tr>
+      <tr><td><code>registry.json</code> 的 <code>charCount</code></td>
+          <td>46 本里 11 本与文件实际不符；且对 <strong>6 本「真原文为 0」的书仍标 109–188 字</strong>，会让人误以为有东西。前端还拿它显示与排序。</td></tr>
+      <tr><td><code>texts/*.json</code> 的 fragments 总字数</td>
+          <td>把<strong>编者导读</strong>（简体）和 <code>【待补】</code> 占位一起算了进去，虚高。</td></tr>
+      <tr><td style="color:#b03a2e"><strong>真原文字数</strong> ✓</td>
+          <td>排除 <code>intro</code>／书目说明章、排除含「待补」的 fragment、排除编者按。<strong>以此为准。</strong></td></tr>
+    </table>
+
+    <div class="warn"><b>实例：</b>《八宅明镜》fragments 总字数 250，看着还行；扣掉 180 字简体导读与 4 章「【待补】」，
+      <b>真原文只剩大游年歌 64–72 字，且原文自注「属二手引用」</b>。<br>
+      《沈氏玄空学》fragments 282 字，<b>真原文 0</b>。</div>
+
+    <h3>❌ 真原文为 0 的书（registry 标了字数，却引不出一句）</h3>
+    <table>
+      <tr><th>书</th><th class="num">registry 标</th><th class="num">真原文</th><th>派</th></tr>
+      <tr><td>沈氏玄空学</td><td class="num">188</td><td class="num"><strong>0</strong></td><td>理气</td></tr>
+      <tr><td>罗经透解</td><td class="num">156</td><td class="num"><strong>0</strong></td><td>理气</td></tr>
+      <tr><td>地理五诀</td><td class="num">126</td><td class="num"><strong>0</strong></td><td>理气</td></tr>
+      <tr><td>子平真诠</td><td class="num">156</td><td class="num"><strong>0</strong></td><td>命理宗</td></tr>
+      <tr><td>雪心赋</td><td class="num">143</td><td class="num"><strong>0</strong></td><td>形势</td></tr>
+      <tr><td>博山篇</td><td class="num">109</td><td class="num"><strong>0</strong></td><td>形势</td></tr>
+    </table>
+    <p><strong>真原文极少（提得，撑不起戏）：</strong>《八宅明镜》72（<em>而 App 的八宅功能正基于此书</em>）·
+      《阳宅十书》38 · 《女青天律》31 · 《阳宅三要》27。</p>
+  </div>
+  <div class="foot"><span>常明城外 · 取材地图</span><span class="pg">02</span></div>
+</section>
+
+<!-- ══ P3 各派 ══ -->
+<section class="page">
+  <img class="ornament" src="assets/ornament.png" alt="">
+  <div>
+    <h2><span class="n">贰</span>各派真可引原文</h2>
+    <table>
+      <tr><th>派系</th><th class="num">真可引原文</th><th class="num">可用书</th><th>结论</th></tr>
+      <tr><td>经义官学</td><td class="num">170,908</td><td class="num">6/7</td><td>最充足</td></tr>
+      <tr><td>道门律令</td><td class="num">106,979</td><td class="num">4/5</td><td>云笈七签一本 96,548</td></tr>
+      <tr><td>医家</td><td class="num">74,036</td><td class="num"><strong>6/6</strong></td><td>唯一全可用</td></tr>
+      <tr><td>命理宗（十干）</td><td class="num">60,176</td><td class="num">4/5</td><td>子平真诠为空壳</td></tr>
+      <tr><td>形势派</td><td class="num">50,706</td><td class="num">5/7</td><td>撼龙经 29,597 撑起</td></tr>
+      <tr><td>城外 · 山海经</td><td class="num">38,221</td><td class="num">1/1</td><td>2026-08-11 补录，18 卷全</td></tr>
+      <tr><td style="color:#b03a2e"><strong>理气派</strong></td><td class="num" style="color:#b03a2e"><strong>17,370</strong></td>
+          <td class="num" style="color:#b03a2e"><strong>2/8</strong></td><td style="color:#b03a2e"><strong>严重不足</strong></td></tr>
+    </table>
+
+    <div class="warn"><b>理气派现在写不了深戏。</b>8 本里 6 本真原文 ≤72 字，其中 3 本为 0；只有《协纪辨方》5,478
+      （且只有卷十七年表，无宜忌总纲）与《地理辨正》11,755 能用。它在结构上承载「国家层」冲突，却是六派里唯一缺料的。<br>
+      <b>决策：第一阶段先建形势派</b>——材料足、与命理宗对立最干净（地 vs 命），且卷一「堤基旧根」是现成入口。</div>
+
+    <h3>缺口与补录优先级</h3>
+    <ol>
+      <li><strong>《八宅明镜》</strong>→ 补全。App 的八宅功能基于此书，<em>叙事与产品同时需要</em>。</li>
+      <li><strong>《钦定协纪辨方书》</strong>→ 补择日正文卷。现只有卷十七年表。</li>
+      <li>《沈氏玄空学》→ 理气派「运九年一转」立论的出处。</li>
+      <li>《子平真诠》→ 命理宗四大经典缺一。</li>
+      <li>《女青天律》→ 道门「律条」一侧的唯一出处（现只有《感应篇》劝善一侧，内部裂缝写不出来）。</li>
+    </ol>
+    <p><strong>补录流程</strong>（2026-08-11 山海经已跑通，可复制）：维基文库 <code>action=parse</code> 实抓 →
+      <code>texts/</code> ＋ <code>annotated/</code>（精简版只需 <code>i/orig/bai</code>）→ registry → search-index → playwright 实测。</p>
+  </div>
+  <div class="foot"><span>常明城外 · 取材地图</span><span class="pg">03</span></div>
+</section>
+
+<!-- ══ P4 已核章节 ══ -->
+<section class="page">
+  <img class="ornament" src="assets/ornament.png" alt="">
+  <div>
+    <h2><span class="n">叁</span>已核可引章节</h2>
+    <p class="lead">深链格式：<code>dao.leonardchow.work/dian/#/read/&lt;bookId&gt;/&lt;chapterId&gt;</code></p>
+
+    <h3>人物定位 · 十干性情</h3>
+    <table>
+      <tr><th style="width:56mm">出处</th><th>内容</th></tr>
+      <tr><td><strong>《滴天髓阐微》ch02 天干論</strong></td><td>十干各一诀＋任注阐微。<strong>角色天赋／阴影的直接来源</strong></td></tr>
+      <tr><td>《三命通会》ch09 論天干隂陽生死</td><td>「在天為…在地為…」——<strong>站上十人器物象主要与此章对齐</strong></td></tr>
+      <tr><td>《三命通会》ch05 論十干名字之義</td><td>干名字义（甲＝孚甲、乙＝軋屈…）</td></tr>
+      <tr><td>《三命通会》ch11 十干分配天文</td><td><strong>另一套</strong>天象（雷风日星霞云月霜露霖），<em>站上未采用</em></td></tr>
+      <tr><td>《白虎通义》ch09 五行</td><td>汉代经义层干名训诂＋方位／色／音／神配属</td></tr>
+    </table>
+
+    <div class="warn"><b>辛的定位有明文冲突。</b>《滴天髓》阐微「<b>辛乃陰金，非珠玉之謂</b>」、《三命通会》「在地為金，金乃山石之礦」
+      ——<b>两处都否定「玉」</b>，而角色名「瑾瑜」＝美玉（典源《左传》「瑾瑜匿瑕」）。<br>
+      这是十条里唯一被古籍<b>明文否定</b>的定位。建议<b>写进剧情</b>（谁有权定名分）而非修掉。</div>
+
+    <h3>副本规则书</h3>
+    <table>
+      <tr><th style="width:56mm">出处</th><th>内容</th></tr>
+      <tr><td><strong>《礼记·月令》ch01–ch12</strong></td><td><strong>十二个月＝十二个现成副本</strong>。每月自带禁令＋三套违令后果</td></tr>
+      <tr><td>《钦定协纪辨方书》ch02–ch11</td><td>太岁年表：吉凶方位＋神煞；含豁免条款「十二吉山宜寅午戌申子辰年月日時」</td></tr>
+      <tr><td>《山海经》ch01–ch18</td><td>城外的异兽方国。<strong>不周山</strong>在 ch16 大荒西經</td></tr>
+    </table>
+  </div>
+  <div class="foot"><span>常明城外 · 取材地图</span><span class="pg">04</span></div>
+</section>
+
+<!-- ══ P5 惩罚 + 立论 ══ -->
+<section class="page">
+  <img class="ornament" src="assets/ornament.png" alt="">
+  <div>
+    <h2><span class="n">肆</span>惩罚系统与派系立论</h2>
+    <h3>结算 ｜《太上感应篇》</h3>
+    <table>
+      <tr><th style="width:30mm">章</th><th>内容</th></tr>
+      <tr><td>ch01 總綱</td><td>司过之神夺算；「<strong>大則奪紀，小則奪算</strong>」「算盡則死」；<strong>三尸神庚申日上诣天曹</strong>；灶神月晦之日</td></tr>
+      <tr><td>ch03 諸惡</td><td>954 字的<strong>罪目清单</strong>，含「填穴覆巢，傷胎破卵」「<strong>以直為曲，以曲為直</strong>」</td></tr>
+      <tr><td>ch05 轉禍為福</td><td>转圜条款：「心起於善，善雖未為，而吉神已隨之」</td></tr>
+    </table>
+    <div class="warn" style="border-color:#1b1a17;background:#F6EEDF">⭐ <b>规则书与惩罚书天然咬合</b>：《月令》立法「毋覆巢」，《感应篇》量刑「填穴覆巢……奪算」。
+      两本不为对方而写，却对得上——<b>这是副本可信度的根</b>。</div>
+
+    <h3>派系立论</h3>
+    <table>
+      <tr><th style="width:22mm">派</th><th style="width:52mm">出处</th><th>用途</th></tr>
+      <tr><td>形势派</td><td>《葬书》「葬者乘生氣也」「氣乘風則散，界水則止」</td><td>立论核心</td></tr>
+      <tr><td>形势派</td><td>《撼龙经》29,597 字</td><td>主力材料库，<strong>引前必读</strong></td></tr>
+      <tr><td>医家</td><td>《神峰通考》ch04 病药说类／ch05 雕枯旺弱四病／ch06 损益生长四药</td><td>⭐ <strong>命理典籍自己用药的语言讲命</strong>——医家反咬的依据</td></tr>
+      <tr><td>经义官学</td><td>《尚书·洪范》1,356 字</td><td>五行<strong>本是政治文本</strong>，非算命工具</td></tr>
+      <tr><td>经义官学</td><td>《说文解字》</td><td>「定名分」的权力来源</td></tr>
+    </table>
+
+    <h3>城外</h3>
+    <div class="quote">西北海之外，大荒之隅，有山而不合，名曰不周，有兩黄獸守之。
+      <span class="src">《山海经·大荒西經》ch16 · 站内实收；<strong>无「负子」二字，亦无郭璞注</strong>。
+      EPITHETS 戊条引的郭璞注「缺坏不周匝」是母本层考订，正文不得照搬——写手极易在此凭记忆补字</span></div>
+  </div>
+  <div class="foot"><span>常明城外 · 取材地图</span><span class="pg">05</span></div>
+</section>
+
+<!-- ══ P6 纪律 ══ -->
+<section class="page">
+  <img class="ornament" src="assets/ornament.png" alt="">
+  <div>
+    <h2><span class="n">伍</span>引用纪律</h2>
+    <p class="lead">写作者与 agent 都必须守。这六条是这个 IP 唯一偷不走的护城河——<strong>它靠流程，不靠模型强弱</strong>。</p>
+    <ol>
+      <li><strong>凭记忆默写古文一律不接受。</strong>引用前必须打开 <code>texts/&lt;id&gt;.json</code> 核对逐字。</li>
+      <li>原文保持<strong>繁体</strong>，不转简体；白话另起，不与原文混排。</li>
+      <li><strong>校勘括号必须照录，不得省略。</strong>《月令》原文作「孟春行夏令，則<strong>（雨水）〔風雨〕</strong>不時」——
+        圆括号＝底本误字，方括号＝校改字。省略即改动原文。</li>
+      <li>引用必须能给出 <code>bookId + chapterId + 深链</code>，让读者点开就能核。</li>
+      <li>标「空壳」的书<strong>不得引用原文</strong>——可以提书名，不能编内容。</li>
+      <li><strong>版本异文要标明</strong>，不要装作只有一种写法。</li>
+    </ol>
+
+    <h3>已知版本异文</h3>
+    <table>
+      <tr><th style="width:20mm">干</th><th style="width:46mm">藏经阁作</th><th>通行亦有</th></tr>
+      <tr><td>庚</td><td>剛<strong>強</strong>為最</td><td>剛健為最</td></tr>
+      <tr><td>壬</td><td>壬水<strong>汪洋</strong></td><td>壬水通河</td></tr>
+    </table>
+    <p style="font-size:9pt;color:#4a463f">设计文档 <code>stories/_parts/naming-fable.md</code> 用的是后一种，且自己标了「凭记忆默写、个别字待核」。<strong>站内必须只有一个口径。</strong></p>
+
+    <h3>藏经阁自身的字形讹误（引到别照错传播）</h3>
+    <ul>
+      <li>丁诀「抱乙而<strong>考</strong>」应为「<strong>孝</strong>」——<em>同章阐微自己写「其孝異乎人矣」，书内自证</em>。</li>
+      <li>丙诀「<strong>逄</strong>辛反怯」应为「<strong>逢</strong>」。</li>
+      <li>《十干分配天文》己条全段被排成「<strong>巳</strong>土為雲」「<strong>巳</strong>土生居酉」——巳／己 形近混排。</li>
+      <li>乙：诀作「<strong>籐</strong>蘿繫甲」、阐微作「<strong>縢</strong>蘿附喬木」，同章两形。</li>
+    </ul>
+    <img class="divider" src="assets/divider.png" alt="">
+    <p style="text-align:center;color:#8a8378;font-size:9pt">v1 · 2026-08-11 实测 · 数据源 <code>www/dian/data/</code></p>
+  </div>
+  <div class="foot"><span>常明城外 · 取材地图</span><span class="pg">06</span></div>
+</section>
+
+</body></html>

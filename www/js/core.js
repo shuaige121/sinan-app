@@ -1415,16 +1415,16 @@
       '', '展盘细看。', '四柱既立，先观大局。', '盘面铺开，一一道来。',
       '此造入手，先记根基。', '排盘已定，且按部就班说来。', '以干支论命，从年月日时说起。',
     ]));
-    lines.push(`阁下生于${c.lunarText}，属${c.shengXiao}。`);
+    lines.push(`你出生在${c.lunarText}，生肖属${c.shengXiao}。`);
     lines.push(spin(s, 'pl', [
       `四柱排定：${gzs}，日主${c.dm}${c.dmEl}，日柱纳音「${c.pillars[2].naYin}」。`,
       `盘列四柱：${gzs}——以${c.dm}${c.dmEl}为日主，日柱纳音「${c.pillars[2].naYin}」。`,
       `年月日时四柱为 ${gzs}，日主${c.dm}属${c.dmEl}，纳音落「${c.pillars[2].naYin}」。`,
     ]));
     lines.push(spin(s, 'st', [
-      `盘中五行，${sorted[0]}气最盛，${sorted[4]}气最薄；比劫印绶共占${pct}分，故断为${c.isStrong ? '身强' : '身弱'}。`,
-      `论五行轻重：${sorted[0]}最旺、${sorted[4]}最薄，同党之气占${pct}分，此盘断作${c.isStrong ? '身强' : '身弱'}。`,
-      `五气盈缩各有数：${sorted[0]}盛而${sorted[4]}衰，比劫印绶合${pct}分——是为${c.isStrong ? '身强' : '身弱'}之局。`,
+      `盘中五行，${sorted[0]}气最盛，${sorted[4]}气最薄；比劫印绶共占${pct}%，故断为${c.isStrong ? '身强' : '身弱'}。`,
+      `论五行轻重：${sorted[0]}最旺、${sorted[4]}最薄，同党之气占${pct}%，此盘断作${c.isStrong ? '身强' : '身弱'}。`,
+      `五气盈缩各有数：${sorted[0]}盛而${sorted[4]}衰，比劫印绶合${pct}%——是为${c.isStrong ? '身强' : '身弱'}之局。`,
     ]));
     lines.push(c.isStrong ? spin(s, 'ad', [
       `身强者宜泄宜耗，喜用在${favs}。`,
@@ -1438,7 +1438,7 @@
     lines.push(spin(s, 'cl', [
       `平日可多亲近${EL_DIR[primary]}，常用${EL_COLOR_NAME[primary]}之色，${EL_SEASON[primary]}季气运尤顺。`,
       `起居行止，不妨偏向${EL_DIR[primary]}；衣物器用取${EL_COLOR_NAME[primary]}之色，${EL_SEASON[primary]}季最见顺意。`,
-      `${EL_DIR[primary]}于阁下有益，${EL_COLOR_NAME[primary]}之色可常伴身，逢${EL_SEASON[primary]}季诸事尤顺。`,
+      `按这套传统算法，可多留意${EL_DIR[primary]}；颜色可选${EL_COLOR_NAME[primary]}，对应时节是${EL_SEASON[primary]}季。`,
       `方位取${EL_DIR[primary]}，颜色尚${EL_COLOR_NAME[primary]}，时令应在${EL_SEASON[primary]}季——三者皆顺喜用之气。`,
     ]));
     if (c.xunKong) {
@@ -1474,9 +1474,9 @@
     const s = bazi.pillars.map(p => p.gz).join('') + adv.goal;
     const lines = [];
     lines.push(spin(s, 'op', [
-      `阁下所求在「${adv.goal}」。以日主${bazi.dm}${bazi.dmEl}论，此求取${adv.star}为用，五行落在${adv.target}。`,
-      `阁下所求在「${adv.goal}」。日主既是${bazi.dm}${bazi.dmEl}，此求当取${adv.star}，五行应在${adv.target}。`,
-      `阁下所求在「${adv.goal}」——按${bazi.dm}${bazi.dmEl}日主推之，用神在${adv.star}，气属${adv.target}。`,
+      `你想了解的是“${adv.goal}”。按日主${bazi.dm}${bazi.dmEl}推算，这一项对应${adv.star}，五行属${adv.target}。`,
+      `你选择了“${adv.goal}”。日主是${bazi.dm}${bazi.dmEl}，这项传统上看${adv.star}，对应${adv.target}。`,
+      `关于“${adv.goal}”，按${bazi.dm}${bazi.dmEl}日主推算，会先看${adv.star}，五行归${adv.target}。`,
     ]));
     lines.push(spin(s, 'dr', [
       `${adv.target}旺于${adv.dir}，其色尚${adv.color}，${EL_SEASON[adv.target]}季气机最顺——居处行止，可常向此方。`,

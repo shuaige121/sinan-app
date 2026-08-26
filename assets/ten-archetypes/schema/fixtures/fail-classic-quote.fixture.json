@@ -1,0 +1,21 @@
+{
+  "$fixture": "sinan/redline-fixture@1",
+  "description": "把繁体原文的「參」擅改为简体「参」，必须逐字比对失败。",
+  "base": "valid-character.json",
+  "onlyRules": [
+    "CM-RL-006"
+  ],
+  "mutations": [
+    {
+      "path": "/classics/0/quoteOrig",
+      "value": "甲木参天，脱胎要火，春不容金，秋不容土，火熾乘龍，水蕩騎虎，地潤天和，植立千古。"
+    }
+  ],
+  "expect": [
+    {
+      "ruleId": "CM-RL-006",
+      "severity": "error",
+      "messageIncludes": "逐字命中"
+    }
+  ]
+}

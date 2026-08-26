@@ -127,6 +127,7 @@
    "nuqing-tianlu.json": "sha256:17a8e8c21779e9e2d78c7ec0f22fc76b864f8a19d991ad10b0ae36687cb3de6c",
    "sanfu-huangtu.json": "sha256:1aef4c789510315cf1b5d95c37ba3aae908605b4c9a2e10593726c964151c109",
    "sanming-tonghui.json": "sha256:01dddfb9e4ed2e79687d3da5da91b02acc5bd4e2fa209556566aa68599e1c8a1",
+   "shanhaijing.json": "sha256:e1863df48311d6200f5e7c0b31cf1b595546b799d8818897b99ee2f576bd328c",
    "shenfeng-tongkao.json": "sha256:2eff08c9c448647aaa2bb1efb4fb71b4dcf456111e597f2e587a7856395cc238",
    "shenshi-xuankong.json": "sha256:df89a3004c4194f105c33b0bf48c0c2a50e5a339320459516364eca98f9ca251",
    "tonghua-lu.json": "sha256:a0df6013f2855b6b80d647f774729f6c3526406eca77940392b8df27486d5e9f",
@@ -138,7 +139,7 @@
    "zangshu.json": "sha256:de7d7da50afadcb92b7ddadaf1cfbb0df827ad7a1ff37d3e3fa7b26453fdf6a5",
    "ziping-zhenquan.json": "sha256:d8ec696f542b5aca3409dded2a03dbb158e7369be903a50867e2bd5b401e3225"
   },
-  "corpus_hash_semantic": "sha256:146c8fcb847018f583a529813034f6a4f29bfdc7dc23a35c6ab14b4631f2f543",
+  "corpus_hash_semantic": "sha256:3357a1dbaccd6db50cfcd7f443c41734e27c013aa604d05ebb7365e90aa27a0a",
   "provenance_note": "语义 hash = canonical JSON of [{book,ch,i,NFC(orig)}] 的 sha256；只绑原文，注释层(bai/gloss)编辑不影响。verify: provenance_tool.py verify。旧整文件 hash 存于 *_legacy 仅作存档。"
  },
  "rules": [
